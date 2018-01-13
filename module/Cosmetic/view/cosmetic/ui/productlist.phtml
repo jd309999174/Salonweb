@@ -1,0 +1,9 @@
+<div class="list">
+<?php foreach ($products as $product): ?>
+    <a class="item item-thumbnail-left" href="#">
+      <img src="<?php echo "/salon/".$id."/".$product->getProdphoto1(); ?>">
+      <h2><?php echo $product->getProdtitle(); ?></h2>
+      <p style="color:red"><?php echo $product->getProdprice(); ?></p>
+    </a>
+<?php endforeach; ?>
+</div>

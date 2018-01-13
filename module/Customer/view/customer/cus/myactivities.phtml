@@ -1,0 +1,111 @@
+ <div class="input-group input-group-sm" style="background-color:white;padding: 5px;z-index:10;position:fixed;text-align:center;" id="searchcolumn">
+      <span class="input-group-btn" onclick="window.history.back();">
+        <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <span>
+      活动查看
+      </span>
+ </div>
+<!-- 没有作用，只为平衡高度 -->
+<div class="input-group input-group-sm" style="visibility:hidden;padding: 5px;" >
+      <span class="input-group-btn" >
+        <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <span>
+      活动查看
+      </span>
+</div>
+ 
+ 
+ <div class="container">
+   <div class="row">
+      <div class="col-xs-6 col-sm-6">
+       <button id="registeredbtn" class="btn btn-success" style="width:100%">已参加</button>
+      </div>
+      <div class="col-xs-6 col-sm-6">
+      <button id="unregisteredbtn" class="btn btn-danger" style="width:100%">未参加</button>
+      </div>      
+   </div>
+</div>
+
+<?php //已参加的转化为数组
+$cars=array();
+foreach ($myactivities as $myactivity){
+array_push($cars,array("pageid"=>$myactivity->getPageid()));
+}?>
+
+
+<?php foreach ($activitypages as $activitypage):?>
+<div style="border-radius:16px;padding:5px;" class="panel panel-success allactivities
+<?php foreach ($cars as $car){
+if($activitypage->getPageid()==$car['pageid']){
+    echo "registered";
+};}?>
+" onclick="location='<?php echo $this->url('customer', array('action'=>'activityitem','sub'=>$activitypage->getPageid()));?>';">
+	<div class="panel-heading" style="background-color:<?php echo $homepage->getPagecolor();?>;border-radius:16px;">
+		<h3 class="panel-title"><?php echo $activitypage->getPagename();?></h3>
+	</div>
+	<div class="panel-body">
+	<div class="row">
+		<div class="col">
+		   <div class="col-demo">
+		   <?php if($activitypage->getPageheaddata1()!="/img/choose.jpg"){?>
+		     <img alt="" src="<?php echo $activitypage->getPageheaddata1();?>" style="width:100%;height:150px;">
+		  <?php }else{?>
+		     <video width="100%"  controls class="videosrc embed-responsive-item" src="<?php echo $activitypage->getPageheaddata2();?>">
+             </video> 
+          <?php }?>
+		  </div>
+	   </div>					
+	</div>
+	</div>
+	<div class="panel-footer" style="border-radius:16px;">
+	<span>
+	<?php if ($activitypage->getPageexpiration()>date("Y-m-d")){?>
+	<span style="color:red;">活动进行中...</span>
+	<?php }else{?>
+	<span style="color:gray;">活动已结束</span>
+	<?php }?>
+	</span>
+	截止日期：<?php echo $activitypage->getPageexpiration();?>
+	</div>
+</div>
+<?php endforeach;?>
+
+
+
+<script>
+$(document).ready(function(){
+	  $("#registeredbtn").click(function(){
+		  $(".allactivities").hide();
+	      $(".registered").show();
+	      $("#registeredbtn").addClass("active");
+	      $("#unregisteredbtn").removeClass("active");
+	  });
+	  $("#unregisteredbtn").click(function(){
+		  $(".allactivities").show();
+		    $(".registered").hide();
+		    $("#unregisteredbtn").addClass("active");
+		    $("#registeredbtn").removeClass("active");
+		  });
+	});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	<?php if($sub=="registered"){?>
+	$("#registeredbtn").click();
+	<?php }else{?>
+	$("#unregisteredbtn").click();
+	<?php }?>
+})
+</script>
+
+
+
+
+

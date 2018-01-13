@@ -1,0 +1,66 @@
+<link rel='stylesheet' type='text/css'href='/css/jquery-ui.css'/>
+<script type='text/javascript'src='/js/jquery.min.js'></script>
+<script type='text/javascript'src='/js/jquery-ui.js'></script>
+<script>
+  $(function() {
+    $( "#accordion" ).accordion({
+      collapsible: true,
+      heightStyle: "content"
+    });
+  });
+</script>
+
+
+<?php
+// TODO 美容师转化为二维数组，方便重复输出
+$cars=array();
+foreach ($appointments as $appointment):
+array_push($cars,array("appointmentid"=>$appointment->getAppointmentid(),"salbranch"=>$appointment->getSalbranch(),
+    "cusid"=>$appointment->getCusid(),"cusname"=>$appointment->getCusname(),"cusphone"=>$appointment->getCusphone(),
+    "salnumber"=>$appointment->getSalnumber(),"salbranch"=>$appointment->getSalbranch(),
+    "cosid"=>$appointment->getCosid(),"cosname"=>$appointment->getCosname(),
+    "appointmentregdate"=>$appointment->getAppointmentregdate(),
+    "appointmentdate"=>$appointment->getAppointmentdate(),
+    "appointmenttime"=>$appointment->getAppointmenttime(),
+    "appointmentstate"=>$appointment->getAppointmentstate()
+));?>
+<?php endforeach;?>
+
+<div id="accordion">
+ <?php foreach ($salons as $salon): ?>
+  <h3><?php echo $salon->getSalbranch();?>:<?php echo $salon->getSalname();?></h3>
+  <div>
+    <table class="table table-hover">
+ <tr>
+     <th>顾客姓名</th>
+     <th>顾客电话</th>
+     <th>美容师名</th>
+     <th>预约日期</th>
+     <th>预约时间</th>
+     <th>审核</th>
+     <th>&nbsp;</th>
+ </tr>
+ <?php foreach ($cars as $car): ?>
+ <?php if($car["salbranch"]==$salon->getSalbranch()){?>
+ <tr>
+     <td>
+     <a target="_blank" href="/cosmetic/treatment?cusname=<?php echo $this->escapeHtml($car["cusname"]); ?>"><?php echo $this->escapeHtml($car["cusname"]); ?></a>
+     </td>
+     <td><?php echo $this->escapeHtml($car["cusphone"]); ?></td>
+     <td><?php echo $this->escapeHtml($car["cosname"]); ?></td>
+     <td><?php echo $this->escapeHtml($car["appointmentdate"]); ?></td>
+     <td><?php echo $this->escapeHtml($car["appointmenttime"]); ?></td>
+      <td>
+     <button onclick='$.ajax({url:"<?php echo $this->url('cosmeticajax', array('action'=>'appointmentpass'));?>",dataType:"text",
+     data:"appointmentid=<?php echo $this->escapeHtml($car["appointmentid"]); ?>",type:"POST",
+     success:function(result){alert("已通过");}});
+     $(this).parent().next().html("已通过")'>通过</button></td>
+     <td><?php echo $this->escapeHtml($car["appointmentstate"]); ?></td>
+    
+ </tr>
+  <?php } endforeach; ?>
+    </table>
+   </div>
+
+ <?php endforeach; ?>
+</div>

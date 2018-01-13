@@ -1,0 +1,43 @@
+<?php //转化为数组
+$cars=array();
+foreach ($cusbrowsings as $cusbrowsing):
+if ($cusbrowsing->getCusname()){
+array_push($cars,array(
+    "cusname"=>$cusbrowsing->getCusname(),
+    "cusphoto"=>$cusbrowsing->getCusphoto(),
+    "gmtcusdate"=>$cusbrowsing->getGmtcusdate(),
+    "cusip"=>$cusbrowsing->getCusip(),
+    "cusaddress"=>$cusbrowsing->getCusaddress()
+));}?>
+<?php endforeach;?>
+
+<?php //排序：
+foreach ($cars as $key => $row) {
+$x[$key] = $row['gmtcusdate'];
+}
+if ($x){
+array_multisort($x, SORT_DESC, $cars);
+}
+?>
+
+<table class="table">
+  <caption>上线顾客总数:<?php echo count($cars);?></caption>
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th>顾客</th>
+      <th>登陆ip与时间</th>
+    </tr>
+  </thead>
+  <tbody style="font-size:120%;">
+  <?php foreach ($cars as $car):?>
+    <tr>
+      <td><img class="img-circle" alt="" style="height:50px;width:50px;" src="/portrait/<?php echo $car['cusphoto'];?>"></td>
+      <td><?php echo $car['cusname'];?></td>
+      <td>
+      <p><?php echo $car['cusip'];?></p>
+      <p style="font-size: 80%;"><?php echo date("Y-m-d H:i:s",strtotime($car['gmtcusdate']));?></p></td>
+    </tr>
+  <?php endforeach;?>  
+  </tbody>
+</table>

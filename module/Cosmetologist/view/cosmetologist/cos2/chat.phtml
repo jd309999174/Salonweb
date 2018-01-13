@@ -1,0 +1,208 @@
+<script type="text/javascript" src="/js/ajaxfileupload.js">
+//加载ajax上传文件插件
+</script>
+<div class="input-group input-group-sm" style="background-color:white;padding: 5px;z-index:10;position:fixed;text-align:center;" id="searchcolumn">
+      <span class="input-group-btn" onclick="location='<?php echo $this->url('cosmetologist', array('action'=>'customerlistchat'));?>';">
+        <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <span>
+      <?php echo $customer->getCusname();?>
+      </span>
+      <span>
+      <button type="button" class="btn btn-info" onclick="location='<?php echo $this->url('cosmetologist', array('action'=>'chathistory','sub'=>$sub));?>';">聊天历史</button>
+      </span>
+ </div>
+<!-- 没有作用，只为平衡高度 -->
+<div class="input-group input-group-sm" style="visibility:hidden;" >
+      <span class="input-group-btn" >
+        <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <span>
+      <button type="button" class="btn btn-info" onclick="location='<?php echo $this->url('cosmetologist', array('action'=>'chathistory','sub'=>$sub));?>';">聊天历史</button>
+      </span>
+ </div>
+<?php
+$cars=array();
+if($chatmodule){
+foreach ($chatmodule as $chat){
+array_push($cars,array("id"=>$chat->getId(),
+                       "sendid"=>$chat->getSendid(),
+                       "receiveid"=>$chat->getReceiveid(),
+                       "chatword"=>$chat->getChatword(),
+                       "chatpicture"=>$chat->getChatpicture(),
+                       "chatdate"=>$chat->getChatdate(),
+                       "chatstate"=>$chat->getChatstate()
+));
+};}?>
+ <?php
+foreach ($cars as $key => $row) {
+$x[$key] = $row['id'];
+}
+if($x){
+array_multisort($x, SORT_ASC, $cars);
+}?>
+
+
+<div id="chatfield">
+
+<div class="container" id="scrollfield">
+<?php foreach ($cars as $car): ?>
+<?php if($car['sendid']!=='cos'.$cosid){?>
+   <div class="row" style="margin:10px">
+      <div class="col-xs-2 col-sm-2" style="padding: 5px">
+       <img alt="" src="/portrait/<?php echo $customer->getCusphoto()?>" style="width:100%">
+      
+      </div>
+      <div class="col-xs-8 col-sm-8" style="border:1px solid black;padding:2px;background-image: url(.gif);">
+      <p><?php echo $car['chatdate'];?></p>
+      <?php echo $car['chatword'];?>
+      <?php if($car['chatpicture']!==null){?>
+      <img style="width: 100%;height:100%;" src="/chatpicture/<?php echo $car['chatpicture'];?>">
+      <?php }?>
+      </div>
+      <div class="col-xs-2 col-sm-2" style="padding: 5px">
+      </div>
+   </div>
+<?php }else{?>
+<div class="row" style="margin:10px">
+      <div class="col-xs-2 col-sm-2" style="padding: 5px">
+      </div>
+      <div class="col-xs-8 col-sm-8" style="border:1px solid black;padding:2px;background-color:rgb(150,220,70);">
+      <p><?php echo $car['chatdate'];?></p>
+      <?php echo $car['chatword'];?>
+      <?php if($car['chatpicture']!==null){?>
+      <img style="width:100%;height:100%;" src="/chatpicture/<?php echo $car['chatpicture'];?>">
+      <?php }?>
+      </div>
+      <div class="col-xs-2 col-sm-2" style="padding: 5px">
+     <img alt="" src="<?php echo $cosmetologist->getCosphoto()?>" style="width:100%">
+      </div>
+   </div>
+
+<?php }?>
+<?php endforeach;?>
+</div>
+</div>
+<a href="#tobottom" id="abottom"></a>
+<a id="tobottom"></a>
+<script type="text/javascript">
+//ajax,发送文字
+$(document).ready(function(){
+    $("#wordsub").click(function(){
+    	$.ajax({url:"<?php echo $this->url('cosmetologistajax', array('action'=>'chatajax','sub'=>$sub));?>",dataType:"text",data:"chatword="+$("#chatword").val(),type:"POST",success:function(result){
+    	$("#chatfield").append(result);
+		}});
+		$("#chatword").val("");
+        });
+})
+</script>
+
+
+<script type="text/javascript">
+//定时刷新加载
+$(function(){
+	function show(){
+		$.ajax({url:"<?php echo $this->url('cosmetologistajax', array('action'=>'chatajax','sub'=>$sub));?>",dataType:"text",data:"chatword=[refresh]",type:"POST",success:function(result){
+			$("#chatfield").append(result);
+			}});
+		}
+	setInterval(show,5000);// 注意函数名没有引号和括弧！ 
+	// 使用setInterval("show()",3000);会报“缺少对象” 
+	});
+</script>
+<script type="text/javascript">
+//影藏图片form
+$(document).ready(function(){
+    $("#pictureform").hide();
+})
+</script>
+<script type="text/javascript">
+//文字发送
+$(document).ready(function(){
+    $("#wordsubmit").hide();
+})
+</script>
+<script type="text/javascript">
+//点击图片按钮即点击上传图片
+function uploadpicture(){
+	$.ajaxFileUpload({
+	    url: "<?php echo $this->url('cosmetologistajax', array('action'=>'chatajax','sub'=>$sub));?>", //用于文件上传的服务器端请求地址
+	    type: "post",
+	    secureuri: false, //一般设置为false
+	    fileElementId: "chatpicture", //文件上传空间的id属性
+	    dataType: "text", //返回值类型 一般设置为json
+	    success:function (result) { //服务器成功响应处理函数
+	    	$("#chatfield").append(result);
+	    },
+	    error : function(data, status, e)//服务器响应失败处理函数 
+	    { 
+	    alert(e); 
+	    } 
+	   });
+}
+</script>
+
+<div id="pictureform">
+<?php //提交图片的form
+$form = $this->form;
+$form->setAttribute('action', $this->url('customer', array(
+    'action' => 'chat','sub'=>$sub
+)));
+$form->get('submit')->setAttribute('value', 'Add');
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formrow($form->get('chatpicture'));
+?>
+<div>
+ <?php echo $this->formInput($form->get('submit')); ?>
+ </div>
+<?php
+echo $this->form()->closeTag($form);?>
+</div>
+
+
+<!-- 没有作用，只为平衡高度 -->
+<div class="container" style="width:100%;visibility:hidden;" >
+   <div class="row">
+      <div class="col-xs-2 col-sm-2">
+      <button  style="width:100%">图片</button>
+      </div>
+      <div class="col-xs-8 col-sm-8">
+      <input type="text" class="form-control" id="name" style="width:100%" placeholder="请输入">
+      </div>
+      <div class="col-xs-2 col-xs-2">
+      <button class="btn btn-default" style="width:100%">发送</button>
+      </div>
+   </div>
+</div>
+
+<div class="container" style="position:fixed;bottom:0px;width:100%;" >
+   <div class="row">
+      <div class="col-xs-2 col-sm-2">
+      <button  class="btn btn-default" id="btnpicture" onclick="$('#chatpicture').click()" style="width:100%">图片</button>
+      </div>
+      <div class="col-xs-8 col-sm-8">
+      <input type="text" id="chatword" class="form-control" id="name" style="width:100%" placeholder="请输入">
+      </div>
+      <div class="col-xs-2 col-xs-2">
+      <button class="btn btn-default" id="wordsub" style="width:100%">发送</button>
+      </div>
+   </div>
+</div>
+
+<script type="text/javascript">
+//自动到底
+$(document).ready(function(){
+	  $h = $(document).height()-$(window).height();
+	  $(document).scrollTop($h);
+	  $('img').load(function(){
+		  $h = $(document).height()-$(window).height();
+		  $(document).scrollTop($h); 
+		});
+});
+</script>

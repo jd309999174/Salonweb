@@ -1,0 +1,103 @@
+<link href="/raty/labs.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/raty/labs.js"></script>
+<link href="/lib/jquery.raty.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/lib/jquery.raty.js"></script>
+ 
+ 
+<div class="input-group input-group-sm" style="background-color:white;padding: 5px;z-index:10;position:fixed;text-align:center;" id="searchcolumn">
+      <span class="input-group-btn" onclick="window.history.back();">
+        <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <span>
+      预约详情
+      </span>
+</div>
+<!-- 没有作用，只为平衡高度 -->
+<div class="input-group input-group-sm" style="visibility:hidden;padding: 5px;" >
+      <span class="input-group-btn" >
+        <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <span>
+      预约详情
+      </span>
+</div>
+
+<div class="well">预约生成日期：<?php echo $myappointment->getAppointmentregdate();?>
+<span style="float: right;color:blue;" onclick="location='<?php echo $this->url('customer', array('action'=>'appointmentdelete','sub'=>$myappointment->getAppointmentid()));?>';">删除此条预约</span></div>
+<table class="table" style="padding: 5px;border:1px dashed pink;">
+  <thead>
+    <tr>
+      <th>预约服务日期</th>
+      <th>审核状态</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><?php echo $myappointment->getAppointmentdatetime();?></td>
+      <?php if($myappointment->getAppointmentstate()=="审核中"){?>
+      <td style="color:red;"><?php echo $myappointment->getAppointmentstate();?>...</td>
+      <?php }else{?>
+      <td style="color:green;"><?php echo $myappointment->getAppointmentstate();?></td>
+      <?php }?>
+    </tr>
+  </tbody>
+</table>
+
+
+<div class="well">预约美容院</div>
+<div class="container" style="padding: 5px;margin:5px;border:1px dashed pink;">
+   <div class="row">
+      <div class="col-xs-3 col-sm-3">
+      <img style="width:100%;" alt="" src="<?php echo $salbranch->getSalphoto1();?>">
+      </div>
+      <div class="col-xs-4 col-sm-4" style="padding: 5px;">
+      <div class="row">
+      <?php echo $salbranch->getSalname();?>
+      </div>
+      <div class="row">电话：</div>
+      <div class="row"><?php echo $salbranch->getSalphone();?></div>
+      </div> 
+      <div class="col-xs-5 col-sm-5" style="padding: 5px;">
+       <div class="row">最近平均环境评星：</div>
+       <div class="row" id="salrating" data-score="1"></div>
+       </div> 
+   </div>
+</div>
+ 
+ 
+ 
+<div class="well">预约美容师</div>
+<div class="container" style="padding: 5px;margin:5px;border:1px dashed pink;">
+   <div class="row">
+      <div class="col-xs-3 col-sm-3">
+      <img style="width:100%;" alt="" src="<?php echo $cosmetologist->getCosphoto();?>">
+      </div>
+      <div class="col-xs-4 col-sm-4" style="padding: 5px;">
+      <div class="row" onclick="location='<?php echo $this->url('customer', array('action'=>'chat','sub'=>$cosmetologist->getCosid()));?>';">
+      <?php echo $cosmetologist->getCosname();?>
+      </div>
+      <div class="row">从业：<?php echo $cosmetologist->getCosyears();?>年</div>
+      <div class="row">特长：<?php echo $cosmetologist->getCosspeciality();?></div>
+      </div> 
+      <div class="col-xs-5 col-sm-5" style="padding: 5px;">
+       <div class="row">最近平均服务评星：</div>
+       <div class="row" id="cosrating" data-score="1"></div>
+       </div> 
+   </div>
+</div>
+
+<script>
+$('#salrating').raty({
+	   readOnly: true, score: <?php echo $salaveragestar;?>
+	});
+$('#cosrating').raty({
+	   readOnly: true, score: <?php echo $cosaveragestar;?>
+	});
+</script>
+ 
+
+ 

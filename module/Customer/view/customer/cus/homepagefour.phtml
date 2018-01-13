@@ -1,0 +1,26 @@
+<?php foreach ($dynamicpages as $dynamicpage):?>
+<li style="padding:3px;border:1px solid #3c763d;border-radius:16px;">
+<div style="border-radius:16px;" class="panel panel-default" onclick="location='<?php echo $this->url('customer', array('action'=>'activityitem','sub'=>$dynamicpage->getPageid()));?>';">
+	<div class="panel-heading" style="background-color:<?php echo $page->getPagecolor();?>;border-radius:16px;">
+		<span><img alt="" style="height:20px;" src="/meicon/meicon20.png"></span>&nbsp;&nbsp;<span class="panel-title"><?php echo $dynamicpage->getPagename();?></span>
+	</div>
+	<div class="panel-body">
+	<div class="row">
+		<div class="col">
+		   <div class="col-demo">
+		   <?php if($dynamicpage->getPageheaddata1()!="/img/choose.jpg"){?>
+		     <img alt="" src="<?php echo $dynamicpage->getPageheaddata1();?>" class="activityimg">
+		  <?php }else{?>
+		    
+             <video width="100%"  controls class="videosrc embed-responsive-item" poster="/meicon/corporatelogo2.png">
+                   <source src="<?php echo $dynamicpage->getPageheaddata2();?>#t=0.1" type="video/mp4">
+             </video>
+          <?php }?>
+		  </div>
+	   </div>					
+	</div>
+	</div>
+	<div class="panel-footer" style="border-radius:16px;">发布日期：<?php echo $dynamicpage->getModificationtime();?></div>
+</div>
+</li>
+<?php endforeach;?>

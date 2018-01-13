@@ -1,0 +1,86 @@
+<style>
+.menubottom{
+	z-index:100;
+	position:fixed;
+	bottom:0px;
+	background-color:<?php echo $homepage->getPagecolor();?>;
+	}
+.bottom-btn{
+	border-right:0.1px solid rgba(0, 0, 0, 0.0980392);
+	border-top:0.1px solid rgba(0, 0, 0, 0.0980392);
+}
+.bottom-btn-me{
+	border-top:0.1px solid rgba(0, 0, 0, 0.0980392);
+}
+</style>
+
+<div class="well"><span class="glyphicon glyphicon-time" style="color:red;" aria-hidden="true"></span>&nbsp;&nbsp;对我的预约</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>时间</th>
+      <th>日期</th>
+      <th>客户</th>
+      <th>审核</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach ($appointmentcos as $appointment):?>
+    <tr>
+      <td><?php echo $appointment->getAppointmentdate();?></td>
+      <td><?php echo $appointment->getAppointmenttime();?></td>
+      <td><?php echo $appointment->getCusname();?></td>
+      <td><?php echo $appointment->getAppointmentstate();?></td>
+    </tr>
+    <?php endforeach;?>
+  </tbody>
+</table>
+
+<?php //TODO 底部菜单栏  用于站位?>
+<div class="btn-group btn-group-justified" role="group" style="visibility:hidden">
+  <div class="btn-group" role="group" style="text-align:center;" >
+  <span class="glyphicon glyphicon-home" style="font-size:25px;color:red;" aria-hidden="true"></span>
+  <div style="color:red;">首页</div>
+  </div>
+  <div class="btn-group" role="group" style="text-align:center;">
+  <span class="glyphicon glyphicon-time" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>预约</div>
+  </div>
+  <div class="btn-group" role="group" style="text-align:center;">
+  <span class="glyphicon glyphicon-edit" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>咨询</div>
+  </div>
+  <div class="btn-group" role="group" style="text-align:center;">
+  <span class="glyphicon glyphicon-user" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>我</div>
+  </div>
+</div>
+
+<?php //TODO 底部菜单栏?>
+<div class="btn-group btn-group-justified menubottom" role="group" >
+  <div class="btn-group bottom-btn" role="group" style="text-align:center;" 
+  onclick="location='<?php echo $this->url('cosmetologist', array('action'=>'customerlist','sub'=>$id));?>';">
+  <span class="glyphicon glyphicon-list-alt" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>订单</div>
+  </div>
+  <div class="btn-group bottom-btn" role="group" style="text-align:center;" 
+  onclick="location='<?php echo $this->url('cosmetologist', array('action'=>'appointmentcos'));?>';">
+  <span class="glyphicon glyphicon-time" style="font-size:25px;color:red;" aria-hidden="true"></span>
+  <div  style="color:red;">预约</div>
+  </div>
+  <div class="btn-group bottom-btn" role="group" style="text-align:center;" 
+  onclick="location='<?php echo $this->url('cosmetologist', array('action'=>'customerlistchat'));?>';">
+  <span class="glyphicon glyphicon-comment" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>客户
+  <?php if($unreadsum){?>
+  <span  class="badge" style="background-color:red;"><?php echo $unreadsum;?></span>
+  <?php }?>
+  </div>
+  </div>
+  <div class="btn-group bottom-btn-me" role="group" style="text-align:center;" 
+  onclick="location='<?php echo $this->url('cosmetologist', array('action'=>'me'));?>';">
+  <span class="glyphicon glyphicon-user" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>我</div>
+  </div>
+</div>

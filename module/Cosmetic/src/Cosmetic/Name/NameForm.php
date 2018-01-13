@@ -1,0 +1,52 @@
+<?php
+namespace Cosmetic\Name;
+
+use Zend\Form\Form;
+use Zend\Stdlib\Hydrator\ClassMethods;
+
+class NameForm extends Form
+{
+    public function __construct($name = null, $options = array())
+    {
+        parent::__construct('name');
+        $this->setAttribute('method', 'post');
+        //$this->setInputFilter(new NameFilter());
+        $this->setHydrator(new ClassMethods());
+        
+        $this->add(array(
+            'name' => 'id',
+            'type' => 'hidden'
+        ));
+        $this->add(array(
+            'name' => 'name',
+            'type' => 'text',
+            'options' => array(
+                'label' => 'Name'
+            ),
+            'attributes' => array(
+                'id' => 'title',
+                'maxlength' => 100
+            )
+        ));
+        $this->add(array(
+            'name' => 'file',
+            'type' => 'file',
+            'options' => array(
+                'label' => 'File'
+            ),
+            'attributes' => array(
+                'id' => 'file',
+                'onchange'=>'change("file","title","img")',
+                'maxlength' => 100
+            )
+        ));
+        $this->add(array(
+            'name' => 'submit',
+            'attributes' => array(
+                'type' => 'submit',
+                'value' => 'Go',
+                'class' => 'btn btn-primary'
+            )
+        ));
+    }
+}

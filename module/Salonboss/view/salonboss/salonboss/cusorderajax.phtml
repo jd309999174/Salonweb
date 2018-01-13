@@ -1,0 +1,43 @@
+<?php //转化为数组
+$cars=array();
+foreach ($treatments as $treatment):
+array_push($cars,array(
+    "cusname"=>$treatment->getCusname(),
+    "treprice"=>$treatment->getTreprice(),
+    "productcombinationpicture"=>$treatment->getProductcombinationpicture(),
+    "gmtclose"=>$treatment->getGmtclose()
+));?>
+<?php endforeach;?>
+
+ <?php //排序：
+foreach ($cars as $key => $row) {
+$x[$key] = $row['gmtclose'];
+$y[$key] = $row['treprice'];
+}
+if ($x){
+array_multisort($x, SORT_DESC, $cars);
+}
+?>
+
+<table class="table">
+  <caption>已支付订单数:<?php echo count($cars);?></caption>
+  <caption>支付总金额:<span style="color:red;"><?php if ($y){echo array_sum($y);};?></span></caption>
+  <thead>
+    <tr>
+      <th>产品</th>
+      <th>顾客</th>
+      <th>金额</th>
+      <th>日期</th>
+    </tr>
+  </thead>
+  <tbody style="font-size:120%;">
+  <?php foreach ($cars as $car):?>
+    <tr>
+      <td><img alt="" style="height:23px;width:23px;" src="<?php echo $car['productcombinationpicture'];?>"></td>
+      <td><?php echo $car['cusname'];?></td>
+      <td><span style="color:red;"><?php echo $car['treprice'];?></span></td>
+      <td><span><?php echo date("Y-m-d H:i:s",strtotime($car['gmtclose']));?></span></td>
+    </tr>
+  <?php endforeach;?>  
+  </tbody>
+</table>

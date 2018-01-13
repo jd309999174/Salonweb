@@ -1,0 +1,38 @@
+  <?php
+$title = 'My task list';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+ <p><a href="<?php echo $this->url('cosmetic', array('management',
+         'action'=>'productadd'));?>">添加产品</a></p>
+
+
+ <table class="table">
+ <tr>
+     <th>Task</th>
+     <th>Created</th>
+     <th>图</th>
+     
+     <th>&nbsp;</th>
+ </tr>
+ <?php foreach ($products as $product): ?>
+ 
+ <tr>
+     <td>
+         <a href="<?php echo $this->url('cosmetic',
+             array('management','action'=>'productedit','sub'=>$product->getProdid()));?>">
+             <?php echo $this->escapeHtml($product->getProdtitle()); ?></a>
+     </td>
+     <td><?php echo $this->escapeHtml($product->getProdoriginal()); ?></td>
+     
+     <td>
+     <td><img alt="" src="<?php  echo "/salon/".$id."/".$product->getProdphoto1(); ?>" ></td>
+     <td>
+         <a href="<?php echo $this->url('cosmetic',
+             array('action'=>'productdelete','sub'=>$product->getProdid()));?>">Delete</a>
+     </td>
+ </tr>
+ <?php endforeach; ?>
+ </table>
+

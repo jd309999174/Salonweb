@@ -1,0 +1,77 @@
+ <!-- 返回和搜索 -->
+ <form action="productlist" method="get">
+ <div class="input-group input-group-sm" style="padding: 5px;" id="searchcolumn">
+      <span class="input-group-btn" onclick="location='<?php echo $this->url('customer', array('action'=>'homepage','sub'=>$id));?>'">
+        <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <input type="text" name="searching" class="form-control pageheadbtn"  placeholder="Search for...">
+      <span class="input-group-btn">
+     <input type="submit" value="搜" class="btn btn-default pageheadbtn">
+      </span>
+ </div>
+ </form>
+
+
+
+<!-- 全部产品链接 -->
+<div class="well" style="margin: 5px" onclick="location='<?php echo $this->url('customer', array('action' => 'productlist'));?>'">
+<span style="font-size:20px;"><span class="glyphicon glyphicon-list" aria-hidden="true"></span>  全部产品</span>
+<span class="ui-icon ui-icon-triangle-1-e" style="float: right"></span>
+</div>
+
+
+<?php
+$cars=array();
+foreach ($demandclassifyseriess as $demandclassifyseries):
+array_push($cars,array("salnumber"=>$demandclassifyseries->getSalnumber(),
+    "dcscolumn"=>$demandclassifyseries->getDcscolumn(),
+    "dcsid"=>$demandclassifyseries->getDcsid(),
+    "dcsbackground"=>$demandclassifyseries->getDcsbackground(),
+    "dcsname"=>$demandclassifyseries->getDcsname()));?>
+<?php endforeach;?>
+
+<div class="well" style="margin: 5px" >
+<span style="font-size:20px;"><span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span> 需求</span>
+<span class="ui-icon ui-icon-triangle-1-s" style="float: right"></span>
+</div>
+
+<div class="row" >
+<?php foreach ($cars as $car):if($car["dcscolumn"]=="需求"){?>
+<div class="col-xs-6" onclick="location='productlist?<?php echo "classify=".$car["dcsname"];?>';" 
+style="padding:5px;line-height:40px; background-image:url('<?php echo $car["dcsbackground"];?>');background-repeat: no-repeat;background-size:100%;height:50px;">
+<?php echo $car["dcsname"];?>
+</div>
+<?php } endforeach; ?>
+</div>
+
+<div class="well" style="margin: 5px" >
+<span style="font-size:20px;"><span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span> 类别</span>
+<span class="ui-icon ui-icon-triangle-1-s" style="float: right"></span>
+</div>
+
+<div class="row" >
+<?php foreach ($cars as $car):if($car["dcscolumn"]=="类别"){?>
+<div class="col-xs-6" onclick="location='productlist?<?php echo "classify=".$car["dcsname"];?>';" 
+style="padding:5px;line-height:40px; background-image:url('<?php echo $car["dcsbackground"];?>');background-repeat: no-repeat;background-size:100%;height:50px;">
+<?php echo $car["dcsname"];?>
+</div>
+<?php } endforeach; ?>
+</div>
+
+
+<div class="well" style="margin: 5px" >
+<span style="font-size:20px;"><span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span> 系列</span>
+<span class="ui-icon ui-icon-triangle-1-s" style="float: right"></span>
+</div>
+
+
+<div class="row" >
+<?php foreach ($cars as $car):if($car["dcscolumn"]=="系列"){?>
+<div class="col-xs-6" onclick="location='productlist?<?php echo "classify=".$car["dcsname"];?>';" 
+style="padding:5px;line-height:40px; background-image:url('<?php echo $car["dcsbackground"];?>');background-repeat: no-repeat;background-size:100%;height:50px;">
+<?php echo $car["dcsname"];?>
+</div>
+<?php } endforeach; ?>
+</div>

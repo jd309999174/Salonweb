@@ -1,0 +1,38 @@
+<?php
+$title = '添加按钮';
+$this->headTitle($title);
+?>
+<h5><?php echo $this->escapeHtml($title); ?></h5>
+
+
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('cosmetic', array(
+    'action' => 'custombuttonadd'
+)));
+$form->get('submit')->setAttribute('value', '提交');
+$form->get('buttonname')->setAttribute('class', 'form-control');
+$form->get('buttonlink')->setAttribute('class', 'form-control linkinput1');
+$form->prepare();
+echo $this->form()->openTag($form);
+?><div class="form-group"><?php
+echo $this->formHidden($form->get('buttonid'));
+?></div><div class="form-group"><?php
+echo $this->formhidden($form->get('salnumber'));
+?></div><div class="form-group"><label>按钮名称</label><?php
+echo $this->formRow($form->get('buttonname'));
+?></div><div class="form-group"><label>按钮链接</label><?php
+echo $this->formRow($form->get('buttonlink'));
+?><span class="input-group-btn">
+						<button class="btn btn-default linkchoose1" type="button" >
+							<span class="ui-icon  ui-icon-link"></span>
+						</button>
+					</span></div>
+<div>
+ <?php echo $this->formInput($form->get('submit')); ?>
+ </div>
+<?php
+echo $this->form()->closeTag($form);?>
+
+<?php //链接选择器
+include_once 'public/php/linkchoice.phtml';?>

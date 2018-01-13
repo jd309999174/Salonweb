@@ -1,0 +1,35 @@
+<?php
+$title = 'Add new task';
+$this->headTitle($title);
+?>
+<h5><?php echo $this->escapeHtml($title); ?></h5>
+
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('cosmetic', array(
+    'action' => 'prizeadd'
+)));
+$form->get('submit')->setAttribute('value', 'Add');
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('priid'));
+echo $this->formhidden($form->get('salnumber'));
+echo $this->formRow($form->get('salname'));
+echo $this->formRow($form->get('cusnumber'));
+echo $this->formRow($form->get('cusname'));
+echo $this->formRow($form->get('prodnumber'));
+echo $this->formRow($form->get('prodtitle'));
+echo $this->formRow($form->get('prodthumbnail'));
+echo $this->formRow($form->get('prodprice'));
+echo $this->formRow($form->get('priget'));
+echo $this->formRow($form->get('pridate'));
+echo $this->formRow($form->get('priexpiration'));
+
+?>
+<div>
+ <?php echo $this->formInput($form->get('submit')); ?>
+ </div>
+<?php
+echo $this->form()->closeTag($form);
+var_dump($post);

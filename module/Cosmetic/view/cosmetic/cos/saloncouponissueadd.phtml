@@ -1,0 +1,49 @@
+	<script type="text/javascript" src="/datetimepicker/jquery-ui-timepicker-addon.js"></script>
+    <script type="text/javascript" src="/datetimepicker/jquery-ui-timepicker-zh-CN.js"></script>
+
+     <script type="text/javascript">
+     //优惠券截止日期选择器
+    $(function () {
+        $(".ui_timepicker").datetimepicker({
+            //showOn: "button",
+            //buttonImage: "./css/images/icon_calendar.gif",
+            //buttonImageOnly: true,
+            showSecond: true,
+            timeFormat: 'hh:mm:ss',
+            stepHour: 1,
+            stepMinute: 1,
+            stepSecond: 1
+        })
+    })
+    </script>
+
+<?php
+$title = '添加优惠券';
+$this->headTitle($title);
+?>
+<h5><?php echo $this->escapeHtml($title); ?></h5>
+
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('cosmetic', array(
+    'action' => 'saloncouponissueadd'
+)));
+$form->get('submit')->setAttribute('value', '添加');
+$form->get('sciavailable')->setAttribute('class', 'ui_timepicker');
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('sciid'));
+echo $this->formhidden($form->get('salnumber'));
+echo $this->formRow($form->get('cusid'));
+echo $this->formRow($form->get('scirestriction'));
+echo $this->formRow($form->get('scimoney'));
+echo $this->formRow($form->get('sciavailable'));
+echo $this->formRow($form->get('scitimes'));
+?>
+<div>
+ <?php echo $this->formInput($form->get('submit')); ?>
+ </div>
+ 
+<?php
+echo $this->form()->closeTag($form);

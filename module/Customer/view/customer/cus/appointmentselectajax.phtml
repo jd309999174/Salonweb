@@ -1,0 +1,21 @@
+<div id="cosmetologisttSelect">
+<table class="table">
+   <thead>
+      <tr>
+         <th></th>
+         <th>姓名</th>
+         <th>照片</th>
+      </tr>
+   </thead>
+   <tbody>
+   <?php foreach ($cosmetologists as $cosmetologist):?>
+      <tr>
+         <td><input checked="checked" type="radio" name="cosmetologistName" data-cosid="<?php echo $cosmetologist->getCosid();?>" data-cosname="<?php echo $cosmetologist->getCosname();?>" checked></td>
+         <td><?php echo $cosmetologist->getCosname();?></td>
+         <td><img alt="" src="<?php echo $cosmetologist->getCosphoto();?>" style="width: 50px;height:30px"></td>
+      </tr>
+      <?php endforeach;?>
+   </tbody>
+</table>
+
+</div>

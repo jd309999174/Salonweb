@@ -1,0 +1,30 @@
+<?php
+ $title = '修改预约';
+ $this->headTitle($title);
+ ?>
+ <h5><?php echo $this->escapeHtml($title); ?></h5>
+
+ <?php
+ $form = $this->form;
+ $url = $this->url('cosmetic', array('action' => 'appointmentedit', 'sub'=>$sub));
+ $form->setAttribute('action', $url);
+ $form->get('submit')->setAttribute('value', 'Edit');
+ $form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('appointmentid'));
+echo $this->formRow($form->get('cusid'));
+echo $this->formRow($form->get('cusname'));
+echo $this->formRow($form->get('cusphone'));
+echo $this->formRow($form->get('salnumber'));
+echo $this->formRow($form->get('salbranch'));
+echo $this->formRow($form->get('cosid'));
+echo $this->formRow($form->get('cosname'));
+echo $this->formRow($form->get('appointmentdate'));
+echo $this->formRow($form->get('appointmenttime'));
+ ?>
+ <div>
+ <?php echo $this->formInput($form->get('submit')); ?>
+ </div>
+ <?php
+ echo $this->form()->closeTag($form);

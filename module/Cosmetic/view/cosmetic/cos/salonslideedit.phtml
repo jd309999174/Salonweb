@@ -1,0 +1,31 @@
+<?php
+ $title = 'Edit task';
+ $this->headTitle($title);
+ ?>
+ <h5><?php echo $this->escapeHtml($title); ?></h5>
+
+ <?php
+ $form = $this->form;
+ $url = $this->url('cosmetic', array('action' => 'salonslideedit','sub'=>$sub));
+ $form->setAttribute('action', $url);
+ $form->get('submit')->setAttribute('value', 'Edit');
+ $form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('ssid'));
+echo $this->formhidden($form->get('salnumber'));
+echo $this->formRow($form->get('ssphoto1'));
+echo $this->formRow($form->get('ssphoto2'));
+echo $this->formRow($form->get('ssphoto3'));
+echo $this->formRow($form->get('ssphoto1f'));
+echo $this->formRow($form->get('ssphoto2f'));
+echo $this->formRow($form->get('ssphoto3f'));
+echo $this->formRow($form->get('sssrc1'));
+echo $this->formRow($form->get('sssrc2'));
+echo $this->formRow($form->get('sssrc3'));
+ ?>
+ <div>
+ <?php echo $this->formInput($form->get('submit')); ?>
+ </div>
+ <?php
+ echo $this->form()->closeTag($form);

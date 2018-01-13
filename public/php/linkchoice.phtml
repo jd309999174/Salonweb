@@ -1,0 +1,253 @@
+<script>
+//打开链接选择器
+$(function() {
+	$( "#linkdialog" ).dialog({
+	      autoOpen: false,
+	      width:800,height: 500,
+	    });
+	$(".linkchoose1,.linkchoose2,.linkchoose3,.linkchoose4,.linkchoose5").click(function(){
+		$("#pagelink").hide();
+		  $("#dcslink").hide();
+		  $("#productlink").show();
+	});
+    $( ".linkchoose1" ).click(function() {
+    	$( "#linkdialog" ).attr("data-linknumber","linkchoose1");
+    	$( "#linkdialog" ).dialog( "open" );
+      });
+    $( ".linkchoose2" ).click(function() {
+    	$( "#linkdialog" ).attr("data-linknumber","linkchoose2");
+    	$( "#linkdialog" ).dialog( "open" );
+      });
+    $( ".linkchoose3" ).click(function() {
+    	$( "#linkdialog" ).attr("data-linknumber","linkchoose3");
+    	$( "#linkdialog" ).dialog( "open" );
+      });
+    $( ".linkchoose4" ).click(function() {
+    	$( "#linkdialog" ).attr("data-linknumber","linkchoose4");
+    	$( "#linkdialog" ).dialog( "open" );
+      });
+    $( ".linkchoose5" ).click(function() {
+    	$( "#linkdialog" ).attr("data-linknumber","linkchoose5");
+    	$( "#linkdialog" ).dialog( "open" );
+      });
+  });
+//选择链接
+function copylink(src){
+	switch($("#linkdialog" ).attr("data-linknumber"))
+	{
+	    case "linkchoose1":
+	    	$(".linkinput1").val(src);
+	        break;
+	    case "linkchoose2":
+	    	$(".linkinput2").val(src);
+	        break;
+	    case "linkchoose3":
+	    	$(".linkinput3").val(src);
+	        break;
+	    case "linkchoose4":
+	    	$(".linkinput4").val(src);
+	        break;
+	    case "linkchoose5":
+	    	$(".linkinput5").val(src);
+	        break;
+	    default:
+	}
+	$("#linkdialog").dialog("close");
+};
+//链接选择
+$(function(){
+	  $("#pagelink").hide();
+	  $("#dcslink").hide();
+	  $("#frequentlink").hide();
+	  $("#btnproduct").click(function(){
+	      $(".linkchoose").hide();
+	      $("#productlink").show();
+		 });
+	   $("#btnpage").click(function(){
+	     $(".linkchoose").hide();
+	     $("#pagelink").show();
+		 });
+	   $("#btndcs").click(function(){
+		     $(".linkchoose").hide();
+		     $("#dcslink").show();
+			 });
+	   $("#frequent").click(function(){
+		     $(".linkchoose").hide();
+		     $("#frequentlink").show();
+			 });
+})
+</script>
+<?php //TODO link manager?>
+
+<div id="linkdialog" title="链接选择器" data-linknumber="">
+  <div class="btn-group">
+	<button type="button" class="btn btn-default" id="btnproduct">宝贝链接</button>
+	<button type="button" class="btn btn-default" id="btnpage">页面链接</button>
+	<button type="button" class="btn btn-default" id="btndcs">分类链接</button>
+	<button type="button" class="btn btn-default" id="frequent">常用链接</button>
+</div>
+<div class="panel panel-default">
+    <div class="panel-body">
+    
+     <!-- 产品链接 -->
+     <div id="productlink" class="linkchoose">
+ <table class="table"  >
+ <tr>
+     <th>产品编号</th>
+     <th>产品名称</th>
+     <th>产品图</th>
+     <th>&nbsp;</th>
+ </tr>
+ <?php foreach ($products as $product): ?>
+ 
+ <tr>
+     <td>
+             <?php echo $this->escapeHtml($product->getProdid()); ?>
+     </td>
+     <td><?php echo $this->escapeHtml($product->getProdtitle()); ?></td>
+     <td><img alt="" style="height:30px;" src="<?php  echo $product->getProdpicture1(); ?>" ></td>
+     <td>
+     <button onclick="copylink('<?php echo $this->url('customer',
+         array('action'=>'productitem','sub'=>$product->getProdid()));?>')">选择链接</button>
+     </td>
+ </tr>
+ <?php endforeach; ?>
+ </table>
+ </div>
+ 
+ <!-- 页面链接 -->
+ <div id="pagelink" class="linkchoose">
+ <table class="table">
+ <tr>
+     <th>页面编号</th>
+     <th>页面名称</th>
+     <th>修改时间</th>
+     <th>&nbsp;</th>
+ </tr>
+ <?php foreach ($pages as $page):if($page->getPagename()!=="首页"):?>
+ 
+ <tr>
+     <td>
+         <a href="<?php echo $this->url('cosmetic',
+             array('management','action'=>'pageedit', 'sub'=>$page->getPageid()));?>">
+             <?php echo $this->escapeHtml($page->getPageid()); ?></a>
+     </td>
+     <td><?php echo $this->escapeHtml($page->getPagename()); ?></td>
+     <td><?php echo $this->escapeHtml($page->getModificationtime()); ?></td>
+     
+     <td>
+        <button onclick="copylink('<?php echo $this->url('customer',
+         array('action'=>'activityitem','sub'=>$page->getPageid()));?>')">选择链接</button>
+     </td>
+ </tr>
+ <?php endif;endforeach; ?>
+ </table>
+ </div>
+ 
+ 
+ 
+ 
+      <!-- 常用链接 -->
+     <div id="frequentlink" class="linkchoose">
+ <table class="table"  >
+ <tr>
+     <th>名称</th>
+     <th>&nbsp;</th>
+ </tr> 
+ <tr>
+     <td>
+         首页
+     </td>
+     
+     <td>
+     <button onclick="copylink('/customer/homepage/<?php echo $id;?>')">选择链接</button>
+     </td>
+ </tr>
+ </table>
+ </div>
+ 
+ 
+ 
+ 
+  <!-- 分类链接 -->
+ <div id="dcslink" class="linkchoose">
+ <?php
+$cars=array();
+foreach ($demandclassifyseriess as $demandclassifyseries):
+array_push($cars,array("salnumber"=>$demandclassifyseries->getSalnumber(),"dcscolumn"=>$demandclassifyseries->getDcscolumn(),"dcsid"=>$demandclassifyseries->getDcsid(),"dcsname"=>$demandclassifyseries->getDcsname()));?>
+<?php endforeach;?>
+<div id="accordion" >
+  <h3 class="well">需求</h3>
+  <div>
+     <table class="table">
+ <tr>
+     <th>名称</th>
+     
+     
+     <th>&nbsp;</th>
+ </tr>
+<?php foreach ($cars as $car):if($car["dcscolumn"]=="需求"){?>
+ 
+ <tr>
+     <td>
+         <a href="<?php echo $this->url('cosmetic',
+             array('management','action'=>'demandclassifyseriesedit','sub'=>$car["dcsid"]));?>">
+             <?php echo $car["dcsname"]; ?></a>
+     </td>
+     <td>
+        <button onclick="copylink('/customer/productlist?classify=<?php echo $car["dcsname"];?>')">选择链接</button>
+     </td>
+ </tr>
+ <?php } endforeach; ?>
+ </table>
+  </div>
+  <h3 class="well">类别</h3>
+  <div>
+    <table class="table">
+ <tr>
+     <th>名称</th>
+     
+     
+     <th>&nbsp;</th>
+ </tr>
+<?php foreach ($cars as $car):if($car["dcscolumn"]=="类别"){?>
+ 
+ <tr>
+     <td>
+         <a href="<?php echo $this->url('cosmetic',
+             array('management','action'=>'demandclassifyseriesedit','sub'=>$car["dcsid"]));?>">
+             <?php echo $car["dcsname"]; ?></a>
+     </td>
+    <td>
+        <button onclick="copylink('/customer/productlist?classify=<?php echo $car["dcsname"];?>')">选择链接</button>
+     </td>
+ </tr>
+ <?php } endforeach; ?>
+ </table>
+  </div>
+  <h3 class="well">系列</h3>
+  <div>
+       <table class="table">
+ <tr>
+     <th>名称</th>
+     <th>&nbsp;</th>
+ </tr>
+<?php foreach ($cars as $car):if($car["dcscolumn"]=="系列"){?>
+ <tr>
+     <td>
+         <a href="<?php echo $this->url('cosmetic',
+             array('management','action'=>'demandclassifyseriesedit','sub'=>$car["dcsid"]));?>">
+             <?php echo $car["dcsname"]; ?></a>
+     </td>
+     <td>
+        <button onclick="copylink('/customer/productlist?classify=<?php echo $car["dcsname"];?>')">选择链接</button>
+     </td>
+ </tr>
+ <?php } endforeach; ?>
+ </table>
+ </div>
+</div>
+</div>
+    </div>
+</div>
+</div>

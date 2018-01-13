@@ -1,0 +1,30 @@
+<?php
+$title = 'Add new task';
+$this->headTitle($title);
+?>
+<h5><?php echo $this->escapeHtml($title); ?></h5>
+
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('cosmetic', array(
+    'action' => 'saloncouponissueadd'
+)));
+$form->get('submit')->setAttribute('value', 'Add');
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('sciid'));
+echo $this->formhidden($form->get('salnumber'));
+echo $this->formRow($form->get('cusid'));
+echo $this->formRow($form->get('scirestriction'));
+echo $this->formRow($form->get('scimoney'));
+echo $this->formRow($form->get('sciavailable'));
+echo $this->formRow($form->get('scitimes'));
+
+?>
+<div>
+ <?php echo $this->formInput($form->get('submit')); ?>
+ </div>
+<?php
+echo $this->form()->closeTag($form);
+var_dump($post);

@@ -1,0 +1,177 @@
+
+<?php
+// TODO FORM
+$title = '添加产品';
+$this->headTitle($title);
+?>
+<h5><?php echo $this->escapeHtml($title); ?></h5>
+
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('cosmetic', array(
+    'action' => 'productadd'
+)));
+$form->get('submit')->setAttribute('id', 'submit');
+$form->get('prodid')->setAttribute('value', '0');
+$form->get('proddemandclassifyseries')->setAttribute('id', 'proddemandclassifyseries');
+$form->prepare();
+
+echo $this->form()->openTag($form);?>
+<?php echo $this->formHidden($form->get('prodid'));?>
+<?php echo $this->formhidden($form->get('salnumber'));?>
+<div class="form-group">
+<label>标题</label>
+<?php echo $this->formRow($form->get('prodtitle'));?></div>
+<div class="form-group">
+<label>价格</label>
+<?php echo $this->formRow($form->get('prodprice'));?></div>
+<div class="form-group">
+<label>原价</label>
+<?php echo $this->formRow($form->get('prodoriginal'));?></div>
+<div class="form-group">
+<?php echo $this->formhidden($form->get('prodpicture1'));?></div>
+<div class="form-group">
+<?php echo $this->formhidden($form->get('prodpicture2'));?></div>
+<div class="form-group">
+<?php echo $this->formhidden($form->get('prodpicture3'));?></div>
+<div class="form-group">
+<?php echo $this->formhidden($form->get('prodpicture4'));?></div>
+<div class="form-group">
+<?php echo $this->formhidden($form->get('prodpicture5'));?></div>
+
+<div class="form-group">
+<label>需求,分类，系列 </label>
+<?php echo $this->formRow($form->get('proddemandclassifyseries'));?></div>
+ 
+
+<!-- 参数 -->
+<div class="form-group">
+<label>品牌</label>
+<?php echo $this->formRow($form->get('prodbrand'));?></div>
+<div class="form-group">
+<label>规格</label>
+<?php echo $this->formRow($form->get('prodspecification'));?></div>
+<div class="form-group">
+<label>含量</label>
+<?php echo $this->formRow($form->get('prodcontent'));?></div>
+<div class="form-group">
+<label>指数</label>
+<?php echo $this->formRow($form->get('prodfactor'));?></div>
+<div class="form-group">
+<label>产地</label>
+<?php echo $this->formRow($form->get('prodplace'));?></div>
+<div class="form-group">
+<label>批号</label>
+<?php echo $this->formRow($form->get('prodapproval'));?></div>
+<div class="form-group">
+<label>功效</label>
+<?php echo $this->formRow($form->get('prodefficacy'));?></div>
+<div class="form-group">
+<label>有效期</label>
+<?php echo $this->formRow($form->get('prodvalidity'));?></div>
+<div class="form-group">
+<label>疗程次数</label>
+<?php echo $this->formRow($form->get('prodtreatment'));?></div>
+
+ <?php //TODO 主图?>
+    <div class="form-group">
+		<div class="col-sm-2">
+			<img alt="" src="/img/choose.jpg" class="picturechoose1 img1" style="wdith:200px;height:150px"> 
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-2">
+			<img alt="" src="/img/choose.jpg" class="picturechoose2 img1" style="wdith:200px;height:150px"> 
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-2">
+			<img alt="" src="/img/choose.jpg" class="picturechoose3 img1" style="wdith:200px;height:150px"> 
+		</div>
+	</div>
+	<div class="form-group">
+	
+		<div class="col-sm-2">
+			<img alt="" src="/img/choose.jpg" class="picturechoose4 img1" style="wdith:200px;height:150px"> 
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-2">
+			<img alt="" src="/img/choose.jpg" class="picturechoose5 img1" style="wdith:200px;height:150px">
+		</div>
+	</div>
+
+ <?php echo $this->formInput($form->get('submit')); ?>
+
+<?php
+echo $this->form()->closeTag($form);?>
+	
+<script>
+//提交图片
+$(function(){
+	$("#submit").click(function(){
+		$("#prodpicture1").val($(".picturechoose1").attr("src"));
+		$("#prodpicture2").val($(".picturechoose2").attr("src"));
+		$("#prodpicture3").val($(".picturechoose3").attr("src"));
+		$("#prodpicture4").val($(".picturechoose4").attr("src"));
+		$("#prodpicture5").val($(".picturechoose5").attr("src"));
+		})
+})
+</script>
+<?php //图片选择器
+include_once 'public/php/picturechoice.phtml';?>
+
+
+
+<?php //TODO 分类选择器?>
+<script>
+  //打开弹窗
+$(function() {
+    $( "#dialog" ).dialog({
+      autoOpen: false,
+      height: 500,
+      width:700,
+      modal:true,
+    });
+    
+    $( "#proddemandclassifyseries" ).click(function() {
+      $( "#dialog" ).dialog( "open" );
+    });
+  });
+  </script>
+ 
+<div id="dialog" title="选择分类">
+    <div class="content">
+<?php
+$cars=array();
+foreach ($demandclassifyseriess as $demandclassifyseries):
+array_push($cars,array("salnumber"=>$demandclassifyseries->getSalnumber(),"dcscolumn"=>$demandclassifyseries->getDcscolumn(),"dcsid"=>$demandclassifyseries->getDcsid(),"dcsname"=>$demandclassifyseries->getDcsname()));?>
+<?php endforeach;?>
+<h3>需求：</h3>
+<?php foreach ($cars as $car):if($car["dcscolumn"]=="需求"){?>
+     <?php echo $car["dcsname"]; ?>:<input type='checkbox' name='classify' value='<?php echo $car["dcsname"]; ?>'/>&nbsp;&nbsp;&nbsp;
+<?php }endforeach;?>
+<h3>类别：</h3>
+<?php foreach ($cars as $car):if($car["dcscolumn"]=="类别"){?>
+     <?php echo $car["dcsname"]; ?>:<input type='checkbox' name='classify' value='<?php echo $car["dcsname"]; ?>'/>&nbsp;&nbsp;&nbsp;
+<?php }endforeach;?>
+<h3>系列：</h3>
+<?php foreach ($cars as $car):if($car["dcscolumn"]=="系列"){?>
+     <?php echo $car["dcsname"]; ?>:<input type='checkbox' name='classify' value='<?php echo $car["dcsname"]; ?>'/>&nbsp;&nbsp;&nbsp;
+<?php }endforeach;?>
+    </div>
+    <input type="button" value="提交" style="float:right;">
+
+</div>
+<script type="text/javascript">
+//获取选中的值
+$(function(){ 
+    $("input:button").click(function() {
+        $text = $("input:checkbox[name='classify']:checked").map(function(index,elem) {
+            return $(elem).val();
+        }).get().join(',');
+        $("#proddemandclassifyseries").attr("value",$text);
+        $( "#dialog" ).dialog( "close" );
+    });
+});
+</script>

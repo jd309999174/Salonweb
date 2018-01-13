@@ -1,0 +1,28 @@
+<link rel='stylesheet' type='text/css'href='/css/timepicki.css'/>
+<script type='text/javascript'src='/js/timepicki.js'></script>
+<script>
+$(document).ready(function(){
+	$("#dateQuery").click(function(){
+			$.ajax({url:"<?php echo $this->url('cosmeticajax', array('action'=>'appointmentajax'));?>",dataType:"text",data:"ajaxValue="+$("#datepicker").val(),type:"POST",success:function(result){
+				$("#appointment").html(result);
+			}});
+			
+	});
+});
+</script>
+ <?php
+$title = '预约查询';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+ <!--<p><a href="<?php echo $this->url('cosmetic', array(
+         'action'=>'appointmentadd'));?>">添加预约</a></p>-->
+         
+         
+选择日期: <input type="text"  id="datepicker">
+<button id="dateQuery">查询</button>
+
+
+<div id="appointment">
+</div>

@@ -1,0 +1,43 @@
+  <?php
+$title = '产品管理';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+ <p><a href="<?php echo $this->url('cosmetic', array('management',
+         'action'=>'productadd'));?>">添加产品</a></p>
+
+
+ <table class="table table-hover">
+ <tr>
+     <th>产品名称</th>
+     <th>产品图</th>
+     <th>产品详情</th>
+     <th>组合分类</th>
+     <th>&nbsp;</th>
+ </tr>
+ <?php foreach ($products as $product): ?>
+ 
+ <tr>
+     <td>
+         <a href="<?php echo $this->url('cosmetic',
+             array('management','action'=>'productedit','sub'=>$product->getProdid()));?>">
+             <?php echo $this->escapeHtml($product->getProdtitle()); ?></a>
+     </td>
+     <td><img alt="" src="<?php  echo $product->getProdpicture1(); ?>" style="width:50px;height:50px"></td>
+      <td>
+         <a href="<?php echo $this->url('decorate',
+             array('action'=>'templatetest', 'sub'=>$product->getProdid(),'third'=>"productdetail"));?>">编辑</a>
+     </td>
+     <td>
+         <a href="<?php echo $this->url('cosmetic',
+             array('action'=>'productcombination','sub'=>$product->getProdid()));?>">编辑</a>
+     </td>
+     <td>
+         <a href="<?php echo $this->url('cosmetic',
+             array('action'=>'productdelete','sub'=>$product->getProdid()));?>">Delete</a>
+     </td>
+ </tr>
+ <?php endforeach; ?>
+ </table>
+

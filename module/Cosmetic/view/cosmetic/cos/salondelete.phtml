@@ -1,0 +1,17 @@
+ <?php
+ $title = '删除分院';
+ $this->headTitle($title);
+ ?>
+ <h1><?php echo $this->escapeHtml($title); ?></h1>
+
+ <p>确认删除名为
+   '<?php echo $this->escapeHtml($salon->getSalname()); ?>' 的分院吗?
+ </p>
+ <?php
+ $url = $this->url('cosmetic', array('action' => 'salondelete','sub'=>$sub)); ?>
+ <form action="<?php echo $url; ?>" method="post">
+ <div>
+   <input type="submit" name="del" value="Yes" />
+   <input type="submit" name="del" value="No" />
+ </div>
+ </form>

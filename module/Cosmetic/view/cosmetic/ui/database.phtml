@@ -1,0 +1,489 @@
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "company";
+
+try {
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    // ���� PDO ����ģʽ�������׳��쳣
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    // A1 美容院：id,美容院编号，分店，账号，密码，店名，电话，地址，老板名，老板电话，老板身份证号，店面图片（1-3），工商登记号，注册日期
+    $sql = "CREATE TABLE salon (
+    salid BIGINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    salnumber INT(6),
+    salbranch INT(6),
+    salaccount VARCHAR(100),
+    salpasswords VARCHAR(100),
+    salname VARCHAR(100),
+    salphone BIGINT(11),
+    saladdress VARCHAR(100) NOT NULL,
+    salbossname VARCHAR(100),
+    salbossphone VARCHAR(100),
+    salbossphoto VARCHAR(100),
+    salbossidentity VARCHAR(100),
+    salphoto1 VARCHAR(100),
+    salphoto2 VARCHAR(100),
+    salphoto3 VARCHAR(100),
+    salregnumber VARCHAR(100),
+    salregdate TIMESTAMP
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // A3 促销活动：id,排序编号，作者，分类，美容院编号,促销标题，促销详情，促销图片（1-6），图片链接（1-6），促销视频，活动发布日期
+    $sql = "CREATE TABLE promotion (
+    promid BIGINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    promsort VARCHAR(100),
+    promauthor VARCHAR(100),
+    promthumbnail VARCHAR(100),
+    salnumber INT(6),
+    cosnumber INT(6),
+    cusnumber INT(6),
+    promtitle VARCHAR(100),
+    promdetail VARCHAR(100),
+    promphoto1 VARCHAR(100),
+    promphoto2 VARCHAR(100),
+    promphoto3 VARCHAR(100),
+    promphoto4 VARCHAR(100),
+    promphoto5 VARCHAR(100),
+    promphoto6 VARCHAR(100),
+    promphoto7 VARCHAR(100),
+    promphoto8 VARCHAR(100),
+    promphoto9 VARCHAR(100),
+    promphoto10 VARCHAR(100),
+    promsrc1 VARCHAR(100),
+    promsrc2 VARCHAR(100),
+    promsrc3 VARCHAR(100),
+    promsrc4 VARCHAR(100),
+    promsrc5 VARCHAR(100),
+    promsrc6 VARCHAR(100),
+    promsrc7 VARCHAR(100),
+    promsrc8 VARCHAR(100),
+    promsrc9 VARCHAR(100),
+    promsrc10 VARCHAR(100),
+    promvideo VARCHAR(100),
+    promdescription1 VARCHAR(100),
+    promdescription2 VARCHAR(100),
+    promdescription3 VARCHAR(100),
+    promdescription4 VARCHAR(100),
+    promdescription5 VARCHAR(100),
+    promdescription6 VARCHAR(100),
+    promdescription7 VARCHAR(100),
+    promdescription8 VARCHAR(100),
+    promdescription9 VARCHAR(100),
+    promdescription10 VARCHAR(100),
+    promoverdue int(2),
+    promregdate TIMESTAMP
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // A4 美容师：id,编号，美容院编号，分店，姓名，生日，地址，电话，照片，职务，特长，从业年限,身份证号，注册时间
+    $sql = "CREATE TABLE cosmetologist (
+    cosid BIGINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    cosnumber INT(6),
+    salnumber INT(6),
+    salbranch INT(6),
+    cosname VARCHAR(100),
+    cosbirthday DATE,
+    cosaddress VARCHAR(100),
+    cosphone BIGINT(11),
+    cosphoto VARCHAR(100),
+    cosposition VARCHAR(100),
+    cosspeciality VARCHAR(100),
+    cosyears int(6),
+    cosidentity VARCHAR(100),
+    cosregdate TIMESTAMP
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // A6 美容院布局:图片（1-10），链接（1-10）
+    $sql = "CREATE TABLE salonlayout (
+    slid BIGINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    salnumber INT(6),
+    slphoto1 VARCHAR(100),
+    slphoto2 VARCHAR(100),
+    slphoto3 VARCHAR(100),
+    slphoto4 VARCHAR(100),
+    slphoto5 VARCHAR(100),
+    slphoto6 VARCHAR(100),
+    slphoto7 VARCHAR(100),
+    slphoto8 VARCHAR(100),
+    slphoto9 VARCHAR(100),
+    slphoto10 VARCHAR(100),
+    slsrc1 VARCHAR(100),
+    slsrc2 VARCHAR(100),
+    slsrc3 VARCHAR(100),
+    slsrc4 VARCHAR(100),
+    slsrc5 VARCHAR(100),
+    slsrc6 VARCHAR(100),
+    slsrc7 VARCHAR(100),
+    slsrc8 VARCHAR(100),
+    slsrc9 VARCHAR(100),
+    slsrc10 VARCHAR(100)
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // A7 美容院slide:图片（1-10），链接（1-3）
+    $sql = "CREATE TABLE salonslide (
+    ssid BIGINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    salnumber INT(6),
+    ssphoto1 VARCHAR(100),
+    ssphoto2 VARCHAR(100),
+    ssphoto3 VARCHAR(100),
+    sssrc1 VARCHAR(100),
+    sssrc2 VARCHAR(100),
+    sssrc3 VARCHAR(100)
+
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // A8 美容院按钮salonbutton:美容院ID，按钮名1-8
+    $sql = "CREATE TABLE salonbutton (
+    sbid BIGINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    salnumber INT(6),
+    salonbutton1 VARCHAR(100),
+    salonbutton2 VARCHAR(100),
+    salonbutton3 VARCHAR(100),
+    salonbutton4 VARCHAR(100),
+    salonbutton5 VARCHAR(100),
+    salonbutton6 VARCHAR(100),
+    salonbutton7 VARCHAR(100),
+    salonbutton8 VARCHAR(100)
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // A8 美容院优惠券领取saloncouponget:美容院ID，用户编号，
+    $sql = "CREATE TABLE saloncouponget (
+    scgid BIGINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    salnumber INT(6),
+    cusnumber INT(6),
+    scgrestriction INT(6),
+    scgmoney INT(6)
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // A8 美容院优惠券发布saloncouponissue:美容院ID，用户编号，
+    $sql = "CREATE TABLE saloncouponissue (
+    sciid BIGINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    salnumber INT(6),
+    cusnumber INT(6),
+    scirestriction INT(6),
+    scimoney INT(6)
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // B1 客户:id，美院编号，客户编号，电话，密码，姓名，身份证号，地址，电话，照片，积分，余额，星级，注册时间,客户类型
+    $sql = "CREATE TABLE customer(
+    cusid BIGINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    salnumber INT(6),
+    cusnumber INT(6),
+    cusphone BIGINT(11),
+    cuspasswords VARCHAR(100),
+    cusname VARCHAR(100),
+    cusidentity VARCHAR(100),
+    cusaddress VARCHAR(100),
+    cusphoto VARCHAR(100),
+    cuspoints INT(6),
+    cusbalance INT(6),
+    cuslevel INT(6),
+    cusregdate TIMESTAMP,
+    custype VARCHAR(100)
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // B2 所购项目：疗程id,客户id，美容院id，产品id，完成情况，创建时间，疗程满意度，疗程评论，疗程日期
+    $sql = "CREATE TABLE treatment(
+    treid INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    cusnumber INT(6),
+    cusname VARCHAR(100),
+    salnumber INT(6),
+    prodnumber INT(6),
+    prodtitle VARCHAR(100),
+    prodphoto1 VARCHAR(100),
+    trecompleted INT(6),
+    treregdate TIMESTAMP,
+    treprice INT(10),
+    trerefund INT(6)
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // B2 阶段疗程：id,用户 编号，疗程id,疗程阶段，美容院编号，分店,美容师编号，操作时间，操作时长，操作视频，
+    // 服务评分，手法评分，产品评分，评价和意见，打赏，评论时间
+    $sql = "CREATE TABLE stage(
+    staid BIGINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    cusnumber INT(6),
+    treid INT(6),
+    salnumber INT(6),
+    salbranch INT(6),
+    cosnumber INT(6),
+    trestage INT(6),
+    operationdate TIMESTAMP,
+    operationtime INT(6),
+    operationvideo VARCHAR(100),
+    staservice INT(6),
+    staskill INT(6),
+    staproduct INT(6),
+    stacomment VARCHAR(100),
+    statip INT(6),
+    stacommentdate TIMESTAMP
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // B3 预约:用户，美容院，分店，美容师，时间，
+    $sql = "CREATE TABLE appointment(
+    appid INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    cusnumber INT(6),
+    cusname VARCHAR(100),
+    salnumber INT(6),
+    salbranch INT(6),
+    salname VARCHAR(100),
+    salphoto1 VARCHAR(100),
+    cosnumber INT(6),
+    cosname VARCHAR(100),
+    cosphoto VARCHAR(100),
+    appdate TIMESTAMP
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    // B4 客户布局
+    $sql = "CREATE TABLE customerlayout(
+    id BIGINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    cusnumber INT(6)
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // c1 公司：id,名称，地址，电话，logo,描述，qq，照片
+    $sql = "CREATE TABLE company(
+    comid BIGINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    comname VARCHAR(100),
+    comaddress VARCHAR(100),
+    comphone BIGINT(11),
+    comlogo VARCHAR(100),
+    comdescription VARCHAR(100),
+    comqq INT(10),
+    comphoto VARCHAR(100)
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // c2 产品：id,美院编号，产品编号，标题，价格， 原价，
+    // 积分，销量，详细描述，视频，图片（1-5），
+    // 疗程次数，注册时间，产品类型，美白，保湿，祛斑，抗衰，抗过敏
+    $sql = "CREATE TABLE product (
+    prodid BIGINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    salnumber INT(6),
+    prodnumber INT(6),
+    prodtitle VARCHAR(100),
+    prodsubtitle VARCHAR(100),
+    prodprice INT(6),
+    prodoriginal INT(6),
+    prodpoints INT(6),
+    prodsales INT(6),
+    proddetail VARCHAR(100),
+    prodphoto1 VARCHAR(100),
+    prodphoto2 VARCHAR(100),
+    prodphoto3 VARCHAR(100),
+    prodphoto4 VARCHAR(100),
+    prodphoto5 VARCHAR(100),
+    prodtimes INT(6),
+    prodregdate TIMESTAMP,
+    prodtype VARCHAR(100),
+    prodwhitening INT(6),
+    prodmoisturize INT(6),
+    prodantisenile INT(6),
+    prodfreckle INT(6),
+    proddesensitization INT(6),
+    detpicture1 VARCHAR(100),
+    detpicture2 VARCHAR(100),
+    detpicture3 VARCHAR(100),
+    detpicture4 VARCHAR(100),
+    detpicture5 VARCHAR(100),
+    detpicture6 VARCHAR(100),
+    detpicture7 VARCHAR(100),
+    detpicture8 VARCHAR(100),
+    detpicture9 VARCHAR(100),
+    detpicture10 VARCHAR(100),
+    detpicture11 VARCHAR(100),
+    detvideo VARCHAR(100)
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // c4 一般布局
+    $sql = "CREATE TABLE generallayout(
+    glid INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    salnumber INT(6),
+    cusnumber INT(6),
+    cusname VARCHAR(100),
+    glpicture1 VARCHAR(100),
+    glpicture2 VARCHAR(100),
+    glpicture3 VARCHAR(100),
+    glsrc1 VARCHAR(100),
+    glsrc2 VARCHAR(100),
+    glsrc3 VARCHAR(100),
+    gldiscount1 FLOAT,
+    gldiscount2 FLOAT,
+    gldiscount3 FLOAT
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // c5 通知：客户编号，美容院编号，消息，图片，日期
+    $sql = "CREATE TABLE  notification(
+    notid BIGINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    cusnumber INT(6),
+    salnumber INT(6),
+    notmessage VARCHAR(100),
+    notpicture VARCHAR(100),
+    notdate TIMESTAMP
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // c6 抽奖：id,用户编号，奖品，日期
+    $sql = "CREATE TABLE  prize(
+    priid INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    salnumber INT(6),
+    salname VARCHAR(100),
+    cusnumber INT(6),
+    cusname VARCHAR(100),
+    prodnumber INT(6),
+    prodtitle VARCHAR(100),
+    prodthumbnail VARCHAR(100),
+    prodprice INT(6),
+    priget TIMESTAMP,
+    pridate TIMESTAMP,
+    priexpiration TIMESTAMP
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // c7 产品图：产品编号，图（1-11）
+    $sql = "CREATE TABLE  detail(
+    detid BIGINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    prodnumber INT(6),
+    detpicture1 VARCHAR(100),
+    detpicture2 VARCHAR(100),
+    detpicture3 VARCHAR(100),
+    detpicture4 VARCHAR(100),
+    detpicture5 VARCHAR(100),
+    detpicture6 VARCHAR(100),
+    detpicture7 VARCHAR(100),
+    detpicture8 VARCHAR(100),
+    detpicture9 VARCHAR(100),
+    detpicture10 VARCHAR(100),
+    detpicture11 VARCHAR(100),
+    detvideo VARCHAR(100)
+        
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+
+    // c8 页面：id,页面编号，美容院编号，页面名称，页面主题色，页面状态，定时发布
+    $sql = "CREATE TABLE pageitems(
+    pageid INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    pagenumber INT(6),
+    salnumber INT(6),
+    pagename VARCHAR(100),
+    pagecolor VARCHAR(100),
+    pagecondition INT(6),
+    releasetime TIMESTAMP,
+    modificationtime TIMESTAMP,
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // c9 页面模块:id,模块编码，页面编码，美容院编码，模块顺序，模块类型，模块数据（1-10）；
+    $sql = "CREATE TABLE templateitems(
+    templateid INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    templatenumber INT(6),
+    pageid INT(6),
+    salnumber INT(6),
+    templateindex INT(6),
+    templatetype VARCHAR(100),
+    templatedata1 VARCHAR(100),
+    templatedata2 VARCHAR(100),
+    templatedata3 VARCHAR(100),
+    templatedata4 VARCHAR(100),
+    templatedata5 VARCHAR(100),
+    templatedata6 VARCHAR(100),
+    templatedata7 VARCHAR(100),
+    templatedata8 VARCHAR(100),
+    templatedata9 VARCHAR(100),
+    templatedata10 VARCHAR(100),
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // c10 需求，分类，和系列dcs:id,美容院编号，栏目（需求|分类|系列）；
+    $sql = "CREATE TABLE demandclassifyseries(
+    dcsid INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    salnumber INT(6),
+    dcscolumn VARCHAR(100),
+    dcsname VARCHAR(100)    
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // c10 需求，分类，和系列dcs:id,美容院编号，栏目（需求|分类|系列）；
+    $sql = "CREATE TABLE product2(custom
+    prodid INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    salnumber INT(6),
+     VARCHAR(100)
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    
+    // c11 自定义菜单按钮custombutton:id,美容院编号，按钮名，链接
+    $sql = "CREATE TABLE custombutton(
+    prodid INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    salnumber INT(6),
+    buttonname VARCHAR(100),
+    buttonlink VARCHAR(100)
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    
+    // c12 聊天编号：id;身份;身份编号；聊天编号（随机8位数）
+    $sql = "CREATE TABLE chatidentity(
+    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    originalidentity VARCHAR(100),
+    originalnumber INT(6),
+    chatidentityid INT(8)
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // c13 聊天记录：id;主编号；宾编号；聊天类型（文字，图片，语音）；聊天内容（文字，或文件名）;聊天时间
+    $sql = "CREATE TABLE chatidentity(
+    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    subject INT(8),
+    object  INT(8),
+    chattype INT(6),
+    chatcontent VARCHAR(100),
+    chattime TIMESTAMP
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+} catch (PDOException $e) {
+    echo $sql . "<br>" . $e->getMessage();
+}
+
+$conn = null;
+?>

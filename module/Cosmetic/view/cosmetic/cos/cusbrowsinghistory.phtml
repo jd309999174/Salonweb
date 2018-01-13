@@ -1,0 +1,107 @@
+<?php
+$title = '在线统计';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+	<script type="text/javascript" src="/datetimepicker/jquery-ui-timepicker-addon.js"></script>
+    <script type="text/javascript" src="/datetimepicker/jquery-ui-timepicker-zh-CN.js"></script>
+
+     <script type="text/javascript">
+     //日期选择器
+    $(function () {
+        $(".cusdatebegin").datetimepicker({
+            //showOn: "button",
+            //buttonImage: "./css/images/icon_calendar.gif",
+            //buttonImageOnly: true,
+            showSecond: true,
+            timeFormat: 'hh:mm:ss',
+            stepHour: 1,
+            stepMinute: 1,
+            stepSecond: 1
+        })
+        $(".cusdatefinish").datetimepicker({
+            //showOn: "button",
+            //buttonImage: "./css/images/icon_calendar.gif",
+            //buttonImageOnly: true,
+            showSecond: true,
+            timeFormat: 'hh:mm:ss',
+            stepHour: 1,
+            stepMinute: 1,
+            stepSecond: 1
+        })
+    })
+    </script>
+
+<form class="form-inline"  role="form" action="<?php echo $this->url('cosmetic', array('action'=>'cusbrowsinghistory'));?>" method="post">
+  <div class="form-group">
+    <label for="name">顾客姓名</label>
+    <input type="text" class="form-control" name="cusname"  placeholder="请输入姓名" value="<?php echo $_POST['cusname'];?>">
+  </div>
+  <div class="form-group" style="padding:5px;">
+    <label  for="name">在线日期</label>
+    <input type="text" class="form-control cusdatebegin" name="cusdatebegin" placeholder="选择时间范围起始" value="<?php echo $_POST['cusdatebegin'];?>">-
+    <input type="text" class="form-control cusdatefinish" name="cusdatefinish" placeholder="选择时间范围结束" value="<?php echo $_POST['cusdatefinish'];?>">
+  </div>
+  <button type="submit" class="btn btn-default">提交</button>
+</form>
+
+
+
+<?php
+//搜索时间的转换
+$cusdatebegin = strtotime($_POST['cusdatebegin']);
+$cusdatefinish = strtotime($_POST['cusdatefinish']);
+//echo "begin".$cusdatebegin;
+//echo "finish".$cusdatefinish;
+$cars=array();
+foreach ($cusbrowsingperson as $persdon):
+//echo "nihao".$persdon->getCusdate();
+
+if(preg_match("^".$_POST['cusname']."^", $persdon->getCusname())
+    &&$cusdatebegin==0&&0==$cusdatefinish){ 
+array_push($cars,array(
+    "cusphoto"=>$persdon->getCusphoto(),
+    "cusname"=>$persdon->getCusname(),
+    "cusdate"=>$persdon->getCusdate(),
+    "cusip"=>$persdon->getCusip()
+));
+}elseif(preg_match("^".$_POST['cusname']."^", $persdon->getCusname())
+    &&$cusdatebegin<=$persdon->getCusdate()&&$persdon->getCusdate()<=$cusdatefinish){
+    array_push($cars,array(
+    "cusphoto"=>$persdon->getCusphoto(),
+    "cusname"=>$persdon->getCusname(),
+    "cusdate"=>$persdon->getCusdate(),
+    "cusip"=>$persdon->getCusip()
+     ));
+}?>
+<?php endforeach;?>
+
+<?php
+foreach ($cars as $key => $row) {
+$x[$key] = $row['id'];}
+if ($x){
+array_multisort($x, SORT_DESC, $cars);
+}?>
+
+<table class="table">
+  <caption>上线顾客总数：<?php echo count($cars);?></caption>
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th>姓名</th>
+      <th>ip地址</th>
+      <th>登陆时间</th>
+    </tr>
+  </thead>
+  <tbody>
+  <?php foreach ($cars as $car):?>
+    <tr>
+      <td><img alt="" style="height:24px;width:24px;" src="/portrait/<?php echo $car['cusphoto'];?>"></td>
+      <td><?php echo $car['cusname'];?></td>
+      <td><?php echo $car['cusip'];?></td>
+      <td><?php echo date("Y-m-d H:i:s",$car['cusdate']);?></td>
+    </tr>
+    <?php endforeach;?>
+  </tbody>
+</table>

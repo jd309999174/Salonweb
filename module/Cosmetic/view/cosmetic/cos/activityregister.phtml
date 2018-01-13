@@ -1,0 +1,21 @@
+<table class="table">
+  <caption>报名顾客查看</caption>
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th>姓名</th>
+      <th>电话</th>
+      <th>报名时间</th>
+    </tr>
+  </thead>
+  <tbody>
+<?php foreach ($activityregister as $ar):?>
+    <tr>
+      <td><img alt="" src="/portrait/<?php echo $ar->getCusphoto();?>" style="height:23px;"></td>
+      <td><?php echo $ar->getCusname();?></td>
+      <td><?php echo $ar->getCusphone();?></td>
+      <td><?php echo $ar->getSignupdate();?></td>
+    </tr>
+<?php endforeach;?>
+  </tbody>
+</table>

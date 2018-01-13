@@ -1,0 +1,129 @@
+<link href="/raty/labs.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/raty/labs.js"></script>
+<link href="/lib/jquery.raty.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/lib/jquery.raty.js"></script>
+
+
+<div class="input-group input-group-sm"
+	style="position: fixed; z-index: 2; background: white;" id="headanchor">
+	
+	<span class="input-group-btn"> <a href="<?php echo $this->url('customer', array('action'=>'homepage','sub'=>$id));?>" class="btn">评价与建议</a>
+	</span> 
+</div>
+<div class="input-group input-group-sm"
+	style="background: white;" >
+	
+	<span class="input-group-btn"> <a href="<?php echo $this->url('customer', array('action'=>'homepage','sub'=>$id));?>" class="btn">评价与建议</a>
+	</span> 
+</div>
+
+<?php
+$form = $this->form;
+$form->setAttribute('action',$this->url('customer', array('action' => 'feedbacks','sub'=>$treatment->getTreid(),'third'=>$cosid)));
+
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+echo $this->formhidden($form->get('treid'));
+echo $this->formhidden($form->get('salbranch'));
+echo $this->formhidden($form->get('cosid'));
+echo $this->formhidden($form->get('fbsurrounding'));
+echo $this->formhidden($form->get('fbproduct'));
+echo $this->formhidden($form->get('fbcosmetologist'));?>
+<div class="container">
+<div class="row well" >1.环境评星与评价</div>
+   <div class="row">
+      <div class="col-sm-6 col-xs-6">
+      <img src="<?php echo $salonbranch->getSalphoto1();?>" style="height:100px;width:120px;">
+      </div>
+      <div class="col-sm-6 col-xs-6">
+      <div class="row"><span style="font-weight:bold;">美容院：</span><?php echo $salonbranch->getSalname();?></div>
+      <div class="row" id="div1" data-score="1"></div>
+      </div>
+      <?php echo $this->formRow($form->get('fbadvise'));?>
+   </div>
+<div class="row well" >2.产品评星与评价</div>
+   <div class="row">
+    <div class="col-sm-6 col-xs-6">
+      <img src="<?php echo $treatment->getProductcombinationpicture();?>" style="height:100px;width:120px;">
+      </div>
+      <div class="col-sm-6 col-xs-6">
+      <div class="row"><span style="font-weight:bold;">产品：</span>
+      <span><?php echo $treatment->getProductcombinationname();?></span>
+      <p style="font-size: 130%;"><?php echo $treatment->getProdtitle();?><p></div>
+      <div id="div2" data-score="1"></div>
+      </div>
+      <?php echo $this->formRow($form->get('fbadvise1'));?>  
+   </div>
+<div class="row well" >3.服务评星与评价</div>   
+   <div class="row">
+    <div class="col-sm-6 col-xs-6">
+      <img src="<?php echo $cosmetologist->getCosphoto();?>" style="height:100px;width:120px;">
+      </div>
+      <div class="col-sm-6 col-xs-6">
+      <div class="row"><span style="font-weight:bold;">美容师：</span><?php echo $cosmetologist->getCosname();?></div>
+      <div id="div3" data-score="1"></div>
+      </div>    
+      <?php echo $this->formRow($form->get('fbadvise2'));?> 
+   </div>
+   
+<div class="row well" ><?php echo $this->formInput($form->get('submit')); ?></div> 
+
+
+
+
+
+
+ 
+ </div>
+<?php
+echo $this->form()->closeTag($form);?>   
+   
+   
+
+
+
+<script>
+$('#fbsurrounding').val(3);
+$('#fbproduct').val(3);
+$('#fbcosmetologist').val(3);
+$('#div1').raty({
+	score:3,
+	  click: function(score, evt) {
+		  $('#fbsurrounding').val(score);
+	  }
+	});
+</script>
+
+<script>
+$('#div2').raty({
+	score:3,
+	  click: function(score, evt) {
+		  $('#fbproduct').val(score);
+	  }
+	});
+</script>
+
+<script>
+$('#div3').raty({
+	score:3,
+	  click: function(score, evt) {
+		  $('#fbcosmetologist').val(score);
+	  }
+	});
+</script>
+
+
+
+<script type="text/javascript">
+//填入treid和cosid
+$(document).ready(function(){
+	 $("#treid").val('<?php echo $treid;?>');
+     $("#cosid").val('<?php echo $cosid;?>');
+     $("#salbranch").val('<?php echo $salonbranch->getSalbranch();?>');
+});
+</script>
+
+                
+   

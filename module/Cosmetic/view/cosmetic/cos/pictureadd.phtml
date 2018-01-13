@@ -1,0 +1,19 @@
+<?php
+$title = '添加图片';
+$this->headTitle($title);
+?>
+<h5><?php echo $this->escapeHtml($title); ?></h5>
+
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('cosmetic', array(
+    'action' => 'pictureadd','sub'=>$sub
+)));
+$form->get('submit')->setAttribute('value', '提交');
+$form->prepare();
+echo $this->form()->openTag($form);
+echo $this->formRow($form->get('picturefile'));
+?>
+<div>
+ <?php echo $this->formInput($form->get('submit')); ?>
+ </div>

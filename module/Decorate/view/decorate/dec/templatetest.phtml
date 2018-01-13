@@ -1,0 +1,1185 @@
+<?php //TODO 发布?>
+<script>
+//发布
+$(function() {
+    $( "#immediatelyrelease" ).click(function() {
+       var valuearray=new Array();
+       //活动和动态页的页头是放的预览图或视频，相当于初始化，发布时才不会变空
+         $pageheaddata1="<?php echo $page->getPageheaddata1();?>";
+	     $pageheaddata2="<?php echo $page->getPageheaddata2();?>";
+	     $pageheaddata3="<?php echo $page->getPageheaddata3();?>";
+	     $pageheaddata4="<?php echo $page->getPageheaddata4();?>";
+	     $pageheaddata5="<?php echo $page->getPageheaddata5();?>";
+       for(var i=0;i<$("#sortable li").length;i++){
+    	  var li=$("#sortable li").eq(i);
+    	   switch(li.attr("data-type"))
+    	   {
+    	       case "headpagerow":
+        	     $pageheaddata1=$("#headpageicon").attr("src");
+        	     $pageheaddata2=$("#headpagename").html();
+        	     $pageheaddata3=$("#pagehead").attr("data-backgroundimg");
+        	     $pageheaddata4=$("#pagehead").attr("data-href");
+        	     $pageheaddata5="";
+  	               break;
+    	       case "singlerow":
+    	    	  var onerow= [li.attr("data-type"),
+    	    	               li.find(".singlea").attr("data-href"),li.find(".singleimg").attr("src")];
+    	    	  valuearray.push(onerow);
+    	           break;
+    	       case "doublerow":
+    	    	   var onerow= [li.attr("data-type"),
+    	    	                li.find(".doublea1").attr("data-href"),li.find(".doubleimg1").attr("src"),
+    	    	                li.find(".doublea2").attr("data-href"),li.find(".doubleimg2").attr("src")];
+     	    	  valuearray.push(onerow);
+    	           break;
+    	       case "swiperrow":
+    	    	   var onerow= [li.attr("data-type"),
+    	    	                li.find(".swipera1").attr("data-href"),li.find(".swiperimg1").attr("src"),
+    	    	                li.find(".swipera2").attr("data-href"),li.find(".swiperimg2").attr("src"),
+    	    	                li.find(".swipera3").attr("data-href"),li.find(".swiperimg3").attr("src"),
+    	    	                li.find(".swipera4").attr("data-href"),li.find(".swiperimg4").attr("src"),
+    	    	                li.find(".swipera5").attr("data-href"),li.find(".swiperimg5").attr("src"),];
+     	    	  valuearray.push(onerow);
+    	           break;
+    	       case "headlinerow":
+      	    	  var onerow= [li.attr("data-type"),
+      	    	               li.find(".headlinea").attr("data-href"),li.find(".headlinetext").html()];
+      	    	  valuearray.push(onerow);
+      	           break;
+    	       case "textrow":
+      	    	  var onerow= [li.attr("data-type"),
+      	    	               li.find(".texttext").html()];
+      	    	  valuearray.push(onerow);
+      	           break;
+    	       case "imgtextrow":
+        	    	  var onerow= [li.attr("data-type"),
+        	    	               li.find(".imgtextimg").attr("data-backgroundimage"),
+        	    	               li.find(".imgtexta1").attr("data-href"),li.find(".imgtexttitle1").html(),li.find(".imgtexttext1").html(),
+        	    	               li.find(".imgtexta2").attr("data-href"),li.find(".imgtexttitle2").html(),li.find(".imgtexttext2").html(),
+        	    	               li.find(".imgtexta3").attr("data-href"),li.find(".imgtexttitle3").html(),li.find(".imgtexttext3").html(),];
+        	    	  valuearray.push(onerow);
+        	           break;
+    	       case "videorow":
+    	    	   var onerow= [li.attr("data-type"),
+    	    	                li.find(".videosrc").attr("src")];
+     	    	   valuearray.push(onerow);
+    	           break;
+    	       default:
+    	           
+    	   }
+       }
+       $.post("<?php echo 'http://'.$_SERVER['SERVER_NAME'].':'.$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"]; ?>",{
+			valuearray:valuearray,
+			pageheaddata1:$pageheaddata1,
+			pageheaddata2:$pageheaddata2,
+			pageheaddata3:$pageheaddata3,
+			pageheaddata4:$pageheaddata4,
+			pageheaddata5:$pageheaddata5,
+		},
+		function(data,status){
+			if(status=="success"){
+			alert("发布成功");}else{alert("发布失败");}
+		});
+ 
+      });
+  });
+</script>
+<?php //TODO style?>
+<style>
+.pageheadbtn{
+	opacity:0.3;
+}
+.btn-default{
+	color:<?php echo $page->getPagecolor();?>;
+}
+#pagehead{
+	    height:180px;
+	    -webkit-background-size: 100% 100%;;
+        background-size: 100% 100%;;
+        background-position: center;
+}
+.headlogo{
+	
+	height:60px;
+	width:80px;
+}
+#headdetail{
+	position:relative;
+	bottom:-100px;
+}
+a,span {
+	 color:<?php echo $page->getPagecolor();?>;
+}
+.ui-widget-content a {
+	color:<?php echo $page->getPagecolor();?>;
+}	
+.swiper-slide  {
+        font-size: 18px;
+        color:<?php echo $page->getPagecolor();?>;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .parallax-bg {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 130%;
+        height: 100%;
+        -webkit-background-size: 100% 100%;;
+        background-size: 100% 100%;;
+        background-position: center;
+    }
+    .swiper-slide .title {
+        font-size: 20px;
+        font-weight: 300;
+    }
+    .swiper-slide .text {
+        font-size: 7px;
+    }
+.intro{
+	background:<?php echo $page->getPagecolor();?>;
+    padding:<?php echo $page->getPagepaddingtop();?>px <?php echo $page->getPagepaddinglr();?>px <?php echo $page->getPagepaddingbottom();?>px;
+}
+.template {
+	height: 580px;
+	width: 343.5px;
+	float: left;
+	border: 1px solid #ccc;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+input {
+	border: 2px solid #ccc;
+}
+
+.inputbox {
+	height: 580px;
+	width: 340px;
+	float: right;
+	border: 1px solid #ccc;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.nav_wrap {
+	margin: 0 auto;
+	height: 580px;
+	width: 340px;
+	overflow: hidden;
+	border: 1px solid #ccc;
+}
+
+#picturemanager {
+	height: 300px;
+	width: 400px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.nav_ul {
+	height: 100%;
+	width: 340px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+li {
+	width: 320px;
+}
+
+.img1 {
+	width: 100%;
+/* 	max-height: 400px; */
+/* 	min-height: 200px; */
+    height:300px;
+}
+
+.img2 {
+	width: 100%;
+/* 	max-height: 300px; */
+/* 	min-height:150px; */
+    height:225px;
+}
+
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.span {
+	position: absolute;
+	bottom: 0;
+}
+
+.fieldset {
+	display: none;
+}
+</style>
+
+
+<?php //TODO 菜单栏  ?>
+<nav class="navbar navbar-default" role="navigation">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" >美院装修</a>
+		</div>
+		<div>
+			<ul class="nav navbar-nav">
+				<li class="dropdown"><a  class="dropdown-toggle"
+					data-toggle="dropdown"> 其他 <b class="caret"></b>
+				</a>
+					<ul class="dropdown-menu" id="generateinput">
+					<li><a >图片管理</a></li>
+					<li><a >页面管理</a></li>
+						<li class="divider"></li>
+						<li><a >优惠券</a></li>
+						<li class="divider"></li>
+						<li><a >客户标签</a></li>
+					</ul></li>
+				<li class="dropdown"><a  class="dropdown-toggle"
+					data-toggle="dropdown"> 保存 <b class="caret"></b>
+				</a>
+					<ul class="dropdown-menu" id="generateinput">
+						<li class="divider"></li>
+						<li><a >保存</a></li>
+						<li class="divider"></li>
+						<li><a >备份</a></li>
+					</ul></li>
+				<li class="dropdown"><a  class="dropdown-toggle"
+					data-toggle="dropdown"> 发布 <b class="caret"></b>
+				</a>
+					<ul class="dropdown-menu" id="generateinput">
+						<li class="divider"></li>
+						<li><button id="immediatelyrelease">立即发布</button></li>
+						<li class="divider"></li>
+						<li><button id="release">定时发布</button></li>
+					</ul></li>
+			</ul>
+	        <div style="float:right;padding:10px;">
+		       <a href="javascript:history.go(-1);"><span class="glyphicon glyphicon-chevron-left"></span></a>
+		       &nbsp;&nbsp;&nbsp;&nbsp;
+		       <a href="javascript:history.go(1);"><span class="glyphicon glyphicon-chevron-right"></span></a>
+		    </div>
+		</div>
+	</div>
+</nav>
+
+
+
+<?php //TODO template?>
+<div class="template" id="template" data-template="template">
+	<div id="accordion">
+		<h3>单、双列宝贝，猜你喜欢，新老顾客</h3>
+		<div></div>
+		<h3>单、双列图片，轮播图</h3>
+		<div>
+			<ul>
+				<!-- 单列图片  -->
+				<li id="draggable21" data-type="singlerow" class="ui-state-highlight intro"
+					onclick='if($(this).parent().attr("id")){
+						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
+                        $(this).css("background","#ccc");
+						$("#singlesubmit").attr("onclick","mysingle("+$(this).index(".intro")+")");
+						$("#singledelete").attr("onclick","mydelete("+$(this).index(".intro")+")");
+	       $("#singlerowimg").attr("src",$(this).find(".singleimg").attr("src"));
+           $("#singlerowlink").val($(this).find(".singlea").attr("data-href"));
+           $(".fieldset").hide();
+           $("#singlerowfield").show();}'>
+					<div class="content">
+						<div class="row">
+							<div class="col">
+								<div class="col-demo">
+									<a  data-href="" class="singlea"> <img alt=""
+										src="/img/mylogo.png" class="img1 singleimg">
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<!-- 双列图片 -->
+				<li id="draggable22" data-type="doublerow" class="ui-state-highlight intro"
+					onclick='if($(this).parent().attr("id")){
+						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
+                        $(this).css("background","#ccc");
+						$("#doublesubmit").attr("onclick","mydouble("+$(this).index(".intro")+")");
+						$("#doubledelete").attr("onclick","mydelete("+$(this).index(".intro")+")");
+	       $("#doublerowimg1").attr("src",$(this).find(".doubleimg1").attr("src"));
+           $("#doublerowlink1").val($(this).find(".doublea1").attr("data-href"));
+           $("#doublerowimg2").attr("src",$(this).find(".doubleimg2").attr("src"));
+           $("#doublerowlink2").val($(this).find(".doublea2").attr("data-href"));
+           $(".fieldset").hide();
+           $("#doublerowfield").show();}'>
+					<div class="content">
+						<div class="row">
+							<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+									<a  data-href="" class="doublea1"> <img alt=""
+										src="/img/mylogo.png" class="img2 doubleimg1">
+									</a>
+							</div>
+							<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+									<a  data-href="" class="doublea2"> <img alt=""
+										src="/img/mylogo.png" class="img2 doubleimg2">
+									</a>
+								
+							</div>
+						</div>
+					</div>
+				</li>
+				<!-- 轮播 -->
+				<li id="draggable23" data-type="swiperrow" class="ui-state-highlight intro"
+					onclick='if($(this).parent().attr("id")){
+						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
+                        $(this).css("background","#ccc");
+						$("#swipersubmit").attr("onclick","myswiper("+$(this).index(".intro")+")");
+						$("#swiperdelete").attr("onclick","mydelete("+$(this).index(".intro")+")");
+	       $("#swiperrowimg1").attr("src",$(this).find(".swiperimg1").attr("src"));
+           $("#swiperrowlink1").val($(this).find(".swipera1").attr("data-href"));
+           $("#swiperrowimg2").attr("src",$(this).find(".swiperimg2").attr("src"));
+           $("#swiperrowlink2").val($(this).find(".swipera2").attr("data-href"));
+           $("#swiperrowimg3").attr("src",$(this).find(".swiperimg3").attr("src"));
+           $("#swiperrowlink3").val($(this).find(".swipera3").attr("data-href"));
+           $("#swiperrowimg4").attr("src",$(this).find(".swiperimg4").attr("src"));
+           $("#swiperrowlink4").val($(this).find(".swipera4").attr("data-href"));
+           $("#swiperrowimg5").attr("src",$(this).find(".swiperimg5").attr("src"));
+           $("#swiperrowlink5").val($(this).find(".swipera5").attr("data-href"));
+           $("#swiperrowimg6").attr("src",$(this).find(".swiperimg6").attr("src"));
+           $("#swiperrowlink6").val($(this).find(".swipera6").attr("data-href"));
+           
+           $(".fieldset").hide();
+           $("#swiperrowfield").show();}'>
+		    <!-- Swiper -->
+    <div class="swiper-container swiperswiper" style="height:200px">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><a  data-href="" class="swipera1"> <img alt=""
+										src="/img/mylogo.png" class="img1 swiperimg1" style="width: 100%">
+									</a></div>
+            <div class="swiper-slide"><a  data-href="" class="swipera2"> <img alt=""
+										src="/img/mylogo.png" class="img1 swiperimg2" style="width: 100%">
+									</a></div>
+            <div class="swiper-slide"><a  data-href="" class="swipera3"> <img alt=""
+										src="/img/mylogo.png" class="img1 swiperimg3" style="width: 100%">
+									</a></div>
+            <div class="swiper-slide"><a  data-href="" class="swipera4"> <img alt=""
+										src="/img/mylogo.png" class="img1 swiperimg4" style="width: 100%">
+									</a></div>
+            <div class="swiper-slide"><a  data-href="" class="swipera5"> <img alt=""
+										src="/img/mylogo.png" class="img1 swiperimg5" style="width: 100%">
+									</a></div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination swiperpagination"></div>
+        </div>
+        </li>
+</ul>
+		</div>
+		<h3>标题，文本，图文，优惠券</h3>
+		<div>
+			<ul>
+		<!-- 标题  -->
+				<li id="draggable31" data-type="headlinerow" class="ui-state-highlight intro"
+					onclick='if($(this).parent().attr("id")){
+						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
+                        $(this).css("background","#ccc");
+						$("#headlinesubmit").attr("onclick","myheadline("+$(this).index(".intro")+")");
+						$("#headlinedelete").attr("onclick","mydelete("+$(this).index(".intro")+")");
+	       $("#headlinerowtext").val($(this).find(".headlinetext").html());
+	       $("#headlinerowlink").val($(this).find(".headlinea").attr("data-href"));
+           $(".fieldset").hide();
+           $("#headlinerowfield").show();}'>
+					<div class="content">
+						<div class="row" >
+							<div class="col">
+							<div class="col-demo">
+							<div class="well">
+							<a  data-href="" class="headlinea">
+							<span class="headlinetext">这是一个标题</span>
+							<span class="ui-icon ui-icon-triangle-1-e" style="float: right"></span>
+							</a>
+							</div>
+						    </div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<!-- 文本  -->
+				<li id="draggable32" data-type="textrow" class="ui-state-highlight intro"
+					onclick='if($(this).parent().attr("id")){
+						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
+                        $(this).css("background","#ccc");
+						$("#textsubmit").attr("onclick","mytext("+$(this).index(".intro")+")");
+						$("#textdelete").attr("onclick","mydelete("+$(this).index(".intro")+")");
+	       $("#textrowtext").val($(this).find(".texttext").html());
+           $(".fieldset").hide();
+           $("#textrowfield").show();}'>
+					<div class="content">
+						<div class="row" >
+							<div class="col">
+							<div class="col-demo">
+							<div class="well">
+							<span class="texttext">这是一个文本 </span>
+							</div>
+						    </div>
+							</div>
+						</div>
+					</div>
+				</li>
+			<!-- 图文  -->
+				<li id="draggable33" data-type="imgtextrow" class="ui-state-highlight intro"
+					onclick='if($(this).parent().attr("id")){
+						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
+                        $(this).css("background","#ccc");
+						$("#imgtextsubmit").attr("onclick","myimgtext("+$(this).index(".intro")+")");
+						$("#imgtextdelete").attr("onclick","mydelete("+$(this).index(".intro")+")");
+		   $("#imgtextrowimg").attr("src",$(this).find(".imgtextimg").attr("data-backgroundimage"));
+	       $("#imgtextrowtitle1").val($(this).find(".imgtexttitle1").html());
+	       $("#imgtextrowlink1").val($(this).find(".imgtexta1").attr("data-href"));
+	       $("#imgtextrowtext1").val($(this).find(".imgtexttext1").html());
+	       $("#imgtextrowtitle2").val($(this).find(".imgtexttitle2").html());
+	       $("#imgtextrowlink2").val($(this).find(".imgtexta2").attr("data-href"));
+	       $("#imgtextrowtext2").val($(this).find(".imgtexttext2").html());
+	       $("#imgtextrowtitle3").val($(this).find(".imgtexttitle3").html());
+	       $("#imgtextrowlink3").val($(this).find(".imgtexta3").attr("data-href"));
+	       $("#imgtextrowtext3").val($(this).find(".imgtexttext3").html());
+           $(".fieldset").hide();
+           $("#imgtextrowfield").show();}'>
+					<!-- Swiper图文 -->
+    <div class="swiper-container imgtextswiper" style="height:200px">
+        <div class="parallax-bg imgtextimg" data-backgroundimage="/img/mylogo.png" style="background-image:url(/img/mylogo.png)" data-swiper-parallax="-23%"></div>
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="title" data-swiper-parallax="-100"><a data-href="" class="imgtexttitle1 imgtexta1" >第一页标题</a></div>
+                <div class="text" data-swiper-parallax="-300">
+                    <p class="imgtexttext1">第一页内容</p>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="title" data-swiper-parallax="-100"><a data-href="" class="imgtexttitle2 imgtexta2">第二页标题</a></div>
+              
+                <div class="text" data-swiper-parallax="-300">
+                    <p class="imgtexttext2">第二页内容</p>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="title" data-swiper-parallax="-100"><a data-href="" class="imgtexttitle3 imgtexta3" >第三页标题</a></div>
+              
+                <div class="text" data-swiper-parallax="-300">
+                    <p class="imgtexttext3">第三页内容</p>
+                </div>
+            </div>
+            
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination imgtextpagination swiper-pagination-white"></div>
+    </div>
+				</li>
+		    </ul>
+		</div>
+		<h3>视频</h3>
+		<div>
+		<ul>
+		<!-- 视频  -->
+				<li id="draggable41" data-type="videorow" class="ui-state-highlight intro"
+					onclick='if($(this).parent().attr("id")){
+						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
+                        $(this).css("background","#ccc");
+						$("#videosubmit").attr("onclick","myvideo("+$(this).index(".intro")+")");
+						$("#videodelete").attr("onclick","mydelete("+$(this).index(".intro")+")");
+	       $("#videorowsrc").attr("src",$(this).find(".videosrc").attr("src"));
+           $(".fieldset").hide();
+           $("#videorowfield").show();}'>
+					<div class="content">
+						<div class="row">
+							<div class="col">
+								<div class="col-demo">
+									<div class="embed-responsive embed-responsive-16by9">
+                                     <video width="100%"  controls autoplay class="videosrc embed-responsive-item" src="/salon/test.mp4" >
+                            
+                                    </video> 
+                                    </div> 
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+		    </ul>
+		</div>
+	</div>
+</div>
+
+<?php //TODO input box?>
+<div class="inputbox">
+<!-- 首页页头 -->
+	<fieldset class="fieldset" id="headpagerowfield">
+		<legend>首页页头</legend>
+		店名 <br> 
+		       	<div class="input-group">
+					<input type="text" class="form-control" id="headpagerowname">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" onclick="$('#headpagerowname').val('');">
+							<span class="ui-icon  ui-icon-document"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+		LOGO<br> <img alt="" src="/img/mylogo.png" id="headpagerowicon" class="picturechoose1 headlogo"> 
+		<br> 
+		店招<br> <img alt="" src="/img/mylogo.png" id="headpagerowimg" class="picturechoose2" style="width:100%;height:180px;"> 
+		链接	    <div class="input-group">
+					<input type="text" class="form-control linkinput1"  id="headpagerowlink">
+					<span class="input-group-btn">
+						<button class="btn btn-default linkchoose1" type="button" >
+							<span class="ui-icon  ui-icon-link"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+		<button onclick="myheadpage('100')" id="headpagesubmit">提交</button>
+	</fieldset>
+
+	<!-- 单列图片 -->
+	<fieldset class="fieldset" id="singlerowfield">
+		<legend>单列图片</legend>
+		图片<br> <img alt="" src="/img/mylogo.png" id="singlerowimg" class="picturechoose1 img1"> 
+		链接	    <div class="input-group">
+					<input type="text" class="form-control linkinput1"  id="singlerowlink">
+					<span class="input-group-btn">
+						<button class="btn btn-default linkchoose1" type="button" >
+							<span class="ui-icon  ui-icon-link"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+		<button onclick="mysingle('100')" id="singlesubmit">提交</button>
+		<button onclick="mydelete('100')" id="singledelete">删除</button>
+	</fieldset>
+
+	<!-- 双列图片 -->
+	<fieldset class="fieldset" id="doublerowfield">
+		<legend>双列图片</legend>
+		图片<br> <img alt="" src="/img/mylogo.png" id="doublerowimg1" class="picturechoose1 img1"> 
+		链接	    <div class="input-group">
+					<input type="text" class="form-control linkinput1" id="doublerowlink1">
+					<span class="input-group-btn">
+						<button class="btn btn-default linkchoose1" type="button" >
+							<span class="ui-icon  ui-icon-link"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+		图片<br> <img alt="" src="/img/mylogo.png" id="doublerowimg2" class="picturechoose2 img1">
+		链接	    <div class="input-group">
+					<input type="text" class="form-control linkinput2" id="doublerowlink2">
+					<span class="input-group-btn">
+						<button class="btn btn-default linkchoose2" type="button" >
+							<span class="ui-icon  ui-icon-link"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+	    <button onclick="mydouble('100')" id="doublesubmit">提交</button>
+		<button onclick="mydelete('100')" id="doubledelete">删除</button>
+	</fieldset>
+	
+		<!-- 轮播图片 -->
+	<fieldset class="fieldset" id="swiperrowfield">
+		<legend>轮播图片</legend>
+		<div class="panel panel-default">
+	<div class="panel-heading">
+		第一张图片
+	</div>
+	<div class="panel-body">
+		图片<br> <img alt="" src="/img/mylogo.png" id="swiperrowimg1" class="picturechoose1 img1"> 
+		链接	    <div class="input-group">
+					<input type="text" class="form-control linkinput1" id="swiperrowlink1">
+					<span class="input-group-btn">
+						<button class="btn btn-default linkchoose1" type="button" >
+							<span class="ui-icon  ui-icon-link"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+	</div>
+</div>
+<div class="panel panel-default">
+	<div class="panel-heading">
+		第二张图片
+	</div>
+	<div class="panel-body">
+		图片<br> <img alt="" src="/img/mylogo.png" id="swiperrowimg2" class="picturechoose2 img1"> 
+		链接	    <div class="input-group">
+					<input type="text" class="form-control linkinput2" id="swiperrowlink2">
+					<span class="input-group-btn">
+						<button class="btn btn-default linkchoose2" type="button" >
+							<span class="ui-icon  ui-icon-link"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+	</div>
+</div>
+		<div class="panel panel-default">
+	<div class="panel-heading">
+		第三张图片
+	</div>
+	<div class="panel-body">
+		图片<br> <img alt="" src="/img/mylogo.png" id="swiperrowimg3" class="picturechoose3 img1"> 
+		链接	    <div class="input-group">
+					<input type="text" class="form-control linkinput3" id="swiperrowlink3">
+					<span class="input-group-btn">
+						<button class="btn btn-default linkchoose3" type="button" >
+							<span class="ui-icon  ui-icon-link"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+	</div>
+</div>
+		<div class="panel panel-default">
+	<div class="panel-heading">
+		第四张图片
+	</div>
+	<div class="panel-body">
+		图片<br> <img alt="" src="/img/mylogo.png" id="swiperrowimg4" class="picturechoose4 img1"> 
+		链接	    <div class="input-group">
+					<input type="text" class="form-control linkinput4" id="swiperrowlink4">
+					<span class="input-group-btn">
+						<button class="btn btn-default linkchoose4" type="button" >
+							<span class="ui-icon  ui-icon-link"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+	</div>
+</div>
+		
+	<div class="panel panel-default">
+	<div class="panel-heading">
+		第五张图片
+	</div>
+	<div class="panel-body">
+		图片<br> <img alt="" src="/img/mylogo.png" id="swiperrowimg5" class="picturechoose5 img1"> 
+		链接	    <div class="input-group">
+					<input type="text" class="form-control linkinput5" id="swiperrowlink5">
+					<span class="input-group-btn">
+						<button class="btn btn-default linkchoose5" type="button" >
+							<span class="ui-icon  ui-icon-link"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+	</div>
+</div>
+	    <button onclick="myswiper('100')" id="swipersubmit">提交</button>
+		<button onclick="mydelete('100')" id="swiperdelete">删除</button>
+	</fieldset>
+	<!-- 标题 -->
+	<fieldset class="fieldset" id="headlinerowfield">
+		<legend>标题</legend>
+		       文本 <br> 
+		       	<div class="input-group">
+					<input type="text" class="form-control" id="headlinerowtext">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" onclick="$('#headlinerowtext').val('');">
+							<span class="ui-icon  ui-icon-document"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+		        链接	<div class="input-group">
+					<input type="text" class="form-control linkinput1" id="headlinerowlink">
+					<span class="input-group-btn">
+						<button class="btn btn-default linkchoose1" type="button" >
+							<span class="ui-icon  ui-icon-link"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+			<button onclick="myvideo('100')" id="headlinesubmit">提交</button>
+		<button onclick="mydelete('100')" id="headlinedelete">删除</button>
+	</fieldset>
+	<!--文本-->
+	<fieldset class="fieldset" id="textrowfield">
+		<legend>文本</legend>
+		      文本  <br> 
+		        	<div class="input-group">
+		            <textarea class="form-control" id="textrowtext"></textarea>
+					<span class="input-group-addon">
+							<span class="ui-icon  ui-icon-document" onclick="$('#textrowtext').val('');"></span>
+					</span>
+				</div><!-- /input-group -->
+			<button onclick="mytext('100')" id="textsubmit">提交</button>
+		<button onclick="mydelete('100')" id="textdelete">删除</button>
+	</fieldset>
+	<!--图文-->
+	<fieldset class="fieldset" id="imgtextrowfield">
+		<legend>图文</legend>
+		     图片<br> <img alt="" src="/img/mylogo.png" id="imgtextrowimg" class="picturechoose1 img1">
+		     
+   <div class="panel panel-default">
+	<div class="panel-heading">
+		第一页：
+	</div>
+	<div class="panel-body">
+		 标题 <br> 
+		       	<div class="input-group">
+					<input type="text" class="form-control" id="imgtextrowtitle1">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" onclick="$('#imgtextrowtitle1').val('');">
+							<span class="ui-icon  ui-icon-document"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+		   链接<br> 	
+		        <div class="input-group">
+					<input type="text" class="form-control linkinput1" id="imgtextrowlink1">
+					<span class="input-group-btn">
+						<button class="btn btn-default linkchoose1" type="button" >
+							<span class="ui-icon  ui-icon-link"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+		     文本  <br> 
+		        	<div class="input-group">
+		            <textarea class="form-control" id="imgtextrowtext1"></textarea>
+					<span class="input-group-addon">
+							<span class="ui-icon  ui-icon-document" onclick="$('#imgtextrowtext1').val('');"></span>
+					</span>
+				</div><!-- /input-group -->
+	</div>
+</div>
+		
+<div class="panel panel-default">
+	<div class="panel-heading">
+		 第二页：
+	</div>
+	<div class="panel-body">
+		标题 <br> 
+		       	<div class="input-group">
+					<input type="text" class="form-control" id="imgtextrowtitle2">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" onclick="$('#imgtextrowtitle2').val('');">
+							<span class="ui-icon  ui-icon-document"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+		   链接<br> 	
+		        <div class="input-group">
+					<input type="text" class="form-control linkinput2" id="imgtextrowlink2">
+					<span class="input-group-btn">
+						<button class="btn btn-default linkchoose2" type="button" >
+							<span class="ui-icon  ui-icon-link"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+		     文本  <br> 
+		        	<div class="input-group">
+		            <textarea class="form-control" id="imgtextrowtext2"></textarea>
+					<span class="input-group-addon">
+							<span class="ui-icon  ui-icon-document" onclick="$('#imgtextrowtext2').val('');"></span>
+					</span>
+				</div><!-- /input-group -->
+	</div>
+</div>   
+<div class="panel panel-default">
+	<div class="panel-heading">
+	 第三页：
+	</div>
+	<div class="panel-body">
+		 标题 <br> 
+		       	<div class="input-group">
+					<input type="text" class="form-control" id="imgtextrowtitle3">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" onclick="$('#imgtextrowtitle3').val('');">
+							<span class="ui-icon  ui-icon-document"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+		   链接<br> 	
+		        <div class="input-group">
+					<input type="text" class="form-control linkinput3" id="imgtextrowlink3">
+					<span class="input-group-btn">
+						<button class="btn btn-default linkchoose3" type="button" >
+							<span class="ui-icon  ui-icon-link"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+		     文本  <br> 
+		        	<div class="input-group">
+		            <textarea class="form-control" id="imgtextrowtext3"></textarea>
+					<span class="input-group-addon">
+							<span class="ui-icon  ui-icon-document" onclick="$('#imgtextrowtext3').val('');"></span>
+					</span>
+				</div><!-- /input-group -->
+	</div>
+</div>
+		
+			<button onclick="myimgtext('100')" id="imgtextsubmit">提交</button>
+		<button onclick="mydelete('100')" id="imgtextdelete">删除</button>
+	</fieldset>
+		<!-- 视频 -->
+	<fieldset class="fieldset" id="videorowfield">
+		<legend>视频</legend>
+		视频<br> 
+			<video width="100%" height="240" controls class="picturechoose1 img1" id="videorowsrc">
+              <source src="/salon/test.mp4" type="video/mp4"  >
+            </video> 
+			<button onclick="myvideo('100')" id="videosubmit">提交</button>
+		<button onclick="mydelete('100')" id="videodelete">删除</button>
+	</fieldset>
+</div>
+
+<?php //TODO nav_wrap?>
+<div class="nav_wrap">
+<ul id="sortable" class="nav_ul">
+<?php if($page->getPagetype()=="首页"):?>
+<li data-type="headpagerow" class="ui-state-highlight intro"
+					onclick='if($(this).parent().attr("id")){
+						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
+                        $(this).css("background","#ccc");
+						$("#headpagesubmit").attr("onclick","myheadpage("+$(this).index(".intro")+")");
+		   $("#headpagerowname").val($("#headpagename").html());
+		   $("#headpagerowicon").attr("src",$("#headpageicon").attr("src"));
+	       $("#headpagerowimg").attr("src",$("#pagehead").attr("data-backgroundimg"));
+           $("#headpagerowlink").val($("#pagehead").attr("data-href"));
+           $(".fieldset").hide();
+           $("#headpagerowfield").show();}'>
+<div data-role="page" id="pageone" >
+<div class="container" style="position:fixed;opacity:0.8;z-index:100">
+   <div class="row" style="width:320px" id="headpagebtnset">
+   <div class="col-xs-2">
+   <button type="button" class="btn btn-default btn-sm pageheadbtn">
+  <span class="glyphicon glyphicon-qrcode" aria-hidden="true"></span>
+</button>
+</div>
+<div class="col-xs-6">
+ <div class="input-group input-group-sm">
+      <input type="text" class="form-control pageheadbtn"  placeholder="Search for...">
+      <span class="input-group-btn">
+        <button class="btn btn-default pageheadbtn" type="button">搜!</button>
+      </span>
+    </div>
+ </div>
+ <div class="col-xs-2">
+<button type="button" class="btn btn-default btn-sm pageheadbtn">
+  <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+</button>
+ </div>
+ <div class="col-xs-2">
+<button type="button" class="btn btn-default btn-sm pageheadbtn">
+  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+</button>
+ </div>
+ </div>
+ </div>
+
+
+<div class="panel panel-default" id="pagehead" data-href="<?php echo $page->getPageheaddata4();?>" style="background-image:url(<?php echo $page->getPageheaddata3();?>);" data-backgroundimg="<?php echo $page->getPageheaddata3();?>">
+	<div class="panel-body container" >
+	    <div id="headdetail" class="row" style="width:320px">
+		   <div class="col-xs-3"><img alt="" src="<?php echo $page->getPageheaddata1();?>" class="headlogo" id="headpageicon"></div>
+		   <div class="col-xs-6">
+		   <span id="headpagename" style="font-size: 200%"><?php echo $page->getPageheaddata2();?></span>
+		   <br>
+		   <img alt="" src="/img/mylogo.png" style="width:15px;height:15px;"><span>线上服务</span>
+		   </div>
+		   <div class="col-xs-3">
+		   <span>会员数</span>
+		   <br>
+		   <span>328</span>
+		   </div>
+	</div>
+</div>
+</div>
+
+<div class="btn-group btn-group-justified" role="group" id="subnav" style="z-index:100;width:320px">
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-default">首页</button>
+  </div>
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-default">产品</button>
+  </div>
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-default">活动</button>
+  </div>
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-default">动态</button>
+  </div>
+</div>
+</div>
+</li>
+
+<!-- 注意页面类型  -->
+<?php endif;?>
+<?php if($page->getPagetype()=="活动"):?>
+<li><div class="btn-group btn-group-justified" role="group" id="subnav" style="z-index:100;width:320px"></div></li>
+<?php endif;?>
+<?php if($page->getPagetype()=="动态"):?>
+<li><div class="btn-group btn-group-justified" role="group" id="subnav" style="z-index:100;width:320px"></div></li>
+<?php endif;?>
+<?php if($page->getPagetype()=="产品详情"):?>
+<li><div class="btn-group btn-group-justified" role="group" id="subnav" style="z-index:100;width:320px"></div></li>
+<?php endif;?>
+
+<?php foreach ($templateitem as $item) :?>
+<?php switch ($item->getTemplatetype()): ?>
+<?php case "singlerow": ?>
+<li  data-type="singlerow" class="ui-state-highlight intro"
+					onclick='if($(this).parent().attr("id")){
+						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
+                        $(this).css("background","#ccc");
+						$("#singlesubmit").attr("onclick","mysingle("+$(this).index(".intro")+")");
+						$("#singledelete").attr("onclick","mydelete("+$(this).index(".intro")+")");
+	       $("#singlerowimg").attr("src",$(this).find(".singleimg").attr("src"));
+           $("#singlerowlink").val($(this).find(".singlea").attr("data-href"));
+           $(".fieldset").hide();
+           $("#singlerowfield").show();}'>
+					<div class="content">
+						<div class="row">
+							<div class="col">
+								<div class="col-demo">
+									<a  data-href="<?php echo $item->getTemplatedata1()?>" class="singlea"> <img alt=""
+										src="<?php echo $item->getTemplatedata2()?>" class="img1 singleimg">
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+<?php break;?>
+<?php case "doublerow": ?>
+<li  data-type="doublerow" class="ui-state-highlight intro"
+					onclick='if($(this).parent().attr("id")){
+						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
+                        $(this).css("background","#ccc");
+						$("#doublesubmit").attr("onclick","mydouble("+$(this).index(".intro")+")");
+						$("#doubledelete").attr("onclick","mydelete("+$(this).index(".intro")+")");
+	       $("#doublerowimg1").attr("src",$(this).find(".doubleimg1").attr("src"));
+           $("#doublerowlink1").val($(this).find(".doublea1").attr("data-href"));
+           $("#doublerowimg2").attr("src",$(this).find(".doubleimg2").attr("src"));
+           $("#doublerowlink2").val($(this).find(".doublea2").attr("data-href"));
+           $(".fieldset").hide();
+           $("#doublerowfield").show();}'>
+					<div class="content">
+						<div class="row">
+							<div class="col">
+								<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+									<a  data-href="<?php echo  $item->getTemplatedata1()?>" class="doublea1"> <img alt=""
+										src="<?php echo  $item->getTemplatedata2()?>" class="img2 doubleimg1">
+									</a>
+								</div>
+							</div>
+							<div class="col">
+								<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+									<a  data-href="<?php echo  $item->getTemplatedata3()?>" class="doublea2"> <img alt=""
+										src="<?php echo $item->getTemplatedata4()?>" class="img2 doubleimg2">
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+<?php break;?>
+<?php case "swiperrow": ?>
+<li id="draggable23" data-type="swiperrow" class="ui-state-highlight intro"
+					onclick='if($(this).parent().attr("id")){
+						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
+                        $(this).css("background","#ccc");
+						$("#swipersubmit").attr("onclick","myswiper("+$(this).index(".intro")+")");
+						$("#swiperdelete").attr("onclick","mydelete("+$(this).index(".intro")+")");
+	       $("#swiperrowimg1").attr("src",$(this).find(".swiperimg1").attr("src"));
+           $("#swiperrowlink1").val($(this).find(".swipera1").attr("data-href"));
+           $("#swiperrowimg2").attr("src",$(this).find(".swiperimg2").attr("src"));
+           $("#swiperrowlink2").val($(this).find(".swipera2").attr("data-href"));
+           $("#swiperrowimg3").attr("src",$(this).find(".swiperimg3").attr("src"));
+           $("#swiperrowlink3").val($(this).find(".swipera3").attr("data-href"));
+           $("#swiperrowimg4").attr("src",$(this).find(".swiperimg4").attr("src"));
+           $("#swiperrowlink4").val($(this).find(".swipera4").attr("data-href"));
+           $("#swiperrowimg5").attr("src",$(this).find(".swiperimg5").attr("src"));
+           $("#swiperrowlink5").val($(this).find(".swipera5").attr("data-href"));
+           $("#swiperrowimg6").attr("src",$(this).find(".swiperimg6").attr("src"));
+           $("#swiperrowlink6").val($(this).find(".swipera6").attr("data-href"));
+           
+           $(".fieldset").hide();
+           $("#swiperrowfield").show();}'>
+		    <!-- Swiper -->
+    <div class="swiper-container swiperswiper" style="height:200px">
+        <div class="swiper-wrapper">
+        <?php if($item->getTemplatedata2()!="/img/mylogo.png"):?>
+            <div class="swiper-slide"><a  data-href="<?php echo  $item->getTemplatedata1()?>" class="swipera1"> <img alt=""
+										src="<?php echo  $item->getTemplatedata2()?>" class="img1 swiperimg1" style="height:100%;width: 100%">
+									</a></div><?php endif;?>
+	    <?php if($item->getTemplatedata4()!="/img/mylogo.png"):?>
+            <div class="swiper-slide"><a  data-href="<?php echo  $item->getTemplatedata3()?>" class="swipera2"> <img alt=""
+										src="<?php echo  $item->getTemplatedata4()?>" class="img1 swiperimg2" style="height:100%;width: 100%">
+									</a></div><?php endif;?>
+	   <?php if($item->getTemplatedata6()!="/img/mylogo.png"):?>
+            <div class="swiper-slide"><a  data-href="<?php echo  $item->getTemplatedata5()?>" class="swipera3"> <img alt=""
+										src="<?php echo  $item->getTemplatedata6()?>" class="img1 swiperimg3" style="height:100%;width: 100%">
+									</a></div><?php endif;?>
+       <?php if($item->getTemplatedata8()!="/img/mylogo.png"):?>
+            <div class="swiper-slide"><a  data-href="<?php echo  $item->getTemplatedata7()?>" class="swipera4"> <img alt=""
+										src="<?php echo  $item->getTemplatedata8()?>" class="img1 swiperimg4" style="height:100%;width: 100%">
+									</a></div><?php endif;?>
+	   <?php if($item->getTemplatedata10()!="/img/mylogo.png"):?>
+            <div class="swiper-slide"><a  data-href="<?php echo  $item->getTemplatedata9()?>" class="swipera5"> <img alt=""
+										src="<?php echo  $item->getTemplatedata10()?>" class="img1 swiperimg5" style="height:100%;width: 100%">
+									</a></div><?php endif;?>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination swiperpagination"></div>
+        </div>
+</li>
+<?php break;?>
+<?php case "headlinerow": ?>
+				<li  data-type="headlinerow" class="ui-state-highlight intro"
+					onclick='if($(this).parent().attr("id")){
+						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
+                        $(this).css("background","#ccc");
+						$("#headlinesubmit").attr("onclick","myheadline("+$(this).index(".intro")+")");
+						$("#headlinedelete").attr("onclick","mydelete("+$(this).index(".intro")+")");
+	       $("#headlinerowtext").val($(this).find(".headlinetext").html());
+	       $("#headlinerowlink").val($(this).find(".headlinea").attr("data-href"));
+           $(".fieldset").hide();
+           $("#headlinerowfield").show();}'>
+					<div class="content">
+						<div class="row" >
+							<div class="col">
+							<div class="col-demo">
+							<div class="well">
+							<a  data-href="<?php echo $item->getTemplatedata1()?>" class="headlinea">
+							<span class="headlinetext"><?php echo $item->getTemplatedata2()?></span>
+							<span class="ui-icon ui-icon-triangle-1-e" style="float: right"></span>
+							</a>
+							</div>
+						    </div>
+							</div>
+						</div>
+					</div>
+				</li>
+<?php break;?>
+<?php case "textrow": ?>
+<li id="draggable32" data-type="textrow" class="ui-state-highlight intro"
+					onclick='if($(this).parent().attr("id")){
+						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
+                        $(this).css("background","#ccc");
+						$("#textsubmit").attr("onclick","mytext("+$(this).index(".intro")+")");
+						$("#textdelete").attr("onclick","mydelete("+$(this).index(".intro")+")");
+	       $("#textrowtext").val($(this).find(".texttext").html());
+           $(".fieldset").hide();
+           $("#textrowfield").show();}'>
+					<div class="content">
+						<div class="row" >
+							<div class="col">
+							<div class="col-demo">
+							<div class="well">
+							<span class="texttext"><?php echo $item->getTemplatedata1()?> </span>
+							</div>
+						    </div>
+							</div>
+						</div>
+					</div>
+				</li>
+<?php break;?>
+<?php case "imgtextrow": ?>
+<li id="draggable33" data-type="imgtextrow" class="ui-state-highlight intro"
+					onclick='if($(this).parent().attr("id")){
+						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
+                        $(this).css("background","#ccc");
+						$("#imgtextsubmit").attr("onclick","myimgtext("+$(this).index(".intro")+")");
+						$("#imgtextdelete").attr("onclick","mydelete("+$(this).index(".intro")+")");
+		   $("#imgtextrowimg").attr("src",$(this).find(".imgtextimg").attr("data-backgroundimage"));
+	       $("#imgtextrowtitle1").val($(this).find(".imgtexttitle1").html());
+	       $("#imgtextrowlink1").val($(this).find(".imgtexta1").attr("data-href"));
+	       $("#imgtextrowtext1").val($(this).find(".imgtexttext1").html());
+	       $("#imgtextrowtitle2").val($(this).find(".imgtexttitle2").html());
+	       $("#imgtextrowlink2").val($(this).find(".imgtexta2").attr("data-href"));
+	       $("#imgtextrowtext2").val($(this).find(".imgtexttext2").html());
+	       $("#imgtextrowtitle3").val($(this).find(".imgtexttitle3").html());
+	       $("#imgtextrowlink3").val($(this).find(".imgtexta3").attr("data-href"));
+	       $("#imgtextrowtext3").val($(this).find(".imgtexttext3").html());
+           $(".fieldset").hide();
+           $("#imgtextrowfield").show();}'>
+					<!-- Swiper图文 -->
+    <div class="swiper-container imgtextswiper" style="height:200px">
+        <div class="parallax-bg imgtextimg" data-backgroundimage="<?php echo $item->getTemplatedata1()?>" style="background-image:url(<?php echo $item->getTemplatedata1()?>)" data-swiper-parallax="-23%"></div>
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="title" data-swiper-parallax="-100"><a data-href="<?php echo $item->getTemplatedata2()?>" class="imgtexttitle1 imgtexta1" ><?php echo $item->getTemplatedata3()?></a></div>
+                <div class="text" data-swiper-parallax="-300">
+                    <p class="imgtexttext1"><?php echo $item->getTemplatedata4()?></p>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="title" data-swiper-parallax="-100"><a data-href="<?php echo $item->getTemplatedata5()?>" class="imgtexttitle2 imgtexta2"><?php echo $item->getTemplatedata6()?></a></div>
+              
+                <div class="text" data-swiper-parallax="-300">
+                    <p class="imgtexttext2"><?php echo $item->getTemplatedata7()?></p>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="title" data-swiper-parallax="-100"><a data-href="<?php echo $item->getTemplatedata8()?>" class="imgtexttitle3 imgtexta3" ><?php echo $item->getTemplatedata9()?></a></div>
+              
+                <div class="text" data-swiper-parallax="-300">
+                    <p class="imgtexttext3"><?php echo $item->getTemplatedata10()?></p>
+                </div>
+            </div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination imgtextpagination swiper-pagination-white"></div>
+    </div>
+</li>
+<?php break;?>
+<?php case "videorow": ?>
+				<li  data-type="videorow" class="ui-state-highlight intro"
+					onclick='if($(this).parent().attr("id")){
+						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
+                        $(this).css("background","#ccc");
+						$("#videosubmit").attr("onclick","myvideo("+$(this).index(".intro")+")");
+						$("#videodelete").attr("onclick","mydelete("+$(this).index(".intro")+")");
+	       $("#videorowsrc").attr("src",$(this).find(".videosrc").attr("src"));
+           $(".fieldset").hide();
+           $("#videorowfield").show();}'>
+					<div class="content">
+						<div class="row">
+							<div class="col">
+								<div class="col-demo">
+									<div class="embed-responsive embed-responsive-16by9">
+                                     <video width="100%"  controls class="videosrc embed-responsive-item" src="<?php echo $item->getTemplatedata1()?>">
+                                     
+                                    </video> 
+                                    </div>
+								
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+<?php break;?>
+<?php endswitch; ?>
+<?php endforeach;?>
+	</ul>
+</div>
+
+
+
+    <?php //TODO swiper 轮播图js?>
+    <!-- Initialize Swiper -->
+    <script>
+    var swiper = new Swiper('.swiperswiper', {
+        pagination: '.swiperpagination',
+        slidesPerView: 'auto',
+        paginationClickable: true,
+        spaceBetween: 30,
+        autoplay: 2500,
+        autoplayDisableOnInteraction: false,
+        parallax: true,
+        speed: 600,
+    });
+    var imgtext = new Swiper('.imgtextswiper', {
+        pagination: '.imgtextpagination',
+        slidesPerView: 'auto',
+        paginationClickable: true,
+        spaceBetween: 30,
+        autoplay: 2500,
+        autoplayDisableOnInteraction: false,
+        parallax: true,
+        speed: 600,
+    });
+    </script>
+    
+
+<?php //图片选择器
+include_once 'public/php/picturechoice.phtml';?>
+<?php //链接选择器
+include_once 'public/php/linkchoice.phtml';?>

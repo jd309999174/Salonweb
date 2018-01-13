@@ -1,0 +1,93 @@
+ <?php
+$cars=array();
+foreach ($trolleys as $trolley):
+array_push($cars,array("productcombinationpicture"=>$trolley->getProductcombinationpicture(),
+"trolleyid"=>$trolley->getTrolleyid(),
+"prodid"=>$trolley->getProdid(),
+"prodtitle"=>$trolley->getProdtitle(),
+"productcombinationname"=>$trolley->getProductcombinationname(),
+"productquantity"=>$trolley->getProductquantity(),
+"trolleydate"=>$trolley->getTrolleydate(),
+"productcombinationprice"=>$trolley->getProductcombinationprice(),
+"productcombinationid"=>$trolley->getProductcombinationid(),
+)); ?>
+<?php endforeach;?>
+ <?php
+foreach ($cars as $key => $row) {
+$x[$key] = $row['trolleydate'];
+}
+array_multisort($x, SORT_DESC, $cars);
+?>
+<?php foreach ($cars as $car):?>
+<?php echo $car['salid'];?>
+<?php endforeach;?>
+
+
+ <div class="input-group input-group-sm" style="background-color:white;padding: 5px;z-index:10;position:fixed;text-align:center;" id="searchcolumn">
+      <span class="input-group-btn" onclick="location='<?php echo $this->url('customer', array('action'=>'me'));?>';">
+        <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <span style="color: red;">
+      <img alt=""  src="/glyphicons/png/glyphicons-203-shopping-cart.png">&nbsp;&nbsp;购物车
+      </span>
+ </div>
+<!-- 没有作用，只为平衡高度 -->
+<div class="input-group input-group-sm" style="visibility:hidden;" >
+      <span class="input-group-btn" >
+        <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <span>
+      </span>
+ </div>
+
+
+<?php //购物车内容?>
+<div class="container">
+<?php foreach ($cars as $car):?>
+   <div class="row" style="padding-top:10px; ">
+      <div class="col-xs-4 col-sm-4">
+      <img style="width: 100px;height:100px;" src="<?php echo $car['productcombinationpicture']; ?>">
+      </div>
+      <div class="col-xs-6 col-sm-6">
+      <div class="row">
+      <a href="<?php echo $this->url('customer',
+             array('action'=>'productitem','sub'=>$car['prodid']));?>">
+             <?php echo $car['prodtitle']; ?></a>
+      </div>
+      <div class="row">
+      <?php echo $car['productcombinationname']; ?>
+      </div>
+      <div class="row" style="bottom:0;">
+      <span style="color:red;float:left;">¥&nbsp;<?php echo $car['productcombinationprice']; ?></span>
+      <span style="float: right;">x&nbsp;<?php echo $car['productquantity']; ?></span>
+      </div>
+      </div>
+      <div class="col-xs-2 col-sm-2">
+      <div class="row">   
+      <a class="btn btn-default" href="<?php echo $this->url('customer',
+             array('action'=>'trolleydelete','sub'=>$car['trolleyid']));?>">删除</a>
+      </div>
+       <div class="row">
+      &nbsp;     
+      </div>
+      <div class="row"> 
+<?php //TODO 生成订单?>
+<form action="<?php echo $this->url('customer', array('action'=>'order'));?>" method="post" >
+<input type="text" name="prodid" value="<?php echo $car['prodid'];?>" style="display: none;">
+<input type="text" name="prodtitle"  value="<?php echo $car['prodtitle'];?>" style="display: none;">
+<input type="text" name="productcombinationid" value="<?php echo $car['productcombinationid'];?>" style="display: none;">
+<input type="text" name="productcombinationprice" value="<?php echo $car['productcombinationprice'];?>" style="display: none;">
+<input type="text" name="productcombinationname" value="<?php echo $car['productcombinationname'];?>" style="display: none;">
+<input type="text" name="productcombinationpicture"  value="<?php echo $car['productcombinationpicture'];?>" style="display: none;">
+<input type="text" name="productquantity" value="<?php echo $car['productquantity'];?>" style="display: none;">
+<input type="submit" value="购买" class="btn btn-primary">
+</form>
+</div>
+      </div> 
+   </div>
+<?php endforeach;?>
+</div> 

@@ -1,0 +1,12 @@
+<link href="/raty/labs.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/raty/labs.js"></script>
+<link href="/lib/jquery.raty.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/lib/jquery.raty.js"></script>
+<div id="div" data-score="1"></div>
+<script>
+$('#div').raty({
+	  click: function(score, evt) {
+	    alert('ID: ' + this.id + "\nscore: " + score + "\nevent: " + evt);
+	  }
+	});
+</script>

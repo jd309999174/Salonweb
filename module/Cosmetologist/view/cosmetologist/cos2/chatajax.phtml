@@ -1,0 +1,73 @@
+<?php //内容不为空时，输出，且到底
+if($chatmodule):?>
+<?php
+$cars=array();
+foreach ($chatmodule as $chat){
+array_push($cars,array("id"=>$chat->getId(),
+                       "sendid"=>$chat->getSendid(),
+                       "receiveid"=>$chat->getReceiveid(),
+                       "chatword"=>$chat->getChatword(),
+                       "chatpicture"=>$chat->getChatpicture(),
+                       "chatdate"=>$chat->getChatdate(),
+                       "chatstate"=>$chat->getChatstate()
+));
+};?>
+ <?php
+foreach ($cars as $key => $row) {
+$x[$key] = $row['id'];
+}
+if($x){
+array_multisort($x, SORT_ASC, $cars);
+}?>
+
+<div class="container">
+<?php foreach ($cars as $car): ?>
+<?php if($car['sendid']!=='cos'.$cosid){?>
+   <div class="row" style="margin:10px">
+      <div class="col-xs-2 col-sm-2" style="padding: 5px">
+       <img alt="" src="/portrait/<?php echo $customer->getCusphoto()?>" style="width:100%">
+      
+      </div>
+      <div class="col-xs-8 col-sm-8" style="border:1px solid black;padding:2px;background-image: url(.gif);">
+      <p><?php echo $car['chatdate'];?></p>
+      <?php echo $car['chatword'];?>
+      <?php if($car['chatpicture']!==null){?>
+      <img style="width: 100%;height:100%;" src="/chatpicture/<?php echo $car['chatpicture'];?>">
+      <?php }?>
+      </div>
+      <div class="col-xs-2 col-sm-2" style="padding: 5px">
+      </div>
+   </div>
+<?php }else{?>
+<div class="row" style="margin:10px">
+      <div class="col-xs-2 col-sm-2" style="padding: 5px">
+      </div>
+      <div class="col-xs-8 col-sm-8" style="border:1px solid black;padding:2px;background-color:rgb(150,220,70);">
+      <p><?php echo $car['chatdate'];?></p>
+      <?php echo $car['chatword'];?>
+      <?php if($car['chatpicture']!==null){?>
+      <img style="width:100%;height:100%;" src="/chatpicture/<?php echo $car['chatpicture'];?>">
+      <?php }?>
+      </div>
+      <div class="col-xs-2 col-sm-2" style="padding: 5px">
+     <img alt="" src="<?php echo $cosmetologist->getCosphoto()?>" style="width:100%">
+      </div>
+   </div>
+
+<?php }?>
+<?php endforeach;?>
+</div>
+
+
+<script type="text/javascript">
+//自动到底
+$(document).ready(function(){
+	  $h = $(document).height()-$(window).height();
+	  $(document).scrollTop($h);
+	  $('img').load(function(){
+		  $h = $(document).height()-$(window).height();
+		  $(document).scrollTop($h); 
+		});
+});
+</script>
+<?php endif;?>

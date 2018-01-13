@@ -1,0 +1,106 @@
+<?php
+$title = '产品分类管理';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+ <p><a href="<?php echo $this->url('cosmetic', array('management',
+         'action'=>'demandclassifyseriesadd'));?>">添加分类</a></p>
+
+
+
+<?php
+$cars=array();
+foreach ($demandclassifyseriess as $demandclassifyseries):
+array_push($cars,array("salnumber"=>$demandclassifyseries->getSalnumber(),"dcscolumn"=>$demandclassifyseries->getDcscolumn(),"dcsid"=>$demandclassifyseries->getDcsid(),"dcsname"=>$demandclassifyseries->getDcsname()));?>
+<?php endforeach;?>
+ <script>
+  $(function() {
+    $( "#accordion" ).accordion({
+      collapsible: true,
+      heightStyle: "content"
+    });
+  });
+  </script>
+<div id="accordion">
+  <h3>需求</h3>
+  <div>
+     <table class="table table-hover">
+ <tr>
+     <th>名称</th>
+     
+     
+     <th>&nbsp;</th>
+ </tr>
+<?php foreach ($cars as $car):if($car["dcscolumn"]=="需求"){?>
+ 
+ <tr>
+     <td>
+         <a href="<?php echo $this->url('cosmetic',
+             array('management','action'=>'demandclassifyseriesedit','sub'=>$car["dcsid"]));?>">
+             <?php echo $car["dcsname"]; ?></a>
+     </td>
+     
+     <td>
+     <?php if($car["salnumber"]!=="0"){?>
+         <a href="<?php echo $this->url('cosmetic',
+             array('action'=>'demandclassifyseriesdelete','sub'=>$car["dcsid"]));?>">Delete</a>
+             <?php }?>
+     </td>
+ </tr>
+ <?php } endforeach; ?>
+ </table>
+  </div>
+  <h3>类别</h3>
+  <div>
+    <table class="table table-hover">
+ <tr>
+     <th>名称</th>
+     
+     
+     <th>&nbsp;</th>
+ </tr>
+<?php foreach ($cars as $car):if($car["dcscolumn"]=="类别"){?>
+ 
+ <tr>
+     <td>
+         <a href="<?php echo $this->url('cosmetic',
+             array('management','action'=>'demandclassifyseriesedit','sub'=>$car["dcsid"]));?>">
+             <?php echo $car["dcsname"]; ?></a>
+     </td>
+     
+     <td>
+     <?php if($car["salnumber"]!=="0"){?>
+         <a href="<?php echo $this->url('cosmetic',
+             array('action'=>'demandclassifyseriesdelete','sub'=>$car["dcsid"]));?>">Delete</a>
+             <?php }?>
+     </td>
+ </tr>
+ <?php } endforeach; ?>
+ </table>
+  </div>
+  <h3>系列</h3>
+  <div>
+       <table class="table table-hover">
+ <tr>
+     <th>名称</th>
+     <th>&nbsp;</th>
+ </tr>
+<?php foreach ($cars as $car):if($car["dcscolumn"]=="系列"){?>
+ <tr>
+     <td>
+         <a href="<?php echo $this->url('cosmetic',
+             array('management','action'=>'demandclassifyseriesedit','sub'=>$car["dcsid"]));?>">
+             <?php echo $car["dcsname"]; ?></a>
+     </td>
+     <td>
+     <?php if($car["salnumber"]!=="0"){?>
+         <a href="<?php echo $this->url('cosmetic',
+             array('action'=>'demandclassifyseriesdelete','sub'=>$car["dcsid"]));?>">Delete</a>
+             <?php }?>
+     </td>
+ </tr>
+ <?php } endforeach; ?>
+ </table>
+</div>
+</div>

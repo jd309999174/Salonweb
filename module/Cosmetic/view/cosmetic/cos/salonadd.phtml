@@ -1,0 +1,74 @@
+
+
+<?php
+// TODO 开始FORM
+$title = '美容院管理';
+$this->headTitle($title);
+?>
+<h5><?php echo $this->escapeHtml($title); ?></h5>
+
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('cosmetic', array(
+    'action' => 'salonadd'
+)));
+$form->get('submit')->setAttribute('value', '提交');
+$form->get('submit')->setAttribute('id', 'submit');
+$form->prepare();echo $this->form()->openTag($form);?>
+
+ <fieldset>
+    <legend>添加分院</legend>
+	<div class="form-group">
+		<div class="col-sm-6">
+			<?php echo $this->formRow($form->get('salbranch'));?>
+		</div>
+	</div>
+	<div class="form-group">
+		
+		<div class="col-sm-6">
+			<?php echo $this->formRow($form->get('salname'));?>
+		</div>
+	</div>
+		<div class="form-group">
+		
+		<div class="col-sm-6">
+			<?php echo $this->formRow($form->get('salphone'));?>
+		</div>
+	</div>
+		<div class="form-group">
+	
+		<div class="col-sm-6">
+			<?php echo $this->formRow($form->get('saladdress'));?>
+		</div>
+	</div>
+			<?php echo $this->formhidden($form->get('salphoto1'));?>
+			<?php echo $this->formhidden($form->get('salphoto2'));?>
+			<?php echo $this->formhidden($form->get('salphoto3'));?>
+    <div class="form-group">
+		<div class="col-sm-4">
+		<h3>门头图片</h3>
+			<img alt="" src="/img/choose.jpg" class="picturechoose1 img1" style="wdith:200px;height:150px"> 
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<?php echo $this->formInput($form->get('submit')); ?>
+		</div>
+	</div>
+</fieldset>
+<?php echo $this->form()->closeTag($form);?>
+
+<script>
+//提交图片
+$(function(){
+	$("#submit").click(function(){
+		$("#salphoto1").val($(".picturechoose1").attr("src"));
+		$("#salphoto2").val($(".picturechoose2").attr("src"));
+		$("#salphoto3").val($(".picturechoose3").attr("src"));
+		
+		})
+})
+</script>
+<?php //图片选择器
+include_once 'public/php/picturechoice.phtml';?>

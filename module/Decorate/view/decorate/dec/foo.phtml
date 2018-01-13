@@ -1,0 +1,20 @@
+<script>
+$(document).ready(function(){
+	var name=[[1,2,3],[4,5,6,6,4,5],[0,9,8,7,6,0],[3,2,1]];
+	$("button").click(function(){
+		$.post("foo",{
+			name:name
+		},
+		function(data,status){
+			alert("数据: \n" + data + "\n状态: " + status);
+		});
+	});
+});
+</script>
+
+<button>ajax发送数组</button>
+<?php
+$x = $_POST["name"];
+echo $x[1][0];
+echo $x[2][3];
+?>

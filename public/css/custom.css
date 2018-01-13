@@ -1,0 +1,14 @@
+.bar-header {position:absolute;
+left:0px;
+top:0px;
+z-index:2;}
+.swiper-container {
+    width: auto;
+    height: 200px;
+} 
+.swiper-slide img {width:100%;
+     height:100%}
+.brand {width:auto;
+        height:150px;}
+.brand img {width:100%;
+     height:100%}

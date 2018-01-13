@@ -1,0 +1,79 @@
+<style>
+.glyphicon-star{
+color:#FFD700;
+}
+</style>
+
+<?php //转化为数组
+$cars=array();
+foreach ($feedbacks as $feedback):
+array_push($cars,array(
+    "id"=>$feedback->getId(),
+    "cusname"=>$feedback->getCusname(),
+    "cusphoto"=>$feedback->getCusphoto(),
+    "cosname"=>$feedback->getCosname(),
+    "cosphoto"=>$feedback->getCosphoto(),
+    "fbdate"=>$feedback->getFbdate(),
+    "fbcosmetologist"=>$feedback->getFbcosmetologist()
+));?>
+<?php endforeach;?>
+
+ <?php //排序：
+foreach ($cars as $key => $row) {
+$x[$key] = $row['id'];
+$y[$key] = $row['fbcosmetologist'];
+}
+if ($x){
+array_multisort($x, SORT_DESC, $cars);
+}
+?>
+
+<table class="table">
+  <caption>评价总数:<?php echo count($cars);?></caption>
+  <caption>平均星级:<?php if($y)echo array_sum($y)/count($cars);?></caption>
+  <thead>
+    <tr>
+      <th>美容师</th>
+      <th>顾客</th>
+      <th>星级与日期</th>
+    </tr>
+  </thead>
+  <tbody style="font-size:120%;">
+  <?php foreach ($cars as $car):?>
+    <tr>
+      <td><img class="img-circle" alt="" style="height:50px;width:50px;" src="<?php echo $car['cosphoto'];?>"><?php echo $car['cosname'];?></td>
+      <td><img class="img-circle" alt="" style="height:50px;width:50px;" src="/portrait/<?php echo $car['cusphoto'];?>"><?php echo $car['cusname'];?></td>
+      <td>
+<?php switch ($car['fbcosmetologist']):?>
+<?php case 1:?>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php case 2:?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php case 3:?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php case 4:?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php case 5:?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php endswitch;?>
+      <p style="font-size: 80%;"><?php echo $car['fbdate'];?></p>
+      </td>
+    </tr>
+  <?php endforeach;?>  
+  </tbody>
+</table>

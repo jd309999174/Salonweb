@@ -1,0 +1,717 @@
+<style>
+#pageone{
+	background-color:<?php echo $page->getPagecolor();?>;
+}
+.menubottom{
+	z-index:100;
+	position:fixed;
+	bottom:0px;
+	background-color:<?php echo $page->getPagecolor();?>;
+	}
+.headicon {
+	width: 50%;
+	opacity:0.8;
+    -webkit-transition: width 2s, height 2s, -webkit-transform 2s; /* For Safari 3.1 to 6.0 */
+    transition: width 2s, height 2s, transform 1s;
+}
+
+.headicon:hover {
+    width: 55%;
+	opacity:1;
+    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+    transform: rotate(360deg);
+}
+
+
+.producttitle {
+height:46px;
+font-size:120%;
+text-overflow: -o-ellipsis-lastline;
+overflow: hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 2;
+-webkit-box-orient: vertical;
+}
+
+.img1 {
+	width: 100%;
+	max-height: 800px;
+    min-height: 100px;
+}
+
+.img2 {
+	width: 100%;
+	max-height: 400px;
+    min-height: 100px;
+}
+.activityimg{
+    width: 100%;
+	max-height: 400px;
+    min-height: 100px;
+}
+.pageheadbtn{
+	opacity:0.7;
+}
+.btn-default{
+	color:<?php echo $page->getPagecolor();?>;
+}
+#pagehead{
+	    max-height: 300px;
+        min-height: 180px;
+	    -webkit-background-size: 100% 100%;;
+        background-size: 100% 100%;;
+        background-position: center;
+}
+.headlogo{
+	
+	height:60px;
+	width:80px;
+}
+#headdetail{
+	position:relative;
+	bottom:-100px;
+}
+a,span {
+	 color:<?php echo $page->getPagecolor();?>;
+}
+.ui-widget-content a {
+	color:<?php echo $page->getPagecolor();?>;
+}	
+.swiper-slide  {
+        font-size: 18px;
+        color:<?php echo $page->getPagecolor();?>;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+.swiper-slide img{
+	max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+    height: 100vw;
+    width: 100vw;
+	}
+.parallax-bg {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 130%;
+        height: 100%;
+        -webkit-background-size: 100% 100%;;
+        background-size: 100% 100%;;
+        background-position: center;
+    }
+    .swiper-slide .title {
+        font-size: 20px;
+        font-weight: 300;
+    }
+    .swiper-slide .text {
+        font-size: 7px;
+    }
+.intro{
+	background:<?php echo $page->getPagecolor();?>;
+    padding:<?php echo $page->getPagepaddingtop();?>px <?php echo $page->getPagepaddinglr();?>px <?php echo $page->getPagepaddingbottom();?>px;
+}
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+    .bottom-btn{
+	border-right:0.1px solid rgba(0, 0, 0, 0.0980392);
+	border-top:0.1px solid rgba(0, 0, 0, 0.0980392);
+}
+.bottom-btn-me{
+	border-top:0.1px solid rgba(0, 0, 0, 0.0980392);
+}
+.productdisplay{
+	padding:5px;
+    border-bottom:0.1px solid rgba(0, 0, 0, 0.0980392);
+	}
+</style>
+
+
+
+
+
+<script type="text/javascript" src="/js/homepage.js"></script>
+<?php //活动和动态页面的跳转
+if($third=="activity"):?>
+<script>
+$(document).ready(function(){
+	//$('.homepagenav').hide();$('#homepagenav3').show();
+	$('#homepagenavbtn3').click();
+	$.get("<?php echo $this->url('customerajax', array('action'=>'homepagethree'));?>",
+	        function(data,status){
+	        $("#homepagenav3load").html(data);
+	    });
+	//设其他文字变黑变小
+	$('.homepagenavtext').css("color","#333");
+	$('.homepagenavtext').css("font-size","100%");
+	$('#homepagenavtext3').css("color","red");
+	$('#homepagenavtext3').css("font-size","120%");
+})
+</script>
+<?php elseif($third=="dynamic"):?>
+<script>
+$(document).ready(function(){
+$('.homepagenav').hide();$('#homepagenav4').show();
+$('#homepagenavbtn4').click();
+    $.get("<?php echo $this->url('customerajax', array('action'=>'homepagefour'));?>",
+        function(data,status){
+        $("#homepagenav4load").html(data);
+    });
+	//设其他文字变黑变小
+	$('.homepagenavtext').css("color","#333");
+	$('.homepagenavtext').css("font-size","100%");
+	$('#homepagenavtext4').css("color","red");
+	$('#homepagenavtext4').css("font-size","120%");
+})
+</script>
+<?php endif;?>
+<script>
+$(document).ready(function(){
+	//$y= $("#subnav").offset().top - $(window).scrollTop();//最初距离屏幕高度
+	//$y=180;
+  $(document).scroll(function(){
+	  //搜索栏透明度和背景
+	 
+	  //按钮组的固定
+	  $x= $("#fixedstandard").offset().top - $(window).scrollTop();//变化中参考div距离屏幕高度
+	  if($x<=$("#headpagebtnset").height()){
+             $("#subnav").css({"position":"fixed","top":$("#headpagebtnset").height()});//4个按钮固定高度
+             //$("#productsort").css({"position":"fixed","top":$("#subnav").height()+$("#headpagebtnset").height()});//产品排序按钮固定高度
+             $('.pageheadbtn').css('opacity','1');
+      		 $('#headpagebtnset').css('background-color','<?php echo $page->getPagecolor();?>');
+		  }else{
+			  $('.pageheadbtn').css('opacity','0.7');
+			  $('#headpagebtnset').css('background-color','');
+			  $("#subnav").css("position","static");
+			  $("#productsort").css({"position":"static",});
+			  }
+	  //if($y>=$(window).scrollTop()){$("#subnav").css("position","static");}
+  });
+});
+</script>
+
+
+<?php //TODO 底部菜单栏?>
+<div class="btn-group btn-group-justified menubottom" role="group">
+  <div class="btn-group bottom-btn" role="group" style="text-align:center;" onclick="location='<?php echo $this->url('customer', array('action'=>'homepage','sub'=>$id));?>';">
+  <span class="glyphicon glyphicon-home" style="font-size:25px;color:red;" aria-hidden="true"></span>
+  <div style="color:red;">首页</div>
+  </div>
+  <div class="btn-group bottom-btn" role="group" style="text-align:center;" onclick="location='<?php echo $this->url('customer', array('action'=>'appointment'));?>';">
+  <span class="glyphicon glyphicon-time" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>预约</div>
+  </div>
+  <div class="btn-group bottom-btn" role="group" style="text-align:center;" onclick="location='<?php echo $this->url('customer', array('action'=>'cosmetologist'));?>';">
+  <span class="glyphicon glyphicon-comment" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>咨询&nbsp;
+  <?php if($unreadsum){?>
+  <span  class="badge" style="background-color:red;"><?php echo $unreadsum;?></span>
+  <?php }?>
+  </div>
+  </div>
+  <div class="btn-group bottom-btn-me" role="group" style="text-align:center;" onclick="location='<?php echo $this->url('customer', array('action'=>'me'));?>';">
+  <span class="glyphicon glyphicon-user" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>我</div>
+  </div>
+</div>
+
+<?php //TODO homepage1?>
+<script>
+function callNativeApp(){
+	try{
+	webkit.messageHandlers.callbackHandler.postMessage("I Love you");
+	}catch(err){
+    console.log("nihaoma");
+		}
+}
+function redHeader(){
+	document.querySelector("h1").style.color="red";
+}
+</script>
+<div data-role="page" id="pageone"  >
+<div class="container" style="position:fixed;opacity:1;z-index:100">
+   <div class="row" id="headpagebtnset" style="width:100%;">
+   <div class="col-xs-2" onclick='window.android.qr();'>
+   <button type="button" class="btn btn-default btn-sm pageheadbtn" onclick='callNativeApp();'>
+  <span class="glyphicon glyphicon-qrcode" aria-hidden="true" ></span>
+</button>
+</div>
+<div class="col-xs-6">
+ <form action="<?php echo $this->url('customer', array('action'=>'productlist'));?>" method="get">
+ <div class="input-group input-group-sm">
+      <input type="text" name="searching" class="form-control pageheadbtn"  placeholder="Search for...">
+      <span class="input-group-btn">
+        <input type="submit" value="搜" class="btn btn-default pageheadbtn">
+      </span>
+    </div>
+    </form>
+ </div>
+ <div class="col-xs-2" onclick="location='<?php echo $this->url('customer', array('action'=>'classify'));?>'">
+<button type="button" class="btn btn-default btn-sm pageheadbtn">
+  <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+</button>
+ </div>
+ <div class="col-xs-2">
+<button type="button" class="btn btn-default btn-sm pageheadbtn">
+  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+</button>
+ </div>
+ </div>
+ </div>
+
+<div class="panel panel-default" id="pagehead" onclick="location='<?php echo $page->getPageheaddata4();?>';" data-href="<?php echo $page->getPageheaddata4();?>" style="background-image:url(<?php echo $page->getPageheaddata3();?>);" data-backgroundimg="<?php echo $page->getPageheaddata3();?>">
+	<div class="panel-body container" >
+	    <div id="headdetail" class="row" style="width:100%">
+		   <div class="col-xs-3"><img alt="" src="<?php echo $page->getPageheaddata1();?>" class="headlogo" id="headpageicon"></div>
+		   <div class="col-xs-6">
+		   <span id="headpagename" style="font-size: 200%"><?php echo $page->getPageheaddata2();?></span>
+		   <br>
+		   <img alt="" src="/img/mylogo.png" style="width:15px;height:15px;"><span>线上服务</span>
+		   </div>
+		   <div class="col-xs-3">
+		   <span>会员数</span>
+		   <br>
+		   <span>328</span>
+		   </div>
+	</div>
+</div>
+</div>
+
+<div id="fixedstandard"></div>
+<div style="height:70px;">
+<div class="btn-group btn-group-justified"  id="subnav" role="group" style="z-index:100;background-color:transparent;">
+  <div class="btn-group" role="group" style="text-align:center;">
+  <img alt="" src="/meicon/meicon21.png" id="homepagenavbtn1" class="headicon">
+  <div id="homepagenavtext1" class="homepagenavtext">首页</div>
+  </div>
+  <div class="btn-group" role="group"  style="text-align:center;">
+    <img alt="" src="/meicon/meicon17.png" id="homepagenavbtn2" class="headicon">
+    <div id="homepagenavtext2" class="homepagenavtext">疗程</div>
+  </div>
+  <div class="btn-group" role="group" style="text-align:center;">
+   <img alt="" src="/meicon/meicon22.png" id="homepagenavbtn3" class="headicon">
+   <div id="homepagenavtext3" class="homepagenavtext">活动</div>
+  </div>
+  <div class="btn-group" role="group" style="text-align:center;">
+   <img alt="" src="/meicon/meicon20.png" id="homepagenavbtn4" class="headicon">
+   <div id="homepagenavtext4" class="homepagenavtext">动态</div>
+  </div>
+</div>
+</div>
+
+<div class="nav_wrap homepagenav" id="homepagenav1" >
+<ul id="sortable" class="nav_ul">
+<?php foreach ($templateitem as $item) :?>
+<?php switch ($item->getTemplatetype()): ?>
+<?php case "singlerow": ?>
+<li  data-type="singlerow" class="ui-state-highlight intro">
+					<div class="content">
+						<div class="row">
+							<div class="col">
+								<div class="col-demo">
+									<a  href="<?php echo $item->getTemplatedata1()?>" class="singlea"> <img alt=""
+										src="<?php echo $item->getTemplatedata2()?>" class="img1 singleimg">
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+<?php break;?>
+<?php case "doublerow": ?>
+<li  data-type="doublerow" class="ui-state-highlight intro">
+					<div class="content">
+						<div class="row">
+							<div class="col">
+								<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+									<a  href="<?php echo  $item->getTemplatedata1()?>" class="doublea1"> <img alt=""
+										src="<?php echo  $item->getTemplatedata2()?>" class="img2 doubleimg1">
+									</a>
+								</div>
+							</div>
+							<div class="col">
+								<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+									<a  href="<?php echo  $item->getTemplatedata3()?>" class="doublea2"> <img alt=""
+										src="<?php echo $item->getTemplatedata4()?>" class="img2 doubleimg2">
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+<?php break;?>
+<?php case "swiperrow": ?>
+<li id="draggable23" data-type="swiperrow" class="ui-state-highlight intro">
+		    <!-- Swiper -->
+    <div class="swiper-container swiperswiper" style="height:200px">
+        <div class="swiper-wrapper">
+        <?php if($item->getTemplatedata2()!="/img/123.jpg"):?>
+            <div class="swiper-slide"><a  href="<?php echo  $item->getTemplatedata1()?>" class="swipera1"> <img alt=""
+										src="<?php echo  $item->getTemplatedata2()?>" class="img1 swiperimg1" style="width: 100%">
+									</a></div><?php endif;?>
+	    <?php if($item->getTemplatedata4()!="/img/123.jpg"):?>
+            <div class="swiper-slide"><a  href="<?php echo  $item->getTemplatedata3()?>" class="swipera2"> <img alt=""
+										src="<?php echo  $item->getTemplatedata4()?>" class="img1 swiperimg2" style="width: 100%">
+									</a></div><?php endif;?>
+	   <?php if($item->getTemplatedata6()!="/img/123.jpg"):?>
+            <div class="swiper-slide"><a  href="<?php echo  $item->getTemplatedata5()?>" class="swipera3"> <img alt=""
+										src="<?php echo  $item->getTemplatedata6()?>" class="img1 swiperimg3" style="width: 100%">
+									</a></div><?php endif;?>
+       <?php if($item->getTemplatedata8()!="/img/123.jpg"):?>
+            <div class="swiper-slide"><a  href="<?php echo  $item->getTemplatedata7()?>" class="swipera4"> <img alt=""
+										src="<?php echo  $item->getTemplatedata8()?>" class="img1 swiperimg4" style="width: 100%">
+									</a></div><?php endif;?>
+	   <?php if($item->getTemplatedata10()!="/img/123.jpg"):?>
+            <div class="swiper-slide"><a  href="<?php echo  $item->getTemplatedata9()?>" class="swipera5"> <img alt=""
+										src="<?php echo  $item->getTemplatedata10()?>" class="img1 swiperimg5" style="width: 100%">
+									</a></div><?php endif;?>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination swiperpagination"></div>
+        </div>
+</li>
+<?php break;?>
+<?php case "headlinerow": ?>
+				<li  data-type="headlinerow" class="ui-state-highlight intro">
+					<div class="content">
+						<div class="row" >
+							<div class="col">
+							<div class="col-demo">
+							<div class="well">
+							<a  href="<?php echo $item->getTemplatedata1()?>" class="headlinea">
+							<span class="headlinetext"><?php echo $item->getTemplatedata2()?></span>
+							<span class="ui-icon ui-icon-triangle-1-e" style="float: right"></span>
+							</a>
+							</div>
+						    </div>
+							</div>
+						</div>
+					</div>
+				</li>
+<?php break;?>
+<?php case "textrow": ?>
+<li id="draggable32" data-type="textrow" class="ui-state-highlight intro">
+					<div class="content">
+						<div class="row" >
+							<div class="col">
+							<div class="col-demo">
+							<div class="well">
+							<span class="texttext"><?php echo $item->getTemplatedata1()?> </span>
+							</div>
+						    </div>
+							</div>
+						</div>
+					</div>
+				</li>
+<?php break;?>
+<?php case "imgtextrow": ?>
+<li id="draggable33" data-type="imgtextrow" class="ui-state-highlight intro">
+					<!-- Swiper图文 -->
+    <div class="swiper-container imgtextswiper" style="height:200px">
+        <div class="parallax-bg imgtextimg" data-backgroundimage="<?php echo $item->getTemplatedata1()?>" style="background-image:url(<?php echo $item->getTemplatedata1()?>)" data-swiper-parallax="-23%"></div>
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="title" data-swiper-parallax="-100"><a href="<?php echo $item->getTemplatedata2()?>" class="imgtexttitle1 imgtexta1" ><?php echo $item->getTemplatedata3()?></a></div>
+                <div class="text" data-swiper-parallax="-300">
+                    <p class="imgtexttext1"><?php echo $item->getTemplatedata4()?></p>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="title" data-swiper-parallax="-100"><a href="<?php echo $item->getTemplatedata5()?>" class="imgtexttitle2 imgtexta2"><?php echo $item->getTemplatedata6()?></a></div>
+              
+                <div class="text" data-swiper-parallax="-300">
+                    <p class="imgtexttext2"><?php echo $item->getTemplatedata7()?></p>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="title" data-swiper-parallax="-100"><a href="<?php echo $item->getTemplatedata8()?>" class="imgtexttitle3 imgtexta3" ><?php echo $item->getTemplatedata9()?></a></div>
+              
+                <div class="text" data-swiper-parallax="-300">
+                    <p class="imgtexttext3"><?php echo $item->getTemplatedata10()?></p>
+                </div>
+            </div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination imgtextpagination swiper-pagination-white"></div>
+    </div>
+</li>
+<?php break;?>
+<?php case "videorow": ?>
+				<li  data-type="videorow" class="ui-state-highlight intro">
+					<div class="content">
+						<div class="row">
+							<div class="col">
+								<div class="col-demo">
+									<div class="embed-responsive embed-responsive-16by9">
+                          
+                                    <video width="100%"  controls class="videosrc embed-responsive-item" poster="/meicon/corporatelogo2.png">
+                                      <source src="<?php echo $item->getTemplatedata1()?>#t=0.1" type="video/mp4">
+                                    </video> 
+                                    </div>
+								
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+<?php break;?>
+<?php endswitch; ?>
+<?php endforeach;?>
+	</ul>
+<?php //TODO 底部菜单栏  用于站位?>
+<div class="btn-group btn-group-justified" role="group" style="visibility:hidden">
+  <div class="btn-group" role="group" style="text-align:center;" >
+  <span class="glyphicon glyphicon-home" style="font-size:25px;color:red;" aria-hidden="true"></span>
+  <div style="color:red;">首页</div>
+  </div>
+  <div class="btn-group" role="group" style="text-align:center;">
+  <span class="glyphicon glyphicon-time" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>预约</div>
+  </div>
+  <div class="btn-group" role="group" style="text-align:center;">
+  <span class="glyphicon glyphicon-edit" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>咨询</div>
+  </div>
+  <div class="btn-group" role="group" style="text-align:center;">
+  <span class="glyphicon glyphicon-user" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>我</div>
+  </div>
+</div>
+</div>
+</div>
+
+<?php //TODO homepage2?>
+<script>
+//排序按钮
+$(document).ready(function(){
+    $("#sortsynthesis").addClass("active");
+	$("#sortsynthesis").click(function(){
+	    $('.prodsort').hide();$('#prodsynthesis').show();});
+	$("#sortpriceup").click(function(){
+		$("#sortsynthesis").removeClass("active");
+	    $('.prodsort').hide();$('#prodpriceup').show();});
+	$("#sortpricedown").click(function(){
+		$("#sortsynthesis").removeClass("active");
+		$('.prodsort').hide();$('#prodpricedown').show();});
+	$("#sortsales").click(function(){
+		$("#sortsynthesis").removeClass("active");
+	    $('.prodsort').hide();$('#prodsales').show();});
+	$("#sortregdate").click(function(){
+		$("#sortsynthesis").removeClass("active");
+	    $('.prodsort').hide();$('#prodregdate').show();});
+})
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+	//点击
+	$("#homepagenavbtn2").click(function(){
+	    $.get("<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",
+	        function(data,status){
+	        $("#homepagetwocontent").html(data);
+	    });
+	});
+});
+</script>
+
+<div id="homepagenav2" class="homepagenav">
+<div class="btn-group btn-group-justified"  role="group" id="productsort" style="z-index: 2;">
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-default" id="sortsynthesis" >综合</button>
+  </div>
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-default"  id="sortpriceup">价格↑</button>
+  </div>
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-default"  id="sortpricedown">价格↓</button>
+  </div>
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-default" id="sortsales">销量</button>
+  </div>
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-default"  id="sortregdate">新品</button>
+  </div>
+</div>
+<div id="homepagetwocontent"></div>
+<?php //TODO 底部菜单栏  用于站位?>
+<div class="btn-group btn-group-justified" role="group" style="visibility:hidden">
+  <div class="btn-group" role="group" style="text-align:center;" >
+  <span class="glyphicon glyphicon-home" style="font-size:25px;color:red;" aria-hidden="true"></span>
+  <div style="color:red;">首页</div>
+  </div>
+  <div class="btn-group" role="group" style="text-align:center;">
+  <span class="glyphicon glyphicon-time" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>预约</div>
+  </div>
+  <div class="btn-group" role="group" style="text-align:center;">
+  <span class="glyphicon glyphicon-edit" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>咨询</div>
+  </div>
+  <div class="btn-group" role="group" style="text-align:center;">
+  <span class="glyphicon glyphicon-user" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>我</div>
+  </div>
+</div>
+</div>
+
+
+<?php //TODO homepage3?>
+<div id="homepagenav3" class="homepagenav">
+<script type="text/javascript">
+$(document).ready(function(){
+	//点击
+	$("#homepagenavbtn3").click(function(){
+	    $.get("<?php echo $this->url('customerajax', array('action'=>'homepagethree'));?>",
+	        function(data,status){
+	        $("#homepagenav3load").html(data);
+	    });
+	});
+});
+</script>
+<div id="wrapper">
+<ul id="homepagenav3load">
+
+
+</ul>
+</div>
+
+
+<?php //TODO 底部菜单栏  用于站位?>
+<div class="btn-group btn-group-justified" role="group" style="visibility:hidden">
+  <div class="btn-group" role="group" style="text-align:center;" >
+  <span class="glyphicon glyphicon-home" style="font-size:25px;color:red;" aria-hidden="true"></span>
+  <div style="color:red;">首页</div>
+  </div>
+  <div class="btn-group" role="group" style="text-align:center;">
+  <span class="glyphicon glyphicon-time" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>预约</div>
+  </div>
+  <div class="btn-group" role="group" style="text-align:center;">
+  <span class="glyphicon glyphicon-edit" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>咨询</div>
+  </div>
+  <div class="btn-group" role="group" style="text-align:center;">
+  <span class="glyphicon glyphicon-user" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>我</div>
+  </div>
+</div>
+</div>
+
+<?php //TODO homepage4?>
+
+<div id="homepagenav4" class="homepagenav">
+<script type="text/javascript">
+$(document).ready(function(){
+	//点击
+	$("#homepagenavbtn4").click(function(){
+	    $.get("<?php echo $this->url('customerajax', array('action'=>'homepagefour'));?>",
+	        function(data,status){
+	        $("#homepagenav4load").html(data);
+	    });
+	});
+});
+</script>
+<div id="wrapper4">
+<ul id="homepagenav4load">
+
+
+</ul>
+</div>
+
+<?php //TODO 底部菜单栏  用于站位?>
+<div class="btn-group btn-group-justified" role="group" style="visibility:hidden">
+  <div class="btn-group" role="group" style="text-align:center;" >
+  <span class="glyphicon glyphicon-home" style="font-size:25px;color:red;" aria-hidden="true"></span>
+  <div style="color:red;">首页</div>
+  </div>
+  <div class="btn-group" role="group" style="text-align:center;">
+  <span class="glyphicon glyphicon-time" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>预约</div>
+  </div>
+  <div class="btn-group" role="group" style="text-align:center;">
+  <span class="glyphicon glyphicon-edit" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>咨询</div>
+  </div>
+  <div class="btn-group" role="group" style="text-align:center;">
+  <span class="glyphicon glyphicon-user" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>我</div>
+  </div>
+</div>
+</div>
+
+<div id="fillbottom"></div>
+<script type="text/javascript">
+//设置填充高度等于底部按钮栏高度
+$(document).ready(function(){
+	$("#fillbottom").css({"height":$("#bottombutton").height()});
+})
+</script>
+
+
+
+
+<?php //TODO swiper 轮播图js?>
+    <!-- Initialize Swiper -->
+    <script>
+    var swiper = new Swiper('.swiperswiper', {
+        pagination: '.swiperpagination',
+        slidesPerView: 'auto',
+        paginationClickable: true,
+        spaceBetween: 30,
+        autoplay: 2500,
+        autoplayDisableOnInteraction: false,
+        parallax: true,
+        speed: 600,
+    });
+    var imgtext = new Swiper('.imgtextswiper', {
+        pagination: '.imgtextpagination',
+        slidesPerView: 'auto',
+        paginationClickable: true,
+        spaceBetween: 30,
+        autoplay: 2500,
+        autoplayDisableOnInteraction: false,
+        parallax: true,
+        speed: 600,
+    });
+    </script>
+    
+
+
+
+<?php //原活动和动态页ajax加载部分，已删除；?>
+
+
+<div class="row" style="position:fixed;top:80%;right:0px;z-index:100;float:right;">
+    <div class="btn-group dropup">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">菜单
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+        <?php foreach ($custombuttons as $custombutton):?>
+            <li class="well">
+              <span class="glyphicon glyphicon-map-marker">&nbsp;<a href="<?php echo $custombutton->getButtonlink();?>"><?php echo $custombutton->getButtonname();?></a></span>
+            </li>
+        <?php endforeach;?>
+        </ul>
+    </div>
+</div>
+
+
+
+<?php //TODO 登陆后，在app中存入用户id?>
+<script>
+$(document).ready(function(){
+	var u = navigator.userAgent;
+	var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+	var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+    if(isAndroid){
+        //加引号就是字符串
+    	window.android.cusidsave(<?php echo $cusid;?>);
+        }else{
+        webkit.messageHandlers.ioscusidsave.postMessage(<?php echo $cusid;?>);
+            }
+})
+</script>

@@ -1,0 +1,72 @@
+<div class="input-group input-group-sm" style="background-color:white;padding: 5px;z-index:10;position:fixed;text-align:center;" id="searchcolumn">
+      <span class="input-group-btn" onclick="location='<?php echo $this->url('cosmetologist', array('action'=>'customerlist','sub'=>$id));?>';">
+        <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <span>
+      <?php echo $customer->getCusname();?>已购的产品与服务
+      </span>
+ </div>
+<!-- 没有作用，只为平衡高度 -->
+<div class="input-group input-group-sm" style="visibility:hidden;" >
+      <span class="input-group-btn" >
+        <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <span>
+      <button type="button" class="btn btn-info" onclick="location='<?php echo $this->url('cosmetologist', array('action'=>'chathistory','sub'=>$sub));?>';">聊天历史</button>
+      </span>
+ </div>
+
+
+<?php
+$cars=array();
+
+foreach ($treatments as $treatment):
+array_push($cars,array(
+    "treid"=>$treatment->getTreid(),
+    "productcombinationname"=>$treatment->getProductcombinationname(),
+    "treregdate"=>$treatment->getTreregdate(),
+    "productcombinationpicture"=>$treatment->getProductcombinationpicture()
+));?>
+<?php  endforeach;?>
+ <?php
+foreach ($cars as $key => $row) {
+$x[$key] = $row['treid'];
+$y[$key] = $row['treregdate'];}
+if ($x&&$y){
+array_multisort($x, SORT_DESC, $y, SORT_DESC, $cars);
+}?>
+<table class="table">
+  <thead>
+    <tr>
+      <th>疗程编号</th>
+      <th>疗程名称</th>
+      <th>购买日期</th>
+    </tr>
+  </thead>
+  <tbody>
+  <?php //".$_SERVER['HTTP_HOST']."
+  foreach ($cars as $car):?>
+    <tr onclick='
+    	$( "#dialog" ).dialog({
+        	width: $(window).width(),
+       	    height:$(window).height()*0.7,
+            });
+        $("#qrcode").attr("src","<?php echo "http://qr.topscan.com/api.php?text=http://47.96.173.116/customer/homepage/".$id."/feedbacks?treid=".$car['treid']."%26cosid=".$cosid;?>")
+        '>
+      <td><img alt="" style="height:23px;width:23px;" src="<?php echo $car['productcombinationpicture'];?>"></td>
+      <td><?php echo $car['productcombinationname'];?></td>
+      <td><?php echo $car['treregdate'];?></td>
+    </tr>
+    <?php endforeach;?>
+  </tbody>
+</table>
+
+<?php //TODO 二维码?>
+
+<div id="dialog" title="客户反馈二维码" align="center">
+  <img id="qrcode" src=""/>
+</div>

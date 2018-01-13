@@ -1,0 +1,110 @@
+ <div class="input-group input-group-sm" style="background-color:white;padding: 5px;z-index:10;position:fixed;text-align:center;" id="searchcolumn">
+      <span class="input-group-btn" onclick="location='<?php echo $this->url('customer', array('action'=>'me'));?>';">
+        <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <span>
+      预约查看
+      </span>
+ </div>
+<!-- 没有作用，只为平衡高度 -->
+<div class="input-group input-group-sm" style="visibility:hidden;padding: 5px;" >
+      <span class="input-group-btn" >
+        <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <span>
+      预约查看
+      </span>
+ </div>
+
+
+
+
+<div class="container">
+   <div class="row">
+      <div class="col-xs-6 col-sm-6">
+       <button id="unexpiredbtn" class="btn btn-success" style="width:100%">未过期</button>
+      </div>
+      <div class="col-xs-6 col-sm-6">
+      <button id="expiredbtn" class="btn btn-danger" style="width:100%">已过期</button>
+      </div>      
+   </div>
+</div>
+
+<?php //转化为数组
+$cars=array();
+foreach ($myappointments as $myappointment):
+array_push($cars,array("appointmentid"=>$myappointment->getAppointmentid(),
+    "appointmentdatetime"=>$myappointment->getAppointmentdatetime(),
+    "appointmentstate"=>$myappointment->getAppointmentstate()
+));?>
+<?php endforeach;?>
+
+ <?php //排序：
+foreach ($cars as $key => $row) {
+$x[$key] = $row['appointmentdatetime'];}
+array_multisort($x, SORT_DESC,$cars);
+?>
+
+<table class="table">
+ <caption>基本的表格布局</caption>
+ <thead>
+    <tr>
+      <th>日期</th>
+      <th>审核状态</th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+<?php //输出
+foreach ($cars as $car):if($car['appointmentdatetime']>date("Y-m-d H:i:s")){?>
+  <tbody class="unexpired">
+    <tr>
+      <td><?php echo $car['appointmentdatetime'];?></td>
+      <td><?php echo $car['appointmentstate'];?></td>
+      <td><button class="btn btn-success" onclick="location='<?php echo $this->url('customer', array('action'=>'myappointmentdetail','sub'=>$car['appointmentid']));?>';">详情</button></td>
+    </tr>
+  </tbody>
+<?php }else{?>
+  <tbody class="expired">
+    <tr>
+      <td><?php echo $car['appointmentdatetime'];?></td>
+      <td><?php echo $car['appointmentstate'];?></td>
+      <td><button class="btn btn-success" onclick="location='<?php echo $this->url('customer', array('action'=>'myappointmentdetail','sub'=>$car['appointmentid']));?>';">详情</button></td>
+    </tr>
+  </tbody>
+<?php }endforeach;?>
+</table>
+
+
+
+
+
+<script>
+$(document).ready(function(){
+	  $("#expiredbtn").click(function(){
+		  $(".expired").show();
+	    $(".unexpired").hide();
+	    $("#expiredbtn").addClass("active");
+	      $("#unexpiredbtn").removeClass("active");
+	  });
+	  $("#unexpiredbtn").click(function(){
+		  $(".unexpired").show();
+		    $(".expired").hide();
+		    $("#unexpiredbtn").addClass("active");
+		      $("#expiredbtn").removeClass("active");
+		  });
+	});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	<?php if($sub=="expired"){?>
+	$("#expiredbtn").click();
+	<?php }else{?>
+	$("#unexpiredbtn").click();
+	<?php }?>
+})
+</script>

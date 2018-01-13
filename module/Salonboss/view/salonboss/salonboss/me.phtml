@@ -1,0 +1,246 @@
+<style>
+#pageone{
+	background-color:<?php echo $homepage->getPagecolor();?>;
+}
+.menubottom{
+	z-index:100;
+	position:fixed;
+	bottom:0px;
+	background-color:<?php echo $homepage->getPagecolor();?>;
+	}
+.headicon {
+	width: 50%;
+	opacity:0.8;
+    -webkit-transition: width 2s, height 2s, -webkit-transform 2s; /* For Safari 3.1 to 6.0 */
+    transition: width 2s, height 2s, transform 1s;
+}
+
+.headicon:hover {
+    width: 55%;
+	opacity:1;
+    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+    transform: rotate(360deg);
+}
+
+
+.producttitle {
+height:46px;
+font-size:120%;
+text-overflow: -o-ellipsis-lastline;
+overflow: hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 2;
+-webkit-box-orient: vertical;
+}
+
+.img1 {
+	width: 100%;
+	max-height: 800px;
+    min-height: 100px;
+}
+
+.img2 {
+	width: 100%;
+	max-height: 400px;
+    min-height: 100px;
+}
+.activityimg{
+    width: 100%;
+	max-height: 400px;
+    min-height: 100px;
+}
+.pageheadbtn{
+	opacity:0.7;
+}
+.btn-default{
+	color:<?php echo $homepage->getPagecolor();?>;
+}
+#pagehead{
+	    max-height: 300px;
+        min-height: 180px;
+	    -webkit-background-size: 100% 100%;;
+        background-size: 100% 100%;;
+        background-position: center;
+}
+.headlogo{
+	
+	height:60px;
+	width:80px;
+}
+#headdetail{
+	position:relative;
+	bottom:-100px;
+}
+a,span {
+	 color:<?php echo $homepage->getPagecolor();?>;
+}
+.ui-widget-content a {
+	color:<?php echo $homepage->getPagecolor();?>;
+}	
+.swiper-slide  {
+        font-size: 18px;
+        color:<?php echo $homepage->getPagecolor();?>;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+.swiper-slide img{
+	max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+    height: 100vw;
+    width: 100vw;
+	}
+.parallax-bg {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 130%;
+        height: 100%;
+        -webkit-background-size: 100% 100%;;
+        background-size: 100% 100%;;
+        background-position: center;
+    }
+    .swiper-slide .title {
+        font-size: 20px;
+        font-weight: 300;
+    }
+    .swiper-slide .text {
+        font-size: 7px;
+    }
+.intro{
+	background:<?php echo $homepage->getPagecolor();?>;
+    padding:<?php echo $homepage->getPagepaddingtop();?>px <?php echo $homepage->getPagepaddinglr();?>px <?php echo $homepage->getPagepaddingbottom();?>px;
+}
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+.bottom-btn{
+	border-right:0.1px solid rgba(0, 0, 0, 0.0980392);
+	border-top:0.1px solid rgba(0, 0, 0, 0.0980392);
+}
+.bottom-btn-me{
+	border-top:0.1px solid rgba(0, 0, 0, 0.0980392);
+}
+.productdisplay{
+	padding:5px;
+    border-bottom:0.1px solid rgba(0, 0, 0, 0.0980392);
+	}
+</style>
+
+
+<style>
+#mehead {
+       background-color:<?php echo $homepage->getPagecolor();?>;	
+/*     background: -webkit-linear-gradient(white, green); /* Safari 5.1 - 6.0 */ */
+/*     background: -o-linear-gradient(yellow, green); /* Opera 11.1 - 12.0 */ */
+/*     background: -moz-linear-gradient(yellow, green); /* Firefox 3.6 - 15 */ */
+/*     background: linear-gradient(yellow, green); /* 标准的语法（必须放在最后） */ */
+}
+.bottom-btn{
+	border-right:0.1px solid rgba(0, 0, 0, 0.0980392);
+	border-top:0.1px solid rgba(0, 0, 0, 0.0980392);
+}
+.bottom-btn-me{
+	border-top:0.1px solid rgba(0, 0, 0, 0.0980392);
+}
+.glyphicon-star{
+color:#FFD700;
+}
+</style>
+
+
+<div style="text-align:center;" id="mehead">
+<img class="img-circle" style="width:100px;height:100px;" src="/salbossphoto/<?php echo $existaccount->getSalbossphoto();?>">
+
+<button type="button" class="btn btn-default btn-lg "onclick="location='<?php echo $this->url('salonboss',
+             array('action'=>'salonbosslogin', 'sub'=>$id));?>'">重新登陆</button>
+</div> 
+
+
+<div class="well"><img alt="" style="height:20px;" src="/meicon/meicon5.png">&nbsp;&nbsp;活动参加人数查询</div>
+<ul id="homepagenav3load">
+<?php foreach ($activitypages as $activitypage):?>
+<li style="padding:3px;border:1px solid #3c763d;border-radius:16px;">
+<div style="border-radius:16px;" class="panel panel-default" onclick="location='<?php echo $this->url('salonboss', array('action'=>'cusactivity','sub'=>$activitypage->getPageid()));?>';">
+	<div class="panel-heading" style="background-color:<?php echo $homepage->getPagecolor();?>;border-radius:16px;">
+		<span><img alt="" style="height:20px;" src="/meicon/meicon22.png"></span>&nbsp;&nbsp;<span class="panel-title"><?php echo $activitypage->getPagename();?></span>
+	</div>
+	<div class="panel-body">
+	<div class="row">
+		<div class="col">
+		   <div class="col-demo">
+		   <?php if($activitypage->getPageheaddata1()!="/img/choose.jpg"){?>
+		     <img alt="" src="<?php echo $activitypage->getPageheaddata1();?>" class="activityimg">
+		  <?php }else{?>
+             <video width="100%"  controls class="videosrc embed-responsive-item" poster="/meicon/corporatelogo2.png">
+                   <source src="<?php echo $activitypage->getPageheaddata2();?>#t=0.1" type="video/mp4">
+             </video> 
+          <?php }?>
+		  </div>
+	   </div>					
+	</div>
+	</div>
+	<div class="panel-footer" style="border-radius:16px;">
+	<span>
+	<?php if ($activitypage->getPageexpiration()>date("Y-m-d")){?>
+	<span style="color:red;">活动进行中...</span>
+	<?php }else{?>
+	<span style="color:gray;">活动已结束</span>
+	<?php }?>
+	</span>
+	截止日期：<?php echo $activitypage->getPageexpiration();?>
+	</div>
+</div>
+</li>
+<?php endforeach;?>
+
+</ul>
+
+
+
+<?php //TODO 底部菜单栏  用于站位?>
+<div class="btn-group btn-group-justified" role="group" style="visibility:hidden">
+  <div class="btn-group" role="group" style="text-align:center;" >
+  <span class="glyphicon glyphicon-home" style="font-size:25px;color:red;" aria-hidden="true"></span>
+  <div style="color:red;">首页</div>
+  </div>
+  <div class="btn-group" role="group" style="text-align:center;">
+  <span class="glyphicon glyphicon-time" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>预约</div>
+  </div>
+  <div class="btn-group" role="group" style="text-align:center;">
+  <span class="glyphicon glyphicon-edit" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>咨询</div>
+  </div>
+  <div class="btn-group" role="group" style="text-align:center;">
+  <span class="glyphicon glyphicon-user" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>我</div>
+  </div>
+</div>
+
+<?php //TODO 底部菜单栏?>
+<div class="btn-group btn-group-justified menubottom" role="group" >
+  <div class="btn-group bottom-btn" role="group" style="text-align:center;" 
+  onclick="location='<?php echo $this->url('salonboss', array('action'=>'cusorder','sub'=>$id));?>';">
+  <span class="glyphicon glyphicon-list-alt" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>订单</div>
+  </div>
+  <div class="btn-group bottom-btn" role="group" style="text-align:center;" 
+  onclick="location='<?php echo $this->url('salonboss', array('action'=>'cusreview'));?>';">
+  <span class="glyphicon glyphicon-star" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>评星</div>
+  </div>
+  <div class="btn-group bottom-btn" role="group" style="text-align:center;" 
+  onclick="location='<?php echo $this->url('salonboss', array('action'=>'cusbrowsing'));?>';">
+  <span class="glyphicon glyphicon-phone" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>客户</div>
+  </div>
+  <div class="btn-group bottom-btn-me" role="group" style="text-align:center;" 
+  onclick="location='<?php echo $this->url('salonboss', array('action'=>'me'));?>';">
+  <span class="glyphicon glyphicon-user" style="font-size:25px;color:red;" aria-hidden="true"></span>
+  <div style="color:red;">我</div>
+  </div>
+</div>

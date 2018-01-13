@@ -1,0 +1,49 @@
+<?php
+$title = '页面管理';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+ <p><a href="<?php echo $this->url('cosmetic', array('management',
+         'action'=>'pageadd'));?>">添加页面</a></p>
+
+
+ <table class="table table-hover">
+ <tr>
+     <th>页面名称</th>
+     <th>页面类型</th>
+     <th>修改时间</th>
+     <th>&nbsp;</th>
+     <th>&nbsp;</th>
+     <th>报名查询</th>
+ </tr>
+ <?php foreach ($pages as $page): ?>
+ 
+ <tr>
+     <td>
+         <a href="<?php echo $this->url('cosmetic',
+             array('action'=>'pageedit', 'sub'=>$page->getPageid()));?>">
+             <?php echo $this->escapeHtml($page->getPagename()); ?></a>
+     </td>
+     <td><?php echo $this->escapeHtml($page->getPagetype()); ?></td>
+     <td><?php echo $this->escapeHtml($page->getModificationtime()); ?></td>
+     <td>
+     <?php if($page->getPagetype()!=="首页"):?>
+         <a href="<?php echo $this->url('cosmetic',
+             array('action'=>'pagedelete', 'sub'=>$page->getPageid()));?>">删除</a>
+             <?php endif;?>
+     </td>
+      <td>
+         <a href="<?php echo $this->url('decorate',
+             array('action'=>'templatetest', 'sub'=>$page->getPageid(),'third'=>"page"));?>">编辑</a>
+     </td>
+     <td>
+     <?php if($page->getPagetype()=="活动"):?>
+         <a href="<?php echo $this->url('cosmetic',
+             array('action'=>'activityregister', 'sub'=>$page->getPageid()));?>">报名详情</a>
+     <?php endif;?>
+     </td>
+ </tr>
+ <?php endforeach; ?>
+ </table>
+

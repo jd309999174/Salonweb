@@ -1,0 +1,60 @@
+<?php
+ $title = 'Edit task';
+ $this->headTitle($title);
+ ?>
+ <h5><?php echo $this->escapeHtml($title); ?></h5>
+<img src="/portrait/<?php echo $customer->getCusphoto();?>" style="height:40px;">
+ <?php
+ $form = $this->form;
+ $url = $this->url('cosmetic', array('action' => 'customeredit', 'sub'=>$sub));
+ $form->setAttribute('action', $url);
+ $form->get('submit')->setAttribute('value', 'Edit');
+ $form->get('cusphone')->setAttribute('readonly', 'readonly');
+ $form->get('cusname')->setAttribute('readonly', 'readonly');
+ $form->get('cusidentity')->setAttribute('readonly', 'readonly');
+ $form->get('cusaddress')->setAttribute('readonly', 'readonly');
+ //$form->get('cuspassword')->setAttribute('value', 'readonly');
+ $form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('cusid'));
+echo $this->formhidden($form->get('salnumber'));
+echo $this->formhidden($form->get('cusnumber'));?>
+
+<div class="form-group">
+    <label for="name">姓名</label>
+    <?php echo $this->formRow($form->get('cusname'));?>
+</div>
+<div class="form-group">
+    <label for="name">电话</label>
+    <?php echo $this->formRow($form->get('cusphone'));?>
+</div>
+<div class="form-group">
+    <label for="name">密码</label>
+    <?php echo $this->formRow($form->get('cuspassword'));?>
+</div>
+<div class="form-group">
+    <label for="name">身份证</label>
+    <?php echo $this->formRow($form->get('cusidentity'));?>
+</div>
+<div class="form-group">
+    <label for="name">地址</label>
+    <?php echo $this->formRow($form->get('cusaddress'));?>
+</div>
+<div class="form-group">
+    <label for="name">会员级别</label>
+    <?php echo $this->formRow($form->get('cuslevel'));?>
+</div>
+<div class="form-group">
+    <label for="name">顾客需求类型</label>
+    <?php echo $this->formRow($form->get('custype'));?>
+</div>
+
+  <?php echo $this->formhidden($form->get('cusphoto'));?>
+<?php echo $this->formhidden($form->get('cuspoints'));?>
+<?php echo $this->formhidden($form->get('cusphotof'));?>
+ <div>
+ <?php echo $this->formInput($form->get('submit')); ?>
+ </div>
+ <?php
+ echo $this->form()->closeTag($form);?>

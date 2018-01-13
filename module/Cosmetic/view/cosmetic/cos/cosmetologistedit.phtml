@@ -1,0 +1,109 @@
+ <?php
+ $form = $this->form;
+ $url = $this->url('cosmetic', array('action' => 'cosmetologistedit', 'sub'=>$sub));
+ $form->setAttribute('action', $url);
+ $form->get('submit')->setAttribute('value', '提交');
+ $form->prepare();
+
+echo $this->form()->openTag($form);?>
+
+ <fieldset>
+    <legend>编辑美容师</legend>
+	<div class="form-group">
+		<div class="col-sm-12">
+			<?php foreach ($salbranches as $salbranch):?>
+			<input type="radio" name="salbranch" checked value="<?php echo $salbranch->getSalbranch();?>">
+			<?php echo $salbranch->getSalname();?>
+			<?php endforeach;?>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-6">
+			<?php echo $this->formRow($form->get('cosname'));?>
+		</div>
+	</div>
+		<div class="form-group">
+	
+		<div class="col-sm-6">
+			<?php echo $this->formRow($form->get('cosaddress'));?>
+		</div>
+	</div>
+	<div class="form-group">
+	
+		<div class="col-sm-6">
+			<?php echo $this->formRow($form->get('cosphone'));?>
+		</div>
+	</div>
+	<div class="form-group">
+	
+		<div class="col-sm-6">
+			<?php echo $this->formRow($form->get('cospassword'));?>
+		</div>
+	</div>
+	<div class="form-group">
+	
+		<div class="col-sm-6">
+			<?php echo $this->formRow($form->get('cosposition'));?>
+		</div>
+	</div>
+	<div class="form-group">
+	
+		<div class="col-sm-6">
+			<?php echo $this->formRow($form->get('cosspeciality'));?>
+		</div>
+	</div>
+	<div class="form-group">
+	
+		<div class="col-sm-6">
+			<?php echo $this->formRow($form->get('cosyears'));?>
+		</div>
+	</div>
+	<div class="form-group">
+	
+		<div class="col-sm-6">
+			<?php echo $this->formRow($form->get('cosidentity'));?>
+		</div>
+	</div>
+	<div class="form-group">
+		
+		<div class="col-sm-6">
+			<?php echo $this->formRow($form->get('cosbirthday'));?>
+		</div>
+	</div>
+			<?php echo $this->formhidden($form->get('cosphoto'));?>
+			
+    <div class="form-group">
+	
+		<div class="col-sm-4">
+			<img alt="" src="/img/234.jpg" class="picturechoose1 img1" style="wdith:200px;height:150px"> 
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<?php echo $this->formInput($form->get('submit')); ?>
+		</div>
+	</div>
+</fieldset>
+
+ <?php
+ echo $this->form()->closeTag($form);?>
+ 
+<script type="text/javascript">
+//设图片src为已有的值
+ $(function (){
+ 	$(".picturechoose1").attr("src",$("#cosphoto").val());
+ 	
+ })
+</script>
+
+<script>
+//提交图片
+$(function(){
+	$("#submit").click(function(){
+		$("#cosphoto").val($(".picturechoose1").attr("src"));
+		})
+})
+</script>
+<?php //TODO图片选择器
+include_once 'public/php/picturechoice.phtml';?>

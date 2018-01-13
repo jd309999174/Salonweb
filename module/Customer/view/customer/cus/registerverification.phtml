@@ -1,0 +1,28 @@
+<?php 
+require_once 'public/php/messagecheckout.php';
+use Zend\Session\Container;
+/**
+ * @author  chensheng
+***/
+
+
+//网易云信分配的账号，请替换你在管理后台应用下申请的Appkey
+$AppKey = '88ba9a1a79c3dc9b0d2a61aab0d1e475';
+//网易云信分配的账号，请替换你在管理后台应用下申请的appSecret
+$AppSecret = '2c6b380636dc';
+$p = new ServerAPI($AppKey,$AppSecret,'fsockopen');     //fsockopen伪造请求
+
+//发送短信验证码
+//print_r( $p->sendSmsCode('3962094','18951740829','','4') );
+if ($_POST["cusregisterphone"]){
+echo $_POST["cusregisterphone"];
+$verification=$p->sendSmsCode('4062113',$_POST["cusregisterphone"],'','4');
+echo "验证码".$verification['obj'];
+$container = new Container('customerregister');
+$container->cusregisterphone=$_POST["cusregisterphone"];
+$container->cusverification = $verification['obj'];
+}
+//发送模板短信
+//print_r( $p->sendSMSTemplate('3962094',array('18951740829'),array('0571' )));
+
+?>

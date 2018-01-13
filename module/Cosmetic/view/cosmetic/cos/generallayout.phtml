@@ -1,0 +1,35 @@
+  <?php
+$title = 'My task list';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+ <p><a href="<?php echo $this->url('cosmetic', array('management',
+         'action'=>'generallayoutadd'));?>">添加促销活动</a></p>
+
+
+ <table class="table table-hover">
+ <tr>
+     <th>Task</th>
+     <th>Created</th>
+     
+     <th>&nbsp;</th>
+ </tr>
+ <?php foreach ($generallayouts as $generallayout): ?>
+ 
+ <tr>
+     <td>
+         <a href="<?php echo $this->url('cosmetic',
+             array('management','action'=>'generallayoutedit','sub'=>$generallayout->getGlid()));?>">
+             <?php echo $this->escapeHtml($generallayout->getGlid()); ?></a>
+     </td>
+     <td><?php echo $this->escapeHtml($generallayout->getCusnumber()); ?></td>
+     
+     <td>
+         <a href="<?php echo $this->url('cosmetic',
+             array('action'=>'generallayoutdelete','sub'=>$generallayout->getGlid()));?>">Delete</a>
+     </td>
+ </tr>
+ <?php endforeach; ?>
+ </table>
+

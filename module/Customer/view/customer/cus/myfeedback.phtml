@@ -1,0 +1,112 @@
+<link href="/raty/labs.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/raty/labs.js"></script>
+<link href="/lib/jquery.raty.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/lib/jquery.raty.js"></script>
+
+
+ <div class="input-group input-group-sm" style="background-color:white;padding: 5px;z-index:10;position:fixed;text-align:center;" id="searchcolumn">
+      <span class="input-group-btn" onclick="window.history.back();">
+        <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <span>
+      疗程评价
+      </span>
+ </div>
+<!-- 没有作用，只为平衡高度 -->
+<div class="input-group input-group-sm" style="visibility:hidden;padding: 5px;" >
+      <span class="input-group-btn" >
+        <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <span>
+      疗程评价
+      </span>
+ </div>
+
+
+<div class="container">
+<div class="row well"  style="font-weight:bold;">1.环境评星与评价</div>
+   <div class="row">
+      <div class="col-sm-6 col-xs-6">
+      <img src="<?php echo $feedback->getSalphoto1();?>" style="height:100px;width:120px;">
+      </div>
+      <div class="col-sm-6 col-xs-6">
+      <div class="row"><span style="font-weight:bold;">美容院：</span><?php echo $feedback->getSalname();?></div>
+      <div id="div1" data-score="1"></div>
+      </div>
+      <input type="text" class="form-control" value="<?php echo $feedback->getFbadvise();?>" readonly="readonly" />   
+   </div>
+<div class="row well" style="font-weight:bold;">2.产品评星与评价</div>
+   <div class="row">
+    <div class="col-sm-6 col-xs-6">
+      <img src="<?php echo $feedback->getProductcombinationpicture();?>" style="height:100px;width:120px;">
+      </div>
+      <div class="col-sm-6 col-xs-6">
+      <div class="row"><span style="font-weight:bold;">产品：</span>
+      <span><?php echo $feedback->getProductcombinationname();?></span>
+      <p style="font-size: 130%;"><?php echo $feedback->getProdtitle();?><p></div>
+      <div  id="div2" data-score="1"></div>
+      </div>   
+     <input type="text" class="form-control" value="<?php echo $feedback->getFbadvise1();?>" readonly="readonly" />
+   </div>
+<div class="row well" style="font-weight:bold;">3.服务评星与评价</div>   
+   <div class="row">
+    <div class="col-sm-6 col-xs-6">
+      <img src="<?php echo $feedback->getCosphoto();?>" style="height:100px;width:120px;">
+      </div>
+      <div class="col-sm-6 col-xs-6">
+      <div class="row"><span style="font-weight:bold;">美容师：</span><?php echo $feedback->getCosname();?></div>
+      <div id="div3" data-score="1"></div>
+      </div>    
+      <input type="text" class="form-control" value="<?php echo $feedback->getFbadvise2();?>" readonly="readonly" />
+   </div>
+   
+<div class="row well" style="font-weight:bold;color:green">评价日期：<?php echo $feedback->getFbdate();?></div> 
+
+
+
+
+
+
+ 
+ </div>
+<?php
+echo $this->form()->closeTag($form);?>   
+   
+   
+
+
+
+<script>
+$('#div1').raty({
+	   readOnly: true, score: <?php echo $feedback->getFbsurrounding();?>,
+	   click: function(score, evt) {
+		  $('#fbsurrounding').val(score);
+	  }
+	});
+</script>
+
+<script>
+$('#div2').raty({
+	readOnly: true, score: <?php echo $feedback->getFbproduct();?>,
+	  click: function(score, evt) {
+		  $('#fbproduct').val(score);
+	  }
+	});
+</script>
+
+<script>
+$('#div3').raty({
+	readOnly: true, score: <?php echo $feedback->getFbcosmetologist();?>,
+	  click: function(score, evt) {
+		  $('#fbcosmetologist').val(score);
+	  }
+	});
+</script>
+
+
+
+

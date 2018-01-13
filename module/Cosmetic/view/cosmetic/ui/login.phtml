@@ -1,0 +1,49 @@
+<?php
+$title = 'Add new task';
+$this->headTitle($title);
+?>
+<h5><?php echo $this->escapeHtml($title); ?></h5>
+
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('ui', array(
+    'action' => 'login'
+)));
+$form->get('submit')->setAttribute('value', 'Add');
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formRow($form->get('cusphone'));
+echo $this->formRow($form->get('cuspasswords'));
+
+?>
+<div>
+<img alt="" src="/img/123.jpg">
+ <?php echo $this->formInput($form->get('submit')); ?>
+ </div>
+<?php
+echo $this->form()->closeTag($form);
+//获取域名或主机地址
+echo $_SERVER['HTTP_HOST']."<br>"; #localhost
+
+//获取网页地址
+echo $_SERVER['PHP_SELF']."<br>"; #/blog/testurl.php
+
+//获取网址参数
+echo $_SERVER["QUERY_STRING"]."<br>"; #id=5
+
+//获取用户代理
+echo $_SERVER['HTTP_REFERER']."<br>";
+
+//获取完整的url
+echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING'];
+#http://localhost/blog/testurl.php?id=5
+
+//包含端口号的完整url
+echo 'http://'.$_SERVER['SERVER_NAME'].':'.$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+#http://localhost:80/blog/testurl.php?id=5
+
+//只取路径
+$url='http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
+echo dirname($url);

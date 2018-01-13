@@ -1,0 +1,36 @@
+<?php
+$title = 'Add new task';
+$this->headTitle($title);
+?>
+<h5><?php echo $this->escapeHtml($title); ?></h5>
+
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('cosmetic', array(
+    'action' => 'generallayoutadd'
+)));
+$form->get('submit')->setAttribute('value', 'Add');
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('glid'));
+echo $this->formhidden($form->get('salnumber'));
+echo $this->formRow($form->get('cusnumber'));
+echo $this->formRow($form->get('cusname'));
+echo $this->formRow($form->get('glpicture1'));
+echo $this->formRow($form->get('glpicture2'));
+echo $this->formRow($form->get('glpicture3'));
+echo $this->formRow($form->get('glsrc1'));
+echo $this->formRow($form->get('glsrc2'));
+echo $this->formRow($form->get('glsrc3'));
+echo $this->formRow($form->get('gldiscount1'));
+echo $this->formRow($form->get('gldiscount2'));
+echo $this->formRow($form->get('gldiscount3'));
+
+?>
+<div>
+ <?php echo $this->formInput($form->get('submit')); ?>
+ </div>
+<?php
+echo $this->form()->closeTag($form);
+var_dump($post);

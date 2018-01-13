@@ -1,0 +1,126 @@
+<?php
+$title = '顾客评价';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<script src="/raty/labs.js"></script>
+<link href="/lib/jquery.raty.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/lib/jquery.raty.js"></script>
+
+
+	<script type="text/javascript" src="/datetimepicker/jquery-ui-timepicker-addon.js"></script>
+    <script type="text/javascript" src="/datetimepicker/jquery-ui-timepicker-zh-CN.js"></script>
+
+     <script type="text/javascript">
+     //交易完成日期选择器
+    $(function () {
+        $(".gmtfbdatebegin").datetimepicker({
+            //showOn: "button",
+            //buttonImage: "./css/images/icon_calendar.gif",
+            //buttonImageOnly: true,
+            showSecond: true,
+            timeFormat: 'hh:mm:ss',
+            stepHour: 1,
+            stepMinute: 1,
+            stepSecond: 1
+        })
+        $(".gmtfbdatefinish").datetimepicker({
+            //showOn: "button",
+            //buttonImage: "./css/images/icon_calendar.gif",
+            //buttonImageOnly: true,
+            showSecond: true,
+            timeFormat: 'hh:mm:ss',
+            stepHour: 1,
+            stepMinute: 1,
+            stepSecond: 1
+        })
+    })
+    </script>
+
+<form class="form-inline" role="form" action="<?php echo $this->url('cosmetic', array('action'=>'feedbacksearch'));?>" method="get">
+   <div class="form-group" style="padding:5px;">
+    <label  for="name">顾客</label>
+    <input type="text" class="form-control" name="cusname" placeholder="请输顾客姓名" value="<?php echo $_GET['cusname'];?>">
+  </div>
+   <div class="form-group" style="padding:5px;">
+    <label  for="name">美容院</label>
+    <input type="text" class="form-control" name="salname" placeholder="请输美容院名" value="<?php echo $_GET['salname'];?>">
+  </div>
+  <div class="form-group" style="padding:5px;">
+    <label  for="name">产品</label>
+    <input type="text" class="form-control" name="prodtitle"  placeholder="请输入产品名称" value="<?php echo $_GET['prodtitle'];?>">
+  </div>
+  <div class="form-group" style="padding:5px;">
+    <label  for="name">美容师</label>
+    <input type="text" class="form-control" name="cosname"  placeholder="请输入美容师姓名" value="<?php echo $_GET['cosname'];?>">
+  </div>
+  <div class="form-group" style="padding:5px;">
+    <label  for="name">评价日期</label>
+    <input type="text" class="form-control gmtfbdatebegin" name="gmtfbdatebegin" placeholder="选择时间范围起始" value="<?php echo $_GET['gmtfbdatebegin'];?>">-
+    <input type="text" class="form-control gmtfbdatefinish" name="gmtfbdatefinish" placeholder="选择时间范围结束" value="<?php echo $_GET['gmtfbdatefinish'];?>">
+  </div>
+  <button type="submit" class="btn btn-default">提交</button>
+</form>
+
+
+<table class="table table-bordered">
+  <caption>评价总数：<?php echo count($carscount);?></caption>
+  <thead>
+    <tr>
+      <th>用户与评价日期</th>
+      <th>美容院与评价</th>
+      <th>产品与评价</th>
+      <th>美容师与评价</th>
+    </tr>
+  </thead>
+  <tbody>
+  <?php foreach ($cars as $car):?>
+    <tr>
+      <td><!-- 顾客图，名，日期 -->
+      <img alt="" src="/portrait/<?php echo $car['cusphoto'];?>" style="width:24px;height:24px;">
+      <?php echo $car['cusname'];?>
+      <p><?php echo $car['fbdate'];?></p>
+      </td>
+      <td><!-- 美容院图，名，星,评价 -->
+      <img alt="" src="<?php echo $car['salphoto1'];?>" style="width:24px;height:24px;">
+      <?php echo $car['salname'];?>
+      <div id="<?php echo $car['id']."fbsurrounding";?>" data-score="1"></div>
+      <script>
+     $('#<?php echo $car['id']."fbsurrounding";?>').raty({
+	  readOnly: true, score: <?php echo $car['fbsurrounding'];?>,
+	  });
+      </script>
+      <div><?php echo $car['fbadvise'];?></div>
+      </td>
+      <td><!-- 产品图，名，星，评价 -->
+      <img alt="" src="<?php echo $car['productcombinationpicture'];?>" style="width:24px;height:24px;">
+      <?php echo $car['prodtitle'];?><?php echo $car['productcombinationname'];?>
+      <div id="<?php echo $car['id']."fbproduct";?>" data-score="1"></div>
+      <script>
+     $('#<?php echo $car['id']."fbproduct";?>').raty({
+	  readOnly: true, score: <?php echo $car['fbproduct'];?>,
+	  });
+      </script>
+      <div><?php echo $car['fbadvise1'];?></div>
+      </td>
+      <td><!-- 美容师图，名，星，评价 -->
+      <img alt="" src="<?php echo $car['cosphoto'];?>" style="width:24px;height:24px;">
+      <?php echo $car['cosname'];?>
+      <div id="<?php echo $car['id']."fbcosmetologist";?>" data-score="1"></div>
+      <script>
+     $('#<?php echo $car['id']."fbcosmetologist";?>').raty({
+	  readOnly: true, score: <?php echo $car['fbcosmetologist'];?>,
+	  });
+      </script>
+      <div><?php echo $car['fbadvise2'];?></div>
+      </td>
+    </tr>
+    <?php endforeach;?>
+  </tbody>
+</table>
+
+
+<?php echo $this->paginationControl($cars,
+                                    'Sliding',
+                                    'paginatorfeedback', array('route' => 'cosmetic')); ?>

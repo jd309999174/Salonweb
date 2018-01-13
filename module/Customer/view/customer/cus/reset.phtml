@@ -1,0 +1,77 @@
+<div class="well" style="text-align:center"><?php echo $homepage->getPageheaddata2();?></div>
+
+<div style="text-align:center">
+<img src="<?php echo $homepage->getPageheaddata1();?>" style="height:100px;width:120px;">
+</div>
+
+
+
+<script>
+$("document").ready(function(){
+$customer=new Array();
+$('#phonenumber').hide();
+<?php  //已有账号存入js数组
+foreach ($customers as $customer):?>
+$customer.push("<?php echo $customer->getCusphone();?>");
+<?php endforeach;?>
+})
+</script>
+<script>
+function getfocus(){
+	$('#cusphonediv').removeClass("has-error");
+	$('#submit').show();
+	$('#phonenumber').hide();
+}
+function checkout(){
+	$value=$('#cusphone').val();
+	if($value!==""){
+         for($i=0;$i<$customer.length;$i++){
+               if($value==$customer[$i]){
+                     $('#cusphonediv').addClass("has-error");
+                     $('#submit').hide();
+                     $('#phonenumber').show();
+                   }
+             }
+		}
+}
+</script>
+
+
+
+<?php
+$form = $this->form;
+$form->setAttribute('action',$this->url('customer', array(
+    'action' => 'register','sub'=>$sub
+)));
+$form->get('submit')->setAttribute('value', '提交');
+$form->get('cusphone')->setAttribute('onblur', 'checkout()');
+$form->get('cusphone')->setAttribute('onfocus', 'getfocus()');
+$form->prepare();echo $this->form()->openTag($form);?>
+<fieldset>
+    <legend>账号设置</legend>
+    <?php echo $this->formhidden($form->get('salnumber'));?>
+    <?php echo $this->formhidden($form->get('cusid'));?>
+	<div class="form-group" id="cusphonediv">
+    <label for="name">手机号</label>
+    <div id="phonenumber" style="color:red;">该号码已存在</div>
+     <?php echo $this->formRow($form->get('cusphone'));?>
+    </div>
+  <div class="form-group">
+    <label for="name">密码</label>
+    <?php echo $this->formRow($form->get('cuspassword'));?>
+  </div>
+   <div class="form-group">
+    <label for="name">姓名</label>
+    <?php echo $this->formRow($form->get('cusname'));?>
+  </div>
+  <div class="form-group">
+    <label for="name">头像</label>
+    <?php echo $this->formhidden($form->get('cusphoto'));?>
+     <?php echo $this->formRow($form->get('cusphotof'));?>
+  </div>
+  <div class="form-group" style="text-align:center">
+    <?php echo $this->formInput($form->get('submit')); ?>
+  </div>
+</fieldset>
+<?php echo $this->form()->closeTag($form);?>
+<button type="button" class="btn btn-default btn-lg btn-block" onclick="location='login/<?php echo $sub;?>'">登陆</button>

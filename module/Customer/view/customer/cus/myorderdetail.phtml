@@ -1,0 +1,83 @@
+ <div class="input-group input-group-sm" style="background-color:white;padding: 5px;z-index:10;position:fixed;text-align:center;" id="searchcolumn">
+      <span class="input-group-btn" onclick="window.history.back();">
+        <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <span>
+      订单查看
+      </span>
+ </div>
+<!-- 没有作用，只为平衡高度 -->
+<div class="input-group input-group-sm" style="visibility:hidden;padding: 5px;" >
+      <span class="input-group-btn" >
+        <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <span>
+      订单查看
+      </span>
+ </div>
+
+
+
+<div>
+<?php if ($myorder->getTrestate()=="paid"){?>
+已支付
+<?php }else{?>
+等待付款
+<?php }?>
+</div>
+
+
+<div>
+<div class="well">订单详情</div>
+<div class="container" style="padding: 5px;margin:5px;border:1px dashed pink;">
+   <div class="row">
+      <div class="col-xs-3 col-sm-3">
+      <img style="width:100%;" alt="" src="<?php echo $myorder->getProductcombinationpicture();?>">
+      </div>
+      <div class="col-xs-7 col-sm-7" style="padding: 5px;">
+      <div class="row" onclick="location='<?php echo $this->url('customer', array('action'=>'productitem','sub'=>$myorder->getProdid()));?>';">
+      <?php echo $myorder->getProdtitle();?>
+      </div>
+      <div class="row">
+      <?php echo $myorder->getProductcombinationname();?>
+      </div>
+      </div> 
+      <div class="col-xs-2 col-sm-2">
+       <div class="row"><span style="color:red;">¥&nbsp;<?php echo $myorder->getTreprice();?></span></div>
+       <div class="row">x&nbsp;<?php echo $myorder->getProductquantity();?></div>
+       </div> 
+   </div>
+   <div class="row" style="float:right;">
+     生成日期：<?php echo $myorder->getTreregdate();?>
+   </div>
+   <div class="row" style="float:right;">共<?php echo $myorder->getProductquantity();?>件产品&nbsp;<span>合计：¥<?php echo $myorder->getTreprice();?></span></div>
+</div>
+</div>
+
+
+<div class="well">评价</div>
+<?php if($feedbacks):?>
+<table class="table" style="padding: 5px;border:1px dashed pink;">
+  <thead>
+    <tr>
+      <th>日期</th>
+      <th>评价</th>
+    </tr>
+  </thead>
+  <tbody>
+  <?php foreach ($feedbacks as $feedback):?>
+    <tr>
+      <td><?php echo $feedback->getFbdate();?></td>
+      <td><button class="btn btn-default" onclick="location='<?php echo $this->url('customer', array('action'=>'myfeedback','sub'=>$feedback->getId()));?>';">详情</button></td>
+    </tr>
+    <?php endforeach;?>
+  </tbody>
+</table>
+<?php endif;?>
+
+
+<div class="well">推荐产品</div>

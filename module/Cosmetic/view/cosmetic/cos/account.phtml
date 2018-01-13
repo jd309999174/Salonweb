@@ -1,0 +1,36 @@
+  <?php
+$title = '账号管理';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+ <p><a href="<?php echo $this->url('cosmetic', array(
+         'action'=>'accountadd'));?>">添加分院</a></p>
+
+
+ <table class="table table-hover">
+ <tr>
+     <th>美容院编号</th>
+     <th>账号</th>
+     
+     <th>&nbsp;</th>
+ </tr>
+ <?php foreach ($accounts as $account): ?>
+ 
+ <tr>
+     <td>
+         <a href="<?php echo $this->url('cosmetic',
+             array('action'=>'accountedit','sub'=>$account->getAccountid()));?>">
+             <?php echo $this->escapeHtml($account->getSalnumber()); ?></a>
+     </td>
+     <td><?php echo $this->escapeHtml($account->getSalaccount()); ?></td>
+     
+    
+     <td>
+         <a href="<?php echo $this->url('cosmetic',
+             array('action'=>'accountdelete','sub'=>$account->getAccountid()));?>">删除</a>
+     </td>
+     
+ </tr>
+ <?php endforeach; ?>
+ </table>

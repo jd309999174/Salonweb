@@ -1,0 +1,56 @@
+<div class="input-group input-group-sm" style="background-color:white;padding: 5px;z-index:10;position:fixed;text-align:center;" id="searchcolumn">
+      <span class="input-group-btn" onclick="window.history.back();">
+        <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <span>
+     活动报名情况
+      </span>
+</div>
+<!-- 没有作用，只为平衡高度 -->
+<div class="input-group input-group-sm" style="visibility:hidden;padding: 5px;" >
+      <span class="input-group-btn" >
+        <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <span>
+     活动报名情况
+      </span>
+</div>
+
+
+<?php //转化为数组
+$cars=array();
+foreach ($signups as $signup):
+array_push($cars,array(
+    "cusname"=>$signup->getCusname(),
+    "cusphoto"=>$signup->getCusphoto(),
+    "cusphone"=>$signup->getCusphone(),
+    "signupdate"=>$signup->getSignupdate()
+));?>
+<?php endforeach;?>
+
+
+<table class="table">
+  <caption>参加总人数：<?php echo count($cars);?></caption>
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th>顾客</th>
+      <th>电话与日期</th>
+    </tr>
+  </thead>
+  <tbody>
+  <?php foreach ($cars as $car):?>
+    <tr>
+      <td><img class="img-circle" alt="" style="height:50px;width:50px;" src="/portrait/<?php echo $car['cusphoto'];?>"></td>
+      <td><?php echo $car['cusname'];?></td>
+      <td>
+      <p><?php echo $car['cusphone'];?></p>
+      <p style="font-size: 80%;"><?php echo date("Y-m-d H:i:s",strtotime($car['signupdate']));?></p></td>
+    </tr>
+      <?php endforeach;?>  
+  </tbody>
+</table>

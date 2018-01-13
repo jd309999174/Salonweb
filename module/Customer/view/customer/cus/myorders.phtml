@@ -1,0 +1,138 @@
+ <div class="input-group input-group-sm" style="background-color:white;padding: 5px;z-index:10;position:fixed;text-align:center;" id="searchcolumn">
+      <span class="input-group-btn" onclick="location='<?php echo $this->url('customer', array('action'=>'me'));?>';">
+        <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <span>
+      订单查看
+      </span>
+ </div>
+<!-- 没有作用，只为平衡高度 -->
+<div class="input-group input-group-sm" style="visibility:hidden;padding: 5px;" >
+      <span class="input-group-btn" >
+        <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <span>
+      订单查看
+      </span>
+ </div>
+
+
+<div class="container">
+   <div class="row">
+      <div class="col-xs-6 col-sm-6">
+       <button id="paidbtn" class="btn btn-success" style="width:100%">已付款</button>
+      </div>
+      <div class="col-xs-6 col-sm-6">
+      <button id="unpaidbtn" class="btn btn-danger" style="width:100%">未付款</button>
+      </div>      
+   </div>
+</div>
+
+
+<?php //转化为数组
+$cars=array();
+foreach ($myorders as $myorder):
+array_push($cars,array("treid"=>$myorder->getTreid(),"orderid"=>$myorder->getOrderid(),
+    "prodid"=>$myorder->getProdid(),
+    "prodtitle"=>$myorder->getProdtitle(),"productcombinationname"=>$myorder->getProductcombinationname(),
+    "productcombinationpicture"=>$myorder->getProductcombinationpicture(),
+    "treprice"=>$myorder->getTreprice(),"productquantity"=>$myorder->getProductquantity(),
+    "treregdate"=>$myorder->getTreregdate(),"trestate"=>$myorder->getTrestate()
+));?>
+<?php endforeach;?>
+
+ <?php //排序：
+foreach ($cars as $key => $row) {
+$x[$key] = $row['treregdate'];}
+array_multisort($x, SORT_DESC,$cars);
+?>
+
+<?php //输出
+foreach ($cars as $car):if($car['trestate']!=="nonpayment"){?>
+<div class="container paid" style="padding: 10px;border:1px dashed black;" >
+   <div class="row">
+      <div class="col-xs-3 col-sm-3" >
+      <img style="width:100%;" alt="" src="<?php echo $car['productcombinationpicture'];?>">
+      </div>
+      <div class="col-xs-7 col-sm-7" style="padding: 5px;">
+      <div class="row" onclick="location='<?php echo $this->url('customer', array('action'=>'productitem','sub'=>$car['prodid']));?>';">
+      <?php echo $car['prodtitle']?>
+      </div>
+      <div class="row">
+      <?php echo $car['productcombinationname']?>
+      </div>
+      </div>   
+       <div class="col-xs-2 col-sm-2">
+       <div class="row"><span style="color:red;">¥&nbsp;<?php echo $car['treprice'];?></span></div>
+       <div class="row">x&nbsp;<?php echo $car['productquantity'];?></div>
+       </div>   
+   </div>
+   
+   <div class="row" style="float:right;">共<?php echo $car['productquantity'];?>件产品&nbsp;<span>合计：¥<?php echo $car['treprice'];?></span></div>
+   <br>
+   <div class="row" style="float:right;">
+   <button class="btn btn-success" onclick="location='<?php echo $this->url('customer', array('action'=>'myorderdetail','sub'=>$car['treid']));?>';">订单详情</button>
+   </div>
+</div>
+<?php }else{?>
+<div class="container unpaid" style="padding:10px;border:1px dashed black;" >
+   <div class="row">
+      <div class="col-xs-3 col-sm-3">
+      <img style="width:100%;" alt="" src="<?php echo $car['productcombinationpicture'];?>">
+      </div>
+      <div class="col-xs-7 col-sm-7" style="padding: 5px;">
+      <div class="row" onclick="location='<?php echo $this->url('customer', array('action'=>'productitem','sub'=>$car['prodid']));?>';">
+      <?php echo $car['prodtitle']?>
+      </div>
+      <div class="row">
+      <?php echo $car['productcombinationname']?>
+      </div>
+      </div>   
+       <div class="col-xs-2 col-sm-2">
+       <div class="row"><span style="color:red;">¥&nbsp;<?php echo $car['treprice'];?></span></div>
+       <div class="row">x&nbsp;<?php echo $car['productquantity'];?></div>
+       </div>   
+   </div>
+   <div class="row" style="float:right;">共<?php echo $car['productquantity'];?>件产品&nbsp;<span>合计：¥<?php echo $car['treprice'];?></span></div>
+   <br>
+   <div class="row" style="float:right;">
+   <button class="btn btn-success" onclick="location='<?php echo $this->url('customer', array('action'=>'myorderdetail','sub'=>$car['treid']));?>';">订单详情</button>
+   <button class="btn btn-danger" onclick='$.ajax({url:"<?php echo $this->url('customer', array('action'=>'trepayment'));?>",dataType:"text",data:"treid=<?php echo $car['treid'];?>",type:"POST",success:function(result){
+			$("#div1").append(result);
+			location="<?php echo $this->url('customer', array('action'=>'myorders','sub'=>'paid'));?>"; }});'>付款</button></div>
+			<div id="div1" style="display:none;"></div>
+
+</div>
+<?php }endforeach;?>
+
+
+<script>
+$(document).ready(function(){
+	  $("#paidbtn").click(function(){
+		  $(".paid").show();
+	    $(".unpaid").hide();
+	    $("#paidbtn").addClass("active");
+	      $("#unpaidbtn").removeClass("active");
+	  });
+	  $("#unpaidbtn").click(function(){
+		  $(".unpaid").show();
+		    $(".paid").hide();
+		    $("#unpaidbtn").addClass("active");
+		      $("#paidbtn").removeClass("active");
+		  });
+	});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	<?php if($treview=="paid"){?>
+	$("#paidbtn").click();
+	<?php }else{?>
+	$("#unpaidbtn").click();
+	<?php }?>
+})
+</script>

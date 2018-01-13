@@ -1,0 +1,28 @@
+<div id="activity">
+
+</div>
+ <?php
+ //此页暂未使用
+$cars=array();
+foreach ($activitypages as $activitypage):
+array_push($cars,array("pageid"=>$activitypage->getPageid(),"modificationtime"=>$activitypage->getModificationtime()));?>
+<?php endforeach;?>
+<script>
+$(document).ready(function(){
+	$activitys=new Array();
+	$start=0;
+	<?php foreach ($cars as $car): ?>
+	$activitys.push("<?php echo $car['pageid'];?>");
+	<?php endforeach;?>
+	$("button").click(function(){
+		$part=$activitys.slice($start,$start+2);
+		for ( $i=0;$i<$part.length;$i++){
+			$.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'activityajax'));?>",dataType:"text",data:"pageid="+$part[$i],type:"POST",success:function(result){
+				$("#activity").append(result);
+			}});
+			};
+	$start=$start+2;})
+});
+</script>
+
+<button  class="btn btn-default btn-lg btn-block">加载更多</button>

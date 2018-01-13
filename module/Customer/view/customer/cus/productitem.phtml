@@ -1,0 +1,987 @@
+<?php //TODO css?>
+<!-- Demo styles -->
+<style>
+.stamp {  display: inline-block; padding: 10px; background: white; position: relative; -webkit-filter: drop-shadow(0px 0px 10px rgba(0,0,0,0.5)); /*The stamp cutout will be created using crisp radial gradients*/
+background: radial-gradient(  transparent 0px,  transparent 4px,  white 4px,  white  ); /*reducing the gradient size*/
+background-size: 20px 20px; /*Offset to move the holes to the edge*/
+background-position: -10px -10px; }
+.stamp:after { content: ''; position: absolute; /*We can shrink the pseudo element here to hide the shadow edges*/
+left: 5px; top: 5px; right: 5px; bottom: 5px; /*Shadow - doesn't look good because of the stamp cutout. We can still move this into another pseudo element behind the .stamp main element*/
+    
+  /*box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.5);*/
+    /*pushing it back*/
+z-index: -1; }
+/*Some text*/
+.stamp:before { content: '劵'; position: absolute; bottom: 0; left: 0; font: bold 24px arial; color: white; opacity: 0.75; line-height: 100%; padding: 20px; }
+.title{
+	font-size:130%;
+}
+.subtitle{
+	font-size:120%;
+}
+.thirdtitle{
+	font-size:110%;
+}
+
+.img1 {
+	width: 100%;
+	max-height: 800px;
+	min-height: 100px;
+}
+
+.img2 {
+	width: 100%;
+	max-height: 400px;
+	min-height: 100px;
+}
+
+.pageheadbtn {
+	opacity: 0.5;
+}
+
+.btn-default {
+	color: <?php
+
+echo $page->getPagecolor();
+?>;
+}
+
+a, span {
+	color: <?php
+
+echo $page->getPagecolor();
+?>;
+}
+
+.ui-widget-content a {
+	color: <?php
+
+echo $page->getPagecolor();
+?>;
+}
+
+.swiper-slide {
+	font-size: 18px;
+	color: <?php echo $page->getPagecolor(); ?>;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.swiper-slide img{
+	max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+    height: 100vw;
+    width: 100vw;
+	}
+.parallax-bg {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 130%;
+	height: 100%;
+	-webkit-background-size: 100% 100%;;
+	background-size: 100% 100%;;
+	background-position: center;
+}
+
+.swiper-slide .title {
+	font-size: 20px;
+	font-weight: 300;
+}
+
+.swiper-slide .text {
+	font-size: 7px;
+}
+
+.intro {
+	background: <?php echo $page->getPagecolor(); ?>;
+	padding: 0px 0px 0px;
+}
+
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+.swiper-container {
+	width: 100%;
+	height: 100%;
+}
+.glyphicon-star{
+color:#FFD700;
+}
+</style>
+
+
+
+
+<?php //TODO 生成订单?>
+<form action="<?php echo $this->url('customer', array('action'=>'order'));?>" method="post" style="display: none;">
+<input type="text" name="prodid" id="orderform1">
+<input type="text" name="prodtitle" id="orderform2">
+<input type="text" name="productcombinationid" id="orderform3">
+<input type="text" name="productcombinationprice" id="orderform4">
+<input type="text" name="productcombinationname" id="orderform5">
+<input type="text" name="productcombinationpicture" id="orderform6">
+<input type="text" name="productquantity" id="orderform7">
+<input type="submit" id="orderformsubmit">
+</form>
+
+
+<?php //TODO 数量选择器?>
+<script type="text/javascript" src="/spinner/jquery.spinner.js"></script>
+<link href="/soinner/jquery.spinner.css" media="screen" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+$(document).ready(function () {
+	$('.spinner').spinner(); 
+});
+</script>
+
+
+<?php //TODO 优惠券?>
+<script>
+//优惠券
+$(function() {
+	$("#trolleyalert").hide();
+	$("#successAlert").hide();
+    $( "#couponDialog" ).dialog({
+   	  width: $(window).width(),
+   	  height:$(window).height()*0.7,
+     	modal: true,
+      autoOpen: false,
+      show: {
+        effect: "blind",
+        duration: 300
+      },
+      hide: {
+        effect: "blind",
+        duration: 300
+      }
+    });
+    $( "#couponOpener" ).click(function() {
+        $( "#couponDialog" ).dialog( "open" );
+      });
+
+    })
+
+</script>
+
+<?php //TODO 保障?>
+  <script>
+  $(function() {
+    $( "#guaranteeDialog" ).dialog({
+      width: $(window).width(),
+   	  height:$(window).height()*0.7,
+     	modal: true,
+      autoOpen: false,
+      show: {
+        effect: "blind",
+        duration: 300
+      },
+      hide: {
+        effect: "blind",
+        duration: 300
+      }
+    });
+ 
+    $( "#guaranteeOpener" ).click(function() {
+      $( "#guaranteeDialog" ).dialog( "open" );
+    });
+  });
+	</script>
+	
+<?php //TODO 参数?>
+  <script>
+  $(function() {
+    $( "#propertyDialog" ).dialog({
+      width: $(window).width(),
+   	  height:$(window).height()*0.7,
+     	modal: true,
+      autoOpen: false,
+      show: {
+        effect: "blind",
+        duration: 300
+      },
+      hide: {
+        effect: "blind",
+        duration: 300
+      }
+    });
+ 
+    $( "#propertyOpener" ).click(function() {
+      $( "#propertyDialog" ).dialog( "open" );
+    });
+  });
+	</script>
+
+<?php //TODO 购物车和购买?>
+<script>
+  //组合分类
+  $(function() {
+    $( "#combinationDialog" ).dialog({
+   	  width: $(window).width(),
+   	  height:$(window).height()*0.8,
+      autoOpen: false,
+      modal: true,
+      show: {
+        effect: "blind",
+        duration: 300
+      },
+      hide: {
+        effect: "blind",
+        duration: 300
+      }
+    });
+ 
+    $( "#combinationOpener" ).click(function() {
+    	$(".btnbottom").hide();
+      $( "#combinationDialog" ).dialog( "open" );
+      
+    });
+
+    //dialog的关闭按钮
+    $(".ui-icon-closethick").click(function(){
+    	$(".btnbottom").show();
+   	    //确认选择的组合分类,并改变此页面产品价格
+   	    if($("#combinationName").html()){
+        $("#combinationOpenerSpan").html("已选择"+$("#combinationName").html());
+        $("#prodPrice").html($("#combinationPrice").html());
+        $value1=$("#combinationId").html();
+        $value2=$("#combinationPrice").html();
+        $value3=$("#combinationName").html();
+        $value4=$("#combinationPicture").attr("src");
+   	    }
+        })
+    
+    //立即购买，下订单，跳转订单页面
+    $("#order").click(function(){
+        $(".btnbottom").show();
+    	if($("#combinationName").html()==""){alert("请选择一项分类")}else{
+    	$( "#combinationDialog" ).dialog( "close" );
+        //确认选择的组合分类,并改变此页面产品价格,并通过ajax传入订单
+        $("#combinationOpenerSpan").html("已选择"+$("#combinationName").html());
+        $("#prodPrice").html($("#combinationPrice").html());
+        $value1=$("#combinationId").html();
+        $value2=$("#combinationPrice").html();
+        $value3=$("#combinationName").html();
+        $value4=$("#combinationPicture").attr("src");
+        $value5=$("#productquantity").val();
+        //改变表单的值
+        $("#orderform1").val("<?php echo $product->getProdid();?>");
+        $("#orderform2").val("<?php echo $product->getProdtitle();?>");
+        $("#orderform3").val($value1);
+        $("#orderform4").val($value2);
+        $("#orderform5").val($value3);
+        $("#orderform6").val($value4);
+        $("#orderform7").val($value5);
+        $("#orderformsubmit").click();
+    };
+        })
+        
+    //购物车
+    $( "#trolley" ).click(function() {
+    	$(".btnbottom").show();
+    	if($('#hint').hasClass('active')){alert("请选择一项分类")}else{
+        $( "#combinationDialog" ).dialog( "close" );
+        //确认选择的组合分类,并改变此页面产品价格,并通过ajax传入购物车
+        $("#combinationOpenerSpan").html("已选择"+$("#combinationName").html());
+        $("#prodPrice").html($("#combinationPrice").html());
+        $value1=$("#combinationId").html();
+        $value2=$("#combinationPrice").html();
+        $value3=$("#combinationName").html();
+        $value4=$("#combinationPicture").attr("src");
+        $value5=$("#productquantity").val();
+       //并通过ajax传入购物车
+        $.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'trolleyaddajax'));?>",
+            dataType:"text",
+            data:{prodid:"<?php echo $product->getProdid();?>",
+                  prodtitle:"<?php echo $product->getProdtitle();?>",
+                  productcombinationid:$value1,
+                  productcombinationprice:$value2,
+                  productcombinationname:$value3,
+                  productcombinationpicture:$value4,
+                  productquantity:$value5},
+            type:"POST",
+            success:function(result){
+			$("#trolleyalert").show().delay(2000).fadeOut();
+		}});
+       };
+      });
+  });
+  </script>
+
+
+
+
+
+
+
+<?php //TODO 页头?>
+<script type="text/javascript">
+//上滑消失，下滑显示
+$(document).ready(function(){
+	$("#fixedstandard").css({"height":$("#headanchor").height()});
+	$x= $("#fixedstandard").offset().top - $(window).scrollTop();//变化中参考div距离屏幕高度
+	$(document).scroll(function(){
+		if($x>$("#fixedstandard").offset().top - $(window).scrollTop()){
+              $("#headanchor").slideUp("slow");
+              $x= $("#fixedstandard").offset().top - $(window).scrollTop();
+			}else{
+				$("#headanchor").slideDown("slow");
+	            $x= $("#fixedstandard").offset().top - $(window).scrollTop();
+			}
+		});
+})
+</script>
+<!-- 页头 -->
+
+<div class="input-group input-group-sm"
+	style="position: fixed; z-index: 2; background: white;" id="headanchor">
+	<span class="input-group-btn" onclick="location='<?php echo $this->url('customer', array('action'=>'productlist'));?>';"> 
+	<span class="glyphicon glyphicon-chevron-left btn"></span>
+	</span> <span class="input-group-btn"> <a href="#ios" class="btn">基础信息</a>
+	</span> <span class="input-group-btn"> <a href="#prodDetail"
+		class="btn">产品详情</a>
+	</span>
+    <span class="input-group-btn"> <a href="#feedbacks" class="btn">评价</a></span>
+</div>
+<div id="fixedstandard"></div>
+
+
+<!-- Swiper -->
+<div class="swiper-container" id="ios"
+	onclick="window.history.back(-1);">
+	<div class="swiper-wrapper">
+		<div class="swiper-slide">
+			<img alt="" src="<?php echo $product->getProdpicture1();?>">
+		</div>
+		<div class="swiper-slide">
+			<img alt="" src="<?php echo $product->getProdpicture2();?>">
+		</div>
+		<div class="swiper-slide">
+			<img alt="" src="<?php echo $product->getProdpicture3();?>">
+		</div>
+		<div class="swiper-slide">
+			<img alt="" src="<?php echo $product->getProdpicture4();?>">
+		</div>
+		<div class="swiper-slide">
+			<img alt="" src="<?php echo $product->getProdpicture5();?>">
+		</div>
+	</div>
+	<!-- Add Pagination -->
+	<div class="swiper-pagination"></div>
+</div>
+
+
+
+<div class="panel panel-default">
+	<div class="panel-body">
+	<img alt="" style="height:23px;width:60px;" src="/meicon/salonrecommend.png">
+		<p class="title"><?php echo $product->getProdtitle();?></p>
+	</div>
+</div>
+
+<div class="panel panel-default">
+	<div class="panel-body">
+		<h2 id="prodPrice" style="color: red">¥<?php echo $product->getProdprice();?>元</h2>
+		<h5 style="text-decoration: line-through;">价格<?php echo $product->getProdoriginal();?>元
+		<span style="float:right;color:gray;">销量：<?php echo $product->getProdsales();?></span>
+		</h5>
+	</div>
+</div>
+
+<div class="panel panel-default">
+	<div class="panel-body">
+		<div class="well" id="couponOpener">
+		<img alt="" style="height:24px;width:24px;" src="/meicon/coupon_1.png">&nbsp;&nbsp;
+		<span class="headlinetext subtitle">优惠券</span> 
+		<span class="ui-icon ui-icon-triangle-1-e" style="float: right"></span>
+		</div>
+	</div>
+</div>
+
+
+<div class="panel panel-default">
+	<div class="panel-body">
+	    <div class="well" id="guaranteeOpener">
+		  <img alt="" style="height:24px;width:24px;" src="/meicon/guarantee.png">&nbsp;&nbsp;
+		  <span class="headlinetext subtitle">保障</span> 
+		  <span class="ui-icon ui-icon-triangle-1-e" style="float: right"></span>
+		</div>
+	</div>
+</div>
+
+<!-- <div class="panel panel-default"> -->
+<!-- 	<div class="panel-body">积分</div> -->
+<!-- </div> -->
+
+<div class="panel panel-default">
+	<div class="panel-body"></div>
+</div>
+
+
+<div class="panel panel-default">
+	<div class="panel-body">
+		<div class="well" id="propertyOpener">
+		<img alt="" style="height:24px;width:24px;" src="/meicon/property.png">&nbsp;&nbsp;
+			<span class="headlinetext subtitle">参数</span> 
+			<span class="ui-icon ui-icon-triangle-1-e" style="float: right"></span>
+		</div>
+	</div>
+</div>
+
+<div class="panel panel-default">
+	<div class="panel-body">
+		<div class="well" id="combinationOpener">
+		<img alt="" style="height:24px;width:24px;" src="/meicon/combination.png">&nbsp;&nbsp;
+			<span class="headlinetext subtitle" id="combinationOpenerSpan">组合分类</span> 
+			<span class="ui-icon ui-icon-triangle-1-e" style="float: right"></span>
+		</div>
+	</div>
+</div>
+
+
+<!-- <div class="panel panel-default"> -->
+<!-- 	<div class="panel-body">分类</div> -->
+<!-- </div> -->
+
+<div class="panel panel-default">
+	<div class="panel-body"></div>
+</div>
+
+
+
+<div class="panel panel-default" id="prodDetail">
+	<div class="panel-heading title">详情</div>
+	<div class="panel-body" style="padding:0;">
+		<div class="nav_wrap">
+			<ul id="sortable" class="nav_ul">
+<?php foreach ($templateitem as $item) :?>
+<?php switch ($item->getTemplatetype()): ?>
+<?php case "singlerow": ?>
+<li data-type="singlerow" class="ui-state-highlight intro">
+					<div class="content">
+						<div class="row">
+							<div class="col">
+								<div class="col-demo">
+									<a href="<?php echo $item->getTemplatedata1()?>"
+										class="singlea"> <img alt=""
+										src="<?php echo $item->getTemplatedata2()?>"
+										class="img1 singleimg">
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+<?php break;?>
+<?php case "doublerow": ?>
+<li data-type="doublerow" class="ui-state-highlight intro">
+					<div class="content">
+						<div class="row">
+							<div class="col">
+								<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+									<a href="<?php echo  $item->getTemplatedata1()?>"
+										class="doublea1"> <img alt=""
+										src="<?php echo  $item->getTemplatedata2()?>"
+										class="img2 doubleimg1">
+									</a>
+								</div>
+							</div>
+							<div class="col">
+								<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+									<a href="<?php echo  $item->getTemplatedata3()?>"
+										class="doublea2"> <img alt=""
+										src="<?php echo $item->getTemplatedata4()?>"
+										class="img2 doubleimg2">
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+<?php break;?>
+<?php case "swiperrow": ?>
+<li id="draggable23" data-type="swiperrow"
+					class="ui-state-highlight intro">
+					<!-- Swiper -->
+					<div class="swiper-container swiperswiper" style="height: 200px">
+						<div class="swiper-wrapper">
+        <?php if($item->getTemplatedata2()!="/img/123.jpg"):?>
+            <div class="swiper-slide">
+								<a href="<?php echo  $item->getTemplatedata1()?>"
+									class="swipera1"> <img alt=""
+									src="<?php echo  $item->getTemplatedata2()?>"
+									class="img1 swiperimg1" style="height: 100%; width: 100%">
+								</a>
+							</div><?php endif;?>
+	    <?php if($item->getTemplatedata4()!="/img/123.jpg"):?>
+            <div class="swiper-slide">
+								<a href="<?php echo  $item->getTemplatedata3()?>"
+									class="swipera2"> <img alt=""
+									src="<?php echo  $item->getTemplatedata4()?>"
+									class="img1 swiperimg2" style="height: 100%; width: 100%">
+								</a>
+							</div><?php endif;?>
+	   <?php if($item->getTemplatedata6()!="/img/123.jpg"):?>
+            <div class="swiper-slide">
+								<a href="<?php echo  $item->getTemplatedata5()?>"
+									class="swipera3"> <img alt=""
+									src="<?php echo  $item->getTemplatedata6()?>"
+									class="img1 swiperimg3" style="height: 100%; width: 100%">
+								</a>
+							</div><?php endif;?>
+       <?php if($item->getTemplatedata8()!="/img/123.jpg"):?>
+            <div class="swiper-slide">
+								<a href="<?php echo  $item->getTemplatedata7()?>"
+									class="swipera4"> <img alt=""
+									src="<?php echo  $item->getTemplatedata8()?>"
+									class="img1 swiperimg4" style="height: 100%; width: 100%">
+								</a>
+							</div><?php endif;?>
+	   <?php if($item->getTemplatedata10()!="/img/123.jpg"):?>
+            <div class="swiper-slide">
+								<a href="<?php echo  $item->getTemplatedata9()?>"
+									class="swipera5"> <img alt=""
+									src="<?php echo  $item->getTemplatedata10()?>"
+									class="img1 swiperimg5" style="height: 100%; width: 100%">
+								</a>
+							</div><?php endif;?>
+        </div>
+						<!-- Add Pagination -->
+						<div class="swiper-pagination swiperpagination"></div>
+					</div>
+				</li>
+<?php break;?>
+<?php case "headlinerow": ?>
+				<li data-type="headlinerow" class="ui-state-highlight intro">
+					<div class="content">
+						<div class="row">
+							<div class="col">
+								<div class="col-demo">
+									<div class="well">
+										<a href="<?php echo $item->getTemplatedata1()?>"
+											class="headlinea"> <span class="headlinetext"><?php echo $item->getTemplatedata2()?></span>
+											<span class="ui-icon ui-icon-triangle-1-e"
+											style="float: right"></span>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+<?php break;?>
+<?php case "textrow": ?>
+<li id="draggable32" data-type="textrow"
+					class="ui-state-highlight intro">
+					<div class="content">
+						<div class="row">
+							<div class="col">
+								<div class="col-demo">
+									<div class="well">
+										<span class="texttext"><?php echo $item->getTemplatedata1()?> </span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+<?php break;?>
+<?php case "imgtextrow": ?>
+<li id="draggable33" data-type="imgtextrow"
+					class="ui-state-highlight intro">
+					<!-- Swiper图文 -->
+					<div class="swiper-container imgtextswiper" style="height: 200px">
+						<div class="parallax-bg imgtextimg" data-backgroundimage="<?php echo $item->getTemplatedata1()?>" style="background-image:url(<?php echo $item->getTemplatedata1()?>)" data-swiper-parallax="-23%"></div>
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">
+								<div class="title" data-swiper-parallax="-100">
+									<a href="<?php echo $item->getTemplatedata2()?>"
+										class="imgtexttitle1 imgtexta1"><?php echo $item->getTemplatedata3()?></a>
+								</div>
+								<div class="text" data-swiper-parallax="-300">
+									<p class="imgtexttext1"><?php echo $item->getTemplatedata4()?></p>
+								</div>
+							</div>
+							<div class="swiper-slide">
+								<div class="title" data-swiper-parallax="-100">
+									<a href="<?php echo $item->getTemplatedata5()?>"
+										class="imgtexttitle2 imgtexta2"><?php echo $item->getTemplatedata6()?></a>
+								</div>
+
+								<div class="text" data-swiper-parallax="-300">
+									<p class="imgtexttext2"><?php echo $item->getTemplatedata7()?></p>
+								</div>
+							</div>
+							<div class="swiper-slide">
+								<div class="title" data-swiper-parallax="-100">
+									<a href="<?php echo $item->getTemplatedata8()?>"
+										class="imgtexttitle3 imgtexta3"><?php echo $item->getTemplatedata9()?></a>
+								</div>
+
+								<div class="text" data-swiper-parallax="-300">
+									<p class="imgtexttext3"><?php echo $item->getTemplatedata10()?></p>
+								</div>
+							</div>
+						</div>
+						<!-- Add Pagination -->
+						<div
+							class="swiper-pagination imgtextpagination swiper-pagination-white"></div>
+					</div>
+				</li>
+<?php break;?>
+<?php case "videorow": ?>
+				<li data-type="videorow" class="ui-state-highlight intro">
+					<div class="content">
+						<div class="row">
+							<div class="col">
+								<div class="col-demo">
+									<div class="embed-responsive embed-responsive-16by9">
+										
+										<video width="100%"  controls class="videosrc embed-responsive-item" poster="/meicon/corporatelogo2.png">
+                                           <source src="<?php echo $item->getTemplatedata1()?>#t=0.1" type="video/mp4">
+                                        </video> 
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+<?php break;?>
+<?php endswitch; ?>
+<?php endforeach;?>
+	</ul>
+		</div>
+	</div>
+</div>
+
+
+<div class="panel panel-default">
+	<div class="panel-body"></div>
+</div>
+
+
+<div class="panel panel-default" id="svn">
+	<div class="panel-heading" id="feedbacks"><span class="title">评价</span></div>
+	<div class="panel-body">
+	  <div class="container">
+	  <?php foreach ($feedbacks as $feedback):?>
+	  <hr>
+         <div class="row">
+           <div class="col-xs-6 col-sm-6"><span class="thirdtitle"><?php echo $feedback->getCusname();?></span></div>
+           <div class="col-xs-6 col-sm-6"><?php echo $feedback->getFbdate();?></div>      
+          </div>
+          <div class="row">
+           <div class="col-xs-12 col-sm-12"><span class="subtitle"><?php echo $feedback->getFbadvise1();?></span></div>    
+          </div>
+           <div class="row">
+           <div class="col-xs-12 col-sm-12">
+           评星：
+<?php switch ($feedback->getFbproduct()):?>
+<?php case 1:?>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php case 2:?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php case 3:?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php case 4:?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php case 5:?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php endswitch;?>
+           </div>    
+          </div>
+          <hr>
+        <?php endforeach;?>
+       </div>
+	
+	</div>
+</div>
+
+<!-- <div class="panel panel-default"> -->
+<!-- 	<div class="panel-heading">推荐</div> -->
+<!-- 	<div class="panel-body">面板内容</div> -->
+<!-- </div> -->
+
+
+
+
+<?php //TODO 优惠券?>
+<div id="couponDialog" title="优惠券" >
+	
+<?php 
+// 通过ajax领取优惠券，并返回领取的结果
+foreach ($saloncouponissues as $saloncouponissue) :
+    if (strtotime($saloncouponissue->getSciavailable()) > time()) {
+        
+        ?>
+        
+<div class="container stamp" style="margin: 10px;">
+		<div class="row"
+			style="background-color: rgb(255, 241, 241); border-radius: 15px;">
+			<div class="col-xs-8 col-sm-8" style="padding: 10px;">
+				<p style="font-size: large;">¥<?php echo $saloncouponissue->getScimoney();?></p>
+				<p>满<?php echo $saloncouponissue->getScirestriction();?>使用</p>
+				<p>截止日期：<?php echo $saloncouponissue->getSciavailable();?></p>
+			</div>
+			<div class="col-xs-4 col-sm-4"
+				style="text-align: center; padding-top: 40px;"
+				onclick='$.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'saloncoupongetajax'));?>",dataType:"text",
+data:{sciid:<?php echo $saloncouponissue->getSciid();?>,scimoney:<?php echo $saloncouponissue->getScimoney();?>},
+type:"POST",success:function(result){$("#successAlert").show();$("#successAlert").html(result);setTimeout(function(){$("#successAlert").hide()},1000);}});'>
+				<p style="font-size: large;">点击领取</p>
+				<p>限领次数：<?php echo $saloncouponissue->getScitimes();?></p>
+			</div>
+		</div>
+</div>
+
+<?php }endforeach;?>
+
+</div>
+
+
+<?php //TODO 保障?>
+<div id="guaranteeDialog" title="基础保障">
+  <div class="container">
+   <div class="row">
+      <img alt="" style="height:24px;width:24px;" src="/meicon/zhuangicon.png">&nbsp;&nbsp;
+	  <span class="headlinetext subtitle">过敏包退</span>
+	  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;签收后60天内，若使用过程中发生皮肤过敏情况，商家承诺48小时内处理，信誉评级极好用户享受极速退。</p>
+   </div>
+   <div class="row">
+   <img alt="" style="height:24px;width:24px;" src="/meicon/jiicon.png">&nbsp;&nbsp;
+	  <span class="headlinetext subtitle">急速退款</span>
+	  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;购买后未使用该产品与服务，可随时申请退款，12小时内完成退款。</p>
+   </div>
+   <div class="row">
+   <img alt="" style="height:24px;width:24px;" src="/meicon/baoicon.png">&nbsp;&nbsp;
+	  <span class="headlinetext subtitle">正品保障</span>
+	  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该商品由中国人保承保正品保证险</p>
+   </div>
+   <div class="row">
+   <img alt="" style="height:24px;width:24px;" src="/meicon/xianicon.png">&nbsp;&nbsp;
+	  <span class="headlinetext subtitle">线上权益</span>
+	  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;线上购物享受品牌积分与会员权益</p>
+   </div>
+   <div class="row">
+   <img alt="" style="height:24px;width:24px;" src="/meicon/qiicon.png">&nbsp;&nbsp;
+	  <span class="headlinetext subtitle">七天无理由退换</span>
+	  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;消费者在满足7天无理由退换货申请条件的前提下，可以提出“7天无理由退换货”的申请</p>
+   </div>
+  </div>
+</div>
+
+
+<?php //TODO 参数?>
+<div id="propertyDialog" title="产品参数">
+<?php if ($product->getProddemandclassifyseries()):?>
+  <div class="row">
+    <div class="col-xs-3 col-sm-3 subtitle">需求，分类，系列</div>
+    <div class="col-xs-9 col-sm-9"><?php echo $product->getProddemandclassifyseries();?></div>    
+  </div>
+  <hr/>
+<?php endif;?>  
+<?php if ($product->getProdbrand()):?>
+  <div class="row">
+    <div class="col-xs-3 col-sm-3 subtitle">品牌</div>
+    <div class="col-xs-9 col-sm-9"><?php echo $product->getProdbrand();?></div>    
+  </div>
+  <hr/>
+<?php endif;?>  
+<?php if ($product->getProdspecification()):?>
+  <div class="row">
+    <div class="col-xs-3 col-sm-3 subtitle">规格</div>
+    <div class="col-xs-9 col-sm-9"><?php echo $product->getProdspecification();?></div>    
+  </div>
+  <hr/>
+<?php endif;?>  
+<?php if ($product->getProdcontent()):?>
+  <div class="row">
+    <div class="col-xs-3 col-sm-3 subtitle">含量</div>
+    <div class="col-xs-9 col-sm-9"><?php echo $product->getProdcontent();?></div>    
+  </div>
+  <hr/>
+<?php endif;?>  
+<?php if ($product->getProdfactor()):?>
+  <div class="row">
+    <div class="col-xs-3 col-sm-3 subtitle">指数</div>
+    <div class="col-xs-9 col-sm-9"><?php echo $product->getProdfactor();?></div>    
+  </div>
+  <hr/>
+<?php endif;?>  
+<?php if ($product->getProdplace()):?>
+  <div class="row">
+    <div class="col-xs-3 col-sm-3 subtitle">产地</div>
+    <div class="col-xs-9 col-sm-9"><?php echo $product->getProdplace();?></div>    
+  </div>
+  <hr/>
+<?php endif;?>  
+<?php if ($product->getProdapproval()):?>
+  <div class="row">
+    <div class="col-xs-3 col-sm-3 subtitle">批号</div>
+    <div class="col-xs-9 col-sm-9"><?php echo $product->getProdapproval();?></div>    
+  </div>
+  <hr/>
+<?php endif;?>  
+<?php if ($product->getProdefficacy()):?>
+  <div class="row">
+    <div class="col-xs-3 col-sm-3 subtitle">功效</div>
+    <div class="col-xs-9 col-sm-9"><?php echo $product->getProdefficacy();?></div>    
+  </div>
+  <hr/>
+<?php endif;?>  
+<?php if ($product->getProdvalidity()):?>
+  <div class="row">
+    <div class="col-xs-3 col-sm-3 subtitle">有效期</div>
+    <div class="col-xs-9 col-sm-9"><?php echo $product->getProdvalidity();?></div>    
+  </div>
+  <hr/>
+<?php endif;?>  
+<?php if ($product->getProdtreatment()):?>
+  <div class="row">
+    <div class="col-xs-3 col-sm-3 subtitle">疗程次数</div>
+    <div class="col-xs-9 col-sm-9"><?php echo $product->getProdtreatment();?></div>    
+  </div>
+  <hr/>
+<?php endif;?>  
+  
+</div>
+
+<?php //TODO 组合分类?>
+<!-- 组合分类的选择窗 -->
+<div id="combinationDialog" title="组合分类选择" style="padding: 0px;">
+	<div style="width: 100%; background-color: white;">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-4 col-sm-4">
+					<span id="combinationId" style="display: none;"><?php echo $product->getProdid();?></span>
+					<img id="combinationPicture"
+						src="<?php echo $product->getProdpicture1();?>" alt="Smiley face"
+						style="width: 100%; height: 100px;">
+				</div>
+				<div class="col-xs-8 col-sm-8" style="padding: 10px;">
+					<div class="row">
+						<span id="combinationName"></span>
+					</div>
+					<div class="row">
+						<span style="color: rgb(255, 100, 100);">¥</span><span
+							style="font-size: large; color: rgb(255, 100, 100);"
+							id="combinationPrice"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+   
+   <div style="padding: 20px;" class="container">
+   <div class="well">
+   <button type="button" id="hint" class="btn btn-danger btn-lg btn-block disabled active">请选择一项分类</button>
+   </div>
+   <?php foreach ($productcombinations as $productcombination):?>
+   <span style="margin: 10px;">
+   <button style="margin: 10px;"
+				class="combinationSelect btn btn-default"
+				onclick='$("#hint").removeClass("active");
+   $("#combinationId").html($(this).attr("data-id"));
+   $("#combinationPicture").attr("src",$(this).attr("data-picture"));
+   $("#combinationPrice").html($(this).attr("data-price"));
+   $("#combinationName").html($(this).html());'
+				data-id="<?php echo $productcombination->getProductcombinationid();?>"
+				data-picture="<?php echo $productcombination->getProductcombinationpicture();?>"
+				data-price="<?php echo $productcombination->getProductcombinationprice();?>">
+   <?php echo $productcombination->getProductcombinationname();?></button></span>
+   <?php endforeach;?>
+   
+		<div class="row well">
+        <div class="col-xs-8 col-sm-8">数量</div>
+        <div class="col-xs-4 col-sm-4">
+        <input type="text" class="spinner" style="width:30px" id="productquantity"/> 
+        </div>
+        </div>
+	</div>
+
+  <div style="position: fixed; bottom: 0;left:0; width: 100%;">
+  <div class="container">
+   <div class="row">
+	  <div class="col-xs-4 col-sm-3"><button type="button" style="width: 100%;" class="btn btn-success btn-lg"
+			onclick="location='<?php echo $this->url('customer', array('action'=>'chat','sub'=>$salonmanager->getCosid()));?>';"><span class="glyphicon glyphicon-comment" style="color: white;"></span>&nbsp;&nbsp;店长</button></div>
+      <div class="col-xs-4 col-sm-4"><button type="button" style="width: 100%;" class="btn btn-warning btn-lg"
+			id="trolley">加入购物车</button></div> 
+      <div class="col-xs-4 col-sm-4"><button type="button" style="width: 100%;" class="btn btn-danger btn-lg"
+			id="order">立即购买</button></div>   
+   </div>
+   </div>
+  </div>
+</div>
+
+<div class="alert alert-warning" style="position: fixed; bottom: 100px;width:100%;z-index：120;display:none;" id="trolleyalert" align="center">购物车添加成功</div>
+<div class="alert alert-success" style="position: fixed; bottom: 100px;width:100%;z-index：120;display:none;" id="successAlert" align="center"></div>
+<?php //底部按钮?>
+<div style="position: fixed; bottom: 0; width: 100%;">
+  <div class="container">
+   <div class="row">
+	  <div class="col-xs-4 col-sm-3"><button type="button" style="width: 100%;" class="btn btn-success btn-lg btnbottom"
+			onclick="location='<?php echo $this->url('customer', array('action'=>'chat','sub'=>$salonmanager->getCosid()));?>';"><span class="glyphicon glyphicon-comment" style="color: white;"></span>&nbsp;&nbsp;店长</button></div>
+      <div class="col-xs-4 col-sm-4"><button type="button" style="width: 100%;" class="btn btn-warning btn-lg btnbottom"
+			id="trolleybottom">加入购物车</button></div> 
+      <div class="col-xs-4 col-sm-4"><button type="button" style="width: 100%;" class="btn btn-danger btn-lg btnbottom"
+			id="orderbottom">立即购买</button></div>     
+   </div>
+   </div>
+</div>
+<?php //底部按钮 占位?>
+<div style="width: 100%;visibility:hidden;">
+	<div class="container">
+   <div class="row">
+	  <div class="col-xs-2 col-sm-2"><button type="button" style="width: 100%;" class="btn btn-default btn-lg btnbottom"
+			>聊天</button></div>
+      <div class="col-xs-5 col-sm-5"><button type="button" style="width: 100%;" class="btn btn-danger btn-lg btnbottom"
+			>立即购买</button></div>
+      <div class="col-xs-5 col-sm-5"><button type="button" style="width: 100%;" class="btn btn-warning btn-lg btnbottom"
+			>加入购物车</button></div>      
+   </div>
+   </div>
+</div>
+<script>
+$(document).ready(function(){
+	$("#orderbottom").click(function(){
+		$( "#combinationDialog" ).dialog( "open" );
+		$(".btnbottom").hide();
+		});
+	$("#trolleybottom").click(function(){
+		$( "#combinationDialog" ).dialog( "open" );
+		$(".btnbottom").hide();
+		});
+})
+</script>
+<?php //TODO 幻灯片初始化?>
+<!-- Initialize Swiper -->
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        
+        paginationClickable: true,
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: 2500,
+        autoplayDisableOnInteraction: false
+    });
+    
+</script>

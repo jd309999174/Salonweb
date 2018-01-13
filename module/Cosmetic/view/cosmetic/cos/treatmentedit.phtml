@@ -1,0 +1,46 @@
+<?php if ($treatment->getTrestate()!=="paid"){
+ $title = '订单修改';
+ $this->headTitle($title);
+ ?>
+ <h5><?php echo $this->escapeHtml($title); ?></h5>
+
+ <?php
+ $form = $this->form;
+ $url = $this->url('cosmetic', array('action' => 'treatmentedit','sub'=>$sub));
+ $form->setAttribute('action', $url);
+ $form->get('submit')->setAttribute('value', '提交');
+ $form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('treid'));
+echo $this->formRow($form->get('cusid'));
+echo $this->formRow($form->get('salnumber'));
+echo $this->formRow($form->get('prodid'));
+echo $this->formRow($form->get('productcombinationid'));
+echo $this->formRow($form->get('treprice'));
+echo $this->formRow($form->get('treremark'));
+echo $this->formInput($form->get('submit'));
+echo $this->form()->closeTag($form);
+}else{
+ ?>
+ 
+ 
+ <div class="well">评价</div>
+<?php if($feedbacks):?>
+<table class="table" style="padding: 5px;border:1px dashed pink;">
+  <thead>
+    <tr>
+      <th>日期</th>
+      <th>评价</th>
+    </tr>
+  </thead>
+  <tbody>
+  <?php foreach ($feedbacks as $feedback):?>
+    <tr>
+      <td><?php echo $feedback->getFbdate();?></td>
+      <td><button class="btn btn-default" onclick="location='<?php echo $this->url('cosmetic', array('action'=>'feedback','sub'=>$feedback->getId()));?>';">详情</button></td>
+    </tr>
+    <?php endforeach;?>
+  </tbody>
+</table>
+<?php endif;}?>

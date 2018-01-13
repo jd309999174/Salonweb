@@ -1,0 +1,17 @@
+ <?php
+ $title = '删除预约';
+ $this->headTitle($title);
+ ?>
+ <h1><?php echo $this->escapeHtml($title); ?></h1>
+
+ <p>亲，确定删除
+   '<?php echo $this->escapeHtml($appointment->getAppointmentdate())."&nbsp;&nbsp;".$this->escapeHtml($appointment->getAppointmenttime()); ?>' 这条预约吗?
+ </p>
+ <?php
+ $url = $this->url('customer', array('action' => 'appointmentdelete', 'sub'=>$sub)); ?>
+ <form action="<?php echo $url; ?>" method="post">
+ <div>
+   <input type="submit" name="del" value="Yes" />
+   <input type="submit" name="del" value="No" />
+ </div>
+ </form>

@@ -1,0 +1,101 @@
+<!-- 搜索框 -->
+<div class="bar bar-header item-input-inset" style="opacity: 0.8">
+  <button class="button icon ion-navicon"></button>
+  <label class="item-input-wrapper">
+    <i class="icon ion-ios-search placeholder-icon"></i>
+    <input type="search" placeholder="Search">
+  </label>
+  <button class="button">Edit</button>
+</div>
+<!-- 幻灯片 -->
+<div class="swiper-container" >
+    <div class="swiper-wrapper">
+        <div class="swiper-slide"><img alt="" src="/img/123.jpg"></div>
+        <div class="swiper-slide"><img alt="" src="/img/1234.jpg"></div>
+        <div class="swiper-slide"><img alt="" src="/img/12345.jpg"></div>
+    </div>
+    <!-- 如果需要分页器 -->
+    <div class="swiper-pagination"></div>
+    
+    
+    <!-- 如果需要滚动条 -->
+    <div class="swiper-scrollbar"></div>
+</div>
+<!-- 3个按键 -->
+<div class="button-bar">
+  <a class="button" id="button1">First</a>
+  <a class="button" id="button2">Second</a>
+  <a class="button" id="button3">Third</a>
+</div>
+<div id="content1"></div>
+<div id="content2"></div>
+<div id="content3"></div>
+
+<!-- css等 -->
+<style>
+
+.bar-header {position:absolute;
+left:0px;
+top:0px;
+z-index:2;}
+.swiper-container {
+    width: auto;
+    height: 200px;
+} 
+.swiper-slide img {width:100%;
+     height:100%}
+.brand {width:auto;
+        height:150px;}
+.brand img {width:100%;
+     height:100%}
+</style>
+<script>
+
+$(document).ready(function(){
+	$.get("/php/content1.php",function(data,status){
+		$("#content1").html(data);
+	});
+	
+	$("#button1").click(function(){
+		$("#content1").show();
+		$("#content2").hide();
+		$("#content3").hide();
+		
+		
+	});
+	$("#button2").click(function(){
+		$("#content1").hide();
+		$("#content2").show();
+		$("#content3").hide();
+		$.get("/php/content2.php",function(data,status){
+			$("#content2").html(data);
+		});
+		
+	});
+	$("#button3").click(function(){
+		$("#content1").hide();
+		$("#content2").hide();
+		$("#content3").show();
+		$.get("/php/content3.php",function(data,status){
+			$("#content3").html(data);
+		});
+		
+	});
+	
+});
+</script>
+<script>
+  var mySwiper = new Swiper ('.swiper-container', {
+	effect : 'fade',
+	autoplay : 2000,
+    loop: true,
+    
+    // 如果需要分页器
+    pagination: '.swiper-pagination',
+    
+    
+    
+    // 如果需要滚动条
+    scrollbar: '.swiper-scrollbar',
+  })        
+  </script>

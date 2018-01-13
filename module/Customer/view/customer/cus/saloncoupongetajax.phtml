@@ -1,0 +1,10 @@
+<?php //领取次数已达上限就不用加一了，加一是因为$scgtimes是未算入本次的结果
+if($scgtimes==$scitimes){?>
+<div id="myAlert" class="alert alert-warning">
+<?php echo $couponResult;echo $scgtimes."/".$scitimes;?>
+</div>
+<?php }else{?>
+<div id="myAlert" class="alert alert-success">
+<?php echo $couponResult;echo ($scgtimes+1)."/".$scitimes;?>
+</div>
+<?php }?>

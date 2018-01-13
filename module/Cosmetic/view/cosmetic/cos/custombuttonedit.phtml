@@ -1,0 +1,32 @@
+<?php
+ $title = '编辑按钮';
+ $this->headTitle($title);
+ ?>
+ <h5><?php echo $this->escapeHtml($title); ?></h5>
+
+ <?php
+ $form = $this->form;
+ $url = $this->url('cosmetic', array('action' => 'custombuttonedit','sub'=>$sub));
+ $form->setAttribute('action', $url);
+$form->get('submit')->setAttribute('value', '提交');
+$form->get('buttonname')->setAttribute('class', 'form-control');
+$form->get('buttonlink')->setAttribute('class', 'form-control');
+$form->prepare();
+echo $this->form()->openTag($form);
+?><div class="form-group"><?php
+echo $this->formHidden($form->get('buttonid'));
+?></div><div class="form-group"><?php
+echo $this->formhidden($form->get('salnumber'));
+?></div><div class="form-group"><label>按钮名称</label><?php
+echo $this->formRow($form->get('buttonname'));
+?></div><div class="form-group"><label>按钮链接</label><?php
+echo $this->formRow($form->get('buttonlink'));
+?></div>
+<div>
+ <?php echo $this->formInput($form->get('submit')); ?>
+ </div>
+<?php
+echo $this->form()->closeTag($form);?>
+
+<?php //链接选择器
+include_once 'public/php/linkchoice.phtml';?>

@@ -1,0 +1,10 @@
+<?php //ios的通知推送
+if($notifications):?>
+[
+<?php foreach ($notifications as $notification):?>
+{"noid":"<?php echo $notification->getId();?>",
+"notitle":"<?php echo $notification->getNotitle();?>",
+"nocontent":"<?php echo $notification->getNocontent();?>"},
+<?php endforeach;?>
+]
+<?php endif;?>

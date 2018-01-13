@@ -1,0 +1,192 @@
+<link rel="stylesheet" type="text/css" href="/css/ionic.css" >
+<?php //TODO search?>
+<div class="bar bar-header item-input-inset" style="opacity: 0.8">
+  <button class="button icon ion-navicon" id="button4"></button>
+  <label class="item-input-wrapper">
+    <i class="icon ion-ios-search placeholder-icon"></i>
+    <input type="search" placeholder="Search">
+  </label>
+  <button class="button">Edit</button>
+</div>
+<?php //TODO slide ?>
+<div class="swiper-container" >
+    <div class="swiper-wrapper">
+    <?php foreach ($salonslides as $salonslide): ?>
+        <div class="swiper-slide">
+        <a href="">
+        <img src="<?php echo $this->escapeHtml("/salon/".$id."/".$salonslide->getSsphoto1()); ?>" alt="" width="" height=""></a></div>
+        <div class="swiper-slide">
+        <a href="">
+        <img src="<?php echo $this->escapeHtml("/salon/".$id."/".$salonslide->getSsphoto2()); ?>" alt="" width="" height=""></a></div>
+        <div class="swiper-slide">
+        <a href="">
+        <img src="<?php echo $this->escapeHtml("/salon/".$id."/".$salonslide->getSsphoto3()); ?>" alt="" width="" height=""></a></div>
+     <?php endforeach; ?>
+    </div>
+    <!-- 如果需要分页器 -->
+    <div class="swiper-pagination"></div>
+    <!-- 如果需要滚动条 -->
+    <div class="swiper-scrollbar"></div>
+</div>
+<?php //TODO menu1-3?>
+<div class="button-bar">
+  <a class="button" id="button1">首页</a>
+  <a class="button" id="button2">活动</a>
+  
+<div class="list button">
+
+  <label class="item item-input item-select" id="button3">
+    <div class="input-label">
+      <a  >全部产品</a>
+    </div>
+<select onchange="window.location=this.value;">  
+<option value="productlist/保湿">保湿</option>  
+<option value="productlist/美白">美白</option>  
+</select> 
+  </label>
+
+</div>
+</div>
+
+<?php //TODO content1 promotion?>
+<div id="content1">
+<div class="button-bar">
+  <img alt="" class="button" src="<?php echo $this->escapeHtml("/salon/".$id."/".$generallayout->getGlpicture1()); ?>">
+  <img alt="" class="button" src="<?php echo $this->escapeHtml("/salon/".$id."/".$generallayout->getGlpicture2()); ?>">
+  <img alt="" class="button" src="<?php echo $this->escapeHtml("/salon/".$id."/".$generallayout->getGlpicture3()); ?>">
+</div>
+<div class="button-bar">
+  <h1 class="button">123123</h1>
+  <h1 class="button">234234</h1>
+  <h1 class="button">2354235</h1>
+</div>
+<?php //TODO content1 prize?>
+
+<?php //TODO content1 salonlayout?>
+<ul class="list">
+    <li class="item">
+    <img alt="" src="<?php echo $this->escapeHtml("/salon/".$id."/".$salonlayout->getSlphoto1()); ?>">
+    </li>
+    <li class="item">
+    <img alt="" src="<?php echo $this->escapeHtml("/salon/".$id."/".$salonlayout->getSlphoto2()); ?>">
+    </li>
+</ul>
+</div>
+
+<?php //TODO content2 ?>
+<div id="content2">
+<div class="list card">
+<?php foreach ($promotions as $promotion): ?>
+  <div class="item item-avatar">
+    <img src="<?php echo $this->escapeHtml("/salon/".$id."/".$promotion->getPromthumbnail()); ?>">
+    <h2> <?php echo $promotion->getPromauthor(); ?></h2>
+    <p style="position:absolute; bottom:0px;"> <?php echo $promotion->getPromregdate(); ?></p>
+    <p style="float: right;"> <?php echo $promotion->getPromsort(); ?></p>
+  </div>
+
+  <div class="item item-body">
+    <h2>
+      <?php echo $promotion->getPromtitle(); ?>
+    </h2>
+    <p><?php echo $promotion->getPromdetail(); ?></p>
+    <img class="full-image" src="<?php echo $this->escapeHtml("/salon/".$id."/".$promotion->getPromphoto1()); ?>">
+  </div>
+<?php endforeach;?>
+</div>
+
+</div>
+<?php //TODO content3?>
+<div id="content3">
+<div class="list">
+<?php foreach ($products as $product): ?>
+    <a class="item item-thumbnail-left" href="#">
+      <img src="<?php echo "/salon/".$id."/".$product->getProdphoto1(); ?>">
+      <h2><?php echo $product->getProdtitle(); ?></h2>
+      <p style="color:red"><?php echo $product->getProdprice(); ?></p>
+    </a>
+<?php endforeach; ?>
+</div>
+</div>
+
+<!-- css等 -->
+<style>
+
+.bar-header {position:absolute;
+left:0px;
+top:0px;
+z-index:2;}
+.swiper-container {
+    width: auto;
+    height: 200px;
+} 
+.swiper-slide img {width:100%;
+     height:100%}
+.brand {width:auto;
+        height:150px;}
+.brand img {width:100%;
+     height:100%}
+</style>
+<script>
+
+$(document).ready(function(){
+	
+	 
+	$("#button1").click(function(){
+		$("#content1").show();
+		$("#content2").hide();
+		$("#content3").hide();
+	});
+	$("#button2").click(function(){
+		$("#content1").hide();
+		$("#content2").show();
+		$("#content3").hide();
+	});
+	$("#button3").click(function(){
+// 		$.post("/php/content3.php",{
+//			id:
+
+// 		},
+// 		function(data,status){
+// 			$("#content3").html(data);
+// 		});
+		$("#content1").hide();
+		$("#content2").hide();
+		$("#content3").show();
+//  		$.get("/php/content3.php",function(data,status){
+// 			$("#content3").html(data);
+//  		});
+		
+	});
+	$("#button4").click(function(){
+		 window.location.reload();
+	});
+	
+// 	$("#select1").change(function(){
+// 		$.post("/php/content3.php",{
+// 			id:,
+// 			sub:"%"+$(this).val()+"%"
+// 		},
+// 		function(data,status){
+// 			$("#content3").html(data);
+// 		});
+// 		$("#content1").hide();
+// 		$("#content2").hide();
+// 		$("#content3").show();
+// 	});
+});
+</script>
+<script>
+  var mySwiper = new Swiper ('.swiper-container', {
+	effect : 'fade',
+	autoplay : 2000,
+    loop: true,
+    
+    // 如果需要分页器
+    pagination: '.swiper-pagination',
+    
+    
+    
+    // 如果需要滚动条
+    scrollbar: '.swiper-scrollbar',
+  })        
+  </script>

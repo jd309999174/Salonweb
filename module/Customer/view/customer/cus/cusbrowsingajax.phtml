@@ -1,0 +1,60 @@
+<?php                                                                 //方法1：
+//获取用户IP地址
+if(!empty($_SERVER["HTTP_CLIENT_IP"]))
+        {
+            $cip = $_SERVER["HTTP_CLIENT_IP"];
+        }
+        else if(!empty($_SERVER["HTTP_X_FORWARDED_FOR"]))
+        {
+            $cip = $_SERVER["HTTP_X_FORWARDED_FOR"];
+        }
+        else if(!empty($_SERVER["REMOTE_ADDR"]))
+        {
+            $cip = $_SERVER["REMOTE_ADDR"];
+        }
+        else
+        {
+            $cip = '';
+        }
+        preg_match("/[\d\.]{7,15}/", $cip, $cips);
+        $cip = isset($cips[0]) ? $cips[0] : 'unknown';
+        unset($cips);
+
+//正则，分解页面地址
+preg_match_all("/\/([^\/]+)/u",
+    $_POST['requesturl'],
+    $out, PREG_PATTERN_ORDER);
+
+//获取用户信息
+use Zend\Session\Container;
+$container = new Container('customerlogin');
+$id = $container->salnumber;
+$cusid = $container->cusid;
+$cusname = $container->cusname;
+$cusphoto = $container->cusphoto;
+
+//浏览记录存入数据库
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "company";
+
+// 创建连接
+$conn = new mysqli($servername, $username, $password, $dbname);
+mysqli_query($conn , "set names utf8");
+// 检测连接
+if ($conn->connect_error) {
+    die("连接失败: " . $conn->connect_error);
+} 
+
+$sql = "INSERT INTO cusbrowsinghistory (salnumber, cusid, cusname, cusphoto,cusip,cusaddress,cusaction, cussub, custhird,cusdate,gmtcusdate)
+VALUES ('".$id."','".$cusid."', '".$cusname."','".$cusphoto."','".$cip."', '".$_POST['cusaddress']."', '".$out[1][0]."','".$out[1][1]."','".$out[1][2]."','".time()."','".date("YmdHis",time())."')";
+
+if ($conn->query($sql) === TRUE) {
+    //echo "新记录插入成功";
+} else {
+    //echo "Error: " . $sql . "<br>" . $conn->error;
+}
+
+$conn->close();
+?>

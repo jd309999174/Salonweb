@@ -1,0 +1,62 @@
+<?php
+$title = '客户列表';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<form class="form-inline"  role="form" action="<?php echo $this->url('cosmetic', array('action'=>'customer'));?>" method="get">
+  <div class="form-group">
+    <label for="name">姓名</label>
+    <input type="text" class="form-control" name="cusname"  placeholder="请输入姓名" value="<?php echo $_GET['cusname'];?>">
+  </div>
+  <div class="form-group">
+    <label for="name">等级</label>
+    <input type="text" class="form-control" name="cuslevel" placeholder="请输入会员等级" value="<?php echo $_GET['cuslevel'];?>">
+  </div>
+  <div class="form-group">
+    <label  for="name">需求</label>
+    <input type="text" class="form-control" name="custype" placeholder="请输入会员需求" value="<?php echo $_GET['custype'];?>">
+  </div>
+  <div class="form-group">
+    <label for="name">分院</label>
+    <input type="text" class="form-control" name="cussalonbranch" placeholder="请输入分院名称" value="<?php echo $_GET['cussalonbranch'];?>">
+  </div>
+  <button type="submit" class="btn btn-default">提交</button>
+</form>
+
+<div id="sequencetime" class="sequence">
+ <table class="table table-hover">
+ <caption>顾客数：<?php echo count($carscount);?></caption>
+ <tr>
+     <th>&nbsp;</th>
+     <th>姓名</th>
+     <th>会员等级</th>
+     <th>需求类型</th>
+     <th>所属分院</th>
+     <th>累计积分</th>
+     <th>注册时间</th>
+     <th>手机号码</th>
+ </tr>
+ <?php foreach ($cars as $car): ?>
+ 
+ <tr>
+     <td><img src="/portrait/<?php echo $this->escapeHtml($car['cusphoto']); ?>" style="height:30px;width:30px;"></td>
+     <td>
+         <a href="<?php echo $this->url('cosmetic',
+             array('management','action'=>'cusleveltypeedit','sub'=>$car['cusid']));?>">
+             <?php echo $this->escapeHtml($car['cusname']); ?></a>
+     </td>
+     <td style="color:red;"><?php echo $this->escapeHtml($car['cuslevel']); ?></td>
+     <td><?php echo $this->escapeHtml($car['custype']); ?></td>
+     <td><?php echo $this->escapeHtml($car['cussalonbranch']); ?></td>
+     <td><?php echo $this->escapeHtml($car['cuspoints']); ?></td>
+     <td><?php echo $this->escapeHtml($car['cusregdate']); ?></td>
+     <td><?php echo $this->escapeHtml($car['cusphone']); ?></td>
+ </tr>
+ <?php endforeach; ?>
+ </table>
+ </div>
+
+<?php echo $this->paginationControl($cars,
+                                    'Sliding',
+                                    'paginatorcustomer', array('route' => 'cosmetic')); ?>

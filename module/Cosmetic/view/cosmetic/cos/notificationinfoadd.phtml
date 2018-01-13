@@ -1,0 +1,37 @@
+<?php
+$title = '添加通知';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('cosmetic', array(
+    'action' => 'notificationinfoadd'
+)));
+$form->get('submit')->setAttribute('value', '添加');
+$form->get('nolink')->setAttribute('class', 'form-control linkinput1');
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+echo $this->formhidden($form->get('salnumber'));?>
+<div class="form-group"><label>标题</label><?php
+echo $this->formRow($form->get('notitle'));?></div>
+<div class="form-group"><label>内容</label><?php
+echo $this->formRow($form->get('nocontent'));?></div>
+<div class="form-group"><label>链接</label><?php
+echo $this->formRow($form->get('nolink'));
+?><span class="input-group-btn">
+						<button class="btn btn-default linkchoose1" type="button" >
+							<span class="ui-icon  ui-icon-link"></span>
+						</button>
+					</span></div>
+<div>
+ <?php echo $this->formInput($form->get('submit')); ?>
+ </div>
+<?php
+echo $this->form()->closeTag($form);?>
+
+<?php //链接选择器
+include_once 'public/php/linkchoice.phtml';?>

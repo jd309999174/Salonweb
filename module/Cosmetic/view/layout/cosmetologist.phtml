@@ -1,0 +1,38 @@
+<?php echo $this->doctype(); ?>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle('cosmetologist') ?>
+
+        <?php echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                       
+                        ->prependStylesheet($this->basePath('css/jquery-ui.css'))
+                        ->prependStylesheet($this->basePath('css/animate.min.css'))
+                        ->prependStylesheet($this->basePath('css/swiper-3.4.2.min.css'))
+                        ->prependStylesheet($this->basePath('css/bootstrap.css'))
+                        ;?>
+
+        <!-- Scripts -->
+        <?php echo $this->headScript()
+            ->prependFile($this->basePath('js/jquery-ui.js'))
+            ->prependFile($this->basePath('js/bootstrap.js'))
+            ->prependFile($this->basePath('js/swiper-3.4.2.jquery.min.js'))
+            ->prependFile($this->basePath('js/jquery.min.js')); ?>
+
+    </head>
+    <body style="overflow-y:auto;position: relative;" data-spy="scroll" id="body">
+        <div class="container">
+            <?php echo $this->content; ?>
+            <footer>
+               
+            </footer>
+        </div> <!-- /container -->
+
+    </body>
+</html>

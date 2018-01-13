@@ -1,0 +1,9 @@
+<?php //ios的未读消息
+if($unreads):?>
+[
+<?php foreach ($unreads as $unread):?>
+{"sendname":"<?php echo $unread->getSendname();?>",
+"lastword":"<?php echo $unread->getLastword();?>"},
+<?php endforeach;?>
+]
+<?php endif;?>

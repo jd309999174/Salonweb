@@ -1,0 +1,35 @@
+  <?php
+$title = 'My task list';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+ <p><a href="<?php echo $this->url('cosmetic', array('management',
+         'action'=>'salonslideadd'));?>">添加幻灯片活动</a></p>
+
+
+ <table class="table">
+ <tr>
+     <th>Task</th>
+     <th>Created</th>
+     
+     <th>&nbsp;</th>
+ </tr>
+ <?php foreach ($salonslides as $salonslide): ?>
+ 
+ <tr>
+     <td>
+         <a href="<?php echo $this->url('cosmetic',
+             array('management','action'=>'salonslideedit','sub'=>$salonslide->getSsid()));?>">
+             <?php echo $this->escapeHtml($salonslide->getSsid()); ?></a>
+     </td>
+     <td><?php echo $this->escapeHtml($salonslide->getSsphoto1()); ?></td>
+     
+     <td>
+         <a href="<?php echo $this->url('cosmetic',
+             array('action'=>'salonslidedelete','sub'=>$salonslide->getSsid()));?>">Delete</a>
+     </td>
+ </tr>
+ <?php endforeach; ?>
+ </table>
+

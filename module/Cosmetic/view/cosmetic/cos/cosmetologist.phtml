@@ -1,0 +1,69 @@
+    <script>
+  $(function() {
+    $( "#accordion" ).accordion({
+      collapsible: true,
+      heightStyle: "content"
+    });
+  });
+  </script>
+
+
+
+
+<?php
+// TODO 美容师转化为二维数组，方便重复输出
+$cars=array();
+foreach ($cosmetologists as $cosmetologist):
+array_push($cars,array("cosid"=>$cosmetologist->getCosid(),"salbranch"=>$cosmetologist->getSalbranch(),"cosname"=>$cosmetologist->getCosname(),"cosphoto"=>$cosmetologist->getCosphoto()));?>
+<?php endforeach;?>
+
+
+
+
+
+
+<?php
+$title = '美容师管理';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+
+ <p><a href="<?php echo $this->url('cosmetic', array('management',
+         'action'=>'cosmetologistadd'));?>">添加美容师</a></p>
+
+ 
+
+<div id="accordion">
+ <?php foreach ($salons as $salon): ?>
+  <h3><?php echo $salon->getSalbranch();?>:<?php echo $salon->getSalname();?></h3>
+  <div>
+    <table class="table table-hover">
+ <tr>
+     <th>姓名</th>
+     <th>图片</th>
+     <th>&nbsp;</th>
+ </tr>
+ <?php foreach ($cars as $car): ?>
+ <?php if($car["salbranch"]==$salon->getSalbranch()){?>
+ <tr>
+     <td>
+         <a href="<?php echo $this->url('cosmetic',
+             array('management','action'=>'cosmetologistedit','sub'=>$car["cosid"]));?>">
+             <?php echo $this->escapeHtml($car["cosname"]); ?></a>
+     </td>
+     <td><img src="<?php echo $this->escapeHtml($car["cosphoto"]); ?>" style="height:40px;width:60px"></td>
+     <td>
+         <a href="<?php echo $this->url('cosmetic',
+             array('action'=>'cosmetologistdelete','sub'=>$car["cosid"]));?>">删除</a>
+     </td>
+ </tr>
+
+  <?php } endforeach; ?>
+    </table>
+   </div>
+
+ <?php endforeach; ?>
+
+   </div>
+

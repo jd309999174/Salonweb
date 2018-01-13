@@ -1,0 +1,347 @@
+<link rel='stylesheet' type='text/css'href='/css/timepicki.css'/>
+<script type='text/javascript'src='/js/timepicki.js'></script>
+
+<style>
+.menubottom{
+	z-index:100;
+	position:fixed;
+	bottom:0px;
+	background-color:<?php echo $homepage->getPagecolor();?>;
+	}
+.appointmentdetail{
+	font-size:80%;
+	color:orangered;
+	}
+.bottom-btn{
+	border-right:0.1px solid rgba(0, 0, 0, 0.0980392);
+	border-top:0.1px solid rgba(0, 0, 0, 0.0980392);
+}
+.bottom-btn-me{
+	border-top:0.1px solid rgba(0, 0, 0, 0.0980392);
+}
+        @import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400);
+       
+        
+        ul.countdown {
+        	
+            list-style: none;
+            margin: 0 0;
+            padding: 0;
+            display: block;
+            text-align: center;
+        }
+        
+        ul.countdown li {
+            display: inline-block;
+        }
+        
+        ul.countdown li span {
+            font-size: 60px;
+            font-weight: 300;
+            line-height: 60px;
+        }
+        
+        ul.countdown li.seperator {
+            font-size: 40px;
+            line-height: 45px;
+            vertical-align: top;
+        }
+        
+        ul.countdown li p {
+            color: #a7abb1;
+            font-size: 14px;
+        }
+</style>
+
+<script> 
+$(document).ready(function(){
+	$('#timepicki').timepicki({show_meridian:false,
+		min_hour_value:0,
+		max_hour_value:23,
+		step_size_minutes:10,
+		overflow_minutes:true,
+		increase_direction:'up'});
+});
+</script>
+<script type="text/javascript">
+//出生日期选择器
+jQuery(function($){  
+    $.datepicker.regional['zh-CN'] = {  
+        closeText: '关闭',  
+        prevText: '<上月',  
+        nextText: '下月>',  
+        currentText: '今天',  
+        monthNames: ['一月','二月','三月','四月','五月','六月',  
+        '七月','八月','九月','十月','十一月','十二月'],  
+        monthNamesShort: ['1','2','3','4','5','6',  
+        '7','8','9','10','11','12'],  
+        dayNames: ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'],  
+        dayNamesShort: ['周日','周一','周二','周三','周四','周五','周六'],  
+        dayNamesMin: ['日','一','二','三','四','五','六'],  
+        weekHeader: '周',  
+        dateFormat: 'yy-mm-dd',  
+        firstDay: 1,  
+        isRTL: false,  
+        showMonthAfterYear: true,  
+        yearSuffix: '年'};  
+    $.datepicker.setDefaults($.datepicker.regional['zh-CN']);  
+    $( "#datepicker" ).datepicker({
+   	    changeMonth: true,
+        changeYear: true
+      });
+});
+</script>
+
+<script>
+$(document).ready(function(){
+	$(".selectPart").hide();$("#selectPart1").show();
+	$("#salonToCosmetologistNext").click(function(){
+		    $salonBranchValue=$("input[name='salonBranchName']:checked").attr("data-salbranch");
+		    $salonNameValue=$("input[name='salonBranchName']:checked").attr("data-salname");
+		    $('#salbranch').val($salonBranchValue);
+		    $('#salname').val($salonNameValue);
+			$.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'appointmentselectajax'));?>",dataType:"text",data:"salonBranchValue="+$salonBranchValue,type:"POST",success:function(result){
+				$("#cosmetologistSelect").html(result);
+			}});
+			$(".selectPart").hide();$("#selectPart2").show();
+	});
+    $("#cosmetologistToDatePrevious").click(function(){
+   	 $(".selectPart").hide();$("#selectPart1").show();
+	});
+	$("#cosmetologistToDateNext").click(function(){
+		$('#cosid').val($("input[name='cosmetologistName']:checked").attr("data-cosid"));
+		$('#cosname').val($("input[name='cosmetologistName']:checked").attr("data-cosname"));
+		$(".selectPart").hide();$("#selectPart3").show();
+	});
+	$("#dateTimePrevious").click(function(){
+		$(".selectPart").hide();$("#selectPart2").show();
+	});
+});
+</script>
+
+
+<?php //TODO 倒计时?>
+<div class="panel panel-default" onclick="location='<?php echo $this->url('customer', array('action'=>'myappointments','sub'=>'unexpired'));?>';" class="well" style="text-align:center;font-size:large;">
+<div class="panel-heading" style="border-radius: 16px;background-color:<?php echo $homepage->getPagecolor();?>;"><span class="glyphicon glyphicon-time" aria-hidden="true"></span>&nbsp;&nbsp;最近预约倒计时</div>
+<div class="panel-body">
+
+ <?php //美容院，美容师，审核状态?>
+ <div class="container" style="text-align:center;">
+   <div class="row">
+   <?php if ($recentdate):?>
+      <div class="col-xs-4 col-sm-4 appointmentdetail"><?php echo $recentdate->getSalname();?></div>
+      <div class="col-xs-4 col-sm-4 appointmentdetail"><?php echo $recentdate->getCosname();?></div> 
+      <div class="col-xs-4 col-sm-4 appointmentdetail"><?php echo $recentdate->getAppointmentstate();?></div> 
+   <?php endif;?>    
+   </div>
+</div>
+
+
+<ul class="countdown">
+        <li> <span class="days">00</span>
+            <p class="days_ref">天</p>
+        </li>
+        <li class="seperator">.</li>
+        <li> <span class="hours">00</span>
+            <p class="hours_ref">时</p>
+        </li>
+        <li class="seperator">:</li>
+        <li> <span class="minutes">00</span>
+            <p class="minutes_ref">分</p>
+        </li>
+        <li class="seperator">:</li>
+        <li> <span class="seconds">00</span>
+            <p class="seconds_ref">秒</p>
+        </li>
+</ul>
+</div>
+</div>
+
+<script type='text/javascript'src='/js/jquery.downCount.js'></script>
+
+<?php if($recentdate):?>
+<?php //TODO android 和 ios 倒计时通知?>
+<script>
+$(document).ready(function(){
+	//算出秒数传给APP
+	var starttime ='<?php echo $recentdate->getAppointmentdatetime();?>';
+    var starttime = starttime.replace(new RegExp("-","gm"),"/");
+    var starttimeHaoMiao = (new Date(starttime)).getTime(); //得到毫秒数
+	var starttime1 ='<?php echo date('Y-m-d H:i:s');?>';
+    var starttime1 = starttime1.replace(new RegExp("-","gm"),"/");
+    var starttimeHaoMiao1 = (new Date(starttime1)).getTime(); //得到毫秒数
+    var secondnumber=(starttimeHaoMiao-starttimeHaoMiao1)/1000;
+    //alert(secondnumber);
+    
+	var u = navigator.userAgent;
+	var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+	var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+    if(isAndroid){
+        //加引号就是字符串
+    	window.android.countdown(secondnumber,"<?php echo $recentdate->getSalname();?>","<?php echo $recentdate->getCosname();?>");
+        }else{
+        webkit.messageHandlers.ioscountdown.postMessage(secondnumber);
+            }
+})
+</script>
+
+<script type="text/javascript">
+        $('.countdown').downCount({
+            date: '<?php echo $nowtime=date('m/d/Y H:i:s',strtotime($recentdate->getAppointmentdatetime()));?>',
+            offset: +8
+        });
+</script>
+<script type="text/javascript">
+//按时间改变颜色
+$(document).ready(function(){
+               <?php if ($recentdate->getAppointmentdate()>date("Y-m-d",time())):?>
+               //$(".countdown").css("background","linear-gradient(yellow, purple)");
+               <?php endif;?> 
+               <?php if ($recentdate->getAppointmentdate()==date("Y-m-d",time())):?>
+               //$(".countdown").css("background","linear-gradient(red, blue)");
+               <?php endif;?>     
+	})
+</script>
+<?php endif;?>
+
+
+
+
+<?php //分割线?>
+<div style="height: 10px;width:100%;background-color:white;"></div>
+
+
+
+
+
+<?php //TODO 预约?>
+<div class="panel panel-default" style="text-align:center;font-size:large;">
+<div class="panel-heading" style="border-radius:16px;background-color:<?php echo $homepage->getPagecolor();?>;"><span class="glyphicon glyphicon-time" aria-hidden="true"></span>&nbsp;&nbsp;开始预约</div>
+
+
+<div id="selectPart1" class="selectPart panel-body">
+<div id="salonSelect">
+<!-- 预约流程 -->
+<div style="text-align: center;"><span><span style="color: red;border:1px solid red;">选择美容院</span>&nbsp;->&nbsp;选择美容师&nbsp;->&nbsp;选择时间</span></div>
+<div class="btn-group">
+	<button id="salonToCosmetologistNext" type="button"  class="btn btn-default">下一项</button>
+</div>
+<table class="table">
+   <thead>
+      <tr>
+         <th></th>
+         <th>名称</th>
+         <th>门面</th>
+      </tr>
+   </thead>
+   <tbody>
+   <?php foreach ($salons as $salon):?>
+      <tr>
+         <td><input checked="checked" type="radio" name="salonBranchName"  data-salbranch="<?php echo $salon->getSalbranch();?>" data-salname="<?php echo $salon->getSalname();?>"></td>
+         <td><?php echo $salon->getSalname();?></td>
+         <td><img alt="" src="<?php echo $salon->getSalphoto1();?>" style="width: 50px;height:30px"></td>
+      </tr>
+      <?php endforeach;?>
+   </tbody>
+</table>
+</div>
+</div>
+
+<div id="selectPart2" class="selectPart">
+<!-- 预约流程 -->
+<div style="text-align: center;"><span>选择美容院&nbsp;->&nbsp;<span style="color: red;border:1px solid red;">选择美容师</span>&nbsp;->&nbsp;选择时间</span></div>
+<div class="btn-group">
+	<button id="cosmetologistToDatePrevious" type="button"  class="btn btn-default">上一项</button>
+	<button id="cosmetologistToDateNext" type="button"  class="btn btn-default">下一项</button>
+</div>
+<div id="cosmetologistSelect"></div>
+</div>
+
+
+
+
+<div id="selectPart3" class="selectPart">
+<div id="dateTimeSelect">
+<!-- 预约流程 -->
+<div style="text-align: center;"><span>选择美容院&nbsp;->&nbsp;选择美容师&nbsp;->&nbsp;<span style="color: red;border:1px solid red;">选择时间</span></span></div>
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('customer', array(
+    'action' => 'appointment'
+)));
+$form->get('submit')->setAttribute('value', '提交');
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formhidden($form->get('appointmentid'));
+echo $this->formhidden($form->get('cusid'));
+echo $this->formhidden($form->get('cusname'));
+echo $this->formhidden($form->get('cusphone'));
+echo $this->formhidden($form->get('salnumber'));
+echo $this->formhidden($form->get('salbranch'));//选择
+echo $this->formhidden($form->get('salname'));//选择
+echo $this->formhidden($form->get('cosid'));//选择
+echo $this->formhidden($form->get('cosname'));//选择?>
+<div class="form-group">
+<label>预约日期</label>
+<?php echo $this->formRow($form->get('appointmentdate'));//选择?></div>
+<div class="form-group">
+<label>预约时间</label>
+<?php echo $this->formRow($form->get('appointmenttime'));//选择?></div>
+</div>
+<div class="btn-group">
+	<button id="dateTimePrevious" type="button"  class="btn btn-default">上一项</button>
+	<?php echo $this->formInput($form->get('submit'));?>
+</div>
+<?php $this->form()->closeTag($form);?>
+</div>
+</div>
+
+
+
+
+
+
+<?php //TODO 底部菜单栏  用于站位?>
+<div class="btn-group btn-group-justified" role="group" style="visibility:hidden">
+  <div class="btn-group" role="group" style="text-align:center;" >
+  <span class="glyphicon glyphicon-home" style="font-size:25px;color:red;" aria-hidden="true"></span>
+  <div style="color:red;">首页</div>
+  </div>
+  <div class="btn-group" role="group" style="text-align:center;">
+  <span class="glyphicon glyphicon-time" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>预约</div>
+  </div>
+  <div class="btn-group" role="group" style="text-align:center;">
+  <span class="glyphicon glyphicon-edit" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>咨询</div>
+  </div>
+  <div class="btn-group" role="group" style="text-align:center;">
+  <span class="glyphicon glyphicon-user" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>我</div>
+  </div>
+</div>
+
+<?php //TODO 底部菜单栏?>
+<div class="btn-group btn-group-justified menubottom" role="group" >
+  <div class="btn-group bottom-btn" role="group" style="text-align:center;" onclick="location='<?php echo $this->url('customer', array('action'=>'homepage','sub'=>$id));?>';">
+  <span class="glyphicon glyphicon-home" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>首页</div>
+  </div>
+  <div class="btn-group bottom-btn" role="group" style="text-align:center;" onclick="location='<?php echo $this->url('customer', array('action'=>'appointment'));?>';">
+  <span class="glyphicon glyphicon-time" style="font-size:25px;color:red;" aria-hidden="true"></span>
+  <div style="color:red;">预约</div>
+  </div>
+  <div class="btn-group bottom-btn" role="group" style="text-align:center;" onclick="location='<?php echo $this->url('customer', array('action'=>'cosmetologist'));?>';">
+  <span class="glyphicon glyphicon-comment" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>咨询&nbsp;
+  <?php if($unreadsum){?>
+  <span  class="badge" style="background-color:red;"><?php echo $unreadsum;?></span>
+  <?php }?>
+  </div>
+  </div>
+  <div class="btn-group bottom-btn-me" role="group" style="text-align:center;" onclick="location='<?php echo $this->url('customer', array('action'=>'me'));?>';">
+  <span class="glyphicon glyphicon-user" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>我</div>
+  </div>
+</div>

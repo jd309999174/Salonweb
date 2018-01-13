@@ -1,0 +1,53 @@
+ <?php
+$title = '通知管理';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<p>
+	<a
+		href="<?php
+
+echo $this->url('cosmetic', array(
+    'action' => 'notificationinfoadd'
+));
+?>">添加通知</a>
+</p>
+
+
+<table class="table">
+	<tr>
+		<th>id</th>
+		<th>标题</th>
+		<th>内容</th>
+		<th>链接</th>
+		<th>日期</th>
+		<th>时间</th>
+		<th>&nbsp;</th>
+	</tr>
+ <?php foreach ($notifications as $notification): ?>
+ <tr>
+		<td><a
+			href="<?php
+    
+echo $this->url('cosmetic', array(
+        'action' => 'notificationinfoedit',
+        'sub' => $notification->getId()
+    ));
+    ?>">
+             <?php echo $notification->getId(); ?></a></td>
+		<td><?php echo $notification->getNotitle(); ?></td>
+		<td><?php echo $notification->getNocontent(); ?></td>
+		<td><?php echo $notification->getNolink();?></td>
+		<td><?php echo $notification->getNodate();?></td>
+		<td><?php echo $notification->getNotime();?></td>
+		<td><a
+			href="<?php
+echo $this->url('cosmetic', array(
+        'action' => 'notificationinfodelete',
+        'sub' => $notification->getId()
+    ));
+    ?>">Delete</a>
+		</td>
+	</tr>
+ <?php endforeach; ?>
+  </table>

@@ -1,0 +1,40 @@
+<?php
+$title = '添加组合分类';
+$this->headTitle($title);
+?>
+<h5><?php echo $this->escapeHtml($title); ?></h5>
+
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('cosmetic', array(
+    'action' => 'productcombinationadd','sub'=>$sub
+)));
+$form->get('submit')->setAttribute('value', '添加');
+$form->get('prodid')->setAttribute('value', $sub);
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('productcombinationid'));
+echo $this->formHidden($form->get('prodid'));
+echo $this->formhidden($form->get('salnumber'));
+echo $this->formRow($form->get('productcombinationprice'));
+echo $this->formhidden($form->get('productcombinationpicture'));
+echo $this->formRow($form->get('productcombinationname'));
+
+?>
+<div>
+ <?php echo $this->formInput($form->get('submit')); ?>
+ </div>
+<?php
+echo $this->form()->closeTag($form);?>
+<img alt="" src="/img/choose.jpg" class="picturechoose1 img1" style="wdith:200px;height:150px"> 
+<script>
+//提交图片
+$(function(){
+	$("#submit").click(function(){
+		$("#productcombinationpicture").val($(".picturechoose1").attr("src"));
+		})
+})
+</script>
+<?php //图片选择器
+include_once 'public/php/picturechoice.phtml';?>

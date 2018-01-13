@@ -1,0 +1,39 @@
+
+<link rel='stylesheet' type='text/css'href='/css/timepicki.css'/>
+<script type='text/javascript'src='/js/timepicki.js'></script>
+<script> 
+$(document).ready(function(){
+	$('#alarm').timepicki({step_size_minutes:15,start_time: ["09", "00", "上午"]});
+});
+</script>
+<?php
+$title = '添加预约';
+$this->headTitle($title);
+?>
+<h5><?php echo $this->escapeHtml($title); ?></h5>
+
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('cosmetic', array(
+    'action' => 'appointmentadd'
+)));
+$form->get('submit')->setAttribute('value', 'Add');
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('appointmentid'));
+echo $this->formRow($form->get('cusid'));
+echo $this->formRow($form->get('cusname'));
+echo $this->formRow($form->get('cusphone'));
+echo $this->formRow($form->get('salnumber'));
+echo $this->formRow($form->get('salbranch'));
+echo $this->formRow($form->get('cosid'));
+echo $this->formRow($form->get('cosname'));
+echo $this->formRow($form->get('appointmentdate'));
+echo $this->formRow($form->get('appointmenttime'));
+?>
+<div>
+ <?php echo $this->formInput($form->get('submit')); ?>
+ </div>
+<?php
+echo $this->form()->closeTag($form);?>

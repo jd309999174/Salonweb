@@ -1,0 +1,135 @@
+<style>
+.menubottom{
+	z-index:100;
+	position:fixed;
+	bottom:0px;
+	background-color:<?php echo $homepage->getPagecolor();?>;
+	}
+.bottom-btn{
+	border-right:0.1px solid rgba(0, 0, 0, 0.0980392);
+	border-top:0.1px solid rgba(0, 0, 0, 0.0980392);
+}
+.bottom-btn-me{
+	border-top:0.1px solid rgba(0, 0, 0, 0.0980392);
+}
+</style>
+
+<div class="well"><span class="glyphicon glyphicon-star" style="color:red;" aria-hidden="true"></span>&nbsp;&nbsp;顾客对美容师评星</div>
+<div class="container" style="padding: 5px;">
+   <div class="row" align="center">
+      <div class="col-xs-3 col-sm-3"><button type="button" class="btn btn-default datepick" id="today">今日</button></div>
+      <div class="col-xs-3 col-sm-3"><button type="button" class="btn btn-default datepick" id="yesterday">昨日</button></div>
+      <div class="col-xs-3 col-sm-3"><button type="button" class="btn btn-default datepick" id="aweek">7日</button></div>
+      <div class="col-xs-3 col-sm-3"><button type="button" class="btn btn-default datepick" id="amonth">30日</button></div>   
+   </div>
+</div>
+
+<div id="cusreviewajaxcontent">
+
+</div>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	//默认
+	$("#today").addClass("active");
+	$.post("<?php echo $this->url('salonbossajax', array('action'=>'cusreviewajax'));?>",
+		    {
+		        minValue:"today"
+		    },
+		        function(data,status){
+		        $("#cusreviewajaxcontent").html(data);
+    });
+    //点击
+	$("#today").click(function(){
+		$(".datepick").removeClass("active");
+		$("#today").addClass("active");
+	    $.post("<?php echo $this->url('salonbossajax', array('action'=>'cusreviewajax'));?>",
+	    {
+	        minValue:"today"
+	    },
+	        function(data,status){
+	        $("#cusreviewajaxcontent").html(data);
+	    });
+	});
+	$("#yesterday").click(function(){
+		$(".datepick").removeClass("active");
+		$("#yesterday").addClass("active");
+	    $.post("<?php echo $this->url('salonbossajax', array('action'=>'cusreviewajax'));?>",
+	    {
+	        minValue:"yesterday"
+	    },
+	        function(data,status){
+	    	$("#cusreviewajaxcontent").html(data);
+	    });
+	});
+	$("#aweek").click(function(){
+		$(".datepick").removeClass("active");
+		$("#aweek").addClass("active");
+	    $.post("<?php echo $this->url('salonbossajax', array('action'=>'cusreviewajax'));?>",
+	    {
+	        minValue:"aweek"
+	    },
+	        function(data,status){
+	    	$("#cusreviewajaxcontent").html(data);
+	    });
+	});
+	$("#amonth").click(function(){
+		$(".datepick").removeClass("active");
+		$("#amonth").addClass("active");
+	    $.post("<?php echo $this->url('salonbossajax', array('action'=>'cusreviewajax'));?>",
+	    {
+	        minValue:"amonth"
+	    },
+	        function(data,status){
+	    	$("#cusreviewajaxcontent").html(data);
+	    });
+	});
+})
+</script>
+
+
+<?php //TODO 底部菜单栏  用于站位?>
+<div class="btn-group btn-group-justified" role="group" style="visibility:hidden">
+  <div class="btn-group" role="group" style="text-align:center;" >
+  <span class="glyphicon glyphicon-home" style="font-size:25px;color:red;" aria-hidden="true"></span>
+  <div style="color:red;">首页</div>
+  </div>
+  <div class="btn-group" role="group" style="text-align:center;">
+  <span class="glyphicon glyphicon-time" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>预约</div>
+  </div>
+  <div class="btn-group" role="group" style="text-align:center;">
+  <span class="glyphicon glyphicon-edit" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>咨询</div>
+  </div>
+  <div class="btn-group" role="group" style="text-align:center;">
+  <span class="glyphicon glyphicon-user" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>我</div>
+  </div>
+</div>
+
+<?php //TODO 底部菜单栏?>
+<div class="btn-group btn-group-justified menubottom" role="group" >
+  <div class="btn-group bottom-btn" role="group" style="text-align:center;" 
+  onclick="location='<?php echo $this->url('salonboss', array('action'=>'cusorder','sub'=>$id));?>';">
+  <span class="glyphicon glyphicon-list-alt" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>订单</div>
+  </div>
+  <div class="btn-group bottom-btn" role="group" style="text-align:center;" 
+  onclick="location='<?php echo $this->url('salonboss', array('action'=>'cusreview'));?>';">
+  <span class="glyphicon glyphicon-star" style="font-size:25px;color:red;" aria-hidden="true"></span>
+  <div style="color:red;">评星</div>
+  </div>
+  <div class="btn-group bottom-btn" role="group" style="text-align:center;" 
+  onclick="location='<?php echo $this->url('salonboss', array('action'=>'cusbrowsing'));?>';">
+  <span class="glyphicon glyphicon-phone" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>客户</div>
+  </div>
+  <div class="btn-group bottom-btn-me" role="group" style="text-align:center;" 
+  onclick="location='<?php echo $this->url('salonboss', array('action'=>'me'));?>';">
+  <span class="glyphicon glyphicon-user" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>我</div>
+  </div>
+</div>

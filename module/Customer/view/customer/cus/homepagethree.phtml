@@ -1,0 +1,34 @@
+<?php foreach ($activitypages as $activitypage):?>
+<li style="padding:3px;border:1px solid #3c763d;border-radius:16px;">
+<div style="border-radius:16px;" class="panel panel-default" onclick="location='<?php echo $this->url('customer', array('action'=>'activityitem','sub'=>$activitypage->getPageid()));?>';">
+	<div class="panel-heading" style="background-color:<?php echo $page->getPagecolor();?>;border-radius:16px;">
+		<span><img alt="" style="height:20px;" src="/meicon/meicon22.png"></span>&nbsp;&nbsp;<span class="panel-title"><?php echo $activitypage->getPagename();?></span>
+	</div>
+	<div class="panel-body">
+	<div class="row">
+		<div class="col">
+		   <div class="col-demo">
+		   <?php if($activitypage->getPageheaddata1()!="/img/choose.jpg"){?>
+		     <img alt="" src="<?php echo $activitypage->getPageheaddata1();?>" class="activityimg">
+		  <?php }else{?>
+             <video width="100%"  controls class="videosrc embed-responsive-item" poster="/meicon/corporatelogo2.png">
+                   <source src="<?php echo $activitypage->getPageheaddata2();?>#t=0.1" type="video/mp4">
+             </video> 
+          <?php }?>
+		  </div>
+	   </div>					
+	</div>
+	</div>
+	<div class="panel-footer" style="border-radius:16px;">
+	<span>
+	<?php if ($activitypage->getPageexpiration()>date("Y-m-d")){?>
+	<span style="color:red;">活动进行中...</span>
+	<?php }else{?>
+	<span style="color:gray;">活动已结束</span>
+	<?php }?>
+	</span>
+	截止日期：<?php echo $activitypage->getPageexpiration();?>
+	</div>
+</div>
+</li>
+<?php endforeach;?>

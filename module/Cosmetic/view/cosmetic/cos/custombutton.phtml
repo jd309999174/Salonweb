@@ -1,0 +1,32 @@
+  <?php
+$title = '自定义菜单按钮管理';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+ <p><a href="<?php echo $this->url('cosmetic', array('management',
+         'action'=>'custombuttonadd'));?>">添加按钮</a></p>
+
+
+ <table class="table table-hover">
+ <tr>
+     <th>按钮名</th>
+     <th>&nbsp;</th>
+ </tr>
+ <?php foreach ($custombuttons as $custombutton): ?>
+ 
+ <tr>
+     <td>
+         <a href="<?php echo $this->url('cosmetic',
+             array('action'=>'custombuttonedit','sub'=>$custombutton->getButtonid()));?>">
+             <?php echo $this->escapeHtml($custombutton->getButtonname()); ?></a>
+     </td>
+     
+     <td>
+         <a href="<?php echo $this->url('cosmetic',
+             array('action'=>'custombuttondelete','sub'=>$custombutton->getButtonid()));?>">删除</a>
+     </td>
+     
+ </tr>
+ <?php endforeach; ?>
+ </table>

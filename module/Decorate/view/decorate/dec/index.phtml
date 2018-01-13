@@ -1,0 +1,125 @@
+<style>
+img{
+	height: 40px;
+	margin: 0;
+	padding: 0;
+}
+.menu {
+	height: 480px;
+	width: 320px;
+	float: left;
+	border: 1px solid #ccc;
+}
+
+.form {
+	height: 480px;
+	width: 320px;
+	float: right;
+	border: 1px solid #ccc;
+}
+
+.nav_wrap {
+	margin: 0 auto;
+	height: 480px;
+	width: 320px;
+	overflow: hidden;
+	border: 1px solid #ccc;
+}
+
+.nav_ul {
+	height: 100%;
+	width: 340px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.nav_li {
+	border: 1px solid #ccc;
+	height: 40px;
+	text-align: center;
+	font-size: 12px;
+}
+
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+span
+{
+display:none;
+}
+</style>
+<script>
+$(document).ready(function(){
+  $(function() {
+    $( "#sortable" ).sortable({
+      revert: true
+    });
+    $( "#draggable" ).draggable({
+      connectToSortable: "#sortable",
+      helper: "clone",
+      revert: "invalid"
+    });
+    $( "#draggable1" ).draggable({
+        connectToSortable: "#sortable",
+        helper: "clone",
+        revert: "invalid"
+      });
+    $( "ul, li" ).disableSelection();
+  });});
+  </script>
+<script>
+$(document).ready(function(){
+  $("#hide").click(function(){
+    $("p").hide();
+  });
+  $("#show").click(function(){
+    $("p").show();
+  });
+});
+</script>
+
+<script>
+$(document).ready(function(){
+	  $("li").on("click","",function(){
+	    alert("asdsa");
+	  });
+	});
+</script>
+<div class="menu">
+	<ul>
+		<li id="draggable" class="nav_li ui-state-highlight ui-state-default"
+			style="width: auto;" onclick="myFunction('asdasd')">
+			<div class="row clearfix">
+				<div class="col-md-12 column">
+				<img src="/img/123.jpg" alt="单列宝贝">
+				
+				</div>
+			</div>
+		</li>
+
+		<li id="draggable1" class="nav_li ui-state-highlight ui-state-default"
+			style="width: auto;">
+
+			<div class="row clearfix">
+				<div class="col-md-6 column"><img src="" alt="双列"></div>
+				<div class="col-md-6 column"><img src="" alt="宝贝"></div>
+			</div>
+
+		</li>
+	</ul>
+</div>
+<div class="form"></div>
+<div class="nav_wrap">
+	<ul class="nav_ul" id="sortable">
+
+	</ul>
+</div>
+<p>单击按钮触发函数。</p>
+<button onclick="myFunction('1213')">点我</button>
+<p id="demo"></p>
+欢迎 <?php echo $_POST["fname"][0]; ?>!<br>
+你的年龄是 <?php echo $_POST["age"][0]; ?>  岁。
+欢迎 <?php echo $_POST["fname"][1]; ?>!<br>
+你的年龄是 <?php echo $_POST["age"][1]; ?>  岁。

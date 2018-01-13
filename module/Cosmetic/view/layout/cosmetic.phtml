@@ -1,0 +1,158 @@
+<?php echo $this->doctype(); ?>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle('cosmetic') ?>
+
+        <?php echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                        ->prependStylesheet($this->basePath('css/jquery-ui.css'))
+                        ->prependStylesheet($this->basePath('css/bootstrap.css'))
+                        ;?>
+
+        <!-- Scripts -->
+        <?php echo $this->headScript()
+            ->prependFile($this->basePath('js/jquery-ui.js'))
+            ->prependFile($this->basePath('js/bootstrap.js'))
+            ->prependFile($this->basePath('js/jquery.min.js')); ?>
+
+<script type="text/javascript">
+//出生日期选择器
+jQuery(function($){  
+    $.datepicker.regional['zh-CN'] = {  
+        closeText: '关闭',  
+        prevText: '<上月',  
+        nextText: '下月>',  
+        currentText: '今天',  
+        monthNames: ['一月','二月','三月','四月','五月','六月',  
+        '七月','八月','九月','十月','十一月','十二月'],  
+        monthNamesShort: ['一','二','三','四','五','六',  
+        '七','八','九','十','十一','十二'],  
+        dayNames: ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'],  
+        dayNamesShort: ['周日','周一','周二','周三','周四','周五','周六'],  
+        dayNamesMin: ['日','一','二','三','四','五','六'],  
+        weekHeader: '周',  
+        dateFormat: 'yy-mm-dd',  
+        firstDay: 1,  
+        isRTL: false,  
+        showMonthAfterYear: true,  
+        yearSuffix: '年'};  
+    $.datepicker.setDefaults($.datepicker.regional['zh-CN']);  
+    $( "#datepicker" ).datepicker({
+        changeMonth: true,
+        changeYear: true
+      });
+});
+</script>
+<script>
+//随机文件名
+function change(file,text) {
+var x="0123456789qwertyuioplkjhgfdsazxcvbnm";
+var tmp="";
+var timestamp = new Date().getTime();
+for(var i=0;i< 10;i++) {
+tmp += x.charAt(Math.ceil(Math.random()*100000000)%x.length);}
+var random=timestamp+tmp;
+var obj = document.getElementById(file);
+var len = obj.files.length;
+for (var i = 0; i < len; i++) {
+var temp = obj.files[i].name;}
+var fileExt=(/[.]/.exec(temp)) ? /[^.]+$/.exec(temp.toLowerCase()) : '';
+var randomname=random+"."+fileExt;
+var obj2 = document.getElementById(text);
+// obj2.value=randomname;
+obj2.value=obj.value;
+}
+</script>
+
+<style>
+.titletext{
+	font-size:150%;
+
+}
+.subtitletext{
+	font-size:120%;
+}
+</style>
+
+    </head>
+    <body>
+    
+    <?php //TODO 顶部菜单?>
+    <nav class="navbar navbar-default" role="navigation">
+	<div class="container-fluid">
+	<div class="navbar-header">
+    <img alt="欧奢伦" src="/meicon/corporatelogo2.png" style="height:50px;">
+	</div>
+	<div>
+		<ul class="nav navbar-nav">
+			<li><a href="<?php echo $this->url('cosmetic', array('action'=>'customer'));?>">
+			<span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;客户</a></li>
+			<li><a href="<?php echo $this->url('cosmetic', array('action'=>'appointment'));?>">
+			<span class="glyphicon glyphicon-time" aria-hidden="true"></span>&nbsp;预约</a></li>
+			<li><a href="<?php echo $this->url('cosmetic', array('action'=>'treatment'));?>">
+			<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&nbsp;订单</a></li>
+			<li><a href="<?php echo $this->url('cosmetic', array('action'=>'feedbacksearch'));?>">
+			<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;评价</a></li>
+			<li><a href="<?php echo $this->url('cosmetic', array('action'=>'cusbrowsinghistory'));?>">
+			<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;粘度</a></li>
+		</ul>
+		<div style="float:right;padding:10px;">
+		<a href="javascript:history.go(-1);"><span class="glyphicon glyphicon-chevron-left"></span></a>
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="javascript:history.go(1);"><span class="glyphicon glyphicon-chevron-right"></span></a>
+		</div>
+	</div>
+	</div>
+	
+</nav>
+    <?php //TODO 左侧菜单?>
+    <div class="panel panel-default" style="float: left;">
+    <div class="panel-body">
+        <a href="<?php echo $this->url('cosmetic', array(
+         'action'=>'salon'));?>"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span>&nbsp;分店管理</a>
+          <hr />
+          <a href="<?php echo $this->url('cosmetic', array(
+         'action'=>'cosmetologist'));?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;美容师</a>
+          <hr />
+          <a href="<?php echo $this->url('cosmetic', array(
+         'action'=>'product'));?>"><span class="glyphicon glyphicon-gift" aria-hidden="true"></span>&nbsp;产品</a>
+         <hr />
+         <a href="<?php echo $this->url('cosmetic', array(
+         'action'=>'demandclassifyseries'));?>"><span class="glyphicon glyphicon-tags" aria-hidden="true"></span>&nbsp;分类管理</a>
+         <hr />
+         <a href="<?php echo $this->url('cosmetic', array(
+         'action'=>'custombutton'));?>"><span class="glyphicon glyphicon-move" aria-hidden="true"></span>&nbsp;菜单按钮</a>
+          <hr />
+         <a href="<?php echo $this->url('cosmetic', array(
+         'action'=>'saloncouponissue'));?>"><span class="glyphicon glyphicon-credit-card" aria-hidden="true"></span>&nbsp;优惠券</a>
+          <hr />
+         <a href="<?php echo $this->url('cosmetic', array(
+         'action'=>'picture'));?>"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span>&nbsp;图片管理</a>
+         <hr />
+         <a href="<?php echo $this->url('cosmetic', array(
+         'action'=>'page'));?>"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>&nbsp;页面管理</a>
+         <hr />
+         <a href="<?php echo $this->url('cosmetic', array(
+         'action'=>'notificationinfo'));?>"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>&nbsp;通知管理</a>
+         
+         </div>
+        </div>
+        
+        <!-- 内容页 -->
+        <div class="container" style="float: right;">
+            <?php echo $this->content; ?>
+            <hr>
+            <footer>
+               
+            </footer>
+        </div> <!-- /container -->
+        <?php echo $this->inlineScript() ?>
+ 
+    </body>
+</html>

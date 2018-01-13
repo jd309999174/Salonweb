@@ -1,0 +1,259 @@
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "company";
+
+try {
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    // ���� PDO ����ģʽ�������׳��쳣
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    //A1 ����Ժ����ţ��˺ţ����룬���ƣ��绰����ַ���ϰ壬�ϰ���Ƭ��������Ƭ3�ţ�ע������
+    $sql = "CREATE TABLE salon (
+    id BIGINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    salonnumber INT(6),
+    account VARCHAR(30),
+    passwords VARCHAR(30),
+    salonname VARCHAR(30),
+    phone BIGINT(11),
+    address VARCHAR(100) NOT NULL,
+    boss VARCHAR(30),
+    bossphoto VARCHAR(30),
+    salonphoto1 VARCHAR(30),
+    salonphoto2 VARCHAR(30),
+    salonphoto3 VARCHAR(30),
+    reg_date TIMESTAMP
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    
+    // A3 �����:����Ժ��ţ����⣬��ϸ����Ƶ����������
+    $sql = "CREATE TABLE promotion (
+    id BIGINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    salonnumber INT(6),
+    title VARCHAR(100),
+    detail VARCHAR(100),
+    pro_photo1 VARCHAR(30),
+    pro_photo2 VARCHAR(30),
+    pro_photo3 VARCHAR(30),
+    pro_photo4 VARCHAR(30),
+    pro_photo5 VARCHAR(30),
+    pro_photo6 VARCHAR(30),
+    pro_video VARCHAR(30),
+    reg_date TIMESTAMP
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // A4 ����ʦ������ʦ���,����Ժ��ţ���������ַ���绰����Ƭ��ר��
+    $sql = "CREATE TABLE cosmetologist (
+    id BIGINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    cosmetologistnumber INT(6),
+    salonnumber INT(6),
+    name VARCHAR(30),
+    address VARCHAR(100),
+    phone BIGINT(11),
+    photo VARCHAR(100),
+    speciality VARCHAR(100),
+    reg_date TIMESTAMP
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // A5�ֵ꣺����Ժ��ţ��ֵ���
+    $sql = "CREATE TABLE subbranch (
+    id BIGINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    salonnumber INT(6),
+    branch VARCHAR(100)
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // A6 ���沼��:����Ժ��ţ�
+    $sql = "CREATE TABLE salonlayout (
+    id BIGINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    salonnumber INT(6)
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // B1�ͻ�������Ժ��ţ��ͻ����,�绰������,���������֤�ţ���ַ����Ƭ�����֣�ʣ�����Ա�ȼ�,ע��ʱ��
+    $sql = "CREATE TABLE customers(
+    id BIGINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    salonnumber INT(6),
+    customernumber INT(6),
+    phone BIGINT(11),
+    passwords VARCHAR(30),
+    name VARCHAR(30),
+    identity VARCHAR(100),
+    address VARCHAR(30),
+    photo VARCHAR(30),
+    points INT(6),
+    balance INT(6),
+    level INT(6),
+    reg_date TIMESTAMP
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // B2�����Ƴ�������ͻ���ţ�����Ժ��ţ���Ʒ��ţ��Ƴ̱�ţ������������������ڣ������,�Ƴ����ۣ���������
+    $sql = "CREATE TABLE treatmentoverview(
+    id BIGINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    customernumber INT(6),
+    salonnumber INT(6),
+    production INT(6),
+    treatment INT(6),
+    completed VARCHAR(30),
+    reg_date TIMESTAMP,
+    satisfaction INT(6),
+    comment VARCHAR(30),
+    commentdata TIMESTAMP
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // B2�ֶ��Ƴ�������ͻ���ţ��Ƴ̱�ţ��׶Σ���������ʦ��ţ��������ڣ�����ʱ����������Ƶ���ͻ����ۣ��������ڣ�
+    $sql = "CREATE TABLE treatmentdetail(
+    id BIGINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    customernumber INT(6),
+    treatment INT(6),
+    stage INT(6),
+    cosmetologistnumber INT(6),
+    operationdate TIMESTAMP,
+    operationduration INT(6),
+    operationvideo VARCHAR(30),
+    comment VARCHAR(30),
+    commentdate TIMESTAMP
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // B3���ﳵ���û���ţ�����Ժ��ţ���Ʒ��ţ�����
+    $sql = "CREATE TABLE cart(
+    id BIGINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    customernumber INT(6),
+    salonnumber INT(6),
+    production INT(6),
+    reg_date TIMESTAMP
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // B4�Զ��岼�֣�*δд
+    $sql = "CREATE TABLE customerlayout(
+    id BIGINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    customernumber INT(6)
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // c1 ��˾ͨ�ã����ƣ���ַ���绰���̱꣬��������ϵqq,ͼƬ
+    $sql = "CREATE TABLE company(
+    id BIGINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    company VARCHAR(30),
+    address VARCHAR(30),
+    phone BIGINT(11),
+    logo VARCHAR(30),
+    description VARCHAR(100),
+    qq INT(10),
+    photo VARCHAR(100)
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // c2 ͨ�ò�Ʒ����Ʒ��ţ�����Ժ��ţ�Ĭ��0���������������۸�ԭ�ۣ����ּۣ������ڣ�����,���飨���ƿ�Ӵ�С��,��Ƶ,ͼƬ��5�ţ����Ƴ̴�����ע��ʱ��,���ף���ʪ����˥����ߣ�����
+    $sql = "CREATE TABLE commonproduction (
+    id BIGINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    salonnumber INT(6),
+    production INT(6),
+    description VARCHAR(100),
+    price INT(6),
+    original INT(6),
+    pointprice INT(6),
+    shelf_life VARCHAR(100),
+    comment VARCHAR(100),
+    detail VARCHAR(100),
+    video VARCHAR(100),
+    photo1 VARCHAR(30),
+    photo2 VARCHAR(30),
+    photo3 VARCHAR(30),
+    photo4 VARCHAR(30),
+    photo5 VARCHAR(30),
+    times INT(6),
+    reg_date TIMESTAMP,
+    whitening INT(6),
+    moisturize INT(6),
+    anti_senile INT(6),
+    freckle INT(6),
+    desensitization INT(6)
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // c3 ͨ�ô����:���⣬��ϸ����Ƶ����������
+    $sql = "CREATE TABLE commonpromotion (
+    id BIGINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(100),
+    detail VARCHAR(100),
+    video VARCHAR(100),
+    reg_date TIMESTAMP
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // c4ͨ�ò��֣�*δд
+    $sql = "CREATE TABLE commonlayout(
+    id BIGINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // c5 ͨ��֪ͨ:�û����,��Ϣ������
+    $sql = "CREATE TABLE  notification(
+    id BIGINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    customernumber INT(6),
+    message VARCHAR(30),
+    date TIMESTAMP
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // c6 �齱���û���ţ���Ʒ������
+    $sql = "CREATE TABLE  raffle(
+    id BIGINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    customernumber INT(6),
+    prize VARCHAR(30),
+    date TIMESTAMP
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+    // c7 ��Ʒ��ͼ����Ʒ��ţ�ͼ��11�ţ�
+    $sql = "CREATE TABLE  detail_photo(
+    id BIGINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    production INT(6),
+    detail_photo1 VARCHAR(30),
+    detail_photo2 VARCHAR(30),
+    detail_photo3 VARCHAR(30),
+    detail_photo4 VARCHAR(30),
+    detail_photo5 VARCHAR(30),
+    detail_photo6 VARCHAR(30),
+    detail_photo7 VARCHAR(30),
+    detail_photo8 VARCHAR(30),
+    detail_photo9 VARCHAR(30),
+    detail_photo10 VARCHAR(30),
+    detail_photo11 VARCHAR(30)
+    )";
+    $conn->exec($sql);
+    echo "���ݱ� MyGuests �����ɹ�";
+    
+}
+catch(PDOException $e)
+{
+    echo $sql . "<br>" . $e->getMessage();
+}
+
+$conn = null;
+?>

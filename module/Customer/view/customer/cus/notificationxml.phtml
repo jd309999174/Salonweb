@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE no[
+<!ELEMENT no (notitle, nocontent, nodate, notime, nolink)>
+<!ATTLIST address xmlns CDATA #IMPLIED>
+<!ELEMENT notitle (#PCDATA)>
+<!ELEMENT nocontent (#PCDATA)>
+<!ELEMENT nodate (#PCDATA)>
+<!ELEMENT notime (#PCDATA)>
+<!ELEMENT nolink (#PCDATA)>
+]>
+<no>
+<notitle><?php if($notification!==null)echo $notification->getNotitle();?></notitle>
+<nocontent><?php if($notification!==null)echo $notification->getNocontent();?></nocontent>
+<nodate><?php if($notification!==null)echo $notification->getNodate();?></nodate>
+<notime><?php if($notification!==null)echo $notification->getNotime();?></notime>
+<nolink><?php if($notification!==null)echo $notification->getNolink();?></nolink>
+</no>

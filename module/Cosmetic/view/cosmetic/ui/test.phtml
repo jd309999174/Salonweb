@@ -1,0 +1,19 @@
+<link rel="stylesheet" type="text/css" href="/css/ionic.css" >
+<div class="list card">
+<?php foreach ($promotions as $promotion): ?>
+  <div class="item item-avatar">
+    <img src="<?php echo $this->escapeHtml("/salon/".$id."/".$promotion->getPromthumbnail()); ?>">
+    <h2> <?php echo $promotion->getPromauthor(); ?></h2>
+    <p style="position:absolute; bottom:0px;"> <?php echo $promotion->getPromregdate(); ?></p>
+    <p style="float: right;"> <?php echo $promotion->getPromsort(); ?></p>
+  </div>
+
+  <div class="item item-body">
+    <h2>
+      <?php echo $promotion->getPromtitle(); ?>
+    </h2>
+    <p><?php echo $promotion->getPromdetail(); ?></p>
+    <img class="full-image" src="<?php echo $this->escapeHtml("/salon/".$id."/".$promotion->getPromphoto1()); ?>">
+  </div>
+<?php endforeach;?>
+</div>

@@ -1,0 +1,116 @@
+<script>$('#prodpriceup').hide();$('#prodpricedown').hide();$('#prodsales').hide();$('#prodregdate').hide();</script>
+<?php
+$homepage2cars=array();
+foreach ($products as $product){
+array_push($homepage2cars,array("prodid"=>$product->getProdid(),"prodsales"=>$product->getProdsales(),
+    "prodtitle"=>$product->getProdtitle(),"prodpicture1"=>$product->getProdpicture1(),
+    "prodprice"=>$product->getProdprice(),"prodoriginal"=>$product->getProdoriginal(),
+    "prodregdate"=>$product->getProdregdate(),
+    "proddiscount"=>$product->getProddiscount()));
+}?>
+
+<div id="prodsynthesis" class="prodsort">
+ <?php //综合排序
+foreach ($homepage2cars as $key => $row) {
+$x[$key] = $row['prodprice'];}
+array_multisort($x, SORT_DESC,$homepage2cars);
+?>
+<?php foreach ($homepage2cars as $car): ?>
+<div class="row productdisplay"  onclick="location='<?php echo $this->url('customer', array('action'=>'productitem','sub'=>$car["prodid"]));?>';">
+  <div class="col-xs-4"><img alt="" src="<?php echo $car["prodpicture1"];?>" style="height:124px;width:100%"></div>
+  <div class="col-xs-8" style="padding: 2px">
+  <p class="producttitle"><?php echo $car["prodtitle"];?></p>
+  <!-- <p>销量<?php echo $car["prodsales"];?></p> -->
+  <p>原价：<span style="text-decoration:line-through;color:gray;"><?php echo $car["prodoriginal"];?></span></p>
+  <p>
+  <span style="color:red;font-size:large;">¥ <?php echo $car["prodprice"];?></span>
+  <span style="float:right;color:gray;">销量：<?php echo $car["prodsales"];?></span>
+  </p>
+  </div>
+</div>
+<?php endforeach;?>
+</div>
+
+<div id="prodpriceup" class="prodsort">
+ <?php //价格排序
+foreach ($homepage2cars as $key => $row) {
+$x[$key] = $row['prodprice'];}
+array_multisort($x, SORT_ASC,$homepage2cars);
+?>
+<?php foreach ($homepage2cars as $car): ?>
+<div class="row productdisplay"  onclick="location='<?php echo $this->url('customer', array('action'=>'productitem','sub'=>$car["prodid"]));?>';">
+  <div class="col-xs-4"><img alt="" src="<?php echo $car["prodpicture1"];?>" style="height:124px;width:100%"></div>
+  <div class="col-xs-8" style="padding: 2px">
+  <p class="producttitle"><?php echo $car["prodtitle"];?></p>
+  <p>原价：<span style="text-decoration:line-through;color:gray"><?php echo $car["prodoriginal"];?></span></p>
+  <p>
+  <span style="color:red;font-size:large;">¥ <?php echo $car["prodprice"];?></span>
+  <span style="float:right;color:gray;">销量：<?php echo $car["prodsales"];?></span>
+  </p>
+  </div>
+</div>
+<?php endforeach;?>
+</div>
+
+<div id="prodpricedown" class="prodsort">
+ <?php //价格排序
+foreach ($homepage2cars as $key => $row) {
+$x[$key] = $row['prodprice'];}
+array_multisort($x, SORT_DESC,$homepage2cars);
+?>
+<?php foreach ($homepage2cars as $car): ?>
+<div class="row productdisplay" onclick="location='<?php echo $this->url('customer', array('action'=>'productitem','sub'=>$car["prodid"]));?>';">
+  <div class="col-xs-4"><img alt="" src="<?php echo $car["prodpicture1"];?>" style="height:124px;width:100%"></div>
+  <div class="col-xs-8" style="padding: 2px">
+  <p class="producttitle"><?php echo $car["prodtitle"];?></p>
+  <p>原价：<span style="text-decoration:line-through;color:gray"><?php echo $car["prodoriginal"];?></span></p>
+  <p>
+  <span style="color:red;font-size:large;">¥ <?php echo $car["prodprice"];?></span>
+  <span style="float:right;color:gray;">销量：<?php echo $car["prodsales"];?></span>
+  </p>
+  </div>
+</div>
+<?php endforeach;?>
+</div>
+
+<div id="prodsales" class="prodsort">
+ <?php  //销量排序
+foreach ($homepage2cars as $key => $row) {
+$x[$key] = $row['prodsales'];}
+array_multisort($x, SORT_ASC,$homepage2cars);
+?>
+<?php foreach ($homepage2cars as $car): ?>
+<div class="row productdisplay" onclick="location='<?php echo $this->url('customer', array('action'=>'productitem','sub'=>$car["prodid"]));?>';">
+  <div class="col-xs-4"><img alt="" src="<?php echo $car["prodpicture1"];?>" style="height:124px;width:100%"></div>
+  <div class="col-xs-8" style="padding: 2px">
+  <p class="producttitle"><?php echo $car["prodtitle"];?></p>
+  <p>原价：<span style="text-decoration:line-through;color:gray"><?php echo $car["prodoriginal"];?></span></p>
+  <p>
+  <span style="color:red;font-size:large;">¥ <?php echo $car["prodprice"];?></span>
+  <span style="float:right;color:gray;">销量：<?php echo $car["prodsales"];?></span>
+  </p>
+  </div>
+</div>
+<?php endforeach;?>
+</div>
+
+<div id="prodregdate" class="prodsort">
+ <?php  //新品排序
+foreach ($homepage2cars as $key => $row) {
+$x[$key] = $row['prodregdate'];}
+array_multisort($x, SORT_DESC,$homepage2cars);
+?>
+<?php foreach ($homepage2cars as $car): ?>
+<div class="row productdisplay" style="padding:5px;" onclick="location='<?php echo $this->url('customer', array('action'=>'productitem','sub'=>$car["prodid"]));?>';">
+  <div class="col-xs-4"><img alt="" src="<?php echo $car["prodpicture1"];?>" style="height:124px;width:100%"></div>
+  <div class="col-xs-8" style="padding: 2px">
+  <p class="producttitle"><?php echo $car["prodtitle"];?></p>
+  <p>原价：<span style="text-decoration:line-through;color:gray"><?php echo $car["prodoriginal"];?></span></p>
+  <p>
+  <span style="color:red;font-size:large;">¥ <?php echo $car["prodprice"];?></span>
+  <span style="float:right;color:gray;">销量：<?php echo $car["prodsales"];?></span>
+  </p>
+  </div>
+</div>
+<?php endforeach;?>
+</div>

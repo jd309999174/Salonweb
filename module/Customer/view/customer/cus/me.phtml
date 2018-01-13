@@ -1,0 +1,118 @@
+<style>
+.menubottom{
+	z-index:100;
+	position:fixed;
+	bottom:0px;
+	background-color:<?php echo $homepage->getPagecolor();?>;
+	}
+#mehead {
+       background-color:<?php echo $homepage->getPagecolor();?>;	
+/*     background: -webkit-linear-gradient(white, green); /* Safari 5.1 - 6.0 */ */
+/*     background: -o-linear-gradient(yellow, green); /* Opera 11.1 - 12.0 */ */
+/*     background: -moz-linear-gradient(yellow, green); /* Firefox 3.6 - 15 */ */
+/*     background: linear-gradient(yellow, green); /* 标准的语法（必须放在最后） */ */
+}
+.bottom-btn{
+	border-right:0.1px solid rgba(0, 0, 0, 0.0980392);
+	border-top:0.1px solid rgba(0, 0, 0, 0.0980392);
+}
+.bottom-btn-me{
+	border-top:0.1px solid rgba(0, 0, 0, 0.0980392);
+}
+</style>
+
+
+<div style="text-align:center" id="mehead">
+<img src="/portrait/<?php echo $customer->getCusphoto();?>" class="img-circle" style="width:100px;height:100px;">
+
+<button type="button" class="btn btn-default btn-lg "onclick="location='<?php echo $this->url('customer',
+             array('action'=>'login', 'sub'=>$id));?>'">重新登陆</button>
+<button type="button" class="btn btn-default btn-lg "onclick="location='<?php echo $this->url('customer',
+             array('action'=>'reset'));?>'">账号设置</button>
+</div>          
+   
+<div class="well">我的疗程和订单</div>
+ <div class="row">
+      <div class="col-xs-6 col-sm-6" onclick="location='<?php echo $this->url('customer', array('action'=>'myorders','sub'=>'paid'));?>';">
+      <button type="button" class="btn btn-default btn-lg " style="width: 100%;"><img alt="" style="height:20px;" src="/meicon/meicon1.png">&nbsp;&nbsp;已付款</button>
+      </div>
+      <div class="col-xs-6 col-sm-6" onclick="location='<?php echo $this->url('customer', array('action'=>'myorders','sub'=>'unpaid'));?>';">
+      <button type="button" class="btn btn-default btn-lg " style="width: 100%;"><img alt="" style="height:20px;" src="/meicon/meicon2.png">&nbsp;&nbsp;未付款</button>
+      </div>      
+ </div>
+
+
+<div class="well">我的预约</div>
+ <div class="row">
+      <div class="col-xs-6 col-sm-6" onclick="location='<?php echo $this->url('customer', array('action'=>'myappointments','sub'=>'unexpired'));?>';">
+      <button type="button" class="btn btn-default btn-lg " style="width: 100%;"><img alt="" style="height:20px;" src="/meicon/meicon3.png">&nbsp;&nbsp;未到期</button>
+      </div>
+      <div class="col-xs-6 col-sm-6" onclick="location='<?php echo $this->url('customer', array('action'=>'myappointments','sub'=>'expired'));?>';">
+      <button type="button" class="btn btn-default btn-lg " style="width: 100%;"><img alt="" style="height:20px;" src="/meicon/meicon4.png">&nbsp;&nbsp;已过期</button>
+      </div>
+ </div>
+
+<div class="well">我的活动</div>
+ <div class="row">
+      <div class="col-xs-6 col-sm-6" onclick="location='<?php echo $this->url('customer', array('action'=>'myactivities','sub'=>'registered'));?>';">
+      <button type="button" class="btn btn-default btn-lg " style="width: 100%;"><img alt="" style="height:20px;" src="/meicon/meicon5.png">&nbsp;&nbsp;已参加</button>
+      </div>
+      <div class="col-xs-6 col-sm-6" onclick="location='<?php echo $this->url('customer', array('action'=>'myactivities','sub'=>'unregistered'));?>';">
+      <button type="button" class="btn btn-default btn-lg " style="width: 100%;"><img alt="" style="height:20px;" src="/meicon/meicon6.png">&nbsp;&nbsp;未参加</button>
+      </div>      
+ </div>
+
+
+
+
+<button type="button" class="btn btn-default btn-lg btn-block" onclick="location='<?php echo $this->url('customer',
+             array('action'=>'trolley'));?>';" style="margin-top: 20px"><img alt="" style="height:20px;" src="/meicon/cartlogo.png">&nbsp;&nbsp;购物车</button>
+             
+             
+
+    
+
+<?php //TODO 底部菜单栏  用于站位?>
+<div class="btn-group btn-group-justified" role="group" style="visibility:hidden">
+  <div class="btn-group" role="group" style="text-align:center;" >
+  <span class="glyphicon glyphicon-home" style="font-size:25px;color:red;" aria-hidden="true"></span>
+  <div style="color:red;">首页</div>
+  </div>
+  <div class="btn-group" role="group" style="text-align:center;">
+  <span class="glyphicon glyphicon-time" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>预约</div>
+  </div>
+  <div class="btn-group" role="group" style="text-align:center;">
+  <span class="glyphicon glyphicon-edit" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>咨询</div>
+  </div>
+  <div class="btn-group" role="group" style="text-align:center;">
+  <span class="glyphicon glyphicon-user" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>我</div>
+  </div>
+</div>
+
+<?php //TODO 底部菜单栏?>
+<div class="btn-group btn-group-justified menubottom" role="group" >
+  <div class="btn-group bottom-btn" role="group" style="text-align:center;" onclick="location='<?php echo $this->url('customer', array('action'=>'homepage','sub'=>$id));?>';">
+  <span class="glyphicon glyphicon-home" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>首页</div>
+  </div>
+  <div class="btn-group bottom-btn" role="group" style="text-align:center;" onclick="location='<?php echo $this->url('customer', array('action'=>'appointment'));?>';">
+  <span class="glyphicon glyphicon-time" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>预约</div>
+  </div>
+  <div class="btn-group bottom-btn" role="group" style="text-align:center;" onclick="location='<?php echo $this->url('customer', array('action'=>'cosmetologist'));?>';">
+  <span class="glyphicon glyphicon-comment" style="font-size:20px;color:gray;" aria-hidden="true"></span>
+  <div>咨询&nbsp;
+  <?php if($unreadsum){?>
+  <span  class="badge" style="background-color:red;"><?php echo $unreadsum;?></span>
+  <?php }?>
+  </div>
+  </div>
+  <div class="btn-group bottom-btn-me" role="group" style="text-align:center;" onclick="location='<?php echo $this->url('customer', array('action'=>'me'));?>';">
+  <span class="glyphicon glyphicon-user" style="font-size:25px;color:red;" aria-hidden="true"></span>
+  <div style="color:red;">我</div>
+  </div>
+</div>
+
