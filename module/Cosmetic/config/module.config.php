@@ -13,7 +13,7 @@ return array(
                     'route'    => '/',
                     'defaults' => array(
                         'controller' => 'Cosmetic\Controller\Cos',
-                        'action'     => 'login',
+                        'action'     => 'personalweb',
                     ),
                 ),
             ),

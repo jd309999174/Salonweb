@@ -272,6 +272,10 @@ class CosController extends AbstractActionController
     }
     
     
+    public function personalwebAction()
+    {
+        return new ViewModel();
+    }
     
     public function indexAction()
     {
@@ -443,7 +447,7 @@ class CosController extends AbstractActionController
                     
                     $container = new Container('salonlogin');
                     $container->salnumber = $accountlogin->getSalnumber();
-                    return $this->redirect()->toRoute('cosmeticajax', array(
+                    return $this->redirect()->toRoute('cosmetic', array(
                         'action' => 'salon'
                     ));
                 } else {

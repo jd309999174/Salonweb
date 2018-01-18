@@ -270,10 +270,10 @@ class Module implements AutoloaderProviderInterface
     public function onRoute(MvcEvent $e)
     {
         $route = $e->getRouteMatch()->getMatchedRouteName();
-        if ($route == 'cosmetic' || $route == "home") // 后台
+        if ($route == 'cosmetic') // 后台
             $e->getViewModel()->setTemplate("layout/cosmetic");
         else 
-            if ($route == 'cosmeticajax') // 装修
+            if ($route == 'cosmeticajax'  || $route == "home") // 装修
                 $e->getViewModel()->setTemplate("layout/ajaxsource");
             else 
                 if ($route == 'cosmeticlogin') // 装修
