@@ -1,45 +1,25 @@
-<?php
-echo "<table style='border: solid 1px black;'>";
-echo "<tr><th>Id</th><th>Firstname</th><th>Lastname</th></tr>";
- 
-class TableRows extends RecursiveIteratorIterator {
-    function __construct($it) { 
-        parent::__construct($it, self::LEAVES_ONLY); 
-    }
- 
-    function current() {
-        return "<td style='width:150px;border:1px solid black;'>" . parent::current(). "</td>";
-    }
- 
-    function beginChildren() { 
-        echo "<tr>"; 
-    } 
- 
-    function endChildren() { 
-        echo "</tr>" . "\n";
-    } 
-} 
- 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "company";
- 
-try {
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $stmt = $conn->prepare("SELECT b.cosid, b.cosname, a.number FROM unread a right JOIN cosmetologist b ON b.unread = a.sendid and a.receiveid='cus27' where b.salnumber=123"); 
-    $stmt->execute();
- 
-    // 设置结果集为关联数组
-    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC); 
-    foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) { 
-        echo $v;
-    }
-}
-catch(PDOException $e) {
-    echo "Error: " . $e->getMessage();
-}
-$conn = null;
-echo "</table>";
-?>
+<link href="/css/fileinput.min.css" media="screen" rel="stylesheet" type="text/css">
+
+<script src="/js/fileinput.min.js"></script>
+<script src="/js/fileinput.zh.js"></script>
+<form enctype="multipart/form-data">
+        <br>
+        <div class="">
+            <input id="uploadfile" name="input-b3[]" type="file"  multiple 
+    data-show-upload="false" data-show-caption="true" data-msg-placeholder="Select {files} for upload...">
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="reset" class="btn btn-default">Reset</button>
+</form>
+
+<script>
+$(document).on('ready', function() {
+    $("#uploadfile").fileinput({
+    	language: 'zh', //设置语言
+        showUpload: false,
+        maxFileCount: 10,
+        mainClass: "input-group-normal"
+    });
+});
+</script>

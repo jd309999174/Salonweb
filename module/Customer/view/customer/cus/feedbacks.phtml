@@ -3,11 +3,19 @@
 <link href="/lib/jquery.raty.css" media="screen" rel="stylesheet" type="text/css">
 <script src="/lib/jquery.raty.js"></script>
 
+<style>
+.addBorder{
+	border:2px solid #FFDAB9;
+	margin:2px;
+}
+</style>
 
 <div class="input-group input-group-sm"
-	style="position: fixed; z-index: 2; background: white;" id="headanchor">
+	style="position: fixed; z-index: 20; background: white;" id="headanchor">
 	
-	<span class="input-group-btn"> <a href="<?php echo $this->url('customer', array('action'=>'homepage','sub'=>$id));?>" class="btn">评价与建议</a>
+	<span class="input-group-btn"> <a style="font-size:15px;font-weight:bold;" href="<?php echo $this->url('customer', array('action'=>'homepage','sub'=>$id));?>" class="btn">
+	<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>&nbsp;&nbsp;
+	评价与建议</a>
 	</span> 
 </div>
 <div class="input-group input-group-sm"
@@ -32,6 +40,8 @@ echo $this->formhidden($form->get('fbsurrounding'));
 echo $this->formhidden($form->get('fbproduct'));
 echo $this->formhidden($form->get('fbcosmetologist'));?>
 <div class="container">
+
+<div class="addBorder">
 <div class="row well" >1.环境评星与评价</div>
    <div class="row">
       <div class="col-sm-6 col-xs-6">
@@ -42,7 +52,11 @@ echo $this->formhidden($form->get('fbcosmetologist'));?>
       <div class="row" id="div1" data-score="1"></div>
       </div>
       <?php echo $this->formRow($form->get('fbadvise'));?>
+      <input type="file" name="img" multiple="multiple" />
    </div>
+</div>
+
+<div class="addBorder">
 <div class="row well" >2.产品评星与评价</div>
    <div class="row">
     <div class="col-sm-6 col-xs-6">
@@ -54,8 +68,12 @@ echo $this->formhidden($form->get('fbcosmetologist'));?>
       <p style="font-size: 130%;"><?php echo $treatment->getProdtitle();?><p></div>
       <div id="div2" data-score="1"></div>
       </div>
-      <?php echo $this->formRow($form->get('fbadvise1'));?>  
+      <?php echo $this->formRow($form->get('fbadvise1'));?>
+      <input type="file" name="img" multiple="multiple" />  
    </div>
+</div>
+   
+<div class="addBorder">   
 <div class="row well" >3.服务评星与评价</div>   
    <div class="row">
     <div class="col-sm-6 col-xs-6">
@@ -66,8 +84,9 @@ echo $this->formhidden($form->get('fbcosmetologist'));?>
       <div id="div3" data-score="1"></div>
       </div>    
       <?php echo $this->formRow($form->get('fbadvise2'));?> 
+      <input type="file" name="img" multiple="multiple" />
    </div>
-   
+</div>
 <div class="row well" ><?php echo $this->formInput($form->get('submit')); ?></div> 
 
 
