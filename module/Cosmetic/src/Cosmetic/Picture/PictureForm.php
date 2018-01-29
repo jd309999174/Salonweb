@@ -45,7 +45,7 @@ class PictureForm extends Form
                 'id'=>'picturefile',
                 'multiple'=>'ture',//重点，直接用html的input multiple似乎不行
                 'maxlength' => 100,
-                'onchange'=>'change("picturefile","picturename")',
+                //'onchange'=>'change("picturefile","picturename")',
                 'data-show-upload'=>'false',
                 'data-show-caption'=>'true',
                 'data-msg-placeholder'=>'选择 {files}'
