@@ -1,3 +1,8 @@
+<?php //文件上传插件?>
+<link href="/css/fileinput.min.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/js/fileinput.min.js"></script>
+<script src="/js/fileinput.zh.js"></script>
+
 <div class="well" style="text-align:center"><?php echo $homepage->getPageheaddata2();?></div>
 
 <div style="text-align:center">
@@ -97,7 +102,7 @@ $form->prepare();echo $this->form()->openTag($form);?>
     <legend>注册账号</legend>
     <?php echo $this->formhidden($form->get('salnumber'));?>
 	<div class="form-group" id="cusphonediv">
-    <label for="name">手机号</label>
+    <label for="name"><span class="glyphicon glyphicon-phone" aria-hidden="true"></span>&nbsp;手机号</label>
     <div id="phonenumber" style="color:red;" id="phonewrong">
     <?php if ($existcustomer):?>
         此号码已注册
@@ -121,22 +126,22 @@ $form->prepare();echo $this->form()->openTag($form);?>
 
 
   <div class="form-group">
-    <label for="name">密码</label>
+    <label for="name"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>&nbsp;密码</label>
     <?php echo $this->formRow($form->get('cuspassword'));?>
   </div>
   <div class="form-group">
-    <label for="name">密码确认</label>
+    <label for="name"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>&nbsp;密码确认</label>
     <div style="color:red;" id="repeatwrong">
      两次输入密码不匹配
     </div>
     <input type="password" class="form-control" placeholder="请再次输入密码" id="repeatpassword">
   </div>
    <div class="form-group">
-    <label for="name">姓名</label>
+    <label for="name"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;姓名</label>
     <?php echo $this->formRow($form->get('cusname'));?>
   </div>
   <div class="form-group">
-    <label for="name">头像</label>
+    <label for="name"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span>&nbsp;头像</label>
     <?php echo $this->formhidden($form->get('cusphoto'));?>
      <?php echo $this->formRow($form->get('cusphotof'));?>
   </div>
@@ -146,3 +151,17 @@ $form->prepare();echo $this->form()->openTag($form);?>
 </fieldset>
 <?php echo $this->form()->closeTag($form);?>
 <button type="button" class="btn btn-default btn-lg btn-block" onclick="location='../login/<?php echo $sub;?>'">登陆</button>
+
+
+
+<script>
+$(document).on('ready', function() {
+    $("#cusphotof").fileinput({
+    	language: 'zh', //设置语言
+   	 browseClass: "btn btn-default btn-block",
+     showCaption: false,
+     showRemove: false,
+     showUpload: false
+    });
+});
+</script>

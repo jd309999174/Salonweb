@@ -1,3 +1,8 @@
+<?php //文件上传插件?>
+<link href="/css/fileinput.min.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/js/fileinput.min.js"></script>
+<script src="/js/fileinput.zh.js"></script>
+
 <div class="well" style="text-align:center"><?php echo $homepage->getPageheaddata2();?></div>
 
 <div style="text-align:center">
@@ -41,7 +46,7 @@ function checkout(){
 <?php
 $form = $this->form;
 $form->setAttribute('action',$this->url('customer', array(
-    'action' => 'register','sub'=>$sub
+    'action' => 'reset','sub'=>$sub
 )));
 $form->get('submit')->setAttribute('value', '提交');
 $form->get('cusphone')->setAttribute('onblur', 'checkout()');
@@ -52,20 +57,20 @@ $form->prepare();echo $this->form()->openTag($form);?>
     <?php echo $this->formhidden($form->get('salnumber'));?>
     <?php echo $this->formhidden($form->get('cusid'));?>
 	<div class="form-group" id="cusphonediv">
-    <label for="name">手机号</label>
+    <label for="name"><span class="glyphicon glyphicon-phone" aria-hidden="true"></span>&nbsp;手机号</label>
     <div id="phonenumber" style="color:red;">该号码已存在</div>
      <?php echo $this->formRow($form->get('cusphone'));?>
     </div>
   <div class="form-group">
-    <label for="name">密码</label>
+    <label for="name"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>&nbsp;密码</label>
     <?php echo $this->formRow($form->get('cuspassword'));?>
   </div>
    <div class="form-group">
-    <label for="name">姓名</label>
+    <label for="name"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;姓名</label>
     <?php echo $this->formRow($form->get('cusname'));?>
   </div>
   <div class="form-group">
-    <label for="name">头像</label>
+    <label for="name"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span>&nbsp;头像</label>
     <?php echo $this->formhidden($form->get('cusphoto'));?>
      <?php echo $this->formRow($form->get('cusphotof'));?>
   </div>
@@ -75,3 +80,16 @@ $form->prepare();echo $this->form()->openTag($form);?>
 </fieldset>
 <?php echo $this->form()->closeTag($form);?>
 <button type="button" class="btn btn-default btn-lg btn-block" onclick="location='login/<?php echo $sub;?>'">登陆</button>
+
+
+<script>
+$(document).on('ready', function() {
+    $("#cusphotof").fileinput({
+    	language: 'zh', //设置语言
+   	 browseClass: "btn btn-default btn-block",
+     showCaption: false,
+     showRemove: false,
+     showUpload: false
+    });
+});
+</script>
