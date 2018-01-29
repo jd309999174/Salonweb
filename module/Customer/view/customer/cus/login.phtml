@@ -17,11 +17,11 @@ echo $this->form()->openTag($form);?>
     <legend>账号登陆</legend>
     <label for="name" style="color:red;"><?php echo $result;?></label>
 	<div class="form-group">
-    <label for="name">手机号</label>
+    <label for="name"><span class="glyphicon glyphicon-phone" aria-hidden="true"></span>&nbsp;手机号</label>
     <?php echo $this->formRow($form->get('cusphone'));?>
     </div>
     <div class="form-group">
-    <label for="name">密码</label>
+    <label for="name"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>&nbsp;密码</label>
     <?php echo $this->formRow($form->get('cuspassword'));?>
     </div>
     <div class="form-group" style="text-align:center">
