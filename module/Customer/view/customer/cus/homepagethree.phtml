@@ -1,5 +1,5 @@
 <?php foreach ($activitypages as $activitypage):?>
-<li style="padding:3px;border:1px solid #3c763d;border-radius:16px;">
+<li style="padding:0px;border:1px solid #3c763d;border-radius:16px;margin-bottom:8px;">
 <div style="border-radius:16px;" class="panel panel-default" onclick="location='<?php echo $this->url('customer', array('action'=>'activityitem','sub'=>$activitypage->getPageid()));?>';">
 	<div class="panel-heading" style="background-color:<?php echo $page->getPagecolor();?>;border-radius:16px;">
 		<span><img alt="" style="height:20px;" src="/meicon/meicon22.png"></span>&nbsp;&nbsp;<span class="panel-title"><?php echo $activitypage->getPagename();?></span>
