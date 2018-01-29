@@ -1,3 +1,8 @@
+<link href="/css/fileinput.min.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/js/fileinput.min.js"></script>
+<script src="/js/fileinput.zh.js"></script>
+
+
 <?php
 $title = '添加图片';
 $this->headTitle($title);
@@ -17,3 +22,15 @@ echo $this->formRow($form->get('picturefile'));
 <div>
  <?php echo $this->formInput($form->get('submit')); ?>
  </div>
+
+ 
+<script>
+$(document).on('ready', function() {
+    $("#picturefile").fileinput({
+    	language: 'zh', //设置语言
+        showUpload: false,
+        maxFileCount: 10,
+        mainClass: "input-group-normal"
+    });
+});
+</script>
