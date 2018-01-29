@@ -1,3 +1,9 @@
+<?php //文件上传?>
+<link href="/css/fileinput.min.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/js/fileinput.min.js"></script>
+<script src="/js/fileinput.zh.js"></script>
+
+<?php //星星评级?>
 <link href="/raty/labs.css" media="screen" rel="stylesheet" type="text/css">
 <script src="/raty/labs.js"></script>
 <link href="/lib/jquery.raty.css" media="screen" rel="stylesheet" type="text/css">
@@ -51,9 +57,11 @@ echo $this->formhidden($form->get('fbcosmetologist'));?>
       <div class="row"><span style="font-weight:bold;">美容院：</span><?php echo $salonbranch->getSalname();?></div>
       <div class="row" id="div1" data-score="1"></div>
       </div>
+  </div>
+   <br>
       <?php echo $this->formRow($form->get('fbadvise'));?>
-      <input type="file" name="img" multiple="multiple" />
-   </div>
+      <input id="uploadfile1" name="input-b3[]" type="file"  multiple 
+    data-show-upload="false" data-show-caption="true" data-msg-placeholder="选择 {files} ">
 </div>
 
 <div class="addBorder">
@@ -68,9 +76,11 @@ echo $this->formhidden($form->get('fbcosmetologist'));?>
       <p style="font-size: 130%;"><?php echo $treatment->getProdtitle();?><p></div>
       <div id="div2" data-score="1"></div>
       </div>
-      <?php echo $this->formRow($form->get('fbadvise1'));?>
-      <input type="file" name="img" multiple="multiple" />  
    </div>
+      <br> 
+      <?php echo $this->formRow($form->get('fbadvise1'));?>
+      <input id="uploadfile2" name="input-b3[]" type="file"  multiple 
+    data-show-upload="false" data-show-caption="true" data-msg-placeholder="选择 {files} "> 
 </div>
    
 <div class="addBorder">   
@@ -82,10 +92,12 @@ echo $this->formhidden($form->get('fbcosmetologist'));?>
       <div class="col-sm-6 col-xs-6">
       <div class="row"><span style="font-weight:bold;">美容师：</span><?php echo $cosmetologist->getCosname();?></div>
       <div id="div3" data-score="1"></div>
-      </div>    
-      <?php echo $this->formRow($form->get('fbadvise2'));?> 
-      <input type="file" name="img" multiple="multiple" />
+      </div>
    </div>
+      <br>
+      <?php echo $this->formRow($form->get('fbadvise2'));?> 
+     <input id="uploadfile3" name="input-b3[]" type="file"  multiple 
+    data-show-upload="false" data-show-caption="true" data-msg-placeholder="选择 {files} ">
 </div>
 <div class="row well" ><?php echo $this->formInput($form->get('submit')); ?></div> 
 
@@ -133,7 +145,36 @@ $('#div3').raty({
 	});
 </script>
 
-
+<script>
+$(document).on('ready', function() {
+    $("#uploadfile1").fileinput({
+    	language: 'zh', //设置语言
+        showUpload: false,
+        maxFileCount: 10,
+        mainClass: "input-group-normal"
+    });
+});
+</script>
+<script>
+$(document).on('ready', function() {
+    $("#uploadfile2").fileinput({
+    	language: 'zh', //设置语言
+        showUpload: false,
+        maxFileCount: 10,
+        mainClass: "input-group-normal"
+    });
+});
+</script>
+<script>
+$(document).on('ready', function() {
+    $("#uploadfile3").fileinput({
+    	language: 'zh', //设置语言
+        showUpload: false,
+        maxFileCount: 10,
+        mainClass: "input-group-normal"
+    });
+});
+</script>
 
 <script type="text/javascript">
 //填入treid和cosid
