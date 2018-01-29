@@ -41,7 +41,23 @@ function checkout(){
 }
 </script>
 
-
+<script>
+//密码确认
+$("document").ready(function(){
+	$("#repeatwrong").hide();
+	$("#repeatpassword").change(function(){
+	    if($("#repeatpassword").val()!==$("#cuspassword").val()){
+	    	$("#repeatwrong").show();
+		    }
+	});
+	$("#repeatpassword").focus(function(){
+		$("#repeatwrong").hide();
+	});
+	$("#cusphone").focus(function(){
+		$("#phonewrong").hide();
+	});
+})
+</script>
 
 <?php
 $form = $this->form;
@@ -56,14 +72,17 @@ $form->prepare();echo $this->form()->openTag($form);?>
     <legend>账号设置</legend>
     <?php echo $this->formhidden($form->get('salnumber'));?>
     <?php echo $this->formhidden($form->get('cusid'));?>
-	<div class="form-group" id="cusphonediv">
-    <label for="name"><span class="glyphicon glyphicon-phone" aria-hidden="true"></span>&nbsp;手机号</label>
-    <div id="phonenumber" style="color:red;">该号码已存在</div>
-     <?php echo $this->formRow($form->get('cusphone'));?>
-    </div>
+    <?php echo $this->formhidden($form->get('cusphone'));?>
   <div class="form-group">
-    <label for="name"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>&nbsp;密码</label>
+    <label for="name"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>&nbsp;新密码</label>
     <?php echo $this->formRow($form->get('cuspassword'));?>
+  </div>
+  <div class="form-group">
+    <label for="name"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>&nbsp;新密码确认</label>
+    <div style="color:red;" id="repeatwrong">
+     两次输入密码不匹配
+    </div>
+    <input type="password" class="form-control" placeholder="请再次输入密码" id="repeatpassword">
   </div>
    <div class="form-group">
     <label for="name"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;姓名</label>
@@ -87,6 +106,7 @@ $(document).on('ready', function() {
     $("#cusphotof").fileinput({
     	language: 'zh', //设置语言
    	 browseClass: "btn btn-default btn-block",
+     allowedFileExtensions: ['jpg', 'gif', 'png','jpeg'],
      showCaption: false,
      showRemove: false,
      showUpload: false

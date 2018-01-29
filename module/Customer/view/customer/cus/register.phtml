@@ -11,38 +11,11 @@
 
 
 
-<script>
-$("document").ready(function(){
-$customer=new Array();
-$('#phonenumber').hide();
-<?php  //已有账号存入js数组
-foreach ($customers as $customer):?>
-$customer.push("<?php echo $customer->getCusphone();?>");
-<?php endforeach;?>
-})
-</script>
-<script>
-function getfocus(){
-	$('#cusphonediv').removeClass("has-error");
-	$('#submit').show();
-	$('#phonenumber').hide();
-}
-function checkout(){
-	$value=$('#cusphone').val();
-	if($value!==""){
-         for($i=0;$i<$customer.length;$i++){
-               if($value==$customer[$i]){
-                     $('#cusphonediv').addClass("has-error");
-                     $('#submit').hide();
-                     $('#phonenumber').show();
-                   }
-             }
-		}
-}
-</script>
+
 
 <script>
 $("document").ready(function(){
+	//密码确认
 	$("#repeatwrong").hide();
 	$("#repeatpassword").change(function(){
 	    if($("#repeatpassword").val()!==$("#cuspassword").val()){
@@ -103,7 +76,7 @@ $form->prepare();echo $this->form()->openTag($form);?>
     <?php echo $this->formhidden($form->get('salnumber'));?>
 	<div class="form-group" id="cusphonediv">
     <label for="name"><span class="glyphicon glyphicon-phone" aria-hidden="true"></span>&nbsp;手机号</label>
-    <div id="phonenumber" style="color:red;" id="phonewrong">
+    <div  style="color:red;" id="phonewrong">
     <?php if ($existcustomer):?>
         此号码已注册
     <?php endif;?>
@@ -159,6 +132,7 @@ $(document).on('ready', function() {
     $("#cusphotof").fileinput({
     	language: 'zh', //设置语言
    	 browseClass: "btn btn-default btn-block",
+     allowedFileExtensions: ['jpg', 'gif', 'png','jpeg'],
      showCaption: false,
      showRemove: false,
      showUpload: false
