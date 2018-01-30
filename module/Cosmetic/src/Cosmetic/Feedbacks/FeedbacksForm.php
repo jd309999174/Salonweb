@@ -125,8 +125,80 @@ class FeedbacksForm extends Form
             )
         ));
         
+        //环境评价图
+        $this->add(array(
+            'name' => 'fbpicture1',
+            'type' => 'text',
+            
+            'attributes' => array(
+                'id'=>'fbpicture1',
+                'class'=>'form-control',
+                'maxlength' => 100
+            )
+        ));
+        $this->add(array(
+            'name' => 'fbpicture1f',
+            'type' => 'file',
+            
+            'attributes' => array(
+                'class'=>'form-control',
+                'id'=>'fbpicture1f',
+                'onchange'=>'change("fbpicture1f","fbpicture1")',
+                'data-show-upload'=>'false',
+                'data-show-caption'=>'true',
+                'data-msg-placeholder'=>'选择 {files}'
+            )
+        ));
         
+        //产品评价图
+        $this->add(array(
+            'name' => 'fbpicture2',
+            'type' => 'text',
+            
+            'attributes' => array(
+                'id'=>'fbpicture2',
+                'class'=>'form-control',
+                'maxlength' => 100
+            )
+        ));
+        $this->add(array(
+            'name' => 'fbpicture2f',
+            'type' => 'file',
+            
+            'attributes' => array(
+                'class'=>'form-control',
+                'id'=>'fbpicture2f',
+                'onchange'=>'change("fbpicture2f","fbpicture2")',
+                'data-show-upload'=>'false',
+                'data-show-caption'=>'true',
+                'data-msg-placeholder'=>'选择 {files}'
+            )
+        ));
         
+        //服务评价图
+        $this->add(array(
+            'name' => 'fbpicture3',
+            'type' => 'text',
+            
+            'attributes' => array(
+                'id'=>'fbpicture3',
+                'class'=>'form-control',
+                'maxlength' => 100
+            )
+        ));
+        $this->add(array(
+            'name' => 'fbpicture3f',
+            'type' => 'file',
+            
+            'attributes' => array(
+                'class'=>'form-control',
+                'id'=>'fbpicture3f',
+                'onchange'=>'change("fbpicture3f","fbpicture3")',
+                'data-show-upload'=>'false',
+                'data-show-caption'=>'true',
+                'data-msg-placeholder'=>'选择 {files}'
+            )
+        ));
       
         $this->add(array(
             'name' => 'submit',

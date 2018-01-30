@@ -49,7 +49,9 @@ echo $this->formhidden($form->get('fbcosmetologist'));?>
 
 <div class="addBorder">
 <div class="row well" style="color: red;font-weight:bold"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;环境评星与评价</div>
-   <div class="row">
+   <div class="form-group">
+    <label for="name"><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>&nbsp;评星</label>
+     <div class="row">
       <div class="col-sm-6 col-xs-6">
       <img src="<?php echo $salonbranch->getSalphoto1();?>" style="height:100px;width:120px;">
       </div>
@@ -57,16 +59,23 @@ echo $this->formhidden($form->get('fbcosmetologist'));?>
       <div class="row"><span style="font-weight:bold;">美容院：</span><?php echo $salonbranch->getSalname();?></div>
       <div class="row" id="div1" data-score="1"></div>
       </div>
+    </div>
   </div>
-   <br>
-      <?php echo $this->formRow($form->get('fbadvise'));?>
-      <br> 
-      <input id="uploadfile1" name="input-b3[]" type="file"  multiple 
-    data-show-upload="false" data-show-caption="true" data-msg-placeholder="选择 {files} ">
+  <div class="form-group">
+    <label for="name"><span class="glyphicon glyphicon-font" aria-hidden="true"></span>&nbsp;评价</label>
+     <?php echo $this->formRow($form->get('fbadvise'));?>
+  </div>
+  <div class="form-group">
+    <label for="name"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span>&nbsp;图片</label>
+    <?php echo $this->formhidden($form->get('fbpicture1'));?>
+    <?php echo $this->formRow($form->get('fbpicture1f'));?>
+  </div>
 </div>
 <br> <br> 
 <div class="addBorder">
 <div class="row well" style="color: red;font-weight:bold"><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>&nbsp;产品评星与评价</div>
+ <div class="form-group">
+  <label for="name"><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>&nbsp;评星</label>
    <div class="row">
     <div class="col-sm-6 col-xs-6">
       <img src="<?php echo $treatment->getProductcombinationpicture();?>" style="height:100px;width:120px;">
@@ -78,15 +87,22 @@ echo $this->formhidden($form->get('fbcosmetologist'));?>
       <div id="div2" data-score="1"></div>
       </div>
    </div>
-      <br> 
+ </div>
+ <div class="form-group">
+    <label for="name"><span class="glyphicon glyphicon-font" aria-hidden="true"></span>&nbsp;评价</label>     
       <?php echo $this->formRow($form->get('fbadvise1'));?>
-      <br> 
-      <input id="uploadfile2" name="input-b3[]" type="file"  multiple 
-    data-show-upload="false" data-show-caption="true" data-msg-placeholder="选择 {files} "> 
+ </div>
+ <div class="form-group">
+    <label for="name"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span>&nbsp;图片</label>
+    <?php echo $this->formhidden($form->get('fbpicture2'));?>
+    <?php echo $this->formRow($form->get('fbpicture2f'));?>
+  </div>
 </div>
   <br> <br>  
 <div class="addBorder">   
 <div class="row well" style="color: red;font-weight:bold"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;服务评星与评价</div>   
+ <div class="form-group">
+  <label for="name"><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>&nbsp;评星</label>  
    <div class="row">
     <div class="col-sm-6 col-xs-6">
       <img src="<?php echo $cosmetologist->getCosphoto();?>" style="height:100px;width:120px;">
@@ -96,11 +112,16 @@ echo $this->formhidden($form->get('fbcosmetologist'));?>
       <div id="div3" data-score="1"></div>
       </div>
    </div>
-      <br>
+ </div>
+ <div class="form-group">
+    <label for="name"><span class="glyphicon glyphicon-font" aria-hidden="true"></span>&nbsp;评价</label>          
       <?php echo $this->formRow($form->get('fbadvise2'));?> 
-      <br> 
-     <input id="uploadfile3" name="input-b3[]" type="file"  multiple 
-    data-show-upload="false" data-show-caption="true" data-msg-placeholder="选择 {files} ">
+ </div>
+ <div class="form-group">
+    <label for="name"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span>&nbsp;图片</label>
+    <?php echo $this->formhidden($form->get('fbpicture3'));?>
+    <?php echo $this->formRow($form->get('fbpicture3f'));?>
+  </div>
 </div>
 <div class="row well" ><?php echo $this->formInput($form->get('submit')); ?></div> 
 
@@ -150,31 +171,25 @@ $('#div3').raty({
 
 <script>
 $(document).on('ready', function() {
-    $("#uploadfile1").fileinput({
+    $("#fbpicture1f").fileinput({
     	language: 'zh', //设置语言
-        showUpload: false,
-        maxFileCount: 10,
-        mainClass: "input-group-normal"
+     allowedFileExtensions: ['jpg', 'gif', 'png','jpeg'],
     });
 });
 </script>
 <script>
 $(document).on('ready', function() {
-    $("#uploadfile2").fileinput({
+    $("#fbpicture2f").fileinput({
     	language: 'zh', //设置语言
-        showUpload: false,
-        maxFileCount: 10,
-        mainClass: "input-group-normal"
+     allowedFileExtensions: ['jpg', 'gif', 'png','jpeg'],
     });
 });
 </script>
 <script>
 $(document).on('ready', function() {
-    $("#uploadfile3").fileinput({
+    $("#fbpicture3f").fileinput({
     	language: 'zh', //设置语言
-        showUpload: false,
-        maxFileCount: 10,
-        mainClass: "input-group-normal"
+     allowedFileExtensions: ['jpg', 'gif', 'png','jpeg'],
     });
 });
 </script>

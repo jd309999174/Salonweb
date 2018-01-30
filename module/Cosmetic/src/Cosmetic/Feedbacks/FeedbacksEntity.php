@@ -28,7 +28,59 @@ class FeedbacksEntity
     protected $fbadvise2;
     protected $fbdate;
     protected $gmtfbdate;
+    protected $fbpicture1;
+    protected $fbpicture2;
+    protected $fbpicture3;
     
+    
+    /**
+     * @return the $fbpicture1
+     */
+    public function getFbpicture1()
+    {
+        return $this->fbpicture1;
+    }
+
+    /**
+     * @return the $fbpicture2
+     */
+    public function getFbpicture2()
+    {
+        return $this->fbpicture2;
+    }
+
+    /**
+     * @return the $fbpicture3
+     */
+    public function getFbpicture3()
+    {
+        return $this->fbpicture3;
+    }
+
+    /**
+     * @param field_type $fbpicture1
+     */
+    public function setFbpicture1($fbpicture1)
+    {
+        $this->fbpicture1 = $fbpicture1;
+    }
+
+    /**
+     * @param field_type $fbpicture2
+     */
+    public function setFbpicture2($fbpicture2)
+    {
+        $this->fbpicture2 = $fbpicture2;
+    }
+
+    /**
+     * @param field_type $fbpicture3
+     */
+    public function setFbpicture3($fbpicture3)
+    {
+        $this->fbpicture3 = $fbpicture3;
+    }
+
     /**
      * @return the $prodtitle
      */
