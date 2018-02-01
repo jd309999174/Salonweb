@@ -68,7 +68,7 @@ public function saveProduct(ProductEntity $product)
  public function getProduct($id)
  {
      $select = $this->sql->select();
-     $select->where(array('salnumber' => array($id,0)));
+     $select->where(array('salnumber' => array($id,1)));
      $select->order(array('prodid ASC', 'salnumber ASC'));
      $statement = $this->sql->prepareStatementForSqlObject($select);
      $results = $statement->execute();
@@ -77,6 +77,25 @@ public function saveProduct(ProductEntity $product)
      }
 
 
+     $entityPrototype = new ProductEntity();
+     $hydrator = new ClassMethods();
+     $resultset = new HydratingResultSet($hydrator, $entityPrototype);
+     $resultset->initialize($results);
+     return $resultset;
+ }
+ //按美容院编号搜索所有产品，包括我的产品
+ public function getProductedit($id)
+ {
+     $select = $this->sql->select();
+     $select->where(array('salnumber' => array($id)));
+     $select->order(array('prodid ASC', 'salnumber ASC'));
+     $statement = $this->sql->prepareStatementForSqlObject($select);
+     $results = $statement->execute();
+     if (!$results) {
+         return null;
+     }
+     
+     
      $entityPrototype = new ProductEntity();
      $hydrator = new ClassMethods();
      $resultset = new HydratingResultSet($hydrator, $entityPrototype);

@@ -1275,7 +1275,7 @@ class CosController extends AbstractActionController
         $container = new Container('salonlogin');
         $id = $container->salnumber;
         
-        $products = $this->getProductMapper()->getProduct($id);
+        $products = $this->getProductMapper()->getProductedit($id);
         return new ViewModel(array(
             'products' => $products,
             'id' => $id
