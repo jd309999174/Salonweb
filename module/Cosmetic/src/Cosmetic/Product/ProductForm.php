@@ -179,7 +179,8 @@ class ProductForm extends Form
             'attributes' => array(
                 'class'=>'form-control',
                 'placeholder'=>"请输入需求或分类或系列，多项可用逗号分隔",
-                'maxlength' => 100
+                'maxlength' => 100,
+                'id'=>'proddemandclassifyseries'
             )
         ));
         

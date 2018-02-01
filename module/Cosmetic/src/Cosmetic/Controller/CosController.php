@@ -1339,6 +1339,10 @@ class CosController extends AbstractActionController
             ));
         }
         $product = $this->getProductMapper()->getProduct1($sub);
+        //由于.net framework浏览器内核不支持js对已有值的input再赋值
+        //所以先清空产品分类，在赋值产品分类
+        $classify=$product->getProddemandclassifyseries();
+        $product->setProddemandclassifyseries("");
         
         $form = new ProductForm();
         
@@ -1367,7 +1371,8 @@ class CosController extends AbstractActionController
             'sub' => $sub,
             'form' => $form,
             'product'=>$product,
-            'demandclassifyseriess'=>$demandclassifyseriess
+            'demandclassifyseriess'=>$demandclassifyseriess,
+            'classify'=>$classify
         );
     }
 

@@ -12,7 +12,6 @@
  $url = $this->url('cosmetic', array('action' => 'productedit','sub'=>$sub));
  $form->setAttribute('action', $url);
  $form->get('submit')->setAttribute('id', 'submit');
- $form->get('proddemandclassifyseries')->setAttribute('id', 'proddemandclassifyseries');
  $form->prepare();
 
 echo $this->form()->openTag($form);?>
@@ -138,7 +137,7 @@ $(function() {
       width:700,
       modal:true,
     });
-    
+    $("#proddemandclassifyseries").attr("value","<?php echo $classify;?>");
     $( "#proddemandclassifyseries" ).click(function() {
       $( "#dialog" ).dialog( "open" );
     });
