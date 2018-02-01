@@ -60,7 +60,7 @@ class TemplateMapper
     public function getProductdetail($id,$sub)
     {
         $select = $this->sql->select();
-        $select->where(array('prodid' => $sub,'salnumber'=>$id));
+        $select->where(array('prodid' => $sub));
         $select->order(array('templateindex ASC'));
         $statement = $this->sql->prepareStatementForSqlObject($select);
         $results = $statement->execute();
