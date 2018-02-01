@@ -84,7 +84,7 @@ class DemandclassifyseriesMapper
     public function getDemandclassifyseries2($id)
     {
         $select = $this->sql->select();
-        $select->where(array('salnumber' =>array($id,0)));
+        $select->where(array('salnumber' =>array($id,1)));
         //$select->order(array('salid ASC', 'salnumber ASC'));
         $statement = $this->sql->prepareStatementForSqlObject($select);
         $results = $statement->execute();

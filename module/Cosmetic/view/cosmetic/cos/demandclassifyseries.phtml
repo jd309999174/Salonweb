@@ -42,7 +42,7 @@ array_push($cars,array("salnumber"=>$demandclassifyseries->getSalnumber(),"dcsco
      </td>
      
      <td>
-     <?php if($car["salnumber"]!=="0"){?>
+     <?php if($car["salnumber"]!=="1"){?>
          <a href="<?php echo $this->url('cosmetic',
              array('action'=>'demandclassifyseriesdelete','sub'=>$car["dcsid"]));?>">Delete</a>
              <?php }?>
@@ -70,7 +70,7 @@ array_push($cars,array("salnumber"=>$demandclassifyseries->getSalnumber(),"dcsco
      </td>
      
      <td>
-     <?php if($car["salnumber"]!=="0"){?>
+     <?php if($car["salnumber"]!=="1"){?>
          <a href="<?php echo $this->url('cosmetic',
              array('action'=>'demandclassifyseriesdelete','sub'=>$car["dcsid"]));?>">Delete</a>
              <?php }?>
@@ -94,7 +94,7 @@ array_push($cars,array("salnumber"=>$demandclassifyseries->getSalnumber(),"dcsco
              <?php echo $car["dcsname"]; ?></a>
      </td>
      <td>
-     <?php if($car["salnumber"]!=="0"){?>
+     <?php if($car["salnumber"]!=="1"){?>
          <a href="<?php echo $this->url('cosmetic',
              array('action'=>'demandclassifyseriesdelete','sub'=>$car["dcsid"]));?>">Delete</a>
              <?php }?>
