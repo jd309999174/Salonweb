@@ -122,7 +122,7 @@ $(document).ready(function(){
 
 <?php //TODO 倒计时?>
 <div class="panel panel-default" onclick="location='<?php echo $this->url('customer', array('action'=>'myappointments','sub'=>'unexpired'));?>';" class="well" style="text-align:center;font-size:large;">
-<div class="panel-heading" style="border-radius: 16px;background-color:<?php echo $homepage->getPagecolor();?>;"><span class="glyphicon glyphicon-time" aria-hidden="true"></span>&nbsp;&nbsp;最近预约倒计时</div>
+<div class="panel-heading" style="color:#2F4F4F;border-radius: 16px;background-color:<?php echo $homepage->getPagecolor();?>;"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span>&nbsp;&nbsp;最近预约倒计时</div>
 <div class="panel-body">
 
  <?php //美容院，美容师，审核状态?>
@@ -216,20 +216,23 @@ $(document).ready(function(){
 
 <?php //TODO 预约?>
 <div class="panel panel-default" style="text-align:center;font-size:large;">
-<div class="panel-heading" style="border-radius:16px;background-color:<?php echo $homepage->getPagecolor();?>;"><span class="glyphicon glyphicon-time" aria-hidden="true"></span>&nbsp;&nbsp;开始预约</div>
+<div class="panel-heading" style="color:#2F4F4F;border-radius:16px;background-color:<?php echo $homepage->getPagecolor();?>;"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;&nbsp;开始预约</div>
 
 
-<div id="selectPart1" class="selectPart panel-body">
+<div id="selectPart1" class="selectPart">
 <div id="salonSelect">
 <!-- 预约流程 -->
-<div style="text-align: center;"><span><span style="color: red;border:1px solid red;">选择美容院</span>&nbsp;->&nbsp;选择美容师&nbsp;->&nbsp;选择时间</span></div>
+<div style="text-align: center;"><span>
+<span style="color: red;border:1px solid red;"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;美容院</span>&nbsp;->&nbsp;
+<span class="glyphicon glyphicon-user" aria-hidden="true" style="color: #8B7E66;"></span>&nbsp;美容师&nbsp;->&nbsp;
+<span class="glyphicon glyphicon-time" aria-hidden="true" style="color: #8B7E66;"></span>&nbsp;时间</span></div>
 <div class="btn-group">
 	<button id="salonToCosmetologistNext" type="button"  class="btn btn-default">下一项</button>
 </div>
 <table class="table">
    <thead>
       <tr>
-         <th></th>
+         <th>&nbsp;</th>
          <th>名称</th>
          <th>门面</th>
       </tr>
@@ -249,7 +252,10 @@ $(document).ready(function(){
 
 <div id="selectPart2" class="selectPart">
 <!-- 预约流程 -->
-<div style="text-align: center;"><span>选择美容院&nbsp;->&nbsp;<span style="color: red;border:1px solid red;">选择美容师</span>&nbsp;->&nbsp;选择时间</span></div>
+<div style="text-align: center;"><span>
+<span class="glyphicon glyphicon-home" aria-hidden="true" style="color: #8B7E66;"></span>&nbsp;美容院&nbsp;->&nbsp;
+<span style="color: red;border:1px solid red;"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;美容师</span>&nbsp;->&nbsp;
+<span class="glyphicon glyphicon-time" aria-hidden="true" style="color: #8B7E66;"></span>&nbsp;时间</span></div>
 <div class="btn-group">
 	<button id="cosmetologistToDatePrevious" type="button"  class="btn btn-default">上一项</button>
 	<button id="cosmetologistToDateNext" type="button"  class="btn btn-default">下一项</button>
@@ -263,7 +269,11 @@ $(document).ready(function(){
 <div id="selectPart3" class="selectPart">
 <div id="dateTimeSelect">
 <!-- 预约流程 -->
-<div style="text-align: center;"><span>选择美容院&nbsp;->&nbsp;选择美容师&nbsp;->&nbsp;<span style="color: red;border:1px solid red;">选择时间</span></span></div>
+<div style="text-align: center;">
+<span>
+<span class="glyphicon glyphicon-home" aria-hidden="true" style="color: #8B7E66;"></span>&nbsp;美容院&nbsp;->&nbsp;
+<span class="glyphicon glyphicon-user" aria-hidden="true" style="color: #8B7E66;"></span>&nbsp;美容师&nbsp;->&nbsp;
+<span style="color: red;border:1px solid red;"><span class="glyphicon glyphicon-time" aria-hidden="true"></span>&nbsp;时间</span></span></div>
 <?php
 $form = $this->form;
 $form->setAttribute('action', $this->url('customer', array(

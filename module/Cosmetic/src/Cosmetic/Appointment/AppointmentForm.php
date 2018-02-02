@@ -117,7 +117,8 @@ class AppointmentForm extends Form
                 'id'=>"datepicker",
                 'class'=>'form-control',
                 'placeholder'=>"请选择预约日期",
-                'maxlength' => 100
+                'maxlength' => 100,
+                'readonly'=>'readonly'
             )
         ));
         $this->add(array(
@@ -128,7 +129,8 @@ class AppointmentForm extends Form
                 'id'=>"timepicki",
                 'class'=>'form-control',
                 'placeholder'=>"请选择预约时间",
-                'maxlength' => 100
+                'maxlength' => 100,
+                'readonly'=>'readonly'
             )
         ));
         $this->add(array(
