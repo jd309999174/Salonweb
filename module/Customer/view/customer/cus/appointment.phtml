@@ -222,12 +222,14 @@ $(document).ready(function(){
 <div id="selectPart1" class="selectPart">
 <div id="salonSelect">
 <!-- 预约流程 -->
+<br>
 <div style="text-align: center;"><span>
 <span style="color: red;border:1px solid red;"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;美容院</span>&nbsp;->&nbsp;
 <span class="glyphicon glyphicon-user" aria-hidden="true" style="color: #8B7E66;"></span>&nbsp;美容师&nbsp;->&nbsp;
 <span class="glyphicon glyphicon-time" aria-hidden="true" style="color: #8B7E66;"></span>&nbsp;时间</span></div>
-<div class="btn-group">
-	<button id="salonToCosmetologistNext" type="button"  class="btn btn-default">下一项</button>
+<br>
+<div>
+	<button id="salonToCosmetologistNext" type="button"  class="btn btn-success btn-block">下一项(美容师)</button>
 </div>
 <table class="table">
    <thead>
@@ -251,14 +253,16 @@ $(document).ready(function(){
 </div>
 
 <div id="selectPart2" class="selectPart">
+<br>
 <!-- 预约流程 -->
 <div style="text-align: center;"><span>
 <span class="glyphicon glyphicon-home" aria-hidden="true" style="color: #8B7E66;"></span>&nbsp;美容院&nbsp;->&nbsp;
 <span style="color: red;border:1px solid red;"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;美容师</span>&nbsp;->&nbsp;
 <span class="glyphicon glyphicon-time" aria-hidden="true" style="color: #8B7E66;"></span>&nbsp;时间</span></div>
-<div class="btn-group">
-	<button id="cosmetologistToDatePrevious" type="button"  class="btn btn-default">上一项</button>
-	<button id="cosmetologistToDateNext" type="button"  class="btn btn-default">下一项</button>
+<br>
+<div>
+	<button id="cosmetologistToDatePrevious" type="button"  class="btn btn-warning btn-block">上一项(美容院)</button>
+	<button id="cosmetologistToDateNext" type="button"  class="btn btn-success btn-block">下一项(时间)</button>
 </div>
 <div id="cosmetologistSelect"></div>
 </div>
@@ -268,12 +272,14 @@ $(document).ready(function(){
 
 <div id="selectPart3" class="selectPart">
 <div id="dateTimeSelect">
+<br>
 <!-- 预约流程 -->
 <div style="text-align: center;">
 <span>
 <span class="glyphicon glyphicon-home" aria-hidden="true" style="color: #8B7E66;"></span>&nbsp;美容院&nbsp;->&nbsp;
 <span class="glyphicon glyphicon-user" aria-hidden="true" style="color: #8B7E66;"></span>&nbsp;美容师&nbsp;->&nbsp;
 <span style="color: red;border:1px solid red;"><span class="glyphicon glyphicon-time" aria-hidden="true"></span>&nbsp;时间</span></span></div>
+<br>
 <?php
 $form = $this->form;
 $form->setAttribute('action', $this->url('customer', array(
@@ -299,8 +305,8 @@ echo $this->formhidden($form->get('cosname'));//选择?>
 <label>预约时间</label>
 <?php echo $this->formRow($form->get('appointmenttime'));//选择?></div>
 </div>
-<div class="btn-group">
-	<button id="dateTimePrevious" type="button"  class="btn btn-default">上一项</button>
+<div>
+	<button id="dateTimePrevious" type="button"  class="btn btn-warning btn-block">上一项(美容师)</button>
 	<?php echo $this->formInput($form->get('submit'));?>
 </div>
 <?php $this->form()->closeTag($form);?>

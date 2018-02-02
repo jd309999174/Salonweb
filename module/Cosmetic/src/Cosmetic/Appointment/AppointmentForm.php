@@ -150,7 +150,7 @@ class AppointmentForm extends Form
             'attributes' => array(
                 'type' => 'submit',
                 'value' => '提交',
-                'class' => 'btn btn-primary'
+                'class' => 'btn btn-primary btn-block btn-lg'
             )
         ));
     }
