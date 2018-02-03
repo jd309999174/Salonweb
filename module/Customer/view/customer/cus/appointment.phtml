@@ -223,7 +223,11 @@ $(document).ready(function(){
 <div id="salonSelect">
 <!-- 预约流程 -->
 <br>
-<div style="text-align: center;"><span>
+<div style="text-align: center;">
+<span>
+    <button style="opacity: 0;" type="button"  class="btn btn-warning">上一项</button>
+</span>
+<span>
 <span style="color: red;"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;</span>&nbsp;->&nbsp;
 <span class="glyphicon glyphicon-user" aria-hidden="true" style="color: #8B7E66;"></span>&nbsp;&nbsp;->&nbsp;
 <span class="glyphicon glyphicon-time" aria-hidden="true" style="color: #8B7E66;"></span>&nbsp;</span>
@@ -233,6 +237,7 @@ $(document).ready(function(){
 </div>
 <br>
 <table class="table">
+<caption><span class="glyphicon glyphicon-home" aria-hidden="true" style="color: #8B7E66;"></span>&nbsp;美容院选择</caption>
    <thead>
       <tr>
  
@@ -254,12 +259,15 @@ $(document).ready(function(){
 <div id="selectPart2" class="selectPart">
 <br>
 <!-- 预约流程 -->
-<div style="text-align: center;"><span>
+<div style="text-align: center;">
+<span>
+     <button id="cosmetologistToDatePrevious" type="button"  class="btn btn-warning">上一项</button>
+</span>
+<span>
 <span class="glyphicon glyphicon-home" aria-hidden="true" style="color: #8B7E66;"></span>&nbsp;&nbsp;->&nbsp;
 <span style="color: red;"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;</span>&nbsp;->&nbsp;
 <span class="glyphicon glyphicon-time" aria-hidden="true" style="color: #8B7E66;"></span>&nbsp;</span>
 <span>
-	<button id="cosmetologistToDatePrevious" type="button"  class="btn btn-warning">上一项</button>
 	<button id="cosmetologistToDateNext" type="button"  class="btn btn-success">下一项</button>
 </span>
 </div>
@@ -276,9 +284,16 @@ $(document).ready(function(){
 <!-- 预约流程 -->
 <div style="text-align: center;">
 <span>
+    <button id="dateTimePrevious" type="button"  class="btn btn-warning">上一项</button>
+</span>
+<span>
 <span class="glyphicon glyphicon-home" aria-hidden="true" style="color: #8B7E66;"></span>&nbsp;&nbsp;->&nbsp;
 <span class="glyphicon glyphicon-user" aria-hidden="true" style="color: #8B7E66;"></span>&nbsp;&nbsp;->&nbsp;
-<span style="color: red;"><span class="glyphicon glyphicon-time" aria-hidden="true"></span>&nbsp;</span></span></div>
+<span style="color: red;"><span class="glyphicon glyphicon-time" aria-hidden="true"></span>&nbsp;</span></span>
+<span>
+    <button style="opacity: 0;" type="button"  class="btn btn-warning">上一项</button>
+</span>
+</div>
 
 <?php
 $form = $this->form;
@@ -306,7 +321,6 @@ echo $this->formhidden($form->get('cosname'));//选择?>
 <?php echo $this->formRow($form->get('appointmenttime'));//选择?></div>
 </div>
 <div>
-	<button id="dateTimePrevious" type="button"  class="btn btn-warning btn-block">上一项(美容师)</button>
 	<?php echo $this->formInput($form->get('submit'));?>
 </div>
 <?php $this->form()->closeTag($form);?>

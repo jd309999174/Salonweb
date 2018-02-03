@@ -33,7 +33,7 @@ return array(
             'cosmeticajax' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/cosmeticajax[/:action[/:sub]]',
+                    'route' => '/cosmeticajax[/:action[/:sub[/:third]]]',
                     'defaults' => array(
                         '__NAMESPACE__' => 'Cosmetic\Controller',
                         'controller' => 'Cos'
@@ -43,7 +43,7 @@ return array(
             'cosmeticlogin' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/cosmeticlogin[/:action[/:sub]]',
+                    'route' => '/cosmeticlogin[/:action[/:sub[/:third]]]',
                     'defaults' => array(
                         '__NAMESPACE__' => 'Cosmetic\Controller',
                         'controller' => 'Cos'

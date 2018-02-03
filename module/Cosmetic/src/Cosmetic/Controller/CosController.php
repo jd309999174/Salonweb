@@ -3308,4 +3308,11 @@ class CosController extends AbstractActionController
         $activityregister=$this->getSignupMapper()->getActivityregister($sub);
         return array('activityregister'=>$activityregister);
     }
+    
+    public function iosdownloadAction(){
+        $sub=$this->params('sub');
+        $third=$this->params('third');
+        
+        return array('sub'=>$sub,'third'=>$third);
+    }
 }
