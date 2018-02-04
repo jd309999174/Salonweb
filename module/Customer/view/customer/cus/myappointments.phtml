@@ -46,8 +46,9 @@ array_push($cars,array("appointmentid"=>$myappointment->getAppointmentid(),
  <?php //排序：
 foreach ($cars as $key => $row) {
 $x[$key] = $row['appointmentdatetime'];}
+if ($x){
 array_multisort($x, SORT_DESC,$cars);
-?>
+}?>
 
 <table class="table">
  <caption>基本的表格布局</caption>

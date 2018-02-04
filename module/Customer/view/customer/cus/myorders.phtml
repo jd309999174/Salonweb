@@ -48,8 +48,9 @@ array_push($cars,array("treid"=>$myorder->getTreid(),"orderid"=>$myorder->getOrd
  <?php //排序：
 foreach ($cars as $key => $row) {
 $x[$key] = $row['treregdate'];}
+if ($x){
 array_multisort($x, SORT_DESC,$cars);
-?>
+}?>
 
 <?php //输出
 foreach ($cars as $car):if($car['trestate']!=="nonpayment"){?>
