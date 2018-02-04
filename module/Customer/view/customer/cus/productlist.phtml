@@ -103,7 +103,15 @@ $x[$key] = $row['prodprice'];}
 if($x){
 array_multisort($x, SORT_DESC,$homepage2cars);
 }else{?>
-    <script type="text/javascript">alert("没有相关产品或服务，请重新输入搜索条件");</script>
+    <div id="noproductAlert" style="text-align:center;">
+    <div class="alert alert-danger">没有相关产品或服务，请重新输入搜索条件</div>
+    </div>
+    
+    <script type="text/javascript">
+    $(document).ready(function(){
+    setTimeout(function(){$("#noproductAlert").hide()},3000);
+    })
+    </script>
 <?php }?>
 <div class="row" >
 <?php foreach ($homepage2cars as $car): ?>
