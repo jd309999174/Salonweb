@@ -5,7 +5,7 @@
         </button>
       </span>
       <span>
-      活动查看
+      <span class="glyphicon glyphicon-gift" aria-hidden="true"></span>&nbsp;&nbsp;活动查看
       </span>
  </div>
 <!-- 没有作用，只为平衡高度 -->
@@ -38,6 +38,7 @@ foreach ($myactivities as $myactivity){
 array_push($cars,array("pageid"=>$myactivity->getPageid()));
 }?>
 
+活动总数：<?php echo count($cars);?>
 
 <?php foreach ($activitypages as $activitypage):?>
 <div style="border-radius:16px;padding:5px;" class="panel panel-success allactivities

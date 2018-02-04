@@ -5,7 +5,7 @@
         </button>
       </span>
       <span>
-      预约查看
+      <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;&nbsp;预约查看
       </span>
  </div>
 <!-- 没有作用，只为平衡高度 -->
@@ -51,7 +51,7 @@ array_multisort($x, SORT_DESC,$cars);
 }?>
 
 <table class="table">
- <caption>基本的表格布局</caption>
+ <caption>预约总数：<?php echo count($cars);?></caption>
  <thead>
     <tr>
       <th>日期</th>

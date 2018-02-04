@@ -5,7 +5,7 @@
         </button>
       </span>
       <span>
-      订单查看
+      <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&nbsp;&nbsp;订单查看
       </span>
  </div>
 <!-- 没有作用，只为平衡高度 -->
@@ -51,7 +51,7 @@ $x[$key] = $row['treregdate'];}
 if ($x){
 array_multisort($x, SORT_DESC,$cars);
 }?>
-
+订单总数：<?php echo count($cars);?>
 <?php //输出
 foreach ($cars as $car):if($car['trestate']!=="nonpayment"){?>
 <div class="container paid" style="padding: 10px;border:1px dashed black;" >
