@@ -3313,6 +3313,8 @@ class CosController extends AbstractActionController
         $sub=$this->params('sub');
         $third=$this->params('third');
         
-        return array('sub'=>$sub,'third'=>$third);
+        $homepage=$homepage=$this->getPageMapper()->getHomepage($sub);//美容院标识
+        
+        return array('sub'=>$sub,'third'=>$third,'homepage'=>$homepage);
     }
 }

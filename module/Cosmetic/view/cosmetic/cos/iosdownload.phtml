@@ -1,4 +1,29 @@
-<a id="iosdownload" href="itms-services://?action=download-manifest&url=https://www.oushelun.cn/iosdownload/<?php echo $sub;?>/<?php echo $third;?>.plist"><button id="autolink"></button></a>
+<div style="text-align:center;margin-top:100px;">
+<div><h5><?php echo $homepage->getPageheaddata2();?></h5></div>
+<img src="<?php echo $homepage->getPageheaddata1();?>" style="height:100px;width:120px;">
+<div>
+<a id="iosdownload" href="itms-services://?action=download-manifest&url=https://www.oushelun.cn/iosdownload/<?php echo $sub;?>/<?php echo $third;?>.plist">
+<button id="autolink">
+<?php
+switch ($third)
+{
+case "customer":
+    echo "顾客";
+    break;
+case "cosmetologist":
+    echo "美容师";
+    break;
+case "salonboss":
+    echo "美容院院长";
+    break;
+default:
+    echo "";
+}
+?>下载&nbsp;&nbsp;<span class="glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></span></button>
+</a>
+</div>
+</div>
+
 <script>
 $(document).ready(function(){
 	$("#autolink").click();
