@@ -813,7 +813,7 @@ class CusController extends AbstractActionController
             $post['cusid'] = $cusid;
             $post['cusname'] = $cusname;
             $post['cusphone'] = $cusphone;
-            $post['appointmentstate'] = "审核中";
+            $post['appointmentstate'] = "预约中";
             $timestamp=strtotime($post['appointmentdate']." ".$post['appointmenttime'].":00");
             $timecomparison=date('YmdHis', $timestamp);
             $appointment->setTimecomparison($timecomparison);

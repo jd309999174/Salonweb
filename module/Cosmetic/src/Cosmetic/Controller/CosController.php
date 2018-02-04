@@ -1758,8 +1758,13 @@ class CosController extends AbstractActionController
         $request = $this->getRequest();
         $post=$request->getPost()->toArray();
         
+        if ($post['ajaxValue']!=""){
+            $appintments=$mapper->getAppointmentDate($id,$post['ajaxValue']);
+        }else {
+            $appintments=$mapper->getAppointmentsalon($id);
+        }
         return new ViewModel(array(
-            'appointments' => $mapper->getAppointmentDate($id,$post['ajaxValue']),
+            'appointments' => $appintments,
             'id' => $id,
             'salons' => $salonmapper->getSalon($id)
         ));

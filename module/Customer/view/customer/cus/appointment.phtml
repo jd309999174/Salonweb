@@ -66,7 +66,9 @@ $(document).ready(function(){
 <script type="text/javascript">
 //出生日期选择器
 jQuery(function($){  
-    $.datepicker.regional['zh-CN'] = {  
+    $.datepicker.regional['zh-CN'] = {
+        minDate: 1,
+        maxDate: "+1M",
         closeText: '关闭',  
         prevText: '<上月',  
         nextText: '下月>',  
@@ -125,7 +127,7 @@ $(document).ready(function(){
 <div class="panel-heading" style="color:#2F4F4F;border-radius: 16px;background-color:<?php echo $homepage->getPagecolor();?>;"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span>&nbsp;&nbsp;最近预约倒计时</div>
 <div class="panel-body">
 
- <?php //美容院，美容师，审核状态?>
+ <?php //美容院，美容师，预约状态?>
  <div class="container" style="text-align:center;">
    <div class="row">
    <?php if ($recentdate):?>
@@ -326,7 +328,10 @@ echo $this->formhidden($form->get('cosname'));//选择?>
 <?php $this->form()->closeTag($form);?>
 </div>
 </div>
-
+*<br>
+①最迟需提前一天预约，以便于我们更好的安排对您的服务<br>
+②预约最长跨度为一月，请尽早预约，我们会在24小时内完成预约核对<br>
+③未通过的预约，我们会提前与您电话联系，重新安排服务时间
 
 
 

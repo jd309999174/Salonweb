@@ -221,6 +221,25 @@ class AppointmentMapper
         return $resultset;
     }
     
+    //取得此美容院的所有未过期预约
+    public function getAppointmentsalon($id)
+    {
+        $select = $this->sql->select();
+        $select->where(array('salnumber' => $id,'timecomparison>'.date("YmdHis",time())));
+        $select->order(array('appointmentdate DESC'));
+        $statement = $this->sql->prepareStatementForSqlObject($select);
+        $results = $statement->execute();
+        if (!$results) {
+            return null;
+        }
+        
+        $entityPrototype = new AppointmentEntity();
+        $hydrator = new ClassMethods();
+        $resultset = new HydratingResultSet($hydrator, $entityPrototype);
+        $resultset->initialize($results);
+        return $resultset;
+    }
+    
     public function deleteAppointment($sub)
     {
         $delete = $this->sql->delete();
