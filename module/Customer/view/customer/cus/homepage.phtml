@@ -307,7 +307,7 @@ function redHeader(){
 <ul id="sortable" class="nav_ul">
 <?php //TODO 组件输出模块 
 include_once 'public/php/templateforui.phtml';?>
-	</ul>
+</ul>
 <?php //TODO 底部菜单栏  用于站位?>
 <div class="btn-group btn-group-justified" role="group" style="visibility:hidden">
   <div class="btn-group" role="group" style="text-align:center;" >
@@ -556,8 +556,10 @@ $(document).ready(function(){
     if(isAndroid){
         //加引号就是字符串
     	window.android.cusidsave(<?php echo $cusid;?>);
-        }else{
-        webkit.messageHandlers.ioscusidsave.postMessage(<?php echo $cusid;?>);
+        }
+    if(isiOS){
+        window.webkit.messageHandlers.ioscusidsave.postMessage(<?php echo $cusid;?>);
             }
 })
 </script>
+

@@ -16,8 +16,9 @@ array_push($cars,array("productcombinationpicture"=>$trolley->getProductcombinat
 foreach ($cars as $key => $row) {
 $x[$key] = $row['trolleydate'];
 }
+if ($x){
 array_multisort($x, SORT_DESC, $cars);
-?>
+}?>
 <?php foreach ($cars as $car):?>
 <?php echo $car['salid'];?>
 <?php endforeach;?>

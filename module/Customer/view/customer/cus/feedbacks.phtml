@@ -9,11 +9,38 @@
 <link href="/lib/jquery.raty.css" media="screen" rel="stylesheet" type="text/css">
 <script src="/lib/jquery.raty.js"></script>
 
+
+<script> 
+$(document).ready(function(){
+  $("#flip1").click(function(){
+    $("#panel1").slideToggle("slow");
+    $("#menudown1").toggle();
+    $("#menuup1").toggle();
+  });
+  $("#flip2").click(function(){
+	    $("#panel2").slideToggle("slow");
+	    $("#menudown2").toggle();
+	    $("#menuup2").toggle();
+	  });
+  $("#flip3").click(function(){
+	    $("#panel3").slideToggle("slow");
+	    $("#menudown3").toggle();
+	    $("#menuup3").toggle();
+	  });
+});
+</script>
+
 <style>
 .addBorder{
 	border:2px solid #FFDAB9;
 	margin:2px;
 }
+#panel1 {display:none;}
+#panel2 {display:none;}
+#panel3 {display:none;}
+#menuup1 {display:none;}
+#menuup2 {display:none;}
+#menuup3 {display:none;}
 </style>
 
 <div class="input-group input-group-sm"
@@ -30,6 +57,11 @@
 	<span class="input-group-btn"> <a href="<?php echo $this->url('customer', array('action'=>'homepage','sub'=>$id));?>" class="btn">评价与建议</a>
 	</span> 
 </div>
+
+
+
+<?php //加载图?>
+<img id="loadingimg" src="/img/loading.gif" style="width:100%;position:fixed;z-index:10;">
 
 <?php
 $form = $this->form;
@@ -48,7 +80,11 @@ echo $this->formhidden($form->get('fbcosmetologist'));?>
 <div class="container">
 
 <div class="addBorder">
-<div class="row well" style="color: red;font-weight:bold"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;环境评星与评价</div>
+<div class="row well" id="flip1" style="color: #696969;font-weight:bold">
+<span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;环境评星与评价
+<span id="menudown1" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="float:right;"></span>
+<span id="menuup1" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="float:right;"></span></div>
+   <div id="panel1">
    <div class="form-group">
     <label for="name"><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>&nbsp;评星</label>
      <div class="row">
@@ -70,10 +106,15 @@ echo $this->formhidden($form->get('fbcosmetologist'));?>
     <?php echo $this->formhidden($form->get('fbpicture1'));?>
     <?php echo $this->formRow($form->get('fbpicture1f'));?>
   </div>
+  </div>
 </div>
 <br> <br> 
 <div class="addBorder">
-<div class="row well" style="color: red;font-weight:bold"><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>&nbsp;产品评星与评价</div>
+<div class="row well" id="flip2" style="color: #696969;font-weight:bold">
+<span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>&nbsp;产品评星与评价
+<span id="menudown2" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="float:right;"></span>
+<span id="menuup2" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="float:right;"></span></div>
+ <div id="panel2">
  <div class="form-group">
   <label for="name"><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>&nbsp;评星</label>
    <div class="row">
@@ -97,10 +138,15 @@ echo $this->formhidden($form->get('fbcosmetologist'));?>
     <?php echo $this->formhidden($form->get('fbpicture2'));?>
     <?php echo $this->formRow($form->get('fbpicture2f'));?>
   </div>
+  </div>
 </div>
   <br> <br>  
 <div class="addBorder">   
-<div class="row well" style="color: red;font-weight:bold"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;服务评星与评价</div>   
+<div class="row well" id="flip3" style="color: #696969;font-weight:bold">
+<span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;服务评星与评价
+<span id="menudown3" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="float:right;"></span>
+<span id="menuup3" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="float:right;"></span></div>   
+ <div id="panel3">
  <div class="form-group">
   <label for="name"><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>&nbsp;评星</label>  
    <div class="row">
@@ -121,6 +167,7 @@ echo $this->formhidden($form->get('fbcosmetologist'));?>
     <label for="name"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span>&nbsp;图片</label>
     <?php echo $this->formhidden($form->get('fbpicture3'));?>
     <?php echo $this->formRow($form->get('fbpicture3f'));?>
+  </div>
   </div>
 </div>
 <div class="row well" ><?php echo $this->formInput($form->get('submit')); ?></div> 
@@ -204,4 +251,11 @@ $(document).ready(function(){
 </script>
 
                 
-   
+<script>
+$(document).ready(function() {
+	//提交时显示加载图
+	$("#fbsubmit").click(function(){
+        $("#loadingimg").show();
+		})
+});
+</script>
