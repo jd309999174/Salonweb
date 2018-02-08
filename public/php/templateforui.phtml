@@ -6,7 +6,10 @@
 						<div class="row">
 							<div class="col">
 								<div class="col-demo">
-									<a href="<?php echo $item->getTemplatedata1()?>"
+									<a
+									 <?php if ($item->getTemplatedata1()):?>
+									 href="<?php echo $item->getTemplatedata1()?>"
+									 <?php endif;?>
 										class="singlea"> <img
 										data-original="<?php echo $item->getTemplatedata2()?>"
 										class="img1 singleimg">
@@ -23,7 +26,10 @@
 						<div class="row">
 							<div class="col">
 								<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-									<a href="<?php echo  $item->getTemplatedata1()?>"
+									<a
+									<?php if ($item->getTemplatedata1()):?>
+									 href="<?php echo  $item->getTemplatedata1()?>"
+									 <?php endif;?>
 										class="doublea1"> <img 
 										data-original="<?php echo  $item->getTemplatedata2()?>"
 										class="img2 doubleimg1">
@@ -32,7 +38,10 @@
 							</div>
 							<div class="col">
 								<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-									<a href="<?php echo  $item->getTemplatedata3()?>"
+									<a 
+									<?php if ($item->getTemplatedata3()):?>
+									href="<?php echo  $item->getTemplatedata3()?>"
+									<?php endif;?>
 										class="doublea2"> <img 
 										data-original="<?php echo $item->getTemplatedata4()?>"
 										class="img2 doubleimg2">
@@ -51,7 +60,10 @@
 						<div class="swiper-wrapper">
         <?php if($item->getTemplatedata2()!="/img/123.jpg"):?>
             <div class="swiper-slide">
-								<a href="<?php echo  $item->getTemplatedata1()?>"
+								<a
+								<?php if ($item->getTemplatedata1()):?>
+								 href="<?php echo  $item->getTemplatedata1()?>"
+								 <?php endif;?>
 									class="swipera1"> <img 
 									data-original="<?php echo  $item->getTemplatedata2()?>"
 									class="img1 swiperimg1" style="height: 100%; width: 100%">
@@ -59,7 +71,10 @@
 							</div><?php endif;?>
 	    <?php if($item->getTemplatedata4()!="/img/123.jpg"):?>
             <div class="swiper-slide">
-								<a href="<?php echo  $item->getTemplatedata3()?>"
+								<a
+								<?php if ($item->getTemplatedata3()):?>
+								 href="<?php echo  $item->getTemplatedata3()?>"
+								 <?php endif;?>
 									class="swipera2"> <img 
 									data-original="<?php echo  $item->getTemplatedata4()?>"
 									class="img1 swiperimg2" style="height: 100%; width: 100%">
@@ -67,7 +82,10 @@
 							</div><?php endif;?>
 	   <?php if($item->getTemplatedata6()!="/img/123.jpg"):?>
             <div class="swiper-slide">
-								<a href="<?php echo  $item->getTemplatedata5()?>"
+								<a 
+								<?php if ($item->getTemplatedata5()):?>
+								href="<?php echo  $item->getTemplatedata5()?>"
+								<?php endif;?>
 									class="swipera3"> <img 
 									data-original="<?php echo  $item->getTemplatedata6()?>"
 									class="img1 swiperimg3" style="height: 100%; width: 100%">
@@ -75,7 +93,10 @@
 							</div><?php endif;?>
        <?php if($item->getTemplatedata8()!="/img/123.jpg"):?>
             <div class="swiper-slide">
-								<a href="<?php echo  $item->getTemplatedata7()?>"
+								<a 
+								<?php if ($item->getTemplatedata7()):?>
+								href="<?php echo  $item->getTemplatedata7()?>"
+								<?php endif;?>
 									class="swipera4"> <img 
 									data-original="<?php echo  $item->getTemplatedata8()?>"
 									class="img1 swiperimg4" style="height: 100%; width: 100%">
@@ -83,7 +104,10 @@
 							</div><?php endif;?>
 	   <?php if($item->getTemplatedata10()!="/img/123.jpg"):?>
             <div class="swiper-slide">
-								<a href="<?php echo  $item->getTemplatedata9()?>"
+								<a 
+								<?php if ($item->getTemplatedata9()):?>
+								href="<?php echo  $item->getTemplatedata9()?>"
+								<?php endif;?>
 									class="swipera5"> <img 
 									data-original="<?php echo  $item->getTemplatedata10()?>"
 									class="img1 swiperimg5" style="height: 100%; width: 100%">
@@ -102,7 +126,10 @@
 							<div class="col">
 								<div class="col-demo">
 									<div class="well">
-										<a href="<?php echo $item->getTemplatedata1()?>"
+										<a 
+										<?php if ($item->getTemplatedata1()):?>
+										href="<?php echo $item->getTemplatedata1()?>"
+										<?php endif;?>
 											class="headlinea"> <span class="headlinetext"><?php echo $item->getTemplatedata2()?></span>
 											<span class="ui-icon ui-icon-triangle-1-e"
 											style="float: right"></span>
@@ -139,7 +166,10 @@
 						<div class="swiper-wrapper">
 							<div class="swiper-slide">
 								<div class="title" data-swiper-parallax="-100">
-									<a href="<?php echo $item->getTemplatedata2()?>"
+									<a 
+									<?php if ($item->getTemplatedata2()):?>
+									href="<?php echo $item->getTemplatedata2()?>"
+									<?php endif;?>
 										class="imgtexttitle1 imgtexta1"><?php echo $item->getTemplatedata3()?></a>
 								</div>
 								<div class="text" data-swiper-parallax="-300">
@@ -148,7 +178,10 @@
 							</div>
 							<div class="swiper-slide">
 								<div class="title" data-swiper-parallax="-100">
-									<a href="<?php echo $item->getTemplatedata5()?>"
+									<a 
+									<?php if ($item->getTemplatedata5()):?>
+									href="<?php echo $item->getTemplatedata5()?>"
+									<?php endif;?>
 										class="imgtexttitle2 imgtexta2"><?php echo $item->getTemplatedata6()?></a>
 								</div>
 
@@ -158,7 +191,10 @@
 							</div>
 							<div class="swiper-slide">
 								<div class="title" data-swiper-parallax="-100">
-									<a href="<?php echo $item->getTemplatedata8()?>"
+									<a 
+									<?php if ($item->getTemplatedata8()):?>
+									href="<?php echo $item->getTemplatedata8()?>"
+									<?php endif;?>
 										class="imgtexttitle3 imgtexta3"><?php echo $item->getTemplatedata9()?></a>
 								</div>
 
