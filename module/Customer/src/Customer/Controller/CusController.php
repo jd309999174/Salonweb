@@ -1710,195 +1710,227 @@ public function chatajaxAction()
                 
                 $task->setSalnumber($id);
                 $task->setCusid($cusid);
-                $this->getFeedbacksMapper()->saveTask($task);
+                
                 
                 //保存美容师最近评星
                 $this->getCosmetologistMapper()->saveRecentstar($cosid,$post['fbcosmetologist']);
                 // Redirect to list of tasks
-                
+                //move_uploaded_file($y['cusphotof']['tmp_name'], 'public/portrait/' . $x['cusphoto']);
+                //缩放
                 //压缩评价图
                 if (! file_exists('public/fbpicture')) {
                     mkdir('public/fbpicture');
                 }
-                //图片缩放
-                $pname1 = iconv('utf-8', 'gbk', $x['fbpicture1']);//文件名
-                $pname11=iconv('utf-8', 'gbk', 'public/fbpicture/');//文件路径
-                $pname12=iconv('utf-8', 'gbk', $y['fbpicture1f']['tmp_name']);//临时文件名
-                $pname2 = iconv('utf-8', 'gbk', $x['fbpicture2']);//文件名
-                $pname21=iconv('utf-8', 'gbk', 'public/fbpicture/');//文件路径
-                $pname22=iconv('utf-8', 'gbk', $y['fbpicture2f']['tmp_name']);//临时文件名
-                $pname3 = iconv('utf-8', 'gbk', $x['fbpicture3']);//文件名
-                $pname31=iconv('utf-8', 'gbk', 'public/fbpicture/');//文件路径
-                $pname32=iconv('utf-8', 'gbk', $y['fbpicture3f']['tmp_name']);//临时文件名
-                //move_uploaded_file($y['cusphotof']['tmp_name'], 'public/portrait/' . $x['cusphoto']);
-                //缩放
-                $temp1 = explode(".", $pname1);
-                $extension1 = end($temp1);
-                $temp2 = explode(".", $pname2);
-                $extension2 = end($temp2);
-                $temp3 = explode(".", $pname3);
-                $extension3 = end($temp3);
+                
+                //设3个组合文件名
+                $fbpicture1="";
+                $fbpicture2="";
+                $fbpicture3="";
+                
+                
                 
                 //图片1 视频文件直接保存,图片按后缀缩放
-                if ($extension1=="mp4"){
-                    move_uploaded_file($pname12, $pname11.$pname1);
-                }elseif($extension1=="jpg"||$extension1=="jpeg"||$extension1=="gif"||$extension1=="png"){
-                    $filename=$pname12;
-                    list($width, $height)=getimagesize($filename);
-                    if ($width>500||$height>500){//长或宽大于500则缩放
-                        //缩放比例
-                        $per=round(100/$width,3);
-                        
-                        $n_w=$width*$per;
-                        $n_h=$height*$per;
-                        $new=imagecreatetruecolor($n_w, $n_h);
-                        
-                        switch ($extension1){
-                            case "jpg":
-                                $img=imagecreatefromjpeg($filename);
-                                //copy部分图像并调整
-                                imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
-                                //图像输出新图片、另存为
-                                imagejpeg($new, $pname11.$pname1);
-                                break;
-                            case "jpeg":
-                                $img=imagecreatefromjpeg($filename);
-                                //copy部分图像并调整
-                                imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
-                                //图像输出新图片、另存为
-                                imagejpeg($new, $pname11.$pname1);
-                                break;
-                            case "gif":
-                                $img=imagecreatefromgif($filename);
-                                //copy部分图像并调整
-                                imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
-                                //图像输出新图片、另存为
-                                imagegif($new, $pname11.$pname1);
-                                break;
-                            case "png":
-                                $img=imagecreatefrompng($filename);
-                                //copy部分图像并调整
-                                imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
-                                //图像输出新图片、另存为
-                                imagepng($new, $pname11.$pname1);
-                                break;
-                        }
-                        imagedestroy($new);
-                        imagedestroy($img);
-                        
-                    }else{
+                foreach ($y['fbpicture1f'] as $picturesrc1) {
+                    //随机文件名
+                    $picturenewname1 = $this->newfilename(15, iconv('utf-8', 'gbk', $picturesrc1['name']));
+                    $fbpicture1=$fbpicture1.$picturenewname1.";";
+                    //图片缩放
+                    $pname1 = iconv('utf-8', 'gbk', $picturenewname1);//文件名
+                    $pname11=iconv('utf-8', 'gbk', 'public/fbpicture/');//文件路径
+                    $pname12=iconv('utf-8', 'gbk', $picturesrc1['tmp_name']);//临时文件名
+                    //缩放
+                    $temp1 = explode(".", $pname1);
+                    $extension1 = end($temp1);
+                    
+                    
+                    
+                    if ($extension1=="mp4"){
                         move_uploaded_file($pname12, $pname11.$pname1);
+                    }elseif($extension1=="jpg"||$extension1=="jpeg"||$extension1=="gif"||$extension1=="png"){
+                        $filename=$pname12;
+                        list($width, $height)=getimagesize($filename);
+                        if ($width>500||$height>500){//长或宽大于500则缩放
+                            //缩放比例
+                            $per=round(100/$width,3);
+                            
+                            $n_w=$width*$per;
+                            $n_h=$height*$per;
+                            $new=imagecreatetruecolor($n_w, $n_h);
+                            
+                            switch ($extension1){
+                                case "jpg":
+                                    $img=imagecreatefromjpeg($filename);
+                                    //copy部分图像并调整
+                                    imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
+                                    //图像输出新图片、另存为
+                                    imagejpeg($new, $pname11.$pname1);
+                                    break;
+                                case "jpeg":
+                                    $img=imagecreatefromjpeg($filename);
+                                    //copy部分图像并调整
+                                    imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
+                                    //图像输出新图片、另存为
+                                    imagejpeg($new, $pname11.$pname1);
+                                    break;
+                                case "gif":
+                                    $img=imagecreatefromgif($filename);
+                                    //copy部分图像并调整
+                                    imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
+                                    //图像输出新图片、另存为
+                                    imagegif($new, $pname11.$pname1);
+                                    break;
+                                case "png":
+                                    $img=imagecreatefrompng($filename);
+                                    //copy部分图像并调整
+                                    imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
+                                    //图像输出新图片、另存为
+                                    imagepng($new, $pname11.$pname1);
+                                    break;
+                            }
+                            imagedestroy($new);
+                            imagedestroy($img);
+                            
+                        }else{
+                            move_uploaded_file($pname12, $pname11.$pname1);
+                        }
                     }
                 }
-                
                 //图片2 视频文件直接保存,图片按后缀缩放
-                if ($extension2=="mp4"){
-                    move_uploaded_file($pname22, $pname21.$pname2);
-                }elseif($extension2=="jpg"||$extension2=="jpeg"||$extension2=="gif"||$extension2=="png"){
-                    $filename=$pname22;
-                    list($width, $height)=getimagesize($filename);
-                    if ($width>500||$height>500){//长或宽大于500则缩放
-                        //缩放比例
-                        $per=round(100/$width,3);
-                        
-                        $n_w=$width*$per;
-                        $n_h=$height*$per;
-                        $new=imagecreatetruecolor($n_w, $n_h);
-                        
-                        switch ($extension2){
-                            case "jpg":
-                                $img=imagecreatefromjpeg($filename);
-                                //copy部分图像并调整
-                                imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
-                                //图像输出新图片、另存为
-                                imagejpeg($new, $pname21.$pname2);
-                                break;
-                            case "jpeg":
-                                $img=imagecreatefromjpeg($filename);
-                                //copy部分图像并调整
-                                imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
-                                //图像输出新图片、另存为
-                                imagejpeg($new, $pname21.$pname2);
-                                break;
-                            case "gif":
-                                $img=imagecreatefromgif($filename);
-                                //copy部分图像并调整
-                                imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
-                                //图像输出新图片、另存为
-                                imagegif($new, $pname21.$pname2);
-                                break;
-                            case "png":
-                                $img=imagecreatefrompng($filename);
-                                //copy部分图像并调整
-                                imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
-                                //图像输出新图片、另存为
-                                imagepng($new, $pname21.$pname2);
-                                break;
-                        }
-                        imagedestroy($new);
-                        imagedestroy($img);
-                        
-                    }else{
+                foreach ($y['fbpicture2f'] as $picturesrc2) {
+                    //随机文件名
+                    $picturenewname2 = $this->newfilename(15, iconv('utf-8', 'gbk', $picturesrc2['name']));
+                    $fbpicture2=$fbpicture2.$picturenewname2.";";
+                    
+                    $pname2 = iconv('utf-8', 'gbk', $picturenewname2);//文件名
+                    $pname21=iconv('utf-8', 'gbk', 'public/fbpicture/');//文件路径
+                    $pname22=iconv('utf-8', 'gbk', $picturesrc2['tmp_name']);//临时文件名
+                    $temp2 = explode(".", $pname2);
+                    $extension2 = end($temp2);
+                    
+                    if ($extension2=="mp4"){
                         move_uploaded_file($pname22, $pname21.$pname2);
-                    }
-                }
-                
-                //图片1 视频文件直接保存,图片按后缀缩放
-                if ($extension3=="mp4"){
-                    move_uploaded_file($pname32, $pname31.$pname3);
-                }elseif($extension3=="jpg"||$extension3=="jpeg"||$extension3=="gif"||$extension3=="png"){
-                    $filename=$pname32;
-                    list($width, $height)=getimagesize($filename);
-                    if ($width>500||$height>500){//长或宽大于500则缩放
-                        //缩放比例
-                        $per=round(100/$width,3);
-                        
-                        $n_w=$width*$per;
-                        $n_h=$height*$per;
-                        $new=imagecreatetruecolor($n_w, $n_h);
-                        
-                        switch ($extension3){
-                            case "jpg":
-                                $img=imagecreatefromjpeg($filename);
-                                //copy部分图像并调整
-                                imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
-                                //图像输出新图片、另存为
-                                imagejpeg($new, $pname31.$pname3);
-                                break;
-                            case "jpeg":
-                                $img=imagecreatefromjpeg($filename);
-                                //copy部分图像并调整
-                                imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
-                                //图像输出新图片、另存为
-                                imagejpeg($new, $pname31.$pname3);
-                                break;
-                            case "gif":
-                                $img=imagecreatefromgif($filename);
-                                //copy部分图像并调整
-                                imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
-                                //图像输出新图片、另存为
-                                imagegif($new, $pname31.$pname3);
-                                break;
-                            case "png":
-                                $img=imagecreatefrompng($filename);
-                                //copy部分图像并调整
-                                imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
-                                //图像输出新图片、另存为
-                                imagepng($new, $pname31.$pname3);
-                                break;
+                    }elseif($extension2=="jpg"||$extension2=="jpeg"||$extension2=="gif"||$extension2=="png"){
+                        $filename=$pname22;
+                        list($width, $height)=getimagesize($filename);
+                        if ($width>500||$height>500){//长或宽大于500则缩放
+                            //缩放比例
+                            $per=round(100/$width,3);
+                            
+                            $n_w=$width*$per;
+                            $n_h=$height*$per;
+                            $new=imagecreatetruecolor($n_w, $n_h);
+                            
+                            switch ($extension2){
+                                case "jpg":
+                                    $img=imagecreatefromjpeg($filename);
+                                    //copy部分图像并调整
+                                    imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
+                                    //图像输出新图片、另存为
+                                    imagejpeg($new, $pname21.$pname2);
+                                    break;
+                                case "jpeg":
+                                    $img=imagecreatefromjpeg($filename);
+                                    //copy部分图像并调整
+                                    imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
+                                    //图像输出新图片、另存为
+                                    imagejpeg($new, $pname21.$pname2);
+                                    break;
+                                case "gif":
+                                    $img=imagecreatefromgif($filename);
+                                    //copy部分图像并调整
+                                    imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
+                                    //图像输出新图片、另存为
+                                    imagegif($new, $pname21.$pname2);
+                                    break;
+                                case "png":
+                                    $img=imagecreatefrompng($filename);
+                                    //copy部分图像并调整
+                                    imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
+                                    //图像输出新图片、另存为
+                                    imagepng($new, $pname21.$pname2);
+                                    break;
+                            }
+                            imagedestroy($new);
+                            imagedestroy($img);
+                            
+                        }else{
+                            move_uploaded_file($pname22, $pname21.$pname2);
                         }
-                        imagedestroy($new);
-                        imagedestroy($img);
-                        
-                    }else{
+                    }
+                }
+                //图片3 视频文件直接保存,图片按后缀缩放
+                foreach ($y['fbpicture3f'] as $picturesrc3) {
+                    //随机文件名
+                    $picturenewname3 = $this->newfilename(15, iconv('utf-8', 'gbk', $picturesrc3['name']));
+                    $fbpicture3=$fbpicture3.$picturenewname3.";";
+                    
+                    $pname3 = iconv('utf-8', 'gbk', $picturenewname3);//文件名
+                    $pname31=iconv('utf-8', 'gbk', 'public/fbpicture/');//文件路径
+                    $pname32=iconv('utf-8', 'gbk', $picturesrc3['tmp_name']);//临时文件名
+                    $temp3 = explode(".", $pname3);
+                    $extension3 = end($temp3);
+                    if ($extension3=="mp4"){
                         move_uploaded_file($pname32, $pname31.$pname3);
+                    }elseif($extension3=="jpg"||$extension3=="jpeg"||$extension3=="gif"||$extension3=="png"){
+                        $filename=$pname32;
+                        list($width, $height)=getimagesize($filename);
+                        if ($width>500||$height>500){//长或宽大于500则缩放
+                            //缩放比例
+                            $per=round(100/$width,3);
+                            
+                            $n_w=$width*$per;
+                            $n_h=$height*$per;
+                            $new=imagecreatetruecolor($n_w, $n_h);
+                            
+                            switch ($extension3){
+                                case "jpg":
+                                    $img=imagecreatefromjpeg($filename);
+                                    //copy部分图像并调整
+                                    imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
+                                    //图像输出新图片、另存为
+                                    imagejpeg($new, $pname31.$pname3);
+                                    break;
+                                case "jpeg":
+                                    $img=imagecreatefromjpeg($filename);
+                                    //copy部分图像并调整
+                                    imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
+                                    //图像输出新图片、另存为
+                                    imagejpeg($new, $pname31.$pname3);
+                                    break;
+                                case "gif":
+                                    $img=imagecreatefromgif($filename);
+                                    //copy部分图像并调整
+                                    imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
+                                    //图像输出新图片、另存为
+                                    imagegif($new, $pname31.$pname3);
+                                    break;
+                                case "png":
+                                    $img=imagecreatefrompng($filename);
+                                    //copy部分图像并调整
+                                    imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
+                                    //图像输出新图片、另存为
+                                    imagepng($new, $pname31.$pname3);
+                                    break;
+                            }
+                            imagedestroy($new);
+                            imagedestroy($img);
+                            
+                        }else{
+                            move_uploaded_file($pname32, $pname31.$pname3);
+                        }
                     }
                 }
                 
-                 return $this->redirect()->toRoute('customer', array(
+                
+                $task->setFbpicture1($fbpicture1);
+                $task->setFbpicture2($fbpicture2);
+                $task->setFbpicture3($fbpicture3);
+                $this->getFeedbacksMapper()->saveTask($task);
+                return $this->redirect()->toRoute('customer', array(
                     'action' => 'me'
                 ));
             }
+            
         }else{
             $homepage = $homepage = $this->getPageMapper()->getHomepage($id); // 美容院标识
             // 根据get获取订单,产品类别和美容师信息

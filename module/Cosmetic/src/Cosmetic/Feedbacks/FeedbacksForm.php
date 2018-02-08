@@ -141,9 +141,10 @@ class FeedbacksForm extends Form
             'type' => 'file',
             
             'attributes' => array(
+                'multiple'=>'ture',//重点，直接用html的input multiple似乎不行
                 'class'=>'form-control',
                 'id'=>'fbpicture1f',
-                'onchange'=>'change("fbpicture1f","fbpicture1")',
+                //'onchange'=>'change("fbpicture1f","fbpicture1")',
                 'data-show-upload'=>'false',
                 'data-show-caption'=>'true',
                 'data-msg-placeholder'=>'选择 {files}'
@@ -166,9 +167,10 @@ class FeedbacksForm extends Form
             'type' => 'file',
             
             'attributes' => array(
+                'multiple'=>'ture',//重点，直接用html的input multiple似乎不行
                 'class'=>'form-control',
                 'id'=>'fbpicture2f',
-                'onchange'=>'change("fbpicture2f","fbpicture2")',
+                //'onchange'=>'change("fbpicture2f","fbpicture2")',
                 'data-show-upload'=>'false',
                 'data-show-caption'=>'true',
                 'data-msg-placeholder'=>'选择 {files}'
@@ -191,9 +193,10 @@ class FeedbacksForm extends Form
             'type' => 'file',
             
             'attributes' => array(
+                'multiple'=>'ture',//重点，直接用html的input multiple似乎不行
                 'class'=>'form-control',
                 'id'=>'fbpicture3f',
-                'onchange'=>'change("fbpicture3f","fbpicture3")',
+                //'onchange'=>'change("fbpicture3f","fbpicture3")',
                 'data-show-upload'=>'false',
                 'data-show-caption'=>'true',
                 'data-msg-placeholder'=>'选择 {files}'

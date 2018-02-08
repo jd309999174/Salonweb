@@ -489,9 +489,18 @@ include_once 'public/php/templateforui.phtml';?>
           <div class="row">
            <div class="col-xs-12 col-sm-12"><span class="subtitle"><?php echo $feedback->getFbadvise1();?></span></div>    
           </div>
+          <div class="row">
+          <?php 
+          preg_match_all("/([^;]+);/u",
+              $feedback->getFbpicture2(),
+              $out, PREG_PATTERN_ORDER);
+          foreach ($out[1] as $fbpicture2):
+          ?>
+           <div class="col-xs-3 col-sm-3"><img class="fbpicture2" alt=""  data-original="/fbpicture/<?php echo $fbpicture2;?>"></div>
+          <?php endforeach;?>
+          </div>
            <div class="row">
-           <div class="col-xs-8 col-sm-8"><img class="fbpicture2" alt=""  src="/fbpicture/<?php echo $feedback->getFbpicture2();?>"></div>
-           <div class="col-xs-4 col-sm-4">
+           <div class="col-xs-12 col-sm-12">
            评星：
 <?php switch ($feedback->getFbproduct()):?>
 <?php case 1:?>
