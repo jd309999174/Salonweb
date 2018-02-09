@@ -42,6 +42,9 @@ $(document).ready(function(){
 #menuup1 {display:none;}
 #menuup2 {display:none;}
 #menuup3 {display:none;}
+.well{
+color: 	#FF3030;
+font-weight:bold}
 </style>
 
 <div class="input-group input-group-sm"
@@ -81,7 +84,7 @@ echo $this->formhidden($form->get('fbcosmetologist'));?>
 <div class="container">
 
 <div class="addBorder">
-<div class="row well" id="flip1" style="color: #696969;font-weight:bold">
+<div class="row well" id="flip1">
 <span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;环境评星与评价
 <span id="menudown1" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="float:right;"></span>
 <span id="menuup1" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="float:right;"></span></div>
@@ -111,7 +114,7 @@ echo $this->formhidden($form->get('fbcosmetologist'));?>
 </div>
 <br> <br> 
 <div class="addBorder">
-<div class="row well" id="flip2" style="color: #696969;font-weight:bold">
+<div class="row well" id="flip2">
 <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>&nbsp;产品评星与评价
 <span id="menudown2" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="float:right;"></span>
 <span id="menuup2" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="float:right;"></span></div>
@@ -143,7 +146,7 @@ echo $this->formhidden($form->get('fbcosmetologist'));?>
 </div>
   <br> <br>  
 <div class="addBorder">   
-<div class="row well" id="flip3" style="color: #696969;font-weight:bold">
+<div class="row well" id="flip3">
 <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;服务评星与评价
 <span id="menudown3" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="float:right;"></span>
 <span id="menuup3" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="float:right;"></span></div>   
@@ -220,7 +223,9 @@ $('#div3').raty({
 <script>
 $(document).on('ready', function() {
     $("#fbpicture1f").fileinput({
-    	language: 'zh', //设置语言
+     maxFileCount: 8,
+	 msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+     language: 'zh', //设置语言
      allowedFileExtensions: ['jpg', 'gif', 'png','jpeg'],
      maxFileSize: 1024,
     });
@@ -229,7 +234,9 @@ $(document).on('ready', function() {
 <script>
 $(document).on('ready', function() {
     $("#fbpicture2f").fileinput({
-    	language: 'zh', //设置语言
+     maxFileCount: 8,
+	 msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+     language: 'zh', //设置语言
      allowedFileExtensions: ['jpg', 'gif', 'png','jpeg'],
      maxFileSize: 1024,
     });
@@ -238,7 +245,9 @@ $(document).on('ready', function() {
 <script>
 $(document).on('ready', function() {
     $("#fbpicture3f").fileinput({
-    	language: 'zh', //设置语言
+     maxFileCount: 8,
+	 msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+     language: 'zh', //设置语言
      allowedFileExtensions: ['jpg', 'gif', 'png','jpeg'],
      maxFileSize: 1024,
     });
