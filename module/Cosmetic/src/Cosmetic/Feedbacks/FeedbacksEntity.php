@@ -28,57 +28,38 @@ class FeedbacksEntity
     protected $fbadvise2;
     protected $fbdate;
     protected $gmtfbdate;
-    protected $fbpicture1;
-    protected $fbpicture2;
-    protected $fbpicture3;
+    protected $originalpicturegroup1;
+    protected $originalpicturegroup2;
+    protected $originalpicturegroup3;
+    protected $smallpicturegroup1;
+    protected $smallpicturegroup2;
+    protected $smallpicturegroup3;
     
     
+    
+
     /**
-     * @return the $fbpicture1
+     * @return the $id
      */
-    public function getFbpicture1()
+    public function getId()
     {
-        return $this->fbpicture1;
+        return $this->id;
     }
 
     /**
-     * @return the $fbpicture2
+     * @return the $treid
      */
-    public function getFbpicture2()
+    public function getTreid()
     {
-        return $this->fbpicture2;
+        return $this->treid;
     }
 
     /**
-     * @return the $fbpicture3
+     * @return the $prodid
      */
-    public function getFbpicture3()
+    public function getProdid()
     {
-        return $this->fbpicture3;
-    }
-
-    /**
-     * @param field_type $fbpicture1
-     */
-    public function setFbpicture1($fbpicture1)
-    {
-        $this->fbpicture1 = $fbpicture1;
-    }
-
-    /**
-     * @param field_type $fbpicture2
-     */
-    public function setFbpicture2($fbpicture2)
-    {
-        $this->fbpicture2 = $fbpicture2;
-    }
-
-    /**
-     * @param field_type $fbpicture3
-     */
-    public function setFbpicture3($fbpicture3)
-    {
-        $this->fbpicture3 = $fbpicture3;
+        return $this->prodid;
     }
 
     /**
@@ -114,6 +95,22 @@ class FeedbacksEntity
     }
 
     /**
+     * @return the $salnumber
+     */
+    public function getSalnumber()
+    {
+        return $this->salnumber;
+    }
+
+    /**
+     * @return the $salbranch
+     */
+    public function getSalbranch()
+    {
+        return $this->salbranch;
+    }
+
+    /**
      * @return the $salname
      */
     public function getSalname()
@@ -127,6 +124,14 @@ class FeedbacksEntity
     public function getSalphoto1()
     {
         return $this->salphoto1;
+    }
+
+    /**
+     * @return the $cusid
+     */
+    public function getCusid()
+    {
+        return $this->cusid;
     }
 
     /**
@@ -146,6 +151,14 @@ class FeedbacksEntity
     }
 
     /**
+     * @return the $cosid
+     */
+    public function getCosid()
+    {
+        return $this->cosid;
+    }
+
+    /**
      * @return the $cosname
      */
     public function getCosname()
@@ -159,227 +172,6 @@ class FeedbacksEntity
     public function getCosphoto()
     {
         return $this->cosphoto;
-    }
-
-    /**
-     * @param field_type $prodtitle
-     */
-    public function setProdtitle($prodtitle)
-    {
-        $this->prodtitle = $prodtitle;
-    }
-
-    /**
-     * @param field_type $productcombinationid
-     */
-    public function setProductcombinationid($productcombinationid)
-    {
-        $this->productcombinationid = $productcombinationid;
-    }
-
-    /**
-     * @param field_type $productcombinationname
-     */
-    public function setProductcombinationname($productcombinationname)
-    {
-        $this->productcombinationname = $productcombinationname;
-    }
-
-    /**
-     * @param field_type $productcombinationpicture
-     */
-    public function setProductcombinationpicture($productcombinationpicture)
-    {
-        $this->productcombinationpicture = $productcombinationpicture;
-    }
-
-    /**
-     * @param field_type $salname
-     */
-    public function setSalname($salname)
-    {
-        $this->salname = $salname;
-    }
-
-    /**
-     * @param field_type $salphoto1
-     */
-    public function setSalphoto1($salphoto1)
-    {
-        $this->salphoto1 = $salphoto1;
-    }
-
-    /**
-     * @param field_type $cusname
-     */
-    public function setCusname($cusname)
-    {
-        $this->cusname = $cusname;
-    }
-
-    /**
-     * @param field_type $cusphoto
-     */
-    public function setCusphoto($cusphoto)
-    {
-        $this->cusphoto = $cusphoto;
-    }
-
-    /**
-     * @param field_type $cosname
-     */
-    public function setCosname($cosname)
-    {
-        $this->cosname = $cosname;
-    }
-
-    /**
-     * @param field_type $cosphoto
-     */
-    public function setCosphoto($cosphoto)
-    {
-        $this->cosphoto = $cosphoto;
-    }
-
-    /**
-     * @return the $salbranch
-     */
-    public function getSalbranch()
-    {
-        return $this->salbranch;
-    }
-
-    /**
-     * @param field_type $salbranch
-     */
-    public function setSalbranch($salbranch)
-    {
-        $this->salbranch = $salbranch;
-    }
-
-    /**
-     * @return the $prodid
-     */
-    public function getProdid()
-    {
-        return $this->prodid;
-    }
-
-    /**
-     * @param field_type $prodid
-     */
-    public function setProdid($prodid)
-    {
-        $this->prodid = $prodid;
-    }
-
-    /**
-     * @return the $salnumber
-     */
-    public function getSalnumber()
-    {
-        return $this->salnumber;
-    }
-
-    /**
-     * @return the $cusid
-     */
-    public function getCusid()
-    {
-        return $this->cusid;
-    }
-
-    /**
-     * @param field_type $salnumber
-     */
-    public function setSalnumber($salnumber)
-    {
-        $this->salnumber = $salnumber;
-    }
-
-    /**
-     * @param field_type $cusid
-     */
-    public function setCusid($cusid)
-    {
-        $this->cusid = $cusid;
-    }
-
-    /**
-     * @return the $fbadvise1
-     */
-    public function getFbadvise1()
-    {
-        return $this->fbadvise1;
-    }
-
-    /**
-     * @return the $fbadvise2
-     */
-    public function getFbadvise2()
-    {
-        return $this->fbadvise2;
-    }
-
-    /**
-     * @param field_type $fbadvise1
-     */
-    public function setFbadvise1($fbadvise1)
-    {
-        $this->fbadvise1 = $fbadvise1;
-    }
-
-    /**
-     * @param field_type $fbadvise2
-     */
-    public function setFbadvise2($fbadvise2)
-    {
-        $this->fbadvise2 = $fbadvise2;
-    }
-
-    public function __construct()
-    {
-        $this->fbdate = date('Y-m-d H:i:s');
-        $this->gmtfbdate = date('YmdHis');
-    }
-    /**
-     * @return the $gmtfbdate
-     */
-    public function getGmtfbdate()
-    {
-        return $this->gmtfbdate;
-    }
-
-    /**
-     * @param string $gmtfbdate
-     */
-    public function setGmtfbdate($gmtfbdate)
-    {
-        $this->gmtfbdate = $gmtfbdate;
-    }
-
-    /**
-     * @return the $id
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return the $treid
-     */
-    public function getTreid()
-    {
-        return $this->treid;
-    }
-
-    /**
-     * @return the $cosid
-     */
-    public function getCosid()
-    {
-        return $this->cosid;
     }
 
     /**
@@ -415,11 +207,83 @@ class FeedbacksEntity
     }
 
     /**
+     * @return the $fbadvise1
+     */
+    public function getFbadvise1()
+    {
+        return $this->fbadvise1;
+    }
+
+    /**
+     * @return the $fbadvise2
+     */
+    public function getFbadvise2()
+    {
+        return $this->fbadvise2;
+    }
+
+    /**
      * @return the $fbdate
      */
     public function getFbdate()
     {
         return $this->fbdate;
+    }
+
+    /**
+     * @return the $gmtfbdate
+     */
+    public function getGmtfbdate()
+    {
+        return $this->gmtfbdate;
+    }
+
+    /**
+     * @return the $originalpicturegroup1
+     */
+    public function getOriginalpicturegroup1()
+    {
+        return $this->originalpicturegroup1;
+    }
+
+    /**
+     * @return the $originalpicturegroup2
+     */
+    public function getOriginalpicturegroup2()
+    {
+        return $this->originalpicturegroup2;
+    }
+
+    /**
+     * @return the $originalpicturegroup3
+     */
+    public function getOriginalpicturegroup3()
+    {
+        return $this->originalpicturegroup3;
+    }
+
+    /**
+     * @return the $smallpicturegroup1
+     */
+    public function getSmallpicturegroup1()
+    {
+        return $this->smallpicturegroup1;
+    }
+
+    /**
+     * @return the $smallpicturegroup2
+     */
+    public function getSmallpicturegroup2()
+    {
+        return $this->smallpicturegroup2;
+    }
+
+    /**
+     * @return the $smallpicturegroup3
+     */
+    public function getSmallpicturegroup3()
+    {
+        return $this->smallpicturegroup3;
     }
 
     /**
@@ -439,11 +303,123 @@ class FeedbacksEntity
     }
 
     /**
+     * @param field_type $prodid
+     */
+    public function setProdid($prodid)
+    {
+        $this->prodid = $prodid;
+    }
+
+    /**
+     * @param field_type $prodtitle
+     */
+    public function setProdtitle($prodtitle)
+    {
+        $this->prodtitle = $prodtitle;
+    }
+
+    /**
+     * @param field_type $productcombinationid
+     */
+    public function setProductcombinationid($productcombinationid)
+    {
+        $this->productcombinationid = $productcombinationid;
+    }
+
+    /**
+     * @param field_type $productcombinationname
+     */
+    public function setProductcombinationname($productcombinationname)
+    {
+        $this->productcombinationname = $productcombinationname;
+    }
+
+    /**
+     * @param field_type $productcombinationpicture
+     */
+    public function setProductcombinationpicture($productcombinationpicture)
+    {
+        $this->productcombinationpicture = $productcombinationpicture;
+    }
+
+    /**
+     * @param field_type $salnumber
+     */
+    public function setSalnumber($salnumber)
+    {
+        $this->salnumber = $salnumber;
+    }
+
+    /**
+     * @param field_type $salbranch
+     */
+    public function setSalbranch($salbranch)
+    {
+        $this->salbranch = $salbranch;
+    }
+
+    /**
+     * @param field_type $salname
+     */
+    public function setSalname($salname)
+    {
+        $this->salname = $salname;
+    }
+
+    /**
+     * @param field_type $salphoto1
+     */
+    public function setSalphoto1($salphoto1)
+    {
+        $this->salphoto1 = $salphoto1;
+    }
+
+    /**
+     * @param field_type $cusid
+     */
+    public function setCusid($cusid)
+    {
+        $this->cusid = $cusid;
+    }
+
+    /**
+     * @param field_type $cusname
+     */
+    public function setCusname($cusname)
+    {
+        $this->cusname = $cusname;
+    }
+
+    /**
+     * @param field_type $cusphoto
+     */
+    public function setCusphoto($cusphoto)
+    {
+        $this->cusphoto = $cusphoto;
+    }
+
+    /**
      * @param field_type $cosid
      */
     public function setCosid($cosid)
     {
         $this->cosid = $cosid;
+    }
+
+    /**
+     * @param field_type $cosname
+     */
+    public function setCosname($cosname)
+    {
+        $this->cosname = $cosname;
+    }
+
+    /**
+     * @param field_type $cosphoto
+     */
+    public function setCosphoto($cosphoto)
+    {
+        $this->cosphoto = $cosphoto;
     }
 
     /**
@@ -479,6 +455,22 @@ class FeedbacksEntity
     }
 
     /**
+     * @param field_type $fbadvise1
+     */
+    public function setFbadvise1($fbadvise1)
+    {
+        $this->fbadvise1 = $fbadvise1;
+    }
+
+    /**
+     * @param field_type $fbadvise2
+     */
+    public function setFbadvise2($fbadvise2)
+    {
+        $this->fbadvise2 = $fbadvise2;
+    }
+
+    /**
      * @param string $fbdate
      */
     public function setFbdate($fbdate)
@@ -486,7 +478,66 @@ class FeedbacksEntity
         $this->fbdate = $fbdate;
     }
 
-    
-    
+    /**
+     * @param string $gmtfbdate
+     */
+    public function setGmtfbdate($gmtfbdate)
+    {
+        $this->gmtfbdate = $gmtfbdate;
+    }
+
+    /**
+     * @param field_type $originalpicturegroup1
+     */
+    public function setOriginalpicturegroup1($originalpicturegroup1)
+    {
+        $this->originalpicturegroup1 = $originalpicturegroup1;
+    }
+
+    /**
+     * @param field_type $originalpicturegroup2
+     */
+    public function setOriginalpicturegroup2($originalpicturegroup2)
+    {
+        $this->originalpicturegroup2 = $originalpicturegroup2;
+    }
+
+    /**
+     * @param field_type $originalpicturegroup3
+     */
+    public function setOriginalpicturegroup3($originalpicturegroup3)
+    {
+        $this->originalpicturegroup3 = $originalpicturegroup3;
+    }
+
+    /**
+     * @param field_type $smallpicturegroup1
+     */
+    public function setSmallpicturegroup1($smallpicturegroup1)
+    {
+        $this->smallpicturegroup1 = $smallpicturegroup1;
+    }
+
+    /**
+     * @param field_type $smallpicturegroup2
+     */
+    public function setSmallpicturegroup2($smallpicturegroup2)
+    {
+        $this->smallpicturegroup2 = $smallpicturegroup2;
+    }
+
+    /**
+     * @param field_type $smallpicturegroup3
+     */
+    public function setSmallpicturegroup3($smallpicturegroup3)
+    {
+        $this->smallpicturegroup3 = $smallpicturegroup3;
+    }
+
+    public function __construct()
+    {
+        $this->fbdate = date('Y-m-d H:i:s');
+        $this->gmtfbdate = date('YmdHis');
+    }
     
 }

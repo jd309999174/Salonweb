@@ -1722,36 +1722,53 @@ public function chatajaxAction()
                     mkdir('public/fbpicture');
                 }
                 
-                //设3个组合文件名
-                $fbpicture1="";
-                $fbpicture2="";
-                $fbpicture3="";
+                //设3个组合文件名 原图
+                $originalPictureGroup1="";
+                $originalPictureGroup2="";
+                $originalPictureGroup3="";
+                //设3个组合文件名 小图
+                $smallPictureGroup1="";
+                $smallPictureGroup2="";
+                $smallPictureGroup3="";
                 
-                
+                $fbPicturePath=iconv('utf-8', 'gbk', 'public/fbpicture/');//文件路径
                 
                 //图片1 视频文件直接保存,图片按后缀缩放
                 foreach ($y['fbpicture1f'] as $picturesrc1) {
-                    //随机文件名
-                    $picturenewname1 = $this->newfilename(15, iconv('utf-8', 'gbk', $picturesrc1['name']));
-                    $fbpicture1=$fbpicture1.$picturenewname1.";";
+                    //随机文件名 小图
+                    $smallPictureName1 = $this->newfilename(15, iconv('utf-8', 'gbk', $picturesrc1['name']));
+                    $smallPictureGroup1=$smallPictureGroup1.$smallPictureName1.";";
+                    //随机文件名 原图
+                    $originalPictureName1 = $this->newfilename(15, iconv('utf-8', 'gbk', $picturesrc1['name']));
+                    $originalPictureGroup1=$originalPictureGroup1.$originalPictureName1.";";
                     //图片缩放
-                    $pname1 = iconv('utf-8', 'gbk', $picturenewname1);//文件名
-                    $pname11=iconv('utf-8', 'gbk', 'public/fbpicture/');//文件路径
-                    $pname12=iconv('utf-8', 'gbk', $picturesrc1['tmp_name']);//临时文件名
+                    //$pname1 = iconv('utf-8', 'gbk', $picturenewname1);//文件名 小图
+                    //$pnameoriginal1 = iconv('utf-8', 'gbk', $picturenewname11);//文件名 原图
+                    
+                    //$pname11=iconv('utf-8', 'gbk', 'public/fbpicture/');//文件路径
+                    $fbPictureTmp=iconv('utf-8', 'gbk', $picturesrc1['tmp_name']);//临时文件名
+                    //保存原图
+                    move_uploaded_file($fbPictureTmp, $fbPicturePath.$originalPictureName1);
                     //缩放
-                    $temp1 = explode(".", $pname1);
+                    $temp1 = explode(".", $originalPictureName1);
                     $extension1 = end($temp1);
+                    //后缀为空则设文件名为空
+                    if ($extension1==""){
+                        $smallPictureGroup1="";
+                        $originalPictureGroup1="";
+                    }
                     
                     
                     
                     if ($extension1=="mp4"){
-                        move_uploaded_file($pname12, $pname11.$pname1);
+                        move_uploaded_file($fbPictureTmp, $fbPicturePath.$originalPictureName1);
                     }elseif($extension1=="jpg"||$extension1=="jpeg"||$extension1=="gif"||$extension1=="png"){
-                        $filename=$pname12;
+                        $filename=$fbPicturePath.$originalPictureName1;
                         list($width, $height)=getimagesize($filename);
-                        if ($width>500&&$height>500){//长或宽大于500则缩放
+                        //if ($width>500&&$height>500){//长或宽大于500则缩放
+                        if (1){
                             //缩放比例
-                            $per=round(500/$width,3);
+                            $per=round(150/$width,3);
                             
                             $n_w=$width*$per;
                             $n_h=$height*$per;
@@ -1763,58 +1780,74 @@ public function chatajaxAction()
                                     //copy部分图像并调整
                                     imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
                                     //图像输出新图片、另存为
-                                    imagejpeg($new, $pname11.$pname1);
+                                    imagejpeg($new, $fbPicturePath.$smallPictureName1);
                                     break;
                                 case "jpeg":
                                     $img=imagecreatefromjpeg($filename);
                                     //copy部分图像并调整
                                     imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
                                     //图像输出新图片、另存为
-                                    imagejpeg($new, $pname11.$pname1);
+                                    imagejpeg($new, $fbPicturePath.$smallPictureName1);
                                     break;
                                 case "gif":
                                     $img=imagecreatefromgif($filename);
                                     //copy部分图像并调整
                                     imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
                                     //图像输出新图片、另存为
-                                    imagegif($new, $pname11.$pname1);
+                                    imagegif($new, $fbPicturePath.$smallPictureName1);
                                     break;
                                 case "png":
                                     $img=imagecreatefrompng($filename);
                                     //copy部分图像并调整
                                     imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
                                     //图像输出新图片、另存为
-                                    imagepng($new, $pname11.$pname1);
+                                    imagepng($new, $fbPicturePath.$smallPictureName1);
                                     break;
                             }
                             imagedestroy($new);
                             imagedestroy($img);
                             
-                        }else{
-                            move_uploaded_file($pname12, $pname11.$pname1);
+                        //}else{直接保存原图
+                            
+                            //move_uploaded_file($pname12, $pname11.$pnameoriginal1);
                         }
                     }
                 }
                 //图片2 视频文件直接保存,图片按后缀缩放
                 foreach ($y['fbpicture2f'] as $picturesrc2) {
-                    //随机文件名
-                    $picturenewname2 = $this->newfilename(15, iconv('utf-8', 'gbk', $picturesrc2['name']));
-                    $fbpicture2=$fbpicture2.$picturenewname2.";";
+                    //随机文件名 小图
+                    $smallPictureName2 = $this->newfilename(15, iconv('utf-8', 'gbk', $picturesrc2['name']));
+                    $smallPictureGroup2=$smallPictureGroup2.$smallPictureName2.";";
+                    //随机文件名 原图
+                    $originalPictureName2 = $this->newfilename(15, iconv('utf-8', 'gbk', $picturesrc2['name']));
+                    $originalPictureGroup2=$originalPictureGroup2.$originalPictureName2.";";
                     
-                    $pname2 = iconv('utf-8', 'gbk', $picturenewname2);//文件名
-                    $pname21=iconv('utf-8', 'gbk', 'public/fbpicture/');//文件路径
-                    $pname22=iconv('utf-8', 'gbk', $picturesrc2['tmp_name']);//临时文件名
-                    $temp2 = explode(".", $pname2);
+                    
+                    //$pname2 = iconv('utf-8', 'gbk', $picturenewname2);//文件名
+                    //$pnameoriginal2 = iconv('utf-8', 'gbk', $picturenewname22);//文件名 原图
+                    
+                    //$pname21=iconv('utf-8', 'gbk', 'public/fbpicture/');//文件路径
+                    $fbPictureTmp=iconv('utf-8', 'gbk', $picturesrc2['tmp_name']);//临时文件名
+                    //保存原图
+                    move_uploaded_file($fbPictureTmp, $fbPicturePath.$originalPictureName2);
+                    //copy($fbPicturePath.$originalPictureName2, $fbPicturePath.$smallPictureName2);
+                    $temp2 = explode(".", $originalPictureName2);
                     $extension2 = end($temp2);
+                    //后缀为空则设文件名为空
+                    if ($extension2==""){
+                        $smallPictureGroup2="";
+                        $originalPictureGroup2="";
+                    }
                     
                     if ($extension2=="mp4"){
-                        move_uploaded_file($pname22, $pname21.$pname2);
+                        move_uploaded_file($fbPictureTmp, $fbPicturePath.$originalPictureName2);
                     }elseif($extension2=="jpg"||$extension2=="jpeg"||$extension2=="gif"||$extension2=="png"){
-                        $filename=$pname22;
+                        $filename= $fbPicturePath.$originalPictureName2;
                         list($width, $height)=getimagesize($filename);
-                        if ($width>500&&height>500){//长或宽大于500则缩放
+                        //if ($width>500&&height>500){//长或宽大于500则缩放
+                        if (1){
                             //缩放比例
-                            $per=round(500/$width,3);
+                            $per=round(150/$width,3);
                             
                             $n_w=$width*$per;
                             $n_h=$height*$per;
@@ -1826,57 +1859,74 @@ public function chatajaxAction()
                                     //copy部分图像并调整
                                     imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
                                     //图像输出新图片、另存为
-                                    imagejpeg($new, $pname21.$pname2);
+                                    imagejpeg($new,  $fbPicturePath.$smallPictureName2);
                                     break;
                                 case "jpeg":
                                     $img=imagecreatefromjpeg($filename);
                                     //copy部分图像并调整
                                     imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
                                     //图像输出新图片、另存为
-                                    imagejpeg($new, $pname21.$pname2);
+                                    imagejpeg($new,  $fbPicturePath.$smallPictureName2);
                                     break;
                                 case "gif":
                                     $img=imagecreatefromgif($filename);
                                     //copy部分图像并调整
                                     imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
                                     //图像输出新图片、另存为
-                                    imagegif($new, $pname21.$pname2);
+                                    imagegif($new, $fbPicturePath.$smallPictureName2);
                                     break;
                                 case "png":
                                     $img=imagecreatefrompng($filename);
                                     //copy部分图像并调整
                                     imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
                                     //图像输出新图片、另存为
-                                    imagepng($new, $pname21.$pname2);
+                                    imagepng($new, $fbPicturePath.$smallPictureName2);
                                     break;
                             }
                             imagedestroy($new);
                             imagedestroy($img);
                             
-                        }else{
-                            move_uploaded_file($pname22, $pname21.$pname2);
+                        //}else{
+                            //move_uploaded_file($pname22, $pname21.$pnameoriginal2);
                         }
                     }
                 }
                 //图片3 视频文件直接保存,图片按后缀缩放
                 foreach ($y['fbpicture3f'] as $picturesrc3) {
-                    //随机文件名
-                    $picturenewname3 = $this->newfilename(15, iconv('utf-8', 'gbk', $picturesrc3['name']));
-                    $fbpicture3=$fbpicture3.$picturenewname3.";";
+                    //随机文件名 小图
+                    $smallPictureName3 = $this->newfilename(15, iconv('utf-8', 'gbk', $picturesrc3['name']));
+                    $smallPictureGroup3=$smallPictureGroup3.$smallPictureName3.";";
+                    //随机文件名 原图
+                    $originalPictureName3 = $this->newfilename(15, iconv('utf-8', 'gbk', $picturesrc3['name']));
+                    $originalPictureGroup3=$originalPictureGroup3.$originalPictureName3.";";
                     
-                    $pname3 = iconv('utf-8', 'gbk', $picturenewname3);//文件名
-                    $pname31=iconv('utf-8', 'gbk', 'public/fbpicture/');//文件路径
-                    $pname32=iconv('utf-8', 'gbk', $picturesrc3['tmp_name']);//临时文件名
-                    $temp3 = explode(".", $pname3);
+                    
+                    //$pname3 = iconv('utf-8', 'gbk', $picturenewname3);//文件名
+                    //$pnameoriginal3=iconv('utf-8', 'gbk', $picturenewname3);//文件名 原图
+                    
+                    //$pname31=iconv('utf-8', 'gbk', 'public/fbpicture/');//文件路径
+                    $fbPictureTmp=iconv('utf-8', 'gbk', $picturesrc3['tmp_name']);//临时文件名
+                    //保存原图
+                    move_uploaded_file($fbPictureTmp, $fbPicturePath.$originalPictureName3);
+                    
+                    $temp3 = explode(".", $originalPictureName3);
                     $extension3 = end($temp3);
+                    
+                    //后缀为空则设文件名为空
+                    if ($extension3==""){
+                        $smallPictureGroup3="";
+                        $originalPictureGroup3="";
+                    }
+                    
                     if ($extension3=="mp4"){
-                        move_uploaded_file($pname32, $pname31.$pname3);
+                        move_uploaded_file($fbPictureTmp, $fbPicturePath.$originalPictureName3);
                     }elseif($extension3=="jpg"||$extension3=="jpeg"||$extension3=="gif"||$extension3=="png"){
-                        $filename=$pname32;
+                        $filename=$fbPicturePath.$originalPictureName3;
                         list($width, $height)=getimagesize($filename);
-                        if ($width>500&&$height>500){//长或宽大于500则缩放
+                        //if ($width>500&&$height>500){//长或宽大于500则缩放
+                        if (1){
                             //缩放比例
-                            $per=round(500/$width,3);
+                            $per=round(150/$width,3);
                             
                             $n_w=$width*$per;
                             $n_h=$height*$per;
@@ -1888,43 +1938,47 @@ public function chatajaxAction()
                                     //copy部分图像并调整
                                     imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
                                     //图像输出新图片、另存为
-                                    imagejpeg($new, $pname31.$pname3);
+                                    imagejpeg($new, $fbPicturePath.$smallPictureName3);
                                     break;
                                 case "jpeg":
                                     $img=imagecreatefromjpeg($filename);
                                     //copy部分图像并调整
                                     imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
                                     //图像输出新图片、另存为
-                                    imagejpeg($new, $pname31.$pname3);
+                                    imagejpeg($new, $fbPicturePath.$smallPictureName3);
                                     break;
                                 case "gif":
                                     $img=imagecreatefromgif($filename);
                                     //copy部分图像并调整
                                     imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
                                     //图像输出新图片、另存为
-                                    imagegif($new, $pname31.$pname3);
+                                    imagegif($new, $fbPicturePath.$smallPictureName3);
                                     break;
                                 case "png":
                                     $img=imagecreatefrompng($filename);
                                     //copy部分图像并调整
                                     imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
                                     //图像输出新图片、另存为
-                                    imagepng($new, $pname31.$pname3);
+                                    imagepng($new, $fbPicturePath.$smallPictureName3);
                                     break;
                             }
                             imagedestroy($new);
                             imagedestroy($img);
                             
-                        }else{
-                            move_uploaded_file($pname32, $pname31.$pname3);
+                        //}else{
+                           // move_uploaded_file($pname32, $pname31.$pnameoriginal3);
                         }
                     }
                 }
                 
-                
-                $task->setFbpicture1($fbpicture1);
-                $task->setFbpicture2($fbpicture2);
-                $task->setFbpicture3($fbpicture3);
+                //原图名
+                $task->setOriginalpicturegroup1($originalPictureGroup1);
+                $task->setOriginalpicturegroup2($originalPictureGroup2);
+                $task->setOriginalpicturegroup3($originalPictureGroup3);
+                //小图名
+                $task->setSmallpicturegroup1($smallPictureGroup1);
+                $task->setSmallpicturegroup2($smallPictureGroup2);
+                $task->setSmallpicturegroup3($smallPictureGroup3);
                 $this->getFeedbacksMapper()->saveTask($task);
                 return $this->redirect()->toRoute('customer', array(
                     'action' => 'me'

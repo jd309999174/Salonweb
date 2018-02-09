@@ -497,12 +497,15 @@ include_once 'public/php/templateforui.phtml';?>
           <div class="row">
           <?php 
           preg_match_all("/([^;]+);/u",
-              $feedback->getFbpicture2(),
-              $out, PREG_PATTERN_ORDER);
-          foreach ($out[1] as $fbpicture2):
+              $feedback->getSmallpicturegroup2(),
+              $original, PREG_PATTERN_ORDER);
+          preg_match_all("/([^;]+);/u",
+              $feedback->getOriginalpicturegroup2(),
+              $zoomed, PREG_PATTERN_ORDER);
+          for ($i=0;$i<count($original[1]);$i++):
           ?>
-           <div class="col-xs-3 col-sm-3"><img class="fbpicture2" alt=""  data-original="/fbpicture/<?php echo $fbpicture2;?>"></div>
-          <?php endforeach;?>
+           <div class="col-xs-3 col-sm-3"><img data-zoomed="/fbpicture/<?php echo $zoomed[1][$i];?>" class="fbpicture2" alt=""  data-original="/fbpicture/<?php echo $original[1][$i];?>"></div>
+          <?php endfor;?>
           </div>
            <div class="row">
            <div class="col-xs-12 col-sm-12">
