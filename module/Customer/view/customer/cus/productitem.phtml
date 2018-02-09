@@ -1,12 +1,17 @@
+<link rel="stylesheet" href="/css/zoomify.css">
+<script src="/js/zoomify.js"></script>
+
+
+
+
 <?php //TODO css?>
 <!-- Demo styles -->
 <style>
 .fbpicture2 {
-    width: 50%;
-}
-.fbpicture2:hover {
+	padding:10px;
     width: 100%;
 }
+
 .stamp {  display: inline-block; padding: 10px; background: white; position: relative; -webkit-filter: drop-shadow(0px 0px 10px rgba(0,0,0,0.5)); /*The stamp cutout will be created using crisp radial gradients*/
 background: radial-gradient(  transparent 0px,  transparent 4px,  white 4px,  white  ); /*reducing the gradient size*/
 background-size: 20px 20px; /*Offset to move the holes to the edge*/
@@ -808,3 +813,9 @@ $(document).ready(function(){
     });
     
 </script>
+
+<script type="text/javascript">
+//图片点击放大
+	$('.fbpicture2').zoomify();
+</script>
+
