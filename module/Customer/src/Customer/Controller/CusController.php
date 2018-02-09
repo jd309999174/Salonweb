@@ -1749,7 +1749,7 @@ public function chatajaxAction()
                     }elseif($extension1=="jpg"||$extension1=="jpeg"||$extension1=="gif"||$extension1=="png"){
                         $filename=$pname12;
                         list($width, $height)=getimagesize($filename);
-                        if ($width>500||$height>500){//长或宽大于500则缩放
+                        if ($width>1080||$height>1080){//长或宽大于500则缩放
                             //缩放比例
                             $per=round(100/$width,3);
                             
@@ -1812,7 +1812,7 @@ public function chatajaxAction()
                     }elseif($extension2=="jpg"||$extension2=="jpeg"||$extension2=="gif"||$extension2=="png"){
                         $filename=$pname22;
                         list($width, $height)=getimagesize($filename);
-                        if ($width>500||$height>500){//长或宽大于500则缩放
+                        if ($width>1080||$height>1080){//长或宽大于500则缩放
                             //缩放比例
                             $per=round(100/$width,3);
                             
@@ -1874,7 +1874,7 @@ public function chatajaxAction()
                     }elseif($extension3=="jpg"||$extension3=="jpeg"||$extension3=="gif"||$extension3=="png"){
                         $filename=$pname32;
                         list($width, $height)=getimagesize($filename);
-                        if ($width>500||$height>500){//长或宽大于500则缩放
+                        if ($width>1080||$height>1080){//长或宽大于500则缩放
                             //缩放比例
                             $per=round(100/$width,3);
                             
