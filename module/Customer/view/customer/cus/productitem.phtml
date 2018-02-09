@@ -8,7 +8,7 @@
 <!-- Demo styles -->
 <style>
 .fbpicture2 {
-	padding:10px;
+	padding:2px;
     width: 100%;
 }
 
@@ -820,5 +820,14 @@ $(document).ready(function(){
 <script type="text/javascript">
 //图片点击放大
 	$('.fbpicture2').zoomify();
+</script>
+<script type="text/javascript">
+//图片点击放大
+$(document).ready(function(){
+	$('.fbpicture2').click(function(){
+		setTimeout('$("body").scrollTop($("body").scrollTop()+1)',1)
+		
+		});
+})
 </script>
 
