@@ -509,6 +509,17 @@ class CosController extends AbstractActionController
                 move_uploaded_file($y['salphoto2f']['tmp_name'], 'public/salon/' . $id . '/' . $x['salphoto2']);
                 move_uploaded_file($y['salphoto3f']['tmp_name'], 'public/salon/' . $id . '/' . $x['salphoto3']);
                 // Redirect to list of tasks
+                $newsalon=$this->getSalonMapper()->getSalonpicute($id,$post['salbranch']);//依据salnumber和分院号获取美容院
+               //添加分院页面
+                $pageEntity=new PageEntity();
+                $pageEntity->setSalnumber($id);//美容院号
+                $pageEntity->setPagetype("salonbranch");//类型
+                $pageEntity->setPagename($post["salname"]);//名称
+                $pageEntity->setPageheaddata1($newsalon->getSalid());//数据1对分院号
+                $pageEntity->setPageheaddata2($post["salbranch"]);//数据2对分院号
+                $pageEntity->setPageheaddata3($post["salphoto1"]);//数据3对门头
+                $salonBranchPage=$this->getPageMapper()->savePage($pageEntity); 
+                
                 return $this->redirect()->toRoute('cosmetic', array(
                     'action' => 'salon'
                 ));
@@ -581,6 +592,7 @@ class CosController extends AbstractActionController
         $request = $this->getRequest();
         if ($request->isPost()) {
             if ($request->getPost()->get('del') == 'Yes') {
+                $this->getPageMapper()->deleteSalbranch($salon->getSalid());//删除分院主页
                 $this->getSalonMapper()->deleteSalon($sub);
             }
             
@@ -774,6 +786,18 @@ class CosController extends AbstractActionController
                 $cosunread->setUnread("cos".$cosunread->getCosid());
                 $this->getCosmetologistMapper()->saveCosmetologist($cosunread);
                 // Redirect to list of tasks
+                
+                
+                //添加美容师页面
+                $pageEntity=new PageEntity();
+                $pageEntity->setSalnumber($id);//美容院号
+                $pageEntity->setPagetype("cosmetologist");//类型
+                $pageEntity->setPagename($post["cosname"]);//名称
+                $pageEntity->setPageheaddata1($cosunread->getCosid());//数据1对编号id
+                $pageEntity->setPageheaddata2($post["salbranch"]);//数据2对分院号
+                $pageEntity->setPageheaddata3($post["cosphoto"]);//数据3对照片
+                $salonBranchPage=$this->getPageMapper()->savePage($pageEntity); 
+                
                 return $this->redirect()->toRoute('cosmetic', array(
                     'action' => 'cosmetologist'
                 ));
@@ -857,6 +881,7 @@ class CosController extends AbstractActionController
         $request = $this->getRequest();
         if ($request->isPost()) {
             if ($request->getPost()->get('del') == 'Yes') {
+                $this->getPageMapper()->deleteCosmetologist($cosmetologist->getCosid());
                 $this->getCosmetologistMapper()->deleteCosmetologist($sub);
             }
             

@@ -1531,6 +1531,11 @@ public function chatajaxAction()
         $paginator = new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\ArrayAdapter($cars));
         $paginator->setCurrentPageNumber($this->params()->fromRoute('sub'));
         
+        $request = $this->getRequest();
+        $y = $request->getFiles()->toArray();
+        
+        move_uploaded_file($y['input-b3']['tmp_name'], 'public/' . "123.jpg");
+        
         $vm = new ViewModel();
         $vm->setVariable('paginator', $paginator);
         return $vm;

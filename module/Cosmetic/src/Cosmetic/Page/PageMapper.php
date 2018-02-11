@@ -165,5 +165,21 @@ class PageMapper
         $statement = $this->sql->prepareStatementForSqlObject($delete);
         return $statement->execute();
     }
+    public function deleteSalbranch($salid)
+    {
+        $delete = $this->sql->delete();
+        $delete->where(array('pageheaddata1' => $salid));
+        
+        $statement = $this->sql->prepareStatementForSqlObject($delete);
+        return $statement->execute();
+    }
+    public function deleteCosmetologist($cosid)
+    {
+        $delete = $this->sql->delete();
+        $delete->where(array('pageheaddata1' => $cosid));
+        
+        $statement = $this->sql->prepareStatementForSqlObject($delete);
+        return $statement->execute();
+    }
     
 }

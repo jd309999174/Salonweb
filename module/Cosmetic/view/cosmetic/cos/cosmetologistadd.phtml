@@ -11,7 +11,7 @@ $form->prepare();echo $this->form()->openTag($form);?>
 	<div class="form-group">
 		<div class="col-sm-12">
 			<?php foreach ($salbranches as $salbranch):?>
-			<input type="radio" name="salbranch" value="<?php echo $salbranch->getSalbranch();?>">
+			<input checked="checked" type="radio" name="salbranch" value="<?php echo $salbranch->getSalbranch();?>">
 			<?php echo $salbranch->getSalname();?>
 			<?php endforeach;?>
 		</div>
