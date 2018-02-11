@@ -14,9 +14,26 @@ class SalonEntity
     protected $salphoto3;
     protected $salregnumber;
     protected $salregdate;
+    protected $pageid;
 
     
    
+    /**
+     * @return the $pageid
+     */
+    public function getPageid()
+    {
+        return $this->pageid;
+    }
+
+    /**
+     * @param field_type $pageid
+     */
+    public function setPageid($pageid)
+    {
+        $this->pageid = $pageid;
+    }
+
     /**
      * @return the $salid
      */

@@ -13,6 +13,7 @@ $this->headTitle($title);
      <th>美院名</th>
      <th>美院门头</th>
      <th>&nbsp;</th>
+      <th>&nbsp;</th>
  </tr>
  <?php foreach ($salons as $salon): ?>
  
@@ -26,9 +27,14 @@ $this->headTitle($title);
      
      <td><img src="<?php echo $this->escapeHtml($salon->getSalphoto1()); ?>" style="height: 50px;width:70px;"></td>
      <td>
+     <a href="<?php echo $this->url('decorate',
+             array('action'=>'templatetest', 'sub'=>$salon->getPageid(),'third'=>"page"));?>">编辑</a>
+     </td>
+     <td>
          <a href="<?php echo $this->url('cosmetic',
              array('action'=>'salondelete','sub'=>$salon->getSalid()));?>">删除</a>
      </td>
+     
      
  </tr>
  <?php endforeach; ?>

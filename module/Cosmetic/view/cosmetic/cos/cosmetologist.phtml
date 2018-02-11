@@ -14,7 +14,9 @@
 // TODO 美容师转化为二维数组，方便重复输出
 $cars=array();
 foreach ($cosmetologists as $cosmetologist):
-array_push($cars,array("cosid"=>$cosmetologist->getCosid(),"salbranch"=>$cosmetologist->getSalbranch(),"cosname"=>$cosmetologist->getCosname(),"cosphoto"=>$cosmetologist->getCosphoto()));?>
+array_push($cars,array("cosid"=>$cosmetologist->getCosid(),
+    "salbranch"=>$cosmetologist->getSalbranch(),"cosname"=>$cosmetologist->getCosname(),
+    "cosphoto"=>$cosmetologist->getCosphoto(),"pageid"=>$cosmetologist->getPageid()));?>
 <?php endforeach;?>
 
 
@@ -43,6 +45,7 @@ $this->headTitle($title);
      <th>姓名</th>
      <th>图片</th>
      <th>&nbsp;</th>
+     <th>&nbsp;</th>
  </tr>
  <?php foreach ($cars as $car): ?>
  <?php if($car["salbranch"]==$salon->getSalbranch()){?>
@@ -53,6 +56,10 @@ $this->headTitle($title);
              <?php echo $this->escapeHtml($car["cosname"]); ?></a>
      </td>
      <td><img src="<?php echo $this->escapeHtml($car["cosphoto"]); ?>" style="height:40px;width:60px"></td>
+     <td>
+     <a href="<?php echo $this->url('decorate',
+         array('action'=>'templatetest', 'sub'=>$car["pageid"],'third'=>"page"));?>">编辑</a>
+     </td>
      <td>
          <a href="<?php echo $this->url('cosmetic',
              array('action'=>'cosmetologistdelete','sub'=>$car["cosid"]));?>">删除</a>

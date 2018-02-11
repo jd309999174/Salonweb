@@ -515,10 +515,14 @@ class CosController extends AbstractActionController
                 $pageEntity->setSalnumber($id);//美容院号
                 $pageEntity->setPagetype("salonbranch");//类型
                 $pageEntity->setPagename($post["salname"]);//名称
-                $pageEntity->setPageheaddata1($newsalon->getSalid());//数据1对分院号
+                $pageEntity->setPageheaddata1($newsalon->getSalid());//数据1对编号
                 $pageEntity->setPageheaddata2($post["salbranch"]);//数据2对分院号
                 $pageEntity->setPageheaddata3($post["salphoto1"]);//数据3对门头
                 $salonBranchPage=$this->getPageMapper()->savePage($pageEntity); 
+                //分院存入页面编号
+                $salbranchpage=$this->getPageMapper()->getSalbranch($newsalon->getSalid());
+                $newsalon->setPageid($salbranchpage->getPageid());
+                $this->getSalonMapper()->saveSalon($newsalon);
                 
                 return $this->redirect()->toRoute('cosmetic', array(
                     'action' => 'salon'
@@ -797,6 +801,11 @@ class CosController extends AbstractActionController
                 $pageEntity->setPageheaddata2($post["salbranch"]);//数据2对分院号
                 $pageEntity->setPageheaddata3($post["cosphoto"]);//数据3对照片
                 $salonBranchPage=$this->getPageMapper()->savePage($pageEntity); 
+                
+                //美容师存入页面编号
+                $cosmetologistpage=$this->getPageMapper()->getCosmetologist($cosunread->getCosid());
+                $cosunread->setPageid($cosmetologistpage->getPageid());
+                $this->getCosmetologistMapper()->saveCosmetologist($cosunread);
                 
                 return $this->redirect()->toRoute('cosmetic', array(
                     'action' => 'cosmetologist'

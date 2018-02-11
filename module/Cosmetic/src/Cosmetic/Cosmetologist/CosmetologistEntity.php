@@ -21,8 +21,25 @@ class CosmetologistEntity {
    protected $currentip;
    protected $unread;
    protected $recentstar;
+   protected $pageid;
    
    /**
+     * @return the $pageid
+     */
+    public function getPageid()
+    {
+        return $this->pageid;
+    }
+
+/**
+     * @param field_type $pageid
+     */
+    public function setPageid($pageid)
+    {
+        $this->pageid = $pageid;
+    }
+
+    /**
      * @return the $recentstar
      */
     public function getRecentstar()

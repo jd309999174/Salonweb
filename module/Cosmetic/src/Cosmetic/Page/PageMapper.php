@@ -64,7 +64,7 @@ class PageMapper
     public function getPage($id)
     {
         $select = $this->sql->select();
-        $select->where(array('salnumber' => $id));
+        $select->where(array('salnumber' => $id,'pagetype'=>array('首页','活动','动态')));
         $select->order(array('modificationtime DESC'));
         $statement = $this->sql->prepareStatementForSqlObject($select);
         $results = $statement->execute();
@@ -165,6 +165,25 @@ class PageMapper
         $statement = $this->sql->prepareStatementForSqlObject($delete);
         return $statement->execute();
     }
+    //取得分院页面
+    public function getSalbranch($salid)
+    {
+        $select = $this->sql->select();
+        $select->where(array('pagetype'=>"salbranch",'pageheaddata1'=>$salid));
+        //$select->order(array('salid ASC', 'salnumber ASC'));
+        $statement = $this->sql->prepareStatementForSqlObject($select);
+        $results = $statement->execute()->current();
+        if (!$results) {
+            return null;
+        }
+        
+        
+        $hydrator = new ClassMethods();
+        $salon = new PageEntity();
+        $hydrator->hydrate($results, $salon);
+        
+        return $salon;
+    }
     public function deleteSalbranch($salid)
     {
         $delete = $this->sql->delete();
@@ -172,6 +191,25 @@ class PageMapper
         
         $statement = $this->sql->prepareStatementForSqlObject($delete);
         return $statement->execute();
+    }
+    //取得美容师页面
+    public function getCosmetologist($cosid)
+    {
+        $select = $this->sql->select();
+        $select->where(array('pagetype'=>"cosmetologist",'pageheaddata1'=>$cosid));
+        //$select->order(array('salid ASC', 'salnumber ASC'));
+        $statement = $this->sql->prepareStatementForSqlObject($select);
+        $results = $statement->execute()->current();
+        if (!$results) {
+            return null;
+        }
+        
+        
+        $hydrator = new ClassMethods();
+        $salon = new PageEntity();
+        $hydrator->hydrate($results, $salon);
+        
+        return $salon;
     }
     public function deleteCosmetologist($cosid)
     {
