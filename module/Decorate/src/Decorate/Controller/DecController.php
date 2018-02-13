@@ -63,7 +63,10 @@ class DecController extends AbstractActionController
         $third = (string) $this->params('third');
         //链接需要的对象：产品，页面，分类，首页
         $products = $this->getProductMapper()->getProduct($id);
-        $pages = $this->getPageMapper()->getPage($id);
+        $pagesactivity = $this->getPageMapper()->getPageactivity($id);
+        $pagesalonbranch = $this->getPageMapper()->getPagesalonbranch($id);//美容院分页
+        $pagecosmetologist = $this->getPageMapper()->getPagecosmetologist($id);//美容师分页
+        
         $demandclassifyseriess = $this->getDemandclassifyseriesMapper()->getDemandclassifyseries2($id);
         //产品详情部分
         
@@ -148,7 +151,9 @@ class DecController extends AbstractActionController
             'templateitem'=>$templateitem,//传递已有的模块
             //链接选择器需要的
             'products'=>$products,
-            'pages'=>$pages,
+            'pagesactivity'=>$pagesactivity,
+            'pagesalonbranch'=>$pagesalonbranch,
+            'pagecosmetologist'=>$pagecosmetologist,
             'demandclassifyseriess'=>$demandclassifyseriess
         );
     }

@@ -1,11 +1,76 @@
+<style>
+
+#mehead {	
+   background: -webkit-linear-gradient(	white, pink); /* Safari 5.1 - 6.0 */ 
+   background: -o-linear-gradient(	white, pink); /* Opera 11.1 - 12.0 */ 
+   background: -moz-linear-gradient(	white, pink); /* Firefox 3.6 - 15 */ 
+   background: linear-gradient(	white, pink); /* 标准的语法（必须放在最后） */ 
+}
+.bottom-btn{
+	border-right:0.1px solid rgba(0, 0, 0, 0.0980392);
+	border-top:0.1px solid rgba(0, 0, 0, 0.0980392);
+}
+.bottom-btn-me{
+	border-top:0.1px solid rgba(0, 0, 0, 0.0980392);
+}
+.glyphicon-star{
+color:#FFD700;
+}
+</style>
+
+
+<div style="text-align:center" id="mehead" class="container">
+   <div class="row">
+      <div class="col-xs-5 col-sm-5">
+      <img src="/img/123.jpg" class="img-circle" style="width:110px;height:120px;padding-top:10px;padding-bottom:10px;">
+      </div>
+      <div class="col-xs-7 col-sm-7*">
+      <div class="row" style="padding-top:10px;">
+      <span style="color: #BEBEBE">王梅</span>
+      </div>
+      
+      <div class="row" style="padding-top:10px;">
+      <span>王梅</span>
+      <span>从业5年</span>
+      </div>
+      
+      
+      <div class="row" style="padding-top:10px;">
+       <span>王梅</span>
+      <span>从业5年</span>
+      </div>
+      
+      </div>      
+   </div>
+</div> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <link href="/css/fileinput.min.css" media="screen" rel="stylesheet" type="text/css">
 <script src="/js/fileinput.min.js"></script>
 <script src="/js/fileinput.zh.js"></script>
 
-<form enctype="multipart/form-data">
+<form enctype="multipart/form-data" action="http://localhost/customer/foo" method="post" >
         <div class="file-loading">
-            <input id="uploadfile" name="input-b3[]" type="file"  multiple 
-    data-show-upload="false" data-show-caption="true" data-msg-placeholder="选择 {files} ">
+            <input id="uploadfile" name="input-b3" type="file" multiple="multiple" defaultValue="I:\favicon.ico">
         </div>
         <br>
         <button type="submit" class="btn btn-primary">Submit</button>
@@ -16,9 +81,40 @@
 $(document).on('ready', function() {
     $("#uploadfile").fileinput({
     	language: 'zh', //设置语言
-        showUpload: false,
-        maxFileCount: 10,
-        mainClass: "input-group-normal"
+   	 browseClass: "btn btn-primary btn-block",
+     showCaption: false,
+     showRemove: false,
+     showUpload: false
     });
 });
 </script>
+
+
+<button id="btn">asdasd</button>
+<script>
+$(document).on('ready', function() {
+     $("#btn").click(function(){
+         alert(($("#uploadfile").val())[2]);
+         })
+})
+</script>
+
+<?php 
+$x="";
+for ($i=1; $i<=5; $i++)
+{
+    $x=$x."hjn.jpg".";";
+}
+echo $x."<br>";
+
+preg_match_all("/([^;]+);/u",
+    $x,
+    $out, PREG_PATTERN_ORDER);
+echo $out[1][0] . "| " . $out[1][1] . "| " .$out[1][2]."| " .$out[1][3]."\n";
+?>
+
+<a 
+										class="singlea"> <img
+										data-original="/img/123.jpg"
+										class="img1 singleimg">
+									</a>

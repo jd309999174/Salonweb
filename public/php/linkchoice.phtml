@@ -8,6 +8,7 @@ $(function() {
 	$(".linkchoose1,.linkchoose2,.linkchoose3,.linkchoose4,.linkchoose5").click(function(){
 		$("#pagelink").hide();
 		  $("#dcslink").hide();
+		  $("#frequentlink").hide();
 		  $("#productlink").show();
 	});
     $( ".linkchoose1" ).click(function() {
@@ -119,18 +120,18 @@ $(function(){
  <div id="pagelink" class="linkchoose">
  <table class="table">
  <tr>
-     <th>页面编号</th>
+     <th>页面类型</th>
      <th>页面名称</th>
      <th>修改时间</th>
      <th>&nbsp;</th>
  </tr>
- <?php foreach ($pages as $page):if($page->getPagename()!=="首页"):?>
+ <?php foreach ($pagesactivity as $page):?>
  
  <tr>
      <td>
          <a href="<?php echo $this->url('cosmetic',
              array('management','action'=>'pageedit', 'sub'=>$page->getPageid()));?>">
-             <?php echo $this->escapeHtml($page->getPageid()); ?></a>
+             <?php echo $this->escapeHtml($page->getPagetype()); ?></a>
      </td>
      <td><?php echo $this->escapeHtml($page->getPagename()); ?></td>
      <td><?php echo $this->escapeHtml($page->getModificationtime()); ?></td>
@@ -140,31 +141,10 @@ $(function(){
          array('action'=>'activityitem','sub'=>$page->getPageid()));?>')">选择链接</button>
      </td>
  </tr>
- <?php endif;endforeach; ?>
+ <?php endforeach; ?>
  </table>
  </div>
  
- 
- 
- 
-      <!-- 常用链接 -->
-     <div id="frequentlink" class="linkchoose">
- <table class="table"  >
- <tr>
-     <th>名称</th>
-     <th>&nbsp;</th>
- </tr> 
- <tr>
-     <td>
-         首页
-     </td>
-     
-     <td>
-     <button onclick="copylink('/customer/homepage/<?php echo $id;?>')">选择链接</button>
-     </td>
- </tr>
- </table>
- </div>
  
  
  
@@ -248,6 +228,67 @@ array_push($cars,array("salnumber"=>$demandclassifyseries->getSalnumber(),"dcsco
  </div>
 </div>
 </div>
-    </div>
+
+
+     <!-- 常用链接 -->
+     <div id="frequentlink" class="linkchoose">
+ <table class="table"  >
+ <tr>
+     <th>名称</th>
+     <th>&nbsp;</th>
+ </tr> 
+ <tr>
+     <td>
+         首页
+     </td>
+     
+     <td>
+     <button onclick="copylink('/customer/homepage/<?php echo $id;?>')">选择链接</button>
+     </td>
+ </tr>
+ </table>
+ <table class="table"  >
+ <tr>
+     <th>分院</th>
+     <th>照片</th>
+     <th>&nbsp;</th>
+ </tr> 
+<?php foreach ($pagesalonbranch as $page):?>
+ <tr>
+     <td>
+      <?php echo $page->getPagename();?>
+     </td>
+     <td>
+      <img alt="" style="height:30px;" src="<?php  echo $page->getPageheaddata3(); ?>" >
+     </td>
+     <td>
+     <button onclick="copylink('/customer/salonbranchpage/<?php echo $page->getPageid();?>')">选择链接</button>
+     </td>
+ </tr>
+<?php endforeach;?>
+ </table>
+ <table class="table"  >
+ <tr>
+     <th>美容师</th>
+     <th>照片</th>
+     <th>&nbsp;</th>
+ </tr> 
+<?php foreach ($pagecosmetologist as $page):?>
+ <tr>
+     <td>
+      <?php echo $page->getPagename();?>
+     </td>
+     <td>
+      <img alt="" style="height:30px;" src="<?php  echo $page->getPageheaddata3(); ?>" >
+     </td>
+     <td>
+     <button onclick="copylink('/customer/cosmetologistpage/<?php echo $page->getPageid();?>')">选择链接</button>
+     </td>
+ </tr>
+<?php endforeach;?>
+ </table>
+ </div>
+
+</div>
 </div>
 </div>

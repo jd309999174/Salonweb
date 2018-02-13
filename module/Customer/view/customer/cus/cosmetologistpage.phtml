@@ -1,0 +1,98 @@
+<style>
+#mehead {
+     background: -webkit-linear-gradient(<?php echo $homepage->getPagecolor();?>, white); /* Safari 5.1 - 6.0 */ 
+     background: -o-linear-gradient(<?php echo $homepage->getPagecolor();?>, white); /* Opera 11.1 - 12.0 */ 
+     background: -moz-linear-gradient(<?php echo $homepage->getPagecolor();?>, white); /* Firefox 3.6 - 15 */ 
+     background: linear-gradient(<?php echo $homepage->getPagecolor();?>,white); /* 标准的语法（必须放在最后） */
+}
+	span{color: #708090;font-size:120%}
+</style>
+<style>
+
+.img1 {
+	width: 100%;
+	max-height: 400px;
+	min-height: 200px;
+}
+
+.img2 {
+	width: 100%;
+	max-height: 200px;
+	min-height:100px;
+}
+.pageheadbtn{
+	opacity:0.5;
+}
+.btn-default{
+	color:<?php echo $homepage->getPagecolor();?>;
+}
+
+
+.ui-widget-content a {
+	color:<?php echo $homepage->getPagecolor();?>;
+}	
+.swiper-slide  {
+        font-size: 18px;
+        color:<?php echo $homepage->getPagecolor();?>;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .parallax-bg {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 130%;
+        height: 100%;
+        -webkit-background-size: 100% 100%;;
+        background-size: 100% 100%;;
+        background-position: center;
+    }
+    .swiper-slide .title {
+        font-size: 20px;
+        font-weight: 300;
+    }
+    .swiper-slide .text {
+        font-size: 7px;
+    }
+
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+</style>
+
+
+<div style="text-align:center" id="mehead" class="container">
+   <div class="row">
+      <div class="col-xs-5 col-sm-5">
+      <img src="<?php echo $cosmetologist->getCosphoto();?>" class="img-circle" style="width:110px;height:120px;padding-top:10px;padding-bottom:10px;">
+      </div>
+      <div class="col-xs-7 col-sm-7*">
+      <div class="row" style="padding-top:10px;">
+      <span><?php echo $cosmetologist->getCosname();?></span>
+      </div>
+      
+      <div class="row" style="padding-top:10px;">
+      <span>专长:</span>
+      <span><?php echo $cosmetologist->getCosspeciality();?></span>
+      </div>
+      
+      
+      <div class="row" style="padding-top:10px;">
+       <span>从业时长:</span>
+      <span><?php echo $cosmetologist->getCosyears();?></span>
+      </div>
+      
+      </div>
+   </div>
+</div> 
+
+
+
+<div class="nav_wrap homepagenav" id="homepagenav1" >
+   <ul id="sortable" class="nav_ul">
+<?php //TODO 组件输出模块 
+include_once 'public/php/templateforui.phtml';?>
+	</ul>
+</div>

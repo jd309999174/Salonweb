@@ -133,11 +133,10 @@ ul {
 
 <style>
 #mehead {
-       background-color:<?php echo $homepage->getPagecolor();?>;	
-/*     background: -webkit-linear-gradient(white, green); /* Safari 5.1 - 6.0 */ */
-/*     background: -o-linear-gradient(yellow, green); /* Opera 11.1 - 12.0 */ */
-/*     background: -moz-linear-gradient(yellow, green); /* Firefox 3.6 - 15 */ */
-/*     background: linear-gradient(yellow, green); /* 标准的语法（必须放在最后） */ */
+     background: -webkit-linear-gradient(<?php echo $homepage->getPagecolor();?>, white); /* Safari 5.1 - 6.0 */ 
+     background: -o-linear-gradient(<?php echo $homepage->getPagecolor();?>, white); /* Opera 11.1 - 12.0 */ 
+     background: -moz-linear-gradient(<?php echo $homepage->getPagecolor();?>, white); /* Firefox 3.6 - 15 */ 
+     background: linear-gradient(<?php echo $homepage->getPagecolor();?>,white); /* 标准的语法（必须放在最后） */
 }
 .bottom-btn{
 	border-right:0.1px solid rgba(0, 0, 0, 0.0980392);
@@ -153,7 +152,7 @@ color:#FFD700;
 
 
 <div style="text-align:center;" id="mehead">
-<img class="img-circle" style="width:100px;height:100px;" src="/salbossphoto/<?php echo $existaccount->getSalbossphoto();?>">
+<img class="img-circle" style="width:110px;height:120px;padding-top:10px;padding-bottom:10px;" src="/salbossphoto/<?php echo $existaccount->getSalbossphoto();?>">
 
 <button type="button" class="btn btn-default btn-lg "onclick="location='<?php echo $this->url('salonboss',
              array('action'=>'salonbosslogin', 'sub'=>$id));?>'">重新登陆</button>

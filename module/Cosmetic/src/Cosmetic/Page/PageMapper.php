@@ -79,6 +79,63 @@ class PageMapper
         $resultset->initialize($results);
         return $resultset;
     }
+    //取得此美容院所有促销活动
+    public function getPageactivity($id)
+    {
+        $select = $this->sql->select();
+        $select->where(array('salnumber' => $id,'pagetype'=>array('活动','动态')));
+        $select->order(array('modificationtime DESC'));
+        $statement = $this->sql->prepareStatementForSqlObject($select);
+        $results = $statement->execute();
+        if (!$results) {
+            return null;
+        }
+        
+        
+        $entityPrototype = new PageEntity();
+        $hydrator = new ClassMethods();
+        $resultset = new HydratingResultSet($hydrator, $entityPrototype);
+        $resultset->initialize($results);
+        return $resultset;
+    }
+    //取得此美容院所有促销活动
+    public function getPagesalonbranch($id)
+    {
+        $select = $this->sql->select();
+        $select->where(array('salnumber' => $id,'pagetype'=>array('salonbranch')));
+        $select->order(array('modificationtime DESC'));
+        $statement = $this->sql->prepareStatementForSqlObject($select);
+        $results = $statement->execute();
+        if (!$results) {
+            return null;
+        }
+        
+        
+        $entityPrototype = new PageEntity();
+        $hydrator = new ClassMethods();
+        $resultset = new HydratingResultSet($hydrator, $entityPrototype);
+        $resultset->initialize($results);
+        return $resultset;
+    }
+    //取得此美容院所有促销活动
+    public function getPagecosmetologist($id)
+    {
+        $select = $this->sql->select();
+        $select->where(array('salnumber' => $id,'pagetype'=>array('cosmetologist')));
+        $select->order(array('modificationtime DESC'));
+        $statement = $this->sql->prepareStatementForSqlObject($select);
+        $results = $statement->execute();
+        if (!$results) {
+            return null;
+        }
+        
+        
+        $entityPrototype = new PageEntity();
+        $hydrator = new ClassMethods();
+        $resultset = new HydratingResultSet($hydrator, $entityPrototype);
+        $resultset->initialize($results);
+        return $resultset;
+    }
     //取得此美容院所有活动页
     public function getActivitypages($id,$pagetype)
     {

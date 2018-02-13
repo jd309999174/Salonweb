@@ -2052,6 +2052,33 @@ public function chatajaxAction()
         return array('notifications'=>$notifications);
     }
     
+    //TODO salonbranchpage
+    public function salonbranchpageAction(){
+        $container = new Container('customerlogin');
+        $id = $container->salnumber;
+        $sub = (string) $this->params('sub');
+        
+        $page=$this->getPageMapper()->getPage1($sub);//获取页面，提取分院id
+        $salonbranch=$this->getSalonMapper()->getSalon1($page->getPageheaddata1());
+        
+        $homepage = $this->getPageMapper()->getHomepage($id);//为了获取首页颜色设置
+        $template = $this->getTemplateMapper()->getTemplate($sub);
+        return array('homepage'=>$homepage,'templateitem'=>$template,'salonbranch'=>$salonbranch);
+    }
+    //TODO cosmetologistpage
+    public function cosmetologistpageAction(){
+        $container = new Container('customerlogin');
+        $id = $container->salnumber;
+        $sub = (string) $this->params('sub');
+        
+        $page=$this->getPageMapper()->getPage1($sub);//获取页面，提取美容师id
+        $cosmetologist=$this->getCosmetologistMapper()->getCosmetologist1($page->getPageheaddata1());
+        
+        $homepage = $this->getPageMapper()->getHomepage($id);//为了获取首页颜色设置
+        $template = $this->getTemplateMapper()->getTemplate($sub);
+        return array('homepage'=>$homepage,'templateitem'=>$template,'cosmetologist'=>$cosmetologist);
+    }
+    
     //TODO signup
     public function signupAction(){
         $container = new Container('customerlogin');
