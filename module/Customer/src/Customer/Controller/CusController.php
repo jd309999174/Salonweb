@@ -263,7 +263,10 @@ class CusController extends AbstractActionController
             $y = $request->getFiles()->toArray();
             $post = array_merge_recursive($request->getPost()->toArray(), $request->getFiles()->toArray());
             $post['salnumber'] = $sub;
-            
+            //默认头像
+            if(!$post['cusphoto']){
+                $post['cusphoto']="genderfemale.png";
+            }
             //判断手机号是否已存在
             $existcustomer=$this->getCustomerMapper()->getCustomerexist($post['cusphone']);
             if ($existcustomer){
@@ -281,6 +284,7 @@ class CusController extends AbstractActionController
                 //取出此顾客，并将unread改为cus+cusid形式
                 $cusunread=$this->getCustomerMapper()->getCustomerlogin($_POST['cusphone'],$_POST['cuspassword']);
                 $cusunread->setUnread("cus".$cusunread->getCusid());
+                
                 $this->getCustomerMapper()->saveCustomer($cusunread);
                 
                 if (! file_exists('public/portrait')) {

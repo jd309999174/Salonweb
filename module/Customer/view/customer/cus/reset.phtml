@@ -3,7 +3,13 @@
 <script src="/js/fileinput.min.js"></script>
 <script src="/js/fileinput.zh.js"></script>
 
-<div class="well" style="text-align:center"><?php echo $homepage->getPageheaddata2();?></div>
+<div class="input-group input-group-sm" style="background-color:white;padding: 5px;text-align:center;">
+<span class="input-group-btn" onclick="window.history.back();">
+        <button class="btn btn-default" type="button" style="border:none;">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+<?php echo $homepage->getPageheaddata2();?></div>
 
 <div style="text-align:center">
 <img src="<?php echo $homepage->getPageheaddata1();?>" style="height:100px;width:120px;">
