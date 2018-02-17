@@ -96,6 +96,11 @@ class CosController extends AbstractActionController
         }
         return true;
     }
+    public function getTemplateMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('TemplateMapper');
+    }
     public function getCusbrowsinghistoryMapper()
     {
         $sm = $this->getServiceLocator();
@@ -2850,6 +2855,7 @@ class CosController extends AbstractActionController
         if ($request->isPost()) {
             if ($request->getPost()->get('del') == 'Yes') {
                 $this->getPageMapper()->deletePage($sub);
+                $this->getTemplateMapper()->deleteTemplate($sub);
             }
     
             return $this->redirect()->toRoute('cosmetic', array(
