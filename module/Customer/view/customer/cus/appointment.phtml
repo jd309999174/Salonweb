@@ -61,6 +61,9 @@ $(document).ready(function(){
 		step_size_minutes:10,
 		overflow_minutes:true,
 		increase_direction:'up'});
+	$('#appointmentsubmit').click(function(){
+          $("#btnsubmit").click();
+		});
 });
 </script>
 <script type="text/javascript">
@@ -193,17 +196,7 @@ $(document).ready(function(){
             offset: +8
         });
 </script>
-<script type="text/javascript">
-//按时间改变颜色
-$(document).ready(function(){
-               <?php if ($recentdate->getAppointmentdate()>date("Y-m-d",time())):?>
-               //$(".countdown").css("background","linear-gradient(yellow, purple)");
-               <?php endif;?> 
-               <?php if ($recentdate->getAppointmentdate()==date("Y-m-d",time())):?>
-               //$(".countdown").css("background","linear-gradient(red, blue)");
-               <?php endif;?>     
-	})
-</script>
+
 <?php endif;?>
 
 
@@ -296,7 +289,7 @@ $(document).ready(function(){
 <span class="glyphicon glyphicon-user" aria-hidden="true" style="color: #8B7E66;"></span>&nbsp;&nbsp;->&nbsp;
 <span style="color: red;"><span class="glyphicon glyphicon-time" aria-hidden="true"></span>&nbsp;</span></span>
 <span>
-    <button style="opacity: 0;" type="button"  class="btn btn-warning">上一项</button>
+    <button id="appointmentsubmit" type="button"  class="btn btn-primary">提&nbsp;&nbsp;&nbsp;交</button>
 </span>
 </div>
 
@@ -305,7 +298,8 @@ $form = $this->form;
 $form->setAttribute('action', $this->url('customer', array(
     'action' => 'appointment'
 )));
-$form->get('submit')->setAttribute('value', '提交');
+$form->get('submit')->setAttribute('id', 'btnsubmit');
+$form->get('submit')->setAttribute('style', 'opacity:0;position:fixed;');
 $form->prepare();
 
 echo $this->form()->openTag($form);
@@ -318,6 +312,11 @@ echo $this->formhidden($form->get('salbranch'));//选择
 echo $this->formhidden($form->get('salname'));//选择
 echo $this->formhidden($form->get('cosid'));//选择
 echo $this->formhidden($form->get('cosname'));//选择?>
+<br>
+<table class="table">
+<caption><span class="glyphicon glyphicon-calendar" aria-hidden="true" style="color: #8B7E66;"></span>&nbsp;日期时间选择</caption>
+<tr><td></td></tr>
+</table>
 <div class="form-group">
 <label>预约日期</label>
 <?php echo $this->formRow($form->get('appointmentdate'));//选择?></div>
@@ -326,7 +325,7 @@ echo $this->formhidden($form->get('cosname'));//选择?>
 <?php echo $this->formRow($form->get('appointmenttime'));//选择?></div>
 </div>
 <div>
-	<?php echo $this->formInput($form->get('submit'));?>
+	<?php echo $this->forminput($form->get('submit'));?>
 </div>
 <?php $this->form()->closeTag($form);?>
 </div>
@@ -334,7 +333,7 @@ echo $this->formhidden($form->get('cosname'));//选择?>
 *<br>
 ①最迟需提前一天预约，以便于我们更好的安排对您的服务<br>
 ②预约最长跨度为一月，请尽早预约，我们会在24小时内完成预约核对<br>
-③未通过的预约，我们会提前与您电话联系，重新安排服务时间
+③未通过的预约，我们会提前与您电话联系，重新安排服务时间,感谢您的惠顾
 
 
 
