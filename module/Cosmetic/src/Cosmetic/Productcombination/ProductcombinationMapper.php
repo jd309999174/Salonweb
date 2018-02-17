@@ -62,10 +62,10 @@ class ProductcombinationMapper
         return $result;
     }
     //取得此美容院此次产品所有组合分类
-    public function getProductcombination($id,$sub)
+    public function getProductcombination($sub)
     {
         $select = $this->sql->select();
-        $select->where(array('salnumber' => $id,'prodid'=>$sub));
+        $select->where(array('prodid'=>$sub));
         //$select->order(array('salid ASC', 'salnumber ASC'));
         $statement = $this->sql->prepareStatementForSqlObject($select);
         $results = $statement->execute();
@@ -84,7 +84,7 @@ class ProductcombinationMapper
     public function getProductcombination2($id)
     {
         $select = $this->sql->select();
-        $select->where(array('salnumber' =>array($id,0)));
+        $select->where(array('salnumber' =>array($id,1)));
         //$select->order(array('salid ASC', 'salnumber ASC'));
         $statement = $this->sql->prepareStatementForSqlObject($select);
         $results = $statement->execute();

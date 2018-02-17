@@ -9,6 +9,7 @@ class TreatmentEntity
     protected $cusname;
     protected $salnumber;
     protected $prodid;
+    protected $prodsalnumber;
     protected $prodtitle;
     protected $productcombinationid;
     protected $productcombinationname;
@@ -21,6 +22,23 @@ class TreatmentEntity
     protected $couponidused;
     protected $gmtclose;
    
+   
+    /**
+     * @return the $prodsalnumber
+     */
+    public function getProdsalnumber()
+    {
+        return $this->prodsalnumber;
+    }
+
+    /**
+     * @param field_type $prodsalnumber
+     */
+    public function setProdsalnumber($prodsalnumber)
+    {
+        $this->prodsalnumber = $prodsalnumber;
+    }
+
     /**
      * @return the $gmtclose
      */

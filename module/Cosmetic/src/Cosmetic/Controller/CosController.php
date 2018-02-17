@@ -1454,7 +1454,7 @@ class CosController extends AbstractActionController
         
         $mapper = $this->getProductcombinationMapper();
         return array(
-            'productcombinations' => $mapper->getProductcombination($id,$sub),
+            'productcombinations' => $mapper->getProductcombination($sub),
             'sub'=>$sub,
             'product'=>$product,
         );

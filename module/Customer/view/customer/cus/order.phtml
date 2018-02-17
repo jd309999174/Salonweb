@@ -8,6 +8,7 @@ $(document).ready(function(){
 				productquantity:$("#productquantity").val(),couponidused:$('input:radio[name="couponmoney"]:checked').attr("data-id"),
 				productcombinationname:'<?php echo $_POST['productcombinationname'];?>',
 				prodtitle:'<?php echo $_POST['prodtitle'];?>',
+				prodsalnumber:'<?php echo $_POST['prodsalnumber'];?>',
 				productcombinationpicture:'<?php echo $_POST['productcombinationpicture'];?>'}
 		,type:"POST",
 			success:function(result){

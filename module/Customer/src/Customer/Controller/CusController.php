@@ -704,7 +704,7 @@ class CusController extends AbstractActionController
         $sub = $this->params('sub'); // 产品id
         $entity = new TrolleyEntity();
         $product = $this->getProductMapper()->getProduct1($sub); // 产品
-        $productcombinations = $this->getProductcombinationMapper()->getProductcombination($id, $sub);
+        $productcombinations = $this->getProductcombinationMapper()->getProductcombination($sub);
         // 详情部分
         $page = $this->getPageMapper()->getPage1("33");
         $templateitem = $this->getTemplateMapper()->getProductdetail($id, $sub);
@@ -1595,6 +1595,7 @@ public function chatajaxAction()
             $entity->setCusid($cusid);
             $entity->setCusname($cusname);
             $entity->setProdid($_POST['prodid']);
+            $entity->setProdsalnumber($_POST['prodsalnumber']);
             $entity->setProdtitle($_POST['prodtitle']);
             $entity->setProductcombinationid($_POST['productcombinationid']);
             $entity->setProductcombinationname($_POST['productcombinationname']);

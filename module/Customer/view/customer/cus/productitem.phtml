@@ -135,6 +135,7 @@ color:#FFD700;
 <input type="text" name="productcombinationname" id="orderform5">
 <input type="text" name="productcombinationpicture" id="orderform6">
 <input type="text" name="productquantity" id="orderform7">
+<input type="text" name="prodsalnumber" id="orderform8">
 <input type="submit" id="orderformsubmit">
 </form>
 
@@ -285,6 +286,7 @@ $(function() {
         $("#orderform5").val($value3);
         $("#orderform6").val($value4);
         $("#orderform7").val($value5);
+        $("#orderform8").val("<?php echo $product->getSalnumber();?>");
         $("#orderformsubmit").click();
     };
         })
