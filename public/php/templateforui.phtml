@@ -53,8 +53,7 @@
 				</li>
 <?php break;?>
 <?php case "swiperrow": ?>
-<li id="draggable23" data-type="swiperrow"
-					class="ui-state-highlight intro">
+<li  data-type="swiperrow" class="ui-state-highlight intro">
 					<!-- Swiper -->
 					<div class="swiper-container swiperswiper" style="height: 200px">
 						<div class="swiper-wrapper">
@@ -142,8 +141,7 @@
 				</li>
 <?php break;?>
 <?php case "textrow": ?>
-<li id="draggable32" data-type="textrow"
-					class="ui-state-highlight intro">
+<li  data-type="textrow" class="ui-state-highlight intro">
 					<div class="content">
 						<div class="row">
 							<div class="col">
@@ -158,8 +156,7 @@
 				</li>
 <?php break;?>
 <?php case "imgtextrow": ?>
-<li id="draggable33" data-type="imgtextrow"
-					class="ui-state-highlight intro">
+<li  data-type="imgtextrow" class="ui-state-highlight intro">
 					<!-- Swiper图文 -->
 					<div class="swiper-container imgtextswiper" style="height: 200px">
 						<div class="parallax-bg imgtextimg" data-backgroundimage="<?php echo $item->getTemplatedata1()?>" style="background-image:url(<?php echo $item->getTemplatedata1()?>)" data-swiper-parallax="-23%"></div>
@@ -224,6 +221,192 @@
 
 								</div>
 							</div>
+						</div>
+					</div>
+				</li>
+<?php break;?>
+<?php case "lotteryrow": ?>
+				<li  data-type="lotteryrow" class="ui-state-highlight intro">
+					<div class="content">
+						<div class="row">
+<?php //TODO style 第一，第二是抽奖的?>
+<style>
+#lottery{width:100%px;height:100%px;margin:0px auto;border:4px solid #ba1809;}
+#lottery table{background-color:white;}
+#lottery table td{position:relative;width:33%;height:100%;text-align:center;color:#333;font-index:-999}
+#lottery table td img{display:block;width:100%;}
+#lottery table td a{width:100%;height:100%;display:block;text-decoration:none;background:url(/img/lottery1.jpg) no-repeat top center;}
+#lottery table td a:hover{background-image:url(/img/lottery2.jpg);}
+#lottery table td.active .mask{display:block;}
+.mask{
+    width:100%;
+    height:100%;
+    position:absolute;
+    left:0;
+    top:0;
+    background-color: rgba(252,211,4,0.5);
+    display:none;
+}
+</style>
+
+<style>@font-face{font-family:uc-nexus-iconfont;src:url(chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.woff) format('woff'),url(chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.ttf) format('truetype')}</style><style type="text/css">
+:root div[style="background:#C91521;height:90px;"],
+:root .txtAdBox,
+:root .titright,
+:root .red[href*=".wsisp.net/"],
+:root .plate-layout,
+:root .newsMainBox-textad,
+:root .kwLink,
+:root .adtext,
+:root .adfixbug,
+:root .adbox,
+:root .Postcon-ad
+{ display: none !important; }
+</style>
+  <div id="lottery">
+    <table class="lotteryrowtext1" data-lotteryrate="<?php echo $item->getTemplatedata9();?>">
+        <tbody><tr>
+            <td class="lottery-unit lottery-unit-0"><img src="<?php echo $item->getTemplatedata1();?>" class="lotteryimg1"><div class="mask"></div></td>
+            <td style="width:0.5%"></td>
+            <td class="lottery-unit lottery-unit-1"><img src="<?php echo $item->getTemplatedata2();?>" class="lotteryimg2"><div class="mask"></div></td>
+            <td style="width:0.5%"></td>
+            <td class="lottery-unit lottery-unit-2"><img src="<?php echo $item->getTemplatedata3();?>" class="lotteryimg3"><div class="mask"></div></td>
+        </tr>
+        <tr>
+            <td class="lottery-unit lottery-unit-7"><img src="<?php echo $item->getTemplatedata8();?>" class="lotteryimg8"><div class="mask"></div></td>
+            <td style="width:0.5%"></td>
+            <td><a href="#"><img style="height:130%" src="/img/lottery1.jpg"></a></td>
+            <td style="width:0.5%"></td>
+            <td class="lottery-unit lottery-unit-3 active"><img src="<?php echo $item->getTemplatedata4();?>" class="lotteryimg4"><div class="mask"></div></td>
+        </tr>
+        <tr>
+            <td class="lottery-unit lottery-unit-6"><img src="<?php echo $item->getTemplatedata7();?>" class="lotteryimg7"><div class="mask"></div></td>
+            <td style="width:0.5%"></td>
+            <td class="lottery-unit lottery-unit-5"><img src="<?php echo $item->getTemplatedata6();?>" class="lotteryimg6"><div class="mask"></div></td>
+            <td style="width:0.5%"></td>
+            <td class="lottery-unit lottery-unit-4"><img src="<?php echo $item->getTemplatedata5();?>" class="lotteryimg5"><div class="mask"></div></td>
+        </tr>
+    </tbody></table>
+  </div>
+  <script type="text/javascript">
+var lottery={//抽奖的script
+    index:-1,    //当前转动到哪个位置，起点位置
+    count:0,    //总共有多少个位置
+    timer:0,    //setTimeout的ID，用clearTimeout清除
+    speed:20,    //初始转动速度
+    times:0,    //转动次数
+    cycle:50,    //转动基本次数：即至少需要转动多少次再进入抽奖环节
+    prize:-1,    //中奖位置
+    init:function(id){
+        if ($("#"+id).find(".lottery-unit").length>0) {
+            $lottery = $("#"+id);
+            $units = $lottery.find(".lottery-unit");
+            this.obj = $lottery;
+            this.count = $units.length;
+            $lottery.find(".lottery-unit-"+this.index).addClass("active");
+        };
+    },
+    roll:function(){
+        var index = this.index;
+        var count = this.count;
+        var lottery = this.obj;
+        $(lottery).find(".lottery-unit-"+index).removeClass("active");
+        index += 1;
+        if (index>count-1) {
+            index = 0;
+        };
+        $(lottery).find(".lottery-unit-"+index).addClass("active");
+        this.index=index;
+        return false;
+    },
+    stop:function(index){
+        this.prize=index;
+        return false;
+    }
+};
+
+function roll(){
+    lottery.times += 1;
+    lottery.roll();//转动过程调用的是lottery的roll方法，这里是第一次调用初始化
+    if (lottery.times > lottery.cycle+10 && lottery.prize==lottery.index) {
+        clearTimeout(lottery.timer);
+        lottery.prize=-1;
+        lottery.times=0;
+        click=false;
+    }else{
+        if (lottery.times<lottery.cycle) {
+            lottery.speed -= 10;
+        }else if(lottery.times==lottery.cycle) {
+      	  <?php   preg_match_all("/([^,]+),/u",
+    			  $item->getTemplatedata9(),
+    			  $out, PREG_PATTERN_ORDER);
+    			  $prizerate1=$out[1][0]*100;
+    			  $prizerate2=$out[1][1]*100;
+    			  $prizerate3=$out[1][2]*100;
+    			  $prizerate4=$out[1][3]*100;
+    			  $prizerate5=$out[1][4]*100;
+    			  $prizerate6=$out[1][5]*100;
+    			  $prizerate7=$out[1][6]*100;
+    			  $prizerate8=$out[1][7]*100;
+    			  ?>
+            var index =Math.floor((Math.random()*10000)+1);//中奖物品通过一个随机数生成
+            if(index<=<?php echo $prizerate1;?>){
+            	lottery.prize = 0;  
+                };
+            if(index><?php echo $prizerate1;?>&&index<=<?php echo $prizerate1+$prizerate2;?>){
+            	lottery.prize = 1;  
+                };
+            if(index><?php echo $prizerate1+$prizerate2;?>&&index<=<?php echo $prizerate1+$prizerate2+$prizerate3;?>){
+            	lottery.prize = 2;  
+                };
+            if(index><?php echo $prizerate1+$prizerate2+$prizerate3;?>&&index<=<?php echo $prizerate1+$prizerate2+$prizerate3+$prizerate4;?>){
+            	lottery.prize = 3;
+                };
+            if(index><?php echo $prizerate1+$prizerate2+$prizerate3+$prizerate4;?>&&index<=<?php echo $prizerate1+$prizerate2+$prizerate3+$prizerate4+$prizerate5;?>){
+            	lottery.prize = 4;
+                };
+            if(index><?php echo $prizerate1+$prizerate2+$prizerate3+$prizerate4+$prizerate5;?>&&index<=<?php echo $prizerate1+$prizerate2+$prizerate3+$prizerate4+$prizerate5+$prizerate6;?>){
+            	lottery.prize = 5;
+                };
+            if(index><?php echo $prizerate1+$prizerate2+$prizerate3+$prizerate4+$prizerate5+$prizerate6;?>&&index<=<?php echo $prizerate1+$prizerate2+$prizerate3+$prizerate4+$prizerate5+$prizerate6+$prizerate7;?>){
+            	lottery.prize = 6;
+                };
+            if(index><?php echo $prizerate1+$prizerate2+$prizerate3+$prizerate4+$prizerate5+$prizerate6+$prizerate7;?>){
+            	lottery.prize = 7;
+                };
+               
+        }else{
+            if (lottery.times > lottery.cycle+10 && ((lottery.prize==0 && lottery.index==7) || lottery.prize==lottery.index+1)) {
+                lottery.speed += 110;
+            }else{
+                lottery.speed += 20;
+            }
+        }
+        if (lottery.speed<40) {
+            lottery.speed=40;
+        };
+        //console.log(lottery.times+'^^^^^^'+lottery.speed+'^^^^^^^'+lottery.prize);
+        lottery.timer = setTimeout(roll,lottery.speed);//循环调用
+    }
+    return false;
+}
+
+var click=false;
+
+window.onload=function(){
+    lottery.init('lottery');
+    $("#lottery a").click(function(){
+        if (click) {//click控制一次抽奖过程中不能重复点击抽奖按钮，后面的点击不响应
+            return false;
+        }else{
+            lottery.speed=100;
+            roll();    //转圈过程不响应click事件，会将click置为false
+            click=true; //一次抽奖完成后，设置click为true，可继续抽奖
+            return false;
+        }
+    });
+};
+</script>
 						</div>
 					</div>
 				</li>

@@ -39,6 +39,15 @@ function copyfilesrc1(src){
 	    case "picturechoose5":
 	    	$(".picturechoose5").attr("src",src);
 	        break;
+	    case "picturechoose6":
+	    	$(".picturechoose6").attr("src",src);
+	        break;
+	    case "picturechoose7":
+	    	$(".picturechoose7").attr("src",src);
+	        break;
+	    case "picturechoose8":
+	    	$(".picturechoose8").attr("src",src);
+	        break;
 	    default:
 	}
 	$("#picturemanager1").dialog("close");
@@ -64,6 +73,18 @@ $(function() {
       });
     $( ".picturechoose5" ).click(function() {
     	$( "#picturemanager1" ).attr("data-imgnumber","picturechoose5");
+        $( "#picturemanager1" ).dialog( "open" );
+      });
+    $( ".picturechoose6" ).click(function() {
+    	$( "#picturemanager1" ).attr("data-imgnumber","picturechoose6");
+        $( "#picturemanager1" ).dialog( "open" );
+      });
+    $( ".picturechoose7" ).click(function() {
+    	$( "#picturemanager1" ).attr("data-imgnumber","picturechoose7");
+        $( "#picturemanager1" ).dialog( "open" );
+      });
+    $( ".picturechoose8" ).click(function() {
+    	$( "#picturemanager1" ).attr("data-imgnumber","picturechoose8");
         $( "#picturemanager1" ).dialog( "open" );
       });
   });

@@ -58,7 +58,7 @@
 				</li>
 <?php break;?>
 <?php case "swiperrow": ?>
-<li id="draggable23" data-type="swiperrow" class="ui-state-highlight intro"
+<li data-type="swiperrow" class="ui-state-highlight intro"
 					onclick='if($(this).parent().attr("id")){
 						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
                         $(this).css("background","#ccc");
@@ -136,7 +136,7 @@
 				</li>
 <?php break;?>
 <?php case "textrow": ?>
-<li id="draggable32" data-type="textrow" class="ui-state-highlight intro"
+<li  data-type="textrow" class="ui-state-highlight intro"
 					onclick='if($(this).parent().attr("id")){
 						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
                         $(this).css("background","#ccc");
@@ -159,7 +159,7 @@
 				</li>
 <?php break;?>
 <?php case "imgtextrow": ?>
-<li id="draggable33" data-type="imgtextrow" class="ui-state-highlight intro"
+<li  data-type="imgtextrow" class="ui-state-highlight intro"
 					onclick='if($(this).parent().attr("id")){
 						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
                         $(this).css("background","#ccc");
@@ -179,26 +179,26 @@
            $("#imgtextrowfield").show();}'>
 					<!-- Swiper图文 -->
     <div class="swiper-container imgtextswiper" style="height:200px">
-        <div class="parallax-bg imgtextimg" data-backgroundimage="<?php echo $item->getTemplatedata1()?>" style="background-image:url(<?php echo $item->getTemplatedata1()?>)" data-swiper-parallax="-23%"></div>
+        <div class="parallax-bg imgtextimg" data-backgroundimage="<?php echo $item->getTemplatedata1();?>" style="background-image:url(<?php echo $item->getTemplatedata1()?>)" data-swiper-parallax="-23%"></div>
         <div class="swiper-wrapper">
             <div class="swiper-slide">
-                <div class="title" data-swiper-parallax="-100"><a data-href="<?php echo $item->getTemplatedata2()?>" class="imgtexttitle1 imgtexta1" ><?php echo $item->getTemplatedata3()?></a></div>
+                <div class="title" data-swiper-parallax="-100"><a data-href="<?php echo $item->getTemplatedata2();?>" class="imgtexttitle1 imgtexta1" ><?php echo $item->getTemplatedata3()?></a></div>
                 <div class="text" data-swiper-parallax="-300">
-                    <p class="imgtexttext1"><?php echo $item->getTemplatedata4()?></p>
+                    <p class="imgtexttext1"><?php echo $item->getTemplatedata4();?></p>
                 </div>
             </div>
             <div class="swiper-slide">
-                <div class="title" data-swiper-parallax="-100"><a data-href="<?php echo $item->getTemplatedata5()?>" class="imgtexttitle2 imgtexta2"><?php echo $item->getTemplatedata6()?></a></div>
+                <div class="title" data-swiper-parallax="-100"><a data-href="<?php echo $item->getTemplatedata5();?>" class="imgtexttitle2 imgtexta2"><?php echo $item->getTemplatedata6()?></a></div>
               
                 <div class="text" data-swiper-parallax="-300">
-                    <p class="imgtexttext2"><?php echo $item->getTemplatedata7()?></p>
+                    <p class="imgtexttext2"><?php echo $item->getTemplatedata7();?></p>
                 </div>
             </div>
             <div class="swiper-slide">
-                <div class="title" data-swiper-parallax="-100"><a data-href="<?php echo $item->getTemplatedata8()?>" class="imgtexttitle3 imgtexta3" ><?php echo $item->getTemplatedata9()?></a></div>
+                <div class="title" data-swiper-parallax="-100"><a data-href="<?php echo $item->getTemplatedata8();?>" class="imgtexttitle3 imgtexta3" ><?php echo $item->getTemplatedata9()?></a></div>
               
                 <div class="text" data-swiper-parallax="-300">
-                    <p class="imgtexttext3"><?php echo $item->getTemplatedata10()?></p>
+                    <p class="imgtexttext3"><?php echo $item->getTemplatedata10();?></p>
                 </div>
             </div>
         </div>
@@ -229,6 +229,49 @@
 								
 								</div>
 							</div>
+						</div>
+					</div>
+				</li>
+<?php break;?>
+<?php case "lotteryrow": ?>
+				<li  data-type="lotteryrow" class="ui-state-highlight intro"
+					onclick='if($(this).parent().attr("id")){
+						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
+                        $(this).css("background","#ccc");
+						$("#lotterysubmit").attr("onclick","mylottery("+$(this).index(".intro")+")");
+						$("#lotterydelete").attr("onclick","mydelete("+$(this).index(".intro")+")");
+	       $("#lotteryrowimg1").attr("src",$(this).find(".lotteryimg1").attr("src"));
+	       $("#lotteryrowimg2").attr("src",$(this).find(".lotteryimg2").attr("src"));
+	       $("#lotteryrowimg3").attr("src",$(this).find(".lotteryimg3").attr("src"));
+	       $("#lotteryrowimg4").attr("src",$(this).find(".lotteryimg4").attr("src"));
+	       $("#lotteryrowimg5").attr("src",$(this).find(".lotteryimg5").attr("src"));
+	       $("#lotteryrowimg6").attr("src",$(this).find(".lotteryimg6").attr("src"));
+	       $("#lotteryrowimg7").attr("src",$(this).find(".lotteryimg7").attr("src"));
+	       $("#lotteryrowimg8").attr("src",$(this).find(".lotteryimg8").attr("src"));
+	       $("#lotteryrowtext1").val($(this).find(".lotteryrowtext1").attr("data-lotteryrate"));
+           $(".fieldset").hide();
+           $("#lotteryrowfield").show();}'>
+					<div class="content">
+						<div class="row">
+  <div id="lottery">
+    <table class="lotteryrowtext1" data-lotteryrate="<?php echo $item->getTemplatedata9();?>">
+        <tbody><tr>
+            <td class="lottery-unit lottery-unit-0"><img src="<?php echo $item->getTemplatedata1();?>" class="lotteryimg1"><div class="mask"></div></td>
+            <td class="lottery-unit lottery-unit-1"><img src="<?php echo $item->getTemplatedata2();?>" class="lotteryimg2"><div class="mask"></div></td>
+            <td class="lottery-unit lottery-unit-2"><img src="<?php echo $item->getTemplatedata3();?>" class="lotteryimg3"><div class="mask"></div></td>
+        </tr>
+        <tr>
+            <td class="lottery-unit lottery-unit-7"><img src="<?php echo $item->getTemplatedata8();?>" class="lotteryimg8"><div class="mask"></div></td>
+            <td><a href="#"><img src="/img/lottery1.jpg"></a></td>
+            <td class="lottery-unit lottery-unit-3 active"><img src="<?php echo $item->getTemplatedata4();?>" class="lotteryimg4"><div class="mask"></div></td>
+        </tr>
+        <tr>
+            <td class="lottery-unit lottery-unit-6"><img src="<?php echo $item->getTemplatedata7();?>" class="lotteryimg7"><div class="mask"></div></td>
+            <td class="lottery-unit lottery-unit-5"><img src="<?php echo $item->getTemplatedata6();?>" class="lotteryimg6"><div class="mask"></div></td>
+            <td class="lottery-unit lottery-unit-4"><img src="<?php echo $item->getTemplatedata5();?>" class="lotteryimg5"><div class="mask"></div></td>
+        </tr>
+    </tbody></table>
+  </div>
 						</div>
 					</div>
 				</li>

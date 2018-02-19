@@ -1,0 +1,282 @@
+<?php //TODO template?>
+<div class="template" id="template" data-template="template">
+	<div id="accordion">
+		<h3>单、双列宝贝，猜你喜欢，新老顾客</h3>
+		<div></div>
+		<h3>单、双列图片，轮播图</h3>
+		<div>
+			<ul>
+				<!-- 单列图片  -->
+				<li id="draggable21" data-type="singlerow" class="ui-state-highlight intro"
+					onclick='if($(this).parent().attr("id")){
+						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
+                        $(this).css("background","#ccc");
+						$("#singlesubmit").attr("onclick","mysingle("+$(this).index(".intro")+")");
+						$("#singledelete").attr("onclick","mydelete("+$(this).index(".intro")+")");
+	       $("#singlerowimg").attr("src",$(this).find(".singleimg").attr("src"));
+           $("#singlerowlink").val($(this).find(".singlea").attr("data-href"));
+           $(".fieldset").hide();
+           $("#singlerowfield").show();}'>
+					<div class="content">
+						<div class="row">
+							<div class="col">
+								<div class="col-demo">
+									<a  data-href="" class="singlea"> <img alt=""
+										src="/img/mylogo.png" class="img1 singleimg">
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<!-- 双列图片 -->
+				<li id="draggable22" data-type="doublerow" class="ui-state-highlight intro"
+					onclick='if($(this).parent().attr("id")){
+						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
+                        $(this).css("background","#ccc");
+						$("#doublesubmit").attr("onclick","mydouble("+$(this).index(".intro")+")");
+						$("#doubledelete").attr("onclick","mydelete("+$(this).index(".intro")+")");
+	       $("#doublerowimg1").attr("src",$(this).find(".doubleimg1").attr("src"));
+           $("#doublerowlink1").val($(this).find(".doublea1").attr("data-href"));
+           $("#doublerowimg2").attr("src",$(this).find(".doubleimg2").attr("src"));
+           $("#doublerowlink2").val($(this).find(".doublea2").attr("data-href"));
+           $(".fieldset").hide();
+           $("#doublerowfield").show();}'>
+					<div class="content">
+						<div class="row">
+							<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+									<a  data-href="" class="doublea1"> <img alt=""
+										src="/img/mylogo.png" class="img2 doubleimg1">
+									</a>
+							</div>
+							<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+									<a  data-href="" class="doublea2"> <img alt=""
+										src="/img/mylogo.png" class="img2 doubleimg2">
+									</a>
+								
+							</div>
+						</div>
+					</div>
+				</li>
+				<!-- 轮播 -->
+				<li id="draggable23" data-type="swiperrow" class="ui-state-highlight intro"
+					onclick='if($(this).parent().attr("id")){
+						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
+                        $(this).css("background","#ccc");
+						$("#swipersubmit").attr("onclick","myswiper("+$(this).index(".intro")+")");
+						$("#swiperdelete").attr("onclick","mydelete("+$(this).index(".intro")+")");
+	       $("#swiperrowimg1").attr("src",$(this).find(".swiperimg1").attr("src"));
+           $("#swiperrowlink1").val($(this).find(".swipera1").attr("data-href"));
+           $("#swiperrowimg2").attr("src",$(this).find(".swiperimg2").attr("src"));
+           $("#swiperrowlink2").val($(this).find(".swipera2").attr("data-href"));
+           $("#swiperrowimg3").attr("src",$(this).find(".swiperimg3").attr("src"));
+           $("#swiperrowlink3").val($(this).find(".swipera3").attr("data-href"));
+           $("#swiperrowimg4").attr("src",$(this).find(".swiperimg4").attr("src"));
+           $("#swiperrowlink4").val($(this).find(".swipera4").attr("data-href"));
+           $("#swiperrowimg5").attr("src",$(this).find(".swiperimg5").attr("src"));
+           $("#swiperrowlink5").val($(this).find(".swipera5").attr("data-href"));
+           $("#swiperrowimg6").attr("src",$(this).find(".swiperimg6").attr("src"));
+           $("#swiperrowlink6").val($(this).find(".swipera6").attr("data-href"));
+           
+           $(".fieldset").hide();
+           $("#swiperrowfield").show();}'>
+		    <!-- Swiper -->
+    <div class="swiper-container swiperswiper" style="height:200px">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><a  data-href="" class="swipera1"> <img alt=""
+										src="/img/mylogo.png" class="img1 swiperimg1" style="width: 100%">
+									</a></div>
+            <div class="swiper-slide"><a  data-href="" class="swipera2"> <img alt=""
+										src="/img/mylogo.png" class="img1 swiperimg2" style="width: 100%">
+									</a></div>
+            <div class="swiper-slide"><a  data-href="" class="swipera3"> <img alt=""
+										src="/img/mylogo.png" class="img1 swiperimg3" style="width: 100%">
+									</a></div>
+            <div class="swiper-slide"><a  data-href="" class="swipera4"> <img alt=""
+										src="/img/mylogo.png" class="img1 swiperimg4" style="width: 100%">
+									</a></div>
+            <div class="swiper-slide"><a  data-href="" class="swipera5"> <img alt=""
+										src="/img/mylogo.png" class="img1 swiperimg5" style="width: 100%">
+									</a></div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination swiperpagination"></div>
+        </div>
+        </li>
+</ul>
+		</div>
+		<h3>标题，文本，图文，优惠券</h3>
+		<div>
+			<ul>
+		<!-- 标题  -->
+				<li id="draggable31" data-type="headlinerow" class="ui-state-highlight intro"
+					onclick='if($(this).parent().attr("id")){
+						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
+                        $(this).css("background","#ccc");
+						$("#headlinesubmit").attr("onclick","myheadline("+$(this).index(".intro")+")");
+						$("#headlinedelete").attr("onclick","mydelete("+$(this).index(".intro")+")");
+	       $("#headlinerowtext").val($(this).find(".headlinetext").html());
+	       $("#headlinerowlink").val($(this).find(".headlinea").attr("data-href"));
+           $(".fieldset").hide();
+           $("#headlinerowfield").show();}'>
+					<div class="content">
+						<div class="row" >
+							<div class="col">
+							<div class="col-demo">
+							<div class="well">
+							<a  data-href="" class="headlinea">
+							<span class="headlinetext">这是一个标题</span>
+							<span class="ui-icon ui-icon-triangle-1-e" style="float: right"></span>
+							</a>
+							</div>
+						    </div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<!-- 文本  -->
+				<li id="draggable32" data-type="textrow" class="ui-state-highlight intro"
+					onclick='if($(this).parent().attr("id")){
+						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
+                        $(this).css("background","#ccc");
+						$("#textsubmit").attr("onclick","mytext("+$(this).index(".intro")+")");
+						$("#textdelete").attr("onclick","mydelete("+$(this).index(".intro")+")");
+	       $("#textrowtext").val($(this).find(".texttext").html());
+           $(".fieldset").hide();
+           $("#textrowfield").show();}'>
+					<div class="content">
+						<div class="row" >
+							<div class="col">
+							<div class="col-demo">
+							<div class="well">
+							<span class="texttext">这是一个文本 </span>
+							</div>
+						    </div>
+							</div>
+						</div>
+					</div>
+				</li>
+			<!-- 图文  -->
+				<li id="draggable33" data-type="imgtextrow" class="ui-state-highlight intro"
+					onclick='if($(this).parent().attr("id")){
+						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
+                        $(this).css("background","#ccc");
+						$("#imgtextsubmit").attr("onclick","myimgtext("+$(this).index(".intro")+")");
+						$("#imgtextdelete").attr("onclick","mydelete("+$(this).index(".intro")+")");
+		   $("#imgtextrowimg").attr("src",$(this).find(".imgtextimg").attr("data-backgroundimage"));
+	       $("#imgtextrowtitle1").val($(this).find(".imgtexttitle1").html());
+	       $("#imgtextrowlink1").val($(this).find(".imgtexta1").attr("data-href"));
+	       $("#imgtextrowtext1").val($(this).find(".imgtexttext1").html());
+	       $("#imgtextrowtitle2").val($(this).find(".imgtexttitle2").html());
+	       $("#imgtextrowlink2").val($(this).find(".imgtexta2").attr("data-href"));
+	       $("#imgtextrowtext2").val($(this).find(".imgtexttext2").html());
+	       $("#imgtextrowtitle3").val($(this).find(".imgtexttitle3").html());
+	       $("#imgtextrowlink3").val($(this).find(".imgtexta3").attr("data-href"));
+	       $("#imgtextrowtext3").val($(this).find(".imgtexttext3").html());
+           $(".fieldset").hide();
+           $("#imgtextrowfield").show();}'>
+					<!-- Swiper图文 -->
+    <div class="swiper-container imgtextswiper" style="height:200px">
+        <div class="parallax-bg imgtextimg" data-backgroundimage="/img/mylogo.png" style="background-image:url(/img/mylogo.png)" data-swiper-parallax="-23%"></div>
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="title" data-swiper-parallax="-100"><a data-href="" class="imgtexttitle1 imgtexta1" >第一页标题</a></div>
+                <div class="text" data-swiper-parallax="-300">
+                    <p class="imgtexttext1">第一页内容</p>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="title" data-swiper-parallax="-100"><a data-href="" class="imgtexttitle2 imgtexta2">第二页标题</a></div>
+              
+                <div class="text" data-swiper-parallax="-300">
+                    <p class="imgtexttext2">第二页内容</p>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="title" data-swiper-parallax="-100"><a data-href="" class="imgtexttitle3 imgtexta3" >第三页标题</a></div>
+              
+                <div class="text" data-swiper-parallax="-300">
+                    <p class="imgtexttext3">第三页内容</p>
+                </div>
+            </div>
+            
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination imgtextpagination swiper-pagination-white"></div>
+    </div>
+				</li>
+		    </ul>
+		</div>
+		<h3>视频,抽奖</h3>
+		<div>
+		<ul>
+		<!-- 视频  -->
+				<li id="draggable41" data-type="videorow" class="ui-state-highlight intro"
+					onclick='if($(this).parent().attr("id")){
+						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
+                        $(this).css("background","#ccc");
+						$("#videosubmit").attr("onclick","myvideo("+$(this).index(".intro")+")");
+						$("#videodelete").attr("onclick","mydelete("+$(this).index(".intro")+")");
+	       $("#videorowsrc").attr("src",$(this).find(".videosrc").attr("src"));
+           $(".fieldset").hide();
+           $("#videorowfield").show();}'>
+					<div class="content">
+						<div class="row">
+							<div class="col">
+								<div class="col-demo">
+									<div class="embed-responsive embed-responsive-16by9">
+                                     <video width="100%"  controls autoplay class="videosrc embed-responsive-item" src="/img/test.mp4" >
+                            
+                                    </video> 
+                                    </div> 
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+		 <!-- 抽奖  -->
+				<li id="draggable42" data-type="lotteryrow" class="ui-state-highlight intro"
+					onclick='if($(this).parent().attr("id")){
+						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
+                        $(this).css("background","#ccc");
+						$("#lotterysubmit").attr("onclick","mylottery("+$(this).index(".intro")+")");
+						$("#lotterydelete").attr("onclick","mydelete("+$(this).index(".intro")+")");
+	       $("#lotteryrowimg1").attr("src",$(this).find(".lotteryimg1").attr("src"));
+	       $("#lotteryrowimg2").attr("src",$(this).find(".lotteryimg2").attr("src"));
+	       $("#lotteryrowimg3").attr("src",$(this).find(".lotteryimg3").attr("src"));
+	       $("#lotteryrowimg4").attr("src",$(this).find(".lotteryimg4").attr("src"));
+	       $("#lotteryrowimg5").attr("src",$(this).find(".lotteryimg5").attr("src"));
+	       $("#lotteryrowimg6").attr("src",$(this).find(".lotteryimg6").attr("src"));
+	       $("#lotteryrowimg7").attr("src",$(this).find(".lotteryimg7").attr("src"));
+	       $("#lotteryrowimg8").attr("src",$(this).find(".lotteryimg8").attr("src"));
+	       $("#lotteryrowtext1").val($(this).find(".lotteryrowtext1").attr("data-lotteryrate"));
+           $(".fieldset").hide();
+           $("#lotteryrowfield").show();}'>
+					<div class="content">
+						<div class="row"> 
+  <div id="lottery">
+    <table class="lotteryrowtext1" data-lotteryrate="">
+        <tbody><tr>
+            <td class="lottery-unit lottery-unit-0"><img src="/img/prize1.jpg" class="lotteryimg1"><div class="mask"></div></td>
+            <td class="lottery-unit lottery-unit-1"><img src="/img/prize2.jpg" class="lotteryimg2"><div class="mask"></div></td>
+            <td class="lottery-unit lottery-unit-2"><img src="/img/prize3.jpg" class="lotteryimg3"><div class="mask"></div></td>
+        </tr>
+        <tr>
+            <td class="lottery-unit lottery-unit-7"><img src="/img/prize8.jpg" class="lotteryimg8"><div class="mask"></div></td>
+            <td><a href="#"><img src="/img/lottery1.jpg"></a></td>
+            <td class="lottery-unit lottery-unit-3 active"><img src="/img/prize4.jpg" class="lotteryimg4"><div class="mask"></div></td>
+        </tr>
+        <tr>
+            <td class="lottery-unit lottery-unit-6"><img src="/img/prize7.jpg" class="lotteryimg7"><div class="mask"></div></td>
+            <td class="lottery-unit lottery-unit-5"><img src="/img/prize6.jpg" class="lotteryimg6"><div class="mask"></div></td>
+            <td class="lottery-unit lottery-unit-4"><img src="/img/prize5.jpg" class="lotteryimg5"><div class="mask"></div></td>
+        </tr>
+    </tbody></table>
+  </div>
+						</div>
+					</div>
+				</li>
+		    </ul>
+		</div>
+	</div>
+</div>

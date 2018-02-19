@@ -78,6 +78,18 @@ function myvideo($x){//视频
 		$(".intro").eq($x).find(".videosrc").attr("src",$("#videorowsrc").attr("src"));
 		$(".fieldset").hide();
 		};
+function mylottery($x){//抽奖
+	    $(".intro").eq($x).find(".lotteryimg1").attr("src",$("#lotteryrowimg1").attr("src"));
+	    $(".intro").eq($x).find(".lotteryimg2").attr("src",$("#lotteryrowimg2").attr("src"));
+	    $(".intro").eq($x).find(".lotteryimg3").attr("src",$("#lotteryrowimg3").attr("src"));
+	    $(".intro").eq($x).find(".lotteryimg4").attr("src",$("#lotteryrowimg4").attr("src"));
+	    $(".intro").eq($x).find(".lotteryimg5").attr("src",$("#lotteryrowimg5").attr("src"));
+	    $(".intro").eq($x).find(".lotteryimg6").attr("src",$("#lotteryrowimg6").attr("src"));
+	    $(".intro").eq($x).find(".lotteryimg7").attr("src",$("#lotteryrowimg7").attr("src"));
+	    $(".intro").eq($x).find(".lotteryimg8").attr("src",$("#lotteryrowimg8").attr("src"));
+	    $(".intro").eq($x).find(".lotteryrowtext1").attr("data-lotteryrate",$("#lotteryrowtext1").val());
+		$(".fieldset").hide();
+		};
 //删除元素
 function mydelete($x){
 	  $(".intro").eq($x).remove();
@@ -119,6 +131,11 @@ $(function() {
         revert: "invalid"
       });
     $( "#draggable41" ).draggable({
+        connectToSortable: "#sortable",
+        helper: "clone",
+        revert: "invalid"
+      });
+    $( "#draggable42" ).draggable({
         connectToSortable: "#sortable",
         helper: "clone",
         revert: "invalid"

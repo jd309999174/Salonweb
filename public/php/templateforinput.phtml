@@ -1,0 +1,329 @@
+<?php //TODO input box?>
+<div class="inputbox">
+<!-- 首页页头 -->
+	<fieldset class="fieldset" id="headpagerowfield">
+		<legend>首页页头</legend>
+		店名 <br> 
+		       	<div class="input-group">
+					<input type="text" class="form-control" id="headpagerowname">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" onclick="$('#headpagerowname').val('');">
+							<span class="ui-icon  ui-icon-document"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+		LOGO<br> <img alt="" src="/img/mylogo.png" id="headpagerowicon" class="picturechoose1 headlogo"> 
+		<br> 
+		店招<br> <img alt="" src="/img/mylogo.png" id="headpagerowimg" class="picturechoose2" style="width:100%;height:180px;"> 
+		链接	    <div class="input-group">
+					<input type="text" class="form-control linkinput1" readonly="readonly"  id="headpagerowlink">
+					<span class="input-group-btn">
+						<button class="btn btn-default linkchoose1" type="button" >
+							<span class="ui-icon  ui-icon-link"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+		<button onclick="myheadpage('100')" id="headpagesubmit">提交</button>
+	</fieldset>
+
+	<!-- 单列图片 -->
+	<fieldset class="fieldset" id="singlerowfield">
+		<legend>单列图片</legend>
+		图片<br> <img alt="" src="/img/mylogo.png" id="singlerowimg" class="picturechoose1 img1"> 
+		链接	    <div class="input-group">
+					<input type="text" class="form-control linkinput1" readonly="readonly"  id="singlerowlink">
+					<span class="input-group-btn">
+						<button class="btn btn-default linkchoose1" type="button" >
+							<span class="ui-icon  ui-icon-link"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+		<button onclick="mysingle('100')" id="singlesubmit">提交</button>
+		<button onclick="mydelete('100')" id="singledelete">删除</button>
+	</fieldset>
+
+	<!-- 双列图片 -->
+	<fieldset class="fieldset" id="doublerowfield">
+		<legend>双列图片</legend>
+		图片<br> <img alt="" src="/img/mylogo.png" id="doublerowimg1" class="picturechoose1 img1"> 
+		链接	    <div class="input-group">
+					<input type="text" class="form-control linkinput1" readonly="readonly" id="doublerowlink1">
+					<span class="input-group-btn">
+						<button class="btn btn-default linkchoose1" type="button" >
+							<span class="ui-icon  ui-icon-link"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+		图片<br> <img alt="" src="/img/mylogo.png" id="doublerowimg2" class="picturechoose2 img1">
+		链接	    <div class="input-group">
+					<input type="text" class="form-control linkinput2" readonly="readonly" id="doublerowlink2">
+					<span class="input-group-btn">
+						<button class="btn btn-default linkchoose2" type="button" >
+							<span class="ui-icon  ui-icon-link"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+	    <button onclick="mydouble('100')" id="doublesubmit">提交</button>
+		<button onclick="mydelete('100')" id="doubledelete">删除</button>
+	</fieldset>
+	
+		<!-- 轮播图片 -->
+	<fieldset class="fieldset" id="swiperrowfield">
+		<legend>轮播图片</legend>
+		<div class="panel panel-default">
+	<div class="panel-heading">
+		第一张图片
+	</div>
+	<div class="panel-body">
+		图片<br> <img alt="" src="/img/mylogo.png" id="swiperrowimg1" class="picturechoose1 img1"> 
+		链接	    <div class="input-group">
+					<input type="text" class="form-control linkinput1" readonly="readonly" id="swiperrowlink1">
+					<span class="input-group-btn">
+						<button class="btn btn-default linkchoose1" type="button" >
+							<span class="ui-icon  ui-icon-link"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+	</div>
+</div>
+<div class="panel panel-default">
+	<div class="panel-heading">
+		第二张图片
+	</div>
+	<div class="panel-body">
+		图片<br> <img alt="" src="/img/mylogo.png" id="swiperrowimg2" class="picturechoose2 img1"> 
+		链接	    <div class="input-group">
+					<input type="text" class="form-control linkinput2" readonly="readonly" id="swiperrowlink2">
+					<span class="input-group-btn">
+						<button class="btn btn-default linkchoose2" type="button" >
+							<span class="ui-icon  ui-icon-link"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+	</div>
+</div>
+		<div class="panel panel-default">
+	<div class="panel-heading">
+		第三张图片
+	</div>
+	<div class="panel-body">
+		图片<br> <img alt="" src="/img/mylogo.png" id="swiperrowimg3" class="picturechoose3 img1"> 
+		链接	    <div class="input-group">
+					<input type="text" class="form-control linkinput3" readonly="readonly" id="swiperrowlink3">
+					<span class="input-group-btn">
+						<button class="btn btn-default linkchoose3" type="button" >
+							<span class="ui-icon  ui-icon-link"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+	</div>
+</div>
+		<div class="panel panel-default">
+	<div class="panel-heading">
+		第四张图片
+	</div>
+	<div class="panel-body">
+		图片<br> <img alt="" src="/img/mylogo.png" id="swiperrowimg4" class="picturechoose4 img1"> 
+		链接	    <div class="input-group">
+					<input type="text" class="form-control linkinput4" readonly="readonly" id="swiperrowlink4">
+					<span class="input-group-btn">
+						<button class="btn btn-default linkchoose4" type="button" >
+							<span class="ui-icon  ui-icon-link"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+	</div>
+</div>
+		
+	<div class="panel panel-default">
+	<div class="panel-heading">
+		第五张图片
+	</div>
+	<div class="panel-body">
+		图片<br> <img alt="" src="/img/mylogo.png" id="swiperrowimg5" class="picturechoose5 img1"> 
+		链接	    <div class="input-group">
+					<input type="text" class="form-control linkinput5" readonly="readonly" id="swiperrowlink5">
+					<span class="input-group-btn">
+						<button class="btn btn-default linkchoose5" type="button" >
+							<span class="ui-icon  ui-icon-link"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+	</div>
+</div>
+	    <button onclick="myswiper('100')" id="swipersubmit">提交</button>
+		<button onclick="mydelete('100')" id="swiperdelete">删除</button>
+	</fieldset>
+	<!-- 标题 -->
+	<fieldset class="fieldset" id="headlinerowfield">
+		<legend>标题</legend>
+		       文本 <br> 
+		       	<div class="input-group">
+					<input type="text" class="form-control" id="headlinerowtext">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" onclick="$('#headlinerowtext').val('');">
+							<span class="ui-icon  ui-icon-document"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+		        链接	<div class="input-group">
+					<input type="text" class="form-control linkinput1" readonly="readonly" id="headlinerowlink">
+					<span class="input-group-btn">
+						<button class="btn btn-default linkchoose1" type="button" >
+							<span class="ui-icon  ui-icon-link"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+			<button onclick="myvideo('100')" id="headlinesubmit">提交</button>
+		<button onclick="mydelete('100')" id="headlinedelete">删除</button>
+	</fieldset>
+	<!--文本-->
+	<fieldset class="fieldset" id="textrowfield">
+		<legend>文本</legend>
+		      文本  <br> 
+		        	<div class="input-group">
+		            <textarea class="form-control" id="textrowtext"></textarea>
+					<span class="input-group-addon">
+							<span class="ui-icon  ui-icon-document" onclick="$('#textrowtext').val('');"></span>
+					</span>
+				</div><!-- /input-group -->
+			<button onclick="mytext('100')" id="textsubmit">提交</button>
+		<button onclick="mydelete('100')" id="textdelete">删除</button>
+	</fieldset>
+	<!--图文-->
+	<fieldset class="fieldset" id="imgtextrowfield">
+		<legend>图文</legend>
+		     图片<br> <img alt="" src="/img/mylogo.png" id="imgtextrowimg" class="picturechoose1 img1">
+		     
+   <div class="panel panel-default">
+	<div class="panel-heading">
+		第一页：
+	</div>
+	<div class="panel-body">
+		 标题 <br> 
+		       	<div class="input-group">
+					<input type="text" class="form-control" id="imgtextrowtitle1">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" onclick="$('#imgtextrowtitle1').val('');">
+							<span class="ui-icon  ui-icon-document"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+		   链接<br> 	
+		        <div class="input-group">
+					<input type="text" class="form-control linkinput1" readonly="readonly" id="imgtextrowlink1">
+					<span class="input-group-btn">
+						<button class="btn btn-default linkchoose1" type="button" >
+							<span class="ui-icon  ui-icon-link"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+		     文本  <br> 
+		        	<div class="input-group">
+		            <textarea class="form-control" id="imgtextrowtext1"></textarea>
+					<span class="input-group-addon">
+							<span class="ui-icon  ui-icon-document" onclick="$('#imgtextrowtext1').val('');"></span>
+					</span>
+				</div><!-- /input-group -->
+	</div>
+</div>
+		
+<div class="panel panel-default">
+	<div class="panel-heading">
+		 第二页：
+	</div>
+	<div class="panel-body">
+		标题 <br> 
+		       	<div class="input-group">
+					<input type="text" class="form-control" id="imgtextrowtitle2">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" onclick="$('#imgtextrowtitle2').val('');">
+							<span class="ui-icon  ui-icon-document"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+		   链接<br> 	
+		        <div class="input-group">
+					<input type="text" class="form-control linkinput2" readonly="readonly" id="imgtextrowlink2">
+					<span class="input-group-btn">
+						<button class="btn btn-default linkchoose2" type="button" >
+							<span class="ui-icon  ui-icon-link"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+		     文本  <br> 
+		        	<div class="input-group">
+		            <textarea class="form-control" id="imgtextrowtext2"></textarea>
+					<span class="input-group-addon">
+							<span class="ui-icon  ui-icon-document" onclick="$('#imgtextrowtext2').val('');"></span>
+					</span>
+				</div><!-- /input-group -->
+	</div>
+</div>   
+<div class="panel panel-default">
+	<div class="panel-heading">
+	 第三页：
+	</div>
+	<div class="panel-body">
+		 标题 <br> 
+		       	<div class="input-group">
+					<input type="text" class="form-control" id="imgtextrowtitle3">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" onclick="$('#imgtextrowtitle3').val('');">
+							<span class="ui-icon  ui-icon-document"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+		   链接<br> 	
+		        <div class="input-group">
+					<input type="text" class="form-control linkinput3" readonly="readonly" id="imgtextrowlink3">
+					<span class="input-group-btn">
+						<button class="btn btn-default linkchoose3" type="button" >
+							<span class="ui-icon  ui-icon-link"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+		     文本  <br> 
+		        	<div class="input-group">
+		            <textarea class="form-control" id="imgtextrowtext3"></textarea>
+					<span class="input-group-addon">
+							<span class="ui-icon  ui-icon-document" onclick="$('#imgtextrowtext3').val('');"></span>
+					</span>
+				</div><!-- /input-group -->
+	</div>
+</div>
+		
+			<button onclick="myimgtext('100')" id="imgtextsubmit">提交</button>
+		<button onclick="mydelete('100')" id="imgtextdelete">删除</button>
+	</fieldset>
+		<!-- 视频 -->
+	<fieldset class="fieldset" id="videorowfield">
+		<legend>视频</legend>
+		视频<br> 
+			<video width="100%" height="240" controls class="picturechoose1 img1" id="videorowsrc">
+              <source src="/salon/test.mp4" type="video/mp4"  >
+            </video> 
+			<button onclick="myvideo('100')" id="videosubmit">提交</button>
+		<button onclick="mydelete('100')" id="videodelete">删除</button>
+	</fieldset>
+		<!-- 抽奖 -->
+	<fieldset class="fieldset" id="lotteryrowfield">
+		<legend>抽奖</legend>
+		奖品1<br> <img alt="" src="/img/mylogo.png" id="lotteryrowimg1" class="picturechoose1 img1"> 
+		奖品2<br> <img alt="" src="/img/mylogo.png" id="lotteryrowimg2" class="picturechoose2 img1"> 
+		奖品3<br> <img alt="" src="/img/mylogo.png" id="lotteryrowimg3" class="picturechoose3 img1"> 
+		奖品4<br> <img alt="" src="/img/mylogo.png" id="lotteryrowimg4" class="picturechoose4 img1"> 
+		奖品5<br> <img alt="" src="/img/mylogo.png" id="lotteryrowimg5" class="picturechoose5 img1"> 
+		奖品6<br> <img alt="" src="/img/mylogo.png" id="lotteryrowimg6" class="picturechoose6 img1"> 
+		奖品7<br> <img alt="" src="/img/mylogo.png" id="lotteryrowimg7" class="picturechoose7 img1"> 
+		奖品8<br> <img alt="" src="/img/mylogo.png" id="lotteryrowimg8" class="picturechoose8 img1">
+		中奖率<br> <div class="input-group">
+		            <textarea class="form-control" id="lotteryrowtext1"></textarea>
+					<span class="input-group-addon">
+							<span class="ui-icon  ui-icon-document" onclick="$('#lotteryrowtext1').val('');"></span>
+					</span>	
+					</div>
+		<button onclick="mylottery('100')" id="lotterysubmit">提交</button>
+		<button onclick="mydelete('100')" id="lotterydelete">删除</button>
+	</fieldset>
+</div>
