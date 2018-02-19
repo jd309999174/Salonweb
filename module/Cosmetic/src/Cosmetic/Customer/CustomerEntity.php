@@ -18,6 +18,7 @@ class CustomerEntity
     protected $currentstate;
     protected $currentip;
     protected $unread;
+    protected $lotterydate;
     
 
     
@@ -26,6 +27,23 @@ class CustomerEntity
         $this->cusregdate = date('Y-m-d H:i:s');
         $this->cusregdatestamp = time();
     }
+    
+    /**
+     * @return the $lotterydate
+     */
+    public function getLotterydate()
+    {
+        return $this->lotterydate;
+    }
+
+    /**
+     * @param field_type $lotterydate
+     */
+    public function setLotterydate($lotterydate)
+    {
+        $this->lotterydate = $lotterydate;
+    }
+
     /**
      * @return the $cusid
      */

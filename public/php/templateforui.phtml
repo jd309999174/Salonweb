@@ -264,9 +264,17 @@
 { display: none !important; }
 </style>
   <div id="lottery">
+  <div id="lotteryAlert" style="text-align:center;display:none;">
+    <div class="alert alert-danger" style="font-size: 120%">您的中奖奖品可在 我->我的奖品 中查询</div>
+  </div>
+  <div id="lotteryexhaustAlert" style="text-align:center;display:none;">
+    <div class="alert alert-danger" style="font-size: 120%">您今天抽奖次数已用完，明天再来吧！</div>
+  </div>
     <table class="lotteryrowtext1" data-lotteryrate="<?php echo $item->getTemplatedata9();?>">
+    <caption style="font-size: 150%">&nbsp;<span style="color: #ba1809;" class="glyphicon glyphicon-gift" aria-hidden="true"></span>
+    &nbsp;&nbsp;每日抽奖&nbsp;&nbsp;<span id="lotterydescription"  style="font-size: 80%;color: #ba1809;"><?php if ($lotterydate==date("Ymd")){echo "您今天已抽过奖了";}else{echo "您今天还有一次抽奖机会";}?></span></caption>
         <tbody><tr>
-            <td class="lottery-unit lottery-unit-0"><img src="<?php echo $item->getTemplatedata1();?>" class="lotteryimg1"><div class="mask"></div></td>
+            <td class="lottery-unit lottery-unit-0 active"><img src="<?php echo $item->getTemplatedata1();?>" class="lotteryimg1"><div class="mask"></div></td>
             <td style="width:0.5%"></td>
             <td class="lottery-unit lottery-unit-1"><img src="<?php echo $item->getTemplatedata2();?>" class="lotteryimg2"><div class="mask"></div></td>
             <td style="width:0.5%"></td>
@@ -277,7 +285,7 @@
             <td style="width:0.5%"></td>
             <td><a href="#"><img style="height:130%" src="/img/lottery1.jpg"></a></td>
             <td style="width:0.5%"></td>
-            <td class="lottery-unit lottery-unit-3 active"><img src="<?php echo $item->getTemplatedata4();?>" class="lotteryimg4"><div class="mask"></div></td>
+            <td class="lottery-unit lottery-unit-3"><img src="<?php echo $item->getTemplatedata4();?>" class="lotteryimg4"><div class="mask"></div></td>
         </tr>
         <tr>
             <td class="lottery-unit lottery-unit-6"><img src="<?php echo $item->getTemplatedata7();?>" class="lotteryimg7"><div class="mask"></div></td>
@@ -289,6 +297,7 @@
     </tbody></table>
   </div>
   <script type="text/javascript">
+var lotterystate=<?php if ($lotterydate==date("Ymd")){echo 1;}else{echo 0;}?>; //可用状态
 var lottery={//抽奖的script
     index:-1,    //当前转动到哪个位置，起点位置
     count:0,    //总共有多少个位置
@@ -374,7 +383,6 @@ function roll(){
             if(index><?php echo $prizerate1+$prizerate2+$prizerate3+$prizerate4+$prizerate5+$prizerate6+$prizerate7;?>){
             	lottery.prize = 7;
                 };
-               
         }else{
             if (lottery.times > lottery.cycle+10 && ((lottery.prize==0 && lottery.index==7) || lottery.prize==lottery.index+1)) {
                 lottery.speed += 110;
@@ -396,13 +404,26 @@ var click=false;
 window.onload=function(){
     lottery.init('lottery');
     $("#lottery a").click(function(){
+    	if(lotterystate){//已抽过奖
+        	$("#lotteryexhaustAlert").show();
+            setTimeout(function(){$("#lotteryexhaustAlert").hide()},3000);
+            return false;
+            }else{//未抽过奖
         if (click) {//click控制一次抽奖过程中不能重复点击抽奖按钮，后面的点击不响应
             return false;
         }else{
             lottery.speed=100;
             roll();    //转圈过程不响应click事件，会将click置为false
             click=true; //一次抽奖完成后，设置click为true，可继续抽奖
+            $("#lotterydescription").html("您今天已抽过奖了");
+            //中奖提示
+            $prizepicture=$(".lottery-unit-"+lottery.prize).find("img").attr("src");
+            $.ajax({url:"http://localhost/customer/lotterywinning",dataType:"text",data:"prizepicture="+$prizepicture,type:"POST"});
+            $("#lotteryAlert").show();
+            setTimeout(function(){$("#lotteryAlert").hide()},5000);
+            lotterystate=1;
             return false;
+        }
         }
     });
 };

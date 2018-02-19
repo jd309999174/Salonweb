@@ -46,6 +46,7 @@ use Cosmetic\Signup\SignupMapper;
 use Cosmetic\Notificationinfo\NotificationinfoMapper;
 use Cosmetic\Cusleveltype\CusleveltypeMapper;
 use Cosmetic\Cusbrowsinghistory\CusbrowsinghistoryMapper;
+use Cosmetic\Lottery\LotteryMapper;
 
 class Module implements AutoloaderProviderInterface
 {
@@ -58,6 +59,11 @@ class Module implements AutoloaderProviderInterface
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $Cusbrowsinghistorymapper = new CusbrowsinghistoryMapper($dbAdapter);
                     return $Cusbrowsinghistorymapper;
+                },
+                'LotteryMapper' => function ($sm) {
+                $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                $Lotterymapper = new LotteryMapper($dbAdapter);
+                return $Lotterymapper;
                 },
                 'CusleveltypeMapper' => function ($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');

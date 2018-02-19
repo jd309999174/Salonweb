@@ -20,12 +20,30 @@ class Customer2Entity
     protected $currentstate;
     protected $currentip;
     protected $unread;
+    protected $lotterydate;
     
     protected $custype;
     protected $cuslevel;
     protected $cussalonbranch;
     protected $cuspoints;
     
+    
+    /**
+     * @return the $lotterydate
+     */
+    public function getLotterydate()
+    {
+        return $this->lotterydate;
+    }
+
+    /**
+     * @param field_type $lotterydate
+     */
+    public function setLotterydate($lotterydate)
+    {
+        $this->lotterydate = $lotterydate;
+    }
+
     /**
      * @return the $custype
      */

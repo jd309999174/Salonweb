@@ -33,6 +33,7 @@ use Cosmetic\Feedbacks\FeedbacksEntity;
 use Cosmetic\Unread\UnreadEntity;
 use Cosmetic\Signup\SignupEntity;
 use function Zend\Mvc\Controller\params;
+use Cosmetic\Lottery\LotteryEntity;
 
 class CusController extends AbstractActionController
 {
@@ -50,7 +51,11 @@ class CusController extends AbstractActionController
         $newfilename = $hash . '.' . $extension;
         return $newfilename;
     }
-
+    public function getLotteryMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('LotteryMapper');
+    }
     public function getTrolleyMapper()
     {
         $sm = $this->getServiceLocator();
@@ -633,6 +638,9 @@ class CusController extends AbstractActionController
             }
             // 自定义按钮
             $custombuttons = $this->getCustombuttonMapper()->getCustombuttons($id);
+            
+            //取出抽奖时间
+            $lotterydate=$this->getCustomerMapper()->getCustomer1($cusid)->getLotterydate();
             return array(
                 'third'=>$third,
                 'id' => $id,
@@ -646,7 +654,8 @@ class CusController extends AbstractActionController
                 //'dynamicpages' => $dynamicpages,
                 'custombuttons' => $custombuttons,
                 'salnumber' => $_COOKIE['salnumber'],
-                'unreadsum'=>$unreadsum
+                'unreadsum'=>$unreadsum,
+                'lotterydate'=>$lotterydate
             );
     }
     
@@ -714,6 +723,8 @@ class CusController extends AbstractActionController
         $feedbacks=$this->getFeedbacksMapper()->getFeedbacksonprodid($sub);
         //店长
         $salonmanager=$this->getCosmetologistMapper()->getSalonmanager($id);
+        //取出抽奖时间
+        $lotterydate=$this->getCustomerMapper()->getCustomer1($cusid)->getLotterydate();
         return array(
             'id' => $id,
             'cusid' => $cusid,
@@ -724,7 +735,8 @@ class CusController extends AbstractActionController
             'templateitem' => $templateitem,
             'saloncouponissues' => $saloncouponissues,
             'feedbacks'=>$feedbacks,
-            'salonmanager'=>$salonmanager
+            'salonmanager'=>$salonmanager,
+            'lotterydate'=>$lotterydate
         );
     }
     
@@ -784,11 +796,15 @@ class CusController extends AbstractActionController
             }
         }
         $template = $this->getTemplateMapper()->getTemplate($sub);
+        
+        //取出抽奖时间
+        $lotterydate=$this->getCustomerMapper()->getCustomer1($cusid)->getLotterydate();
         return array(
             'id' => $id,
             'page' => $page,
             'templateitem' => $template,
-            'signupstate'=>$signupstate
+            'signupstate'=>$signupstate,
+            'lotterydate'=>$lotterydate
         );
     }
     
@@ -1542,6 +1558,9 @@ public function chatajaxAction()
         
         $vm = new ViewModel();
         $vm->setVariable('paginator', $paginator);
+        
+        $lotteryentity=new LotteryEntity();
+        $this->getLotteryMapper()->saveLottery($lotteryentity);
         return $vm;
     }
     // TODO order
@@ -2115,5 +2134,30 @@ public function chatajaxAction()
                $this->getSignupMapper()->deleteTask1($cusid,$post['pageid']);
            }
         }
+    }
+    
+    //TODO lotterywinning
+    public function lotterywinningAction(){
+        $container = new Container('customerlogin');
+        $id = $container->salnumber;
+        $cusid = $container->cusid;
+        $cusname = $container->cusname;
+        $cusphone = $container->cusphone;
+        $cusphoto = $container->cusphoto;
+        
+        $customer=$this->getCustomerMapper()->getCustomer1($cusid);
+        $customer->setLotterydate(date("Ymd"));
+        $this->getCustomerMapper()->saveCustomer($customer);
+        
+        $lotteryentity=new LotteryEntity();
+        $lotteryentity->setSalnumber($id);
+        $lotteryentity->setCusid($cusid);
+        $lotteryentity->setCusname($cusname);
+        $lotteryentity->setCusphone($cusphone);
+        $lotteryentity->setCusphoto($cusphoto);
+        $lotteryentity->setPrizepicture($_POST['prizepicture']);
+        $lotteryentity->setReceivestate(0);
+        $this->getLotteryMapper()->saveLottery($lotteryentity);
+        
     }
 }
