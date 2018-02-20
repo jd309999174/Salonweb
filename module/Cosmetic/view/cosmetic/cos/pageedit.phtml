@@ -17,6 +17,7 @@ $form->get('pagecolor')->setAttribute('class', 'form-control');
 $form->get('pagepaddingtop')->setAttribute('class', 'form-control');
 $form->get('pagepaddinglr')->setAttribute('class', 'form-control');
 $form->get('pagepaddingbottom')->setAttribute('class', 'form-control');
+$form->get('pageheaddata3')->setAttribute('class', 'form-control');
 $form->prepare();
 echo $this->form()->openTag($form);
 ?><div class="form-group"><?php
@@ -34,7 +35,7 @@ echo $this->formhidden($form->get('modificationtime'));
 
 <?php if($page->getPagename()!="首页"):?>
 <div class="form-group"><label>页面类型</label><?php
-echo $this->formRow($form->get('pagetype'));
+echo $this->formhidden($form->get('pagetype'));
 ?>
 <div>
 <button type="button" class="btn btn-default btn-lg pagetypebtn" id="pagetypebtn1">活动页</button>
@@ -43,7 +44,10 @@ echo $this->formRow($form->get('pagetype'));
 </div><div class="form-group" id="expiredate"><label>截止日期</label><?php
 echo $this->formRow($form->get('pageexpiration'));
 ?></div>
-
+<br>
+<div class="form-group"><label>简介</label><?php
+echo $this->formtextarea($form->get('pageheaddata3'));
+?></div>
 <div class="form-group"><label>页面展示图（与视频二选一填写即可）</label>
 <?php echo $this->formhidden($form->get('pageheaddata1'));?>
 <br>

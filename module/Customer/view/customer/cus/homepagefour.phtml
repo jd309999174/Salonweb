@@ -8,6 +8,9 @@
 	<div class="row">
 		<div class="col">
 		   <div class="col-demo">
+		   <p style="font:italic bold 12px/30px Georgia,serif;">
+		   <?php echo $dynamicpage->getPageheaddata3();?>
+		   </p>
 		   <?php if($dynamicpage->getPageheaddata1()!="/img/choose.jpg"){?>
 		     <img alt="" src="<?php echo $dynamicpage->getPageheaddata1();?>" class="activityimg">
 		  <?php }else{?>
