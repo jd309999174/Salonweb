@@ -126,7 +126,7 @@ array_multisort($x, SORT_ASC, $cars);}
 <div class="container" style="position:fixed;bottom:0px;width:100%;" >
   <form action="<?php echo $this->url('customer', array('action'=>'chathistory','sub'=>$sub));?>" method="get">
  <div class="input-group input-group-sm" style="padding: 5px;" id="searchcolumn">
-      <input type="text" id="datepicker"  name="searching" class="form-control pageheadbtn"  placeholder="选择日期，查看至今的记录">
+      <input type="text" id="datepicker" readonly="readonly" name="searching" class="form-control pageheadbtn"  placeholder="选择日期，查看至今的记录">
       <span class="input-group-btn">
        <input type="submit" value="搜" class="btn btn-default pageheadbtn">
       </span>
