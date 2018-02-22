@@ -1,3 +1,7 @@
+<?php
+//表情转换方法
+include_once 'public/php/emotionreplace.php';?>
+
 <?php //内容不为空时，输出，且到底
 if($chatmodule):?>
 <?php
@@ -30,7 +34,7 @@ array_multisort($x, SORT_ASC, $cars);}
       </div>
       <div class="col-xs-8 col-sm-8" style="border:1px solid black;padding:2px;background-image: url(.gif);">
       <p><?php echo $car['chatdate'];?></p>
-      <?php echo $car['chatword'];?>
+      <?php echo ubbReplace($car['chatword']);?>
       <?php if($car['chatpicture']!==null){?>
       <img style="width: 100%;height:100%;" src="/chatpicture/<?php echo $car['chatpicture'];?>">
       <?php }?>
@@ -44,7 +48,7 @@ array_multisort($x, SORT_ASC, $cars);}
       </div>
       <div class="col-xs-8 col-sm-8" style="border:1px solid black;padding:2px;background-color:rgb(150,220,70);">
       <p><?php echo $car['chatdate'];?></p>
-      <?php echo $car['chatword'];?>
+      <?php echo ubbReplace($car['chatword']);?>
       <?php if($car['chatpicture']!==null){?>
       <img style="width:100%;height:100%;" src="/chatpicture/<?php echo $car['chatpicture'];?>">
       <?php }?>

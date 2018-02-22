@@ -1,120 +1,285 @@
-<style>
 
-#mehead {	
-   background: -webkit-linear-gradient(	white, pink); /* Safari 5.1 - 6.0 */ 
-   background: -o-linear-gradient(	white, pink); /* Opera 11.1 - 12.0 */ 
-   background: -moz-linear-gradient(	white, pink); /* Firefox 3.6 - 15 */ 
-   background: linear-gradient(	white, pink); /* 标准的语法（必须放在最后） */ 
+<style>
+.comment { width: 680px; margin: 20px auto; position: relative; background: #fff; padding: 20px 50px 50px; border: 1px solid #DDD; border-radius: 5px; }
+.comment h3 { height: 28px; line-height: 28px }
+.com_form { width: 100%; position: relative }
+.input { width: 99%; height: 60px; border: 1px solid #ccc }
+.com_form p { height: 28px; line-height: 28px; position: relative; margin-top: 10px; }
+span.emotion { width: 42px; height: 20px; padding-left: 20px; cursor: pointer }
+span.emotion:hover { background-position: 2px -28px }
+.qqFace { margin-top: 4px; background: #fff; padding: 2px; border: 1px #dfe6f6 solid; }
+.qqFace table td { padding: 0px; }
+.qqFace table td img { cursor: pointer; border: 1px #fff solid; }
+.qqFace table td img:hover { border: 1px #0066cc solid; }
+#show { width: 770px; margin: 20px auto; background: #fff; padding: 5px; border: 1px solid #DDD; vertical-align: top; }
+.sub_btn { position: absolute; right: 0px; top: 0; display: inline-block; zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */  *display: inline;
+vertical-align: baseline; margin: 0 2px; outline: none; cursor: pointer; text-align: center; font: 14px/100% Arial, Helvetica, sans-serif; padding: .5em 2em .55em; text-shadow: 0 1px 1px rgba(0,0,0,.6); -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2); -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2); box-shadow: 0 1px 2px rgba(0,0,0,.2); color: #e8f0de; border: solid 1px #538312; background: #64991e; background: -webkit-gradient(linear, left top, left bottom, from(#7db72f), to(#4e7d0e)); background: -moz-linear-gradient(top, #7db72f, #4e7d0e);  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#7db72f', endColorstr='#4e7d0e');
 }
-.bottom-btn{
-	border-right:0.1px solid rgba(0, 0, 0, 0.0980392);
-	border-top:0.1px solid rgba(0, 0, 0, 0.0980392);
-}
-.bottom-btn-me{
-	border-top:0.1px solid rgba(0, 0, 0, 0.0980392);
-}
-.glyphicon-star{
-color:#FFD700;
+.sub_btn:hover { background: #538018; background: -webkit-gradient(linear, left top, left bottom, from(#6b9d28), to(#436b0c)); background: -moz-linear-gradient(top, #6b9d28, #436b0c);  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#6b9d28', endColorstr='#436b0c');
 }
 </style>
 
 
-<div style="text-align:center" id="mehead" class="container">
-   <div class="row">
-      <div class="col-xs-5 col-sm-5">
-      <img src="/img/123.jpg" class="img-circle" style="width:110px;height:120px;padding-top:10px;padding-bottom:10px;">
-      </div>
-      <div class="col-xs-7 col-sm-7*">
-      <div class="row" style="padding-top:10px;">
-      <span style="color: #BEBEBE">王梅</span>
-      </div>
-      
-      <div class="row" style="padding-top:10px;">
-      <span>王梅</span>
-      <span>从业5年</span>
-      </div>
-      
-      
-      <div class="row" style="padding-top:10px;">
-       <span>王梅</span>
-      <span>从业5年</span>
-      </div>
-      
-      </div>      
-   </div>
-</div> 
 
+<div id="show"></div>
+<div class="comment">
+  <div class="com_form">
+    <textarea class="input" id="saytext3" name="saytext"></textarea>
+    <p>
+      <input type="button" class="sub_btn" value="提交">
+      <span id="emotion3">表情3</span></p>
+  </div>
+</div>
 
+ <div class="com_form">
+    <textarea class="input" id="saytext2" name="saytext"></textarea>
+    <p>
+      <input type="button" class="sub_btn" value="提交">
+      <span id="emotion2">表情2</span></p>
+  </div>
+  
+   <div class="com_form">
+    <textarea class="input" id="saytext1" name="saytext"></textarea>
+    <p>
+      <input type="button" class="sub_btn" value="提交">
+      <span id="emotion1">表情1</span></p>
+  </div>
+<script type="text/javascript" src="/js/jquery.qqFace.js"></script>
+<script type="text/javascript">
 
+$(function(){
 
+	$('#emotion1').qqFace({
 
+		id : 'facebox', 
 
+		assign:'saytext1', 
 
+		path:'/arclist/'	//表情存放的路径
 
+	});
+	$('#emotion2').qqFace({
 
+		id : 'facebox', 
 
+		assign:'saytext2', 
 
+		path:'/arclist/'	//表情存放的路径
 
+	});
+	$('#emotion3').qqFace({
 
+		id : 'facebox', 
 
+		assign:'saytext3', 
 
+		path:'/arclist/'	//表情存放的路径
 
+	});
 
+	$(".sub_btn").click(function(){
 
+		var str = $("#saytext").val();
+		
+		$("#show").html(replace_em(str));
 
+	});
 
-
-<link href="/css/fileinput.min.css" media="screen" rel="stylesheet" type="text/css">
-<script src="/js/fileinput.min.js"></script>
-<script src="/js/fileinput.zh.js"></script>
-
-<form enctype="multipart/form-data" action="http://localhost/customer/foo" method="post" >
-        <div class="file-loading">
-            <input id="uploadfile" name="input-b3" type="file" multiple="multiple" defaultValue="I:\favicon.ico">
-        </div>
-        <br>
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <button type="reset" class="btn btn-default">Reset</button>
-</form>
-
-<script>
-$(document).on('ready', function() {
-    $("#uploadfile").fileinput({
-    	language: 'zh', //设置语言
-   	 browseClass: "btn btn-primary btn-block",
-     showCaption: false,
-     showRemove: false,
-     showUpload: false
-    });
 });
+
+//查看结果
+
+function replace_em(str){
+
+	str = str.replace(/\</g,'&lt;');
+
+	str = str.replace(/\>/g,'&gt;');
+
+	str = str.replace(/\n/g,'<br/>');
+
+	str = str.replace(/\[em_([0-9]*)\]/g,'<img src="/arclist/$1.gif" border="0" />');
+
+	return str;
+
+}
+
 </script>
 
 
-<button id="btn">asdasd</button>
-<script>
-$(document).on('ready', function() {
-     $("#btn").click(function(){
-         alert(($("#uploadfile").val())[2]);
-         })
+
+
+
+<style>
+#lottery{width:100%px;height:100%px;margin:0px auto;border:4px solid #ba1809;}
+#lottery table{background-color:yellow;}
+#lottery table td{position:relative;width:190px;height:170px;text-align:center;color:#333;font-index:-999}
+#lottery table td img{display:block;width:190px;height:170px;}
+#lottery table td a{width:190px;height:170px;display:block;text-decoration:none;background:url(/img/lottery1.jpg) no-repeat top center;}
+#lottery table td a:hover{background-image:url(/img/lottery2.jpg);}
+#lottery table td.active .mask{display:block;}
+.mask{
+    width:100%;
+    height:100%;
+    position:absolute;
+    left:0;
+    top:0;
+    background-color: rgba(252,211,4,0.5);
+    display:none;
+}
+</style>
+
+<style>@font-face{font-family:uc-nexus-iconfont;src:url(chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.woff) format('woff'),url(chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.ttf) format('truetype')}</style><style type="text/css">
+:root div[style="background:#C91521;height:90px;"],
+:root .txtAdBox,
+:root .titright,
+:root .red[href*=".wsisp.net/"],
+:root .plate-layout,
+:root .newsMainBox-textad,
+:root .kwLink,
+:root .adtext,
+:root .adfixbug,
+:root .adbox,
+:root .Postcon-ad
+{ display: none !important; }</style>
+ <script>
+  $(function() {
+    $( "#sortable" ).sortable({
+      revert: true
+    });
+    $( "#draggable" ).draggable({
+      connectToSortable: "#sortable",
+      helper: "clone",
+      revert: "invalid"
+    });
+    $( "ul, li" ).disableSelection();
+  });
+  </script>
+<ul>
+  <li id="draggable" class="ui-state-highlight">
+  <div id="lottery">
+    <table>
+    <caption>每日抽奖</caption>
+        <tbody><tr>
+            <td class="lottery-unit lottery-unit-0"><img src="/img/123.jpg"><div class="mask"></div></td>
+            <td class="lottery-unit lottery-unit-1"><img src="/img/123.jpg"><div class="mask"></div></td>
+            <td class="lottery-unit lottery-unit-2"><img src="/img/123.jpg"><div class="mask"></div></td>
+        </tr>
+        <tr>
+            <td class="lottery-unit lottery-unit-7"><img src="/img/123.jpg"><div class="mask"></div></td>
+            <td id="lotterytd"><a  href="#"><img src="/img/lottery1.jpg"></a></td>
+            <td class="lottery-unit lottery-unit-3 active"><img src="/img/123.jpg"><div class="mask"></div></td>
+        </tr>
+        <tr>
+            <td class="lottery-unit lottery-unit-6"><img src="/img/123.jpg"><div class="mask"></div></td>
+            <td class="lottery-unit lottery-unit-5"><img src="/img/123.jpg"><div class="mask"></div></td>
+            <td class="lottery-unit lottery-unit-4"><img src="/img/123.jpg"><div class="mask"></div></td>
+        </tr>
+    </tbody></table>
+  </div>
+  
+  </li>
+</ul>
+<span class="glyphicon glyphicon-gift" aria-hidden="true"></span>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#lotterytd").click(function(){
+      $("lotterylaunch").attr("src","/img/lottery2.jpg");
+		})
 })
 </script>
+<script type="text/javascript">
+var lottery={
+    index:-1,    //当前转动到哪个位置，起点位置
+    count:0,    //总共有多少个位置
+    timer:0,    //setTimeout的ID，用clearTimeout清除
+    speed:20,    //初始转动速度
+    times:0,    //转动次数
+    cycle:50,    //转动基本次数：即至少需要转动多少次再进入抽奖环节
+    prize:-1,    //中奖位置
+    init:function(id){
+        if ($("#"+id).find(".lottery-unit").length>0) {
+            $lottery = $("#"+id);
+            $units = $lottery.find(".lottery-unit");
+            this.obj = $lottery;
+            this.count = $units.length;
+            $lottery.find(".lottery-unit-"+this.index).addClass("active");
+        };
+    },
+    roll:function(){
+        var index = this.index;
+        var count = this.count;
+        var lottery = this.obj;
+        $(lottery).find(".lottery-unit-"+index).removeClass("active");
+        index += 1;
+        if (index>count-1) {
+            index = 0;
+        };
+        $(lottery).find(".lottery-unit-"+index).addClass("active");
+        this.index=index;
+        return false;
+    },
+    stop:function(index){
+        this.prize=index;
+        return false;
+    }
+};
 
-<?php 
-$x="";
-for ($i=1; $i<=5; $i++)
-{
-    $x=$x."hjn.jpg".";";
+function roll(){
+    lottery.times += 1;
+    lottery.roll();//转动过程调用的是lottery的roll方法，这里是第一次调用初始化
+    if (lottery.times > lottery.cycle+10 && lottery.prize==lottery.index) {
+        clearTimeout(lottery.timer);
+        lottery.prize=-1;
+        lottery.times=0;
+        click=false;
+    }else{
+        if (lottery.times<lottery.cycle) {
+            lottery.speed -= 10;
+        }else if(lottery.times==lottery.cycle) {
+            var index =Math.floor((Math.random()*100)+1);//中奖物品通过一个随机数生成
+            if(index<5){
+            	lottery.prize = 1;  
+                }
+            if(index>=5&&index<20){
+            	lottery.prize = 2;  
+                }
+            if(index>=20&&index<50){
+            	lottery.prize = 3;  
+                }
+            if(index>=50&&index<=100){
+            	lottery.prize = 4;
+                }
+               
+        }else{
+            if (lottery.times > lottery.cycle+10 && ((lottery.prize==0 && lottery.index==7) || lottery.prize==lottery.index+1)) {
+                lottery.speed += 110;
+            }else{
+                lottery.speed += 20;
+            }
+        }
+        if (lottery.speed<40) {
+            lottery.speed=40;
+        };
+        //console.log(lottery.times+'^^^^^^'+lottery.speed+'^^^^^^^'+lottery.prize);
+        lottery.timer = setTimeout(roll,lottery.speed);//循环调用
+    }
+    return false;
 }
-echo $x."<br>";
 
-preg_match_all("/([^;]+);/u",
-    $x,
-    $out, PREG_PATTERN_ORDER);
-echo $out[1][0] . "| " . $out[1][1] . "| " .$out[1][2]."| " .$out[1][3]."\n";
-?>
+var click=false;
 
-<a 
-										class="singlea"> <img
-										data-original="/img/123.jpg"
-										class="img1 singleimg">
-									</a>
+window.onload=function(){
+    lottery.init('lottery');
+    $("#lottery a").click(function(){
+        if (click) {//click控制一次抽奖过程中不能重复点击抽奖按钮，后面的点击不响应
+            return false;
+        }else{
+            lottery.speed=100;
+            roll();    //转圈过程不响应click事件，会将click置为false
+            click=true; //一次抽奖完成后，设置click为true，可继续抽奖
+            return false;
+        }
+    });
+};
+</script>
