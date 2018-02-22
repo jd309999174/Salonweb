@@ -497,9 +497,11 @@ include_once 'public/php/templateforui.phtml';?>
            <span class="thirdtitle"><?php echo $feedback->getCusname();?></span></div>
            <div class="col-xs-6 col-sm-6"><?php echo $feedback->getFbdate();?></div>      
           </div>
+          <br>
           <div class="row">
            <div class="col-xs-12 col-sm-12"><span class="subtitle"><?php echo ubbReplace($feedback->getFbadvise1());?></span></div>    
           </div>
+          <br>
           <div class="row">
           <?php 
           preg_match_all("/([^;]+);/u",
