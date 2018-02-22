@@ -21,7 +21,7 @@
 		$(this).click(function(e){
 			var strFace, labFace;
 			if($('#'+id).length<=0){
-				strFace = '<div id="'+id+'" style="position:absolute;display:none;z-index:1000;" class="qqFace">' +
+				strFace = '<div id="'+id+'" style="position:fixed;display:none;z-index:1000;" class="qqFace">' +
 							  '<table border="0" cellspacing="0" cellpadding="0"><tr>';
 				for(var i=1; i<=75; i++){
 					labFace = '['+tip+i+']';
@@ -33,8 +33,10 @@
 			$(this).parent().append(strFace);
 			var offset = $(this).position();
 			var top = offset.top + $(this).outerHeight();
-			$('#'+id).css('bottom',top);
-			$('#'+id).css('left',offset.left);
+			//$('#'+id).css('bottom',top);
+			//$('#'+id).css('left',offset.left);
+			$('#'+id).css('bottom',50);
+			$('#'+id).css('left',10);
 			$('#'+id).show();
 			e.stopPropagation();
 		});

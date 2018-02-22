@@ -1,3 +1,7 @@
+<?php
+//表情转换方法
+include_once 'public/php/emotionreplace.php';?>
+
 <link rel="stylesheet" href="/css/zoomify.css">
 <script src="/js/zoomify.js"></script>
 
@@ -494,7 +498,7 @@ include_once 'public/php/templateforui.phtml';?>
            <div class="col-xs-6 col-sm-6"><?php echo $feedback->getFbdate();?></div>      
           </div>
           <div class="row">
-           <div class="col-xs-12 col-sm-12"><span class="subtitle"><?php echo $feedback->getFbadvise1();?></span></div>    
+           <div class="col-xs-12 col-sm-12"><span class="subtitle"><?php echo ubbReplace($feedback->getFbadvise1());?></span></div>    
           </div>
           <div class="row">
           <?php 
