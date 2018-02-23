@@ -33,7 +33,7 @@ vertical-align: baseline; margin: 0 2px; outline: none; cursor: pointer; text-al
 
 <script> 
 $(document).ready(function(){
-  $("#loadingimg").hide();//加载图隐藏
+  
   $("#flip1").click(function(){
     $("#panel1").slideToggle("slow");
     $("#menudown1").toggle();
@@ -88,8 +88,7 @@ color:#FFD700;
 
 
 
-<?php //加载图?>
-<img id="loadingimg" src="/img/loading.gif" style="width:100%;position:fixed;z-index:10;">
+
 
 <?php
  $form = $this->form;
@@ -330,40 +329,6 @@ echo $this->form()->openTag($form);?>
 
  
 
-   
-   
-
-
-
-<script>
-$('#fbsurrounding').val(3);
-$('#fbproduct').val(3);
-$('#fbcosmetologist').val(3);
-$('#div1').raty({
-	score:3,
-	  click: function(score, evt) {
-		  $('#fbsurrounding').val(score);
-	  }
-	});
-</script>
-
-<script>
-$('#div2').raty({
-	score:3,
-	  click: function(score, evt) {
-		  $('#fbproduct').val(score);
-	  }
-	});
-</script>
-
-<script>
-$('#div3').raty({
-	score:3,
-	  click: function(score, evt) {
-		  $('#fbcosmetologist').val(score);
-	  }
-	});
-</script>
 
 
 <script type="text/javascript">

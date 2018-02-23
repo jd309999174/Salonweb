@@ -78,11 +78,11 @@ jQuery.fn.extend({
 
 	setCaret: function(){ 
 		//if(!$.browser.msie) return; 
-		var initSetCaret = function(){ 
-			var textObj = $(this).get(0); 
-			textObj.caretPos = document.selection.createRange().duplicate(); 
-		}; 
-		$(this).click(initSetCaret).select(initSetCaret).keyup(initSetCaret); 
+		//var initSetCaret = function(){ 
+			//var textObj = $(this).get(0); 
+			//textObj.caretPos = document.selection.createRange().duplicate(); 
+		//}; 
+		//$(this).click(initSetCaret).select(initSetCaret).keyup(initSetCaret); 
 	}, 
 
 	insertAtCaret: function(textFeildValue){ 
