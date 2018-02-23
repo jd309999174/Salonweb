@@ -1,4 +1,26 @@
 <?php
+//表情转换方法
+include_once 'public/php/emotionreplace.php';?>
+
+<style>
+table{
+border-collapse: collapse;
+border-spacing: 0;
+table-layout: fixed;
+}
+td{
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+}
+div{
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+}
+</style>
+
+<?php
 $title = '顾客评价';
 $this->headTitle($title);
 ?>
@@ -71,7 +93,6 @@ $this->headTitle($title);
       <th>用户与评价日期</th>
       <th>美容院与评价</th>
       <th>产品与评价</th>
-      <th>美容师与评价</th>
     </tr>
   </thead>
   <tbody>
@@ -80,7 +101,7 @@ $this->headTitle($title);
       <td><!-- 顾客图，名，日期 -->
       <img alt="" src="/portrait/<?php echo $car['cusphoto'];?>" style="width:24px;height:24px;">
       <?php echo $car['cusname'];?>
-      <p><?php echo $car['fbdate'];?></p>
+      <p><a href="<?php echo $this->url('cosmetic', array('action'=>'feedbacksalcomment','sub'=>$car['id']));?>"><?php echo $car['fbdate'];?></a></p>
       </td>
       <td><!-- 美容院图，名，星,评价 -->
       <img alt="" src="<?php echo $car['salphoto1'];?>" style="width:24px;height:24px;">
@@ -91,18 +112,18 @@ $this->headTitle($title);
 	  readOnly: true, score: <?php echo $car['fbsurrounding'];?>,
 	  });
       </script>
-      <div><?php echo $car['fbadvise'];?></div>
+      <div><?php echo ubbReplace($car['fbadvise']);?></div>
       </td>
       <td><!-- 产品图，名，星，评价 -->
       <img alt="" src="<?php echo $car['productcombinationpicture'];?>" style="width:24px;height:24px;">
-      <?php echo $car['prodtitle'];?><?php echo $car['productcombinationname'];?>
+      <?php echo $car['prodtitle'];?><?php echo $car['productcombinationname'];?>asdsadasdasdasdasfdsfsdfsdfsdfsdfsdfdsfsdasdasdasdasdas
       <div id="<?php echo $car['id']."fbproduct";?>" data-score="1"></div>
       <script>
      $('#<?php echo $car['id']."fbproduct";?>').raty({
 	  readOnly: true, score: <?php echo $car['fbproduct'];?>,
 	  });
       </script>
-      <div><?php echo $car['fbadvise1'];?></div>
+      <div><?php echo ubbReplace($car['fbadvise1']);?></div>
       </td>
       <td><!-- 美容师图，名，星，评价 -->
       <img alt="" src="<?php echo $car['cosphoto'];?>" style="width:24px;height:24px;">
@@ -113,7 +134,7 @@ $this->headTitle($title);
 	  readOnly: true, score: <?php echo $car['fbcosmetologist'];?>,
 	  });
       </script>
-      <div><?php echo $car['fbadvise2'];?></div>
+      <div><?php echo ubbReplace($car['fbadvise2']);?></div>
       </td>
     </tr>
     <?php endforeach;?>

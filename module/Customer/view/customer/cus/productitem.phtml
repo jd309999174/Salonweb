@@ -547,6 +547,11 @@ include_once 'public/php/templateforui.phtml';?>
 <?php endswitch;?>
            </div>    
           </div>
+          <div class="row">
+           <div class="col-xs-12 col-sm-12" style='background-color: #D3D3D3;border-radius: 8px;'>
+           <span class="subtitle" style="">店家回复：<?php echo ubbReplace($feedback->getSalcomment2());?></span>
+           </div>    
+          </div>
           <hr>
         <?php endforeach;?>
        </div>

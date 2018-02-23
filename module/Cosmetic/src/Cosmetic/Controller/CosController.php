@@ -56,6 +56,7 @@ use Cosmetic\Notificationinfo\NotificationinfoForm;
 use Cosmetic\Cusleveltype\CusleveltypeEntity;
 use Cosmetic\Cusleveltype\CusleveltypeForm;
 use Cosmetic\Cusbrowsinghistory\CusbrowsinghistoryEntity;
+use Cosmetic\Feedbacks\FeedbacksForm;
 
 class CosController extends AbstractActionController
 {
@@ -377,6 +378,37 @@ class CosController extends AbstractActionController
             'cars'=>$paginator
         ));
     }
+    
+    
+    public function feedbacksalcommentAction()
+    {
+        $container = new Container('salonlogin');
+        $id = $container->salnumber;
+        
+        $sub=$this->params('sub');//反馈id
+        
+        $feedback=$this->getFeedbacksMapper()->getTask($sub);
+        $form=new FeedbacksForm();
+        $form->bind($feedback);
+
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $x = $request->getPost()->toArray();
+            $y = $request->getFiles()->toArray();
+            $post = array_merge_recursive($request->getPost()->toArray(), $request->getFiles()->toArray());
+            $feedback->setSalcomment1($post['salcomment1']);
+            $feedback->setSalcomment2($post['salcomment2']);
+            $feedback->setSalcomment3($post['salcomment3']);
+            $feedback->setSalcommentdate(time());
+            $this->getFeedbacksMapper()->saveTask($feedback);
+            return $this->redirect()->toRoute('cosmetic', array(
+                'action' => 'feedbacksearch'
+            ));
+        }
+        
+        return new ViewModel(array('feedback'=>$feedback,'form'=>$form));
+    }
+    
     
     public function fooAction()
     {

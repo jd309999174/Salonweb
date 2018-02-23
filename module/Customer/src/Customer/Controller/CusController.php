@@ -2087,7 +2087,16 @@ public function chatajaxAction()
         
         $homepage = $this->getPageMapper()->getHomepage($id);//为了获取首页颜色设置
         $template = $this->getTemplateMapper()->getTemplate($sub);
-        return array('homepage'=>$homepage,'templateitem'=>$template,'salonbranch'=>$salonbranch);
+        
+        //获取评价
+        $feedbacks=$this->getFeedbacksMapper()->getSalbranch($id,$salonbranch->getSalbranch());
+        
+        return array(
+            'homepage'=>$homepage,
+            'templateitem'=>$template,
+            'salonbranch'=>$salonbranch,
+            'feedbacks'=>$feedbacks
+        );
     }
     //TODO cosmetologistpage
     public function cosmetologistpageAction(){
@@ -2100,7 +2109,16 @@ public function chatajaxAction()
         
         $homepage = $this->getPageMapper()->getHomepage($id);//为了获取首页颜色设置
         $template = $this->getTemplateMapper()->getTemplate($sub);
-        return array('homepage'=>$homepage,'templateitem'=>$template,'cosmetologist'=>$cosmetologist);
+        
+        //获取评价
+        $feedbacks=$this->getFeedbacksMapper()->getTask1($page->getPageheaddata1());
+        
+        return array(
+            'homepage'=>$homepage,
+            'templateitem'=>$template,
+            'cosmetologist'=>$cosmetologist,
+            'feedbacks'=>$feedbacks
+        );
     }
     
     //TODO signup

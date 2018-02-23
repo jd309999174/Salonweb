@@ -34,9 +34,77 @@ class FeedbacksEntity
     protected $smallpicturegroup1;
     protected $smallpicturegroup2;
     protected $smallpicturegroup3;
+    protected $salcomment1;
+    protected $salcomment2;
+    protected $salcomment3;
+    protected $salcommentdate;
     
     
     
+
+    /**
+     * @return the $salcomment1
+     */
+    public function getSalcomment1()
+    {
+        return $this->salcomment1;
+    }
+
+    /**
+     * @return the $salcomment2
+     */
+    public function getSalcomment2()
+    {
+        return $this->salcomment2;
+    }
+
+    /**
+     * @return the $salcomment3
+     */
+    public function getSalcomment3()
+    {
+        return $this->salcomment3;
+    }
+
+    /**
+     * @return the $salcommentdate
+     */
+    public function getSalcommentdate()
+    {
+        return $this->salcommentdate;
+    }
+
+    /**
+     * @param field_type $salcomment1
+     */
+    public function setSalcomment1($salcomment1)
+    {
+        $this->salcomment1 = $salcomment1;
+    }
+
+    /**
+     * @param field_type $salcomment2
+     */
+    public function setSalcomment2($salcomment2)
+    {
+        $this->salcomment2 = $salcomment2;
+    }
+
+    /**
+     * @param field_type $salcomment3
+     */
+    public function setSalcomment3($salcomment3)
+    {
+        $this->salcomment3 = $salcomment3;
+    }
+
+    /**
+     * @param field_type $salcommentdate
+     */
+    public function setSalcommentdate($salcommentdate)
+    {
+        $this->salcommentdate = $salcommentdate;
+    }
 
     /**
      * @return the $id

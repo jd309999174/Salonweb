@@ -89,7 +89,7 @@ public function saveTask(FeedbacksEntity $task)
  {
      $select = $this->sql->select();
      $select->where(array('cosid' => $cosid));
-     //$select->order(array('completed ASC', 'created ASC'));
+     $select->order(array('gmtfbdate DESC'));
  
      $statement = $this->sql->prepareStatementForSqlObject($select);
      $results = $statement->execute();
@@ -128,6 +128,23 @@ public function saveTask(FeedbacksEntity $task)
      $statement = $this->sql->prepareStatementForSqlObject($select);
      $results = $statement->execute();
  
+     $entityPrototype = new FeedbacksEntity();
+     $hydrator = new ClassMethods();
+     $resultset = new HydratingResultSet($hydrator, $entityPrototype);
+     $resultset->initialize($results);
+     return $resultset;
+ }
+ //按美容院id和分院号获取
+ public function getSalbranch($salnumber,$salbranch)
+ {
+     $select = $this->sql->select();
+     $select->where(array('salnumber' => $salnumber,'salbranch'=>$salbranch));
+     //$select->limit(30);
+     $select->order(array('gmtfbdate DESC'));
+     
+     $statement = $this->sql->prepareStatementForSqlObject($select);
+     $results = $statement->execute();
+     
      $entityPrototype = new FeedbacksEntity();
      $hydrator = new ClassMethods();
      $resultset = new HydratingResultSet($hydrator, $entityPrototype);

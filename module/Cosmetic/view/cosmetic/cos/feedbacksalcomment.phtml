@@ -1,0 +1,420 @@
+<?php
+//表情转换方法
+include_once 'public/php/emotionreplace.php';?>
+
+<?php //图片点击放大?>
+<link rel="stylesheet" href="/css/zoomify.css">
+<script src="/js/zoomify.js"></script>
+
+<?php //qq表情插件?>
+<style>
+.comment { width: 680px; margin: 20px auto; position: relative; background: #fff; padding: 20px 50px 50px; border: 1px solid #DDD; border-radius: 5px; }
+.comment h3 { height: 28px; line-height: 28px }
+.com_form { width: 100%; position: relative }
+.input { width: 99%; height: 60px; border: 1px solid #ccc }
+.com_form p { height: 28px; line-height: 28px; position: relative; margin-top: 10px; }
+span.emotion { width: 42px; height: 20px; padding-left: 20px; cursor: pointer }
+span.emotion:hover { background-position: 2px -28px }
+.qqFace { margin-top: 4px; background: #fff; padding: 2px; border: 1px #dfe6f6 solid; }
+.qqFace table td { padding: 0px; }
+.qqFace table td img { cursor: pointer; border: 1px #fff solid; }
+.qqFace table td img:hover { border: 1px #0066cc solid; }
+#show { width: 770px; margin: 20px auto; background: #fff; padding: 5px; border: 1px solid #DDD; vertical-align: top; }
+.sub_btn { position: absolute; right: 0px; top: 0; display: inline-block; zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */  *display: inline;
+vertical-align: baseline; margin: 0 2px; outline: none; cursor: pointer; text-align: center; font: 14px/100% Arial, Helvetica, sans-serif; padding: .5em 2em .55em; text-shadow: 0 1px 1px rgba(0,0,0,.6); -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2); -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2); box-shadow: 0 1px 2px rgba(0,0,0,.2); color: #e8f0de; border: solid 1px #538312; background: #64991e; background: -webkit-gradient(linear, left top, left bottom, from(#7db72f), to(#4e7d0e)); background: -moz-linear-gradient(top, #7db72f, #4e7d0e);  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#7db72f', endColorstr='#4e7d0e');
+}
+.sub_btn:hover { background: #538018; background: -webkit-gradient(linear, left top, left bottom, from(#6b9d28), to(#436b0c)); background: -moz-linear-gradient(top, #6b9d28, #436b0c);  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#6b9d28', endColorstr='#436b0c');
+}
+</style>
+
+<script type="text/javascript" src="/js/jquery.qqFace.js">
+//qq表情插件
+</script>
+
+<script> 
+$(document).ready(function(){
+  $("#loadingimg").hide();//加载图隐藏
+  $("#flip1").click(function(){
+    $("#panel1").slideToggle("slow");
+    $("#menudown1").toggle();
+    $("#menuup1").toggle();
+  });
+  $("#flip2").click(function(){
+	    $("#panel2").slideToggle("slow");
+	    $("#menudown2").toggle();
+	    $("#menuup2").toggle();
+	  });
+  $("#flip3").click(function(){
+	    $("#panel3").slideToggle("slow");
+	    $("#menudown3").toggle();
+	    $("#menuup3").toggle();
+	  });
+});
+</script>
+
+<style>
+.addBorder{
+	border:2px solid #FFDAB9;
+	margin:2px;
+}
+#panel1 {display:none;}
+#panel2 {display:none;}
+#panel3 {display:none;}
+#menuup1 {display:none;}
+#menuup2 {display:none;}
+#menuup3 {display:none;}
+.well{
+color: 	#FF3030;
+font-weight:bold}
+.glyphicon-star{
+color:#FFD700;
+}
+</style>
+
+<div class="input-group input-group-sm"
+	style="position: fixed; z-index: 20; background: white;" id="headanchor">
+	
+	<span class="input-group-btn"> <a style="font-size:15px;font-weight:bold;" href="<?php echo $this->url('customer', array('action'=>'homepage','sub'=>$id));?>" class="btn">
+	<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>&nbsp;&nbsp;
+	评价与建议</a>
+	</span> 
+</div>
+<div class="input-group input-group-sm"
+	style="background: white;" >
+	
+	<span class="input-group-btn"> <a href="<?php echo $this->url('customer', array('action'=>'homepage','sub'=>$id));?>" class="btn">评价与建议</a>
+	</span> 
+</div>
+
+
+
+<?php //加载图?>
+<img id="loadingimg" src="/img/loading.gif" style="width:100%;position:fixed;z-index:10;">
+
+<?php
+ $form = $this->form;
+ $url = $this->url('cosmetic', array('action'=>'feedbacksalcomment','sub'=>$feedback->getId()));
+ $form->setAttribute('action', $url);
+ $form->get('submit')->setAttribute('value', '提交');
+ $form->prepare();
+
+echo $this->form()->openTag($form);?>
+
+
+<div class="container">
+
+<div class="addBorder">
+<div class="row well" id="flip1">
+<span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;环境评星与评价
+<span id="menudown1" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="float:right;"></span>
+<span id="menuup1" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="float:right;"></span></div>
+   <div id="panel1">
+   <div class="form-group">
+    <label for="name"><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>&nbsp;评星</label>
+     <div class="row">
+      <div class="col-sm-6 col-xs-6">
+      <img src="<?php echo $feedback->getSalphoto1();?>" style="height:100px;width:120px;">
+      </div>
+      <div class="col-sm-6 col-xs-6">
+      <div class="row"><span style="font-weight:bold;">美容院：</span><?php echo $feedback->getSalname();?></div>
+      <div class="row"> 评星：
+<?php switch ($feedback->getFbsurrounding()):?>
+<?php case 1:?>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php case 2:?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php case 3:?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php case 4:?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php case 5:?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php endswitch;?></div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="name"><span class="glyphicon glyphicon-font" aria-hidden="true"></span>&nbsp;评价</label>
+    <div style="background-color: #F5F5F5;"><?php echo ubbReplace($feedback->getFbadvise());?></div>
+  </div>
+  <div class="form-group">
+    <label for="name"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span>&nbsp;图片</label>
+    <div class="row">
+          <?php 
+          preg_match_all("/([^;]+);/u",
+              $feedback->getSmallpicturegroup1(),
+              $original, PREG_PATTERN_ORDER);
+          preg_match_all("/([^;]+);/u",
+              $feedback->getOriginalpicturegroup1(),
+              $zoomed, PREG_PATTERN_ORDER);
+          for ($i=0;$i<count($original[1]);$i++):
+          ?>
+           <div class="col-xs-3 col-sm-3"><img data-zoomed="/fbpicture/<?php echo $zoomed[1][$i];?>" class="fbpicture" alt=""  src="/fbpicture/<?php echo $original[1][$i];?>"></div>
+          <?php endfor;?>
+          </div>
+  </div>
+  <div class="form-group">
+    <label for="name">店家回复&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img alt="" src="/img/emotionicon.png" style="width: 18%;height:18%;" id="emotion1"></label>
+    <?php echo $this->formtextarea($form->get('salcomment1'));?>
+  </div>
+  </div>
+</div>
+<br> <br> 
+<div class="addBorder">
+<div class="row well" id="flip2">
+<span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>&nbsp;产品评星与评价
+<span id="menudown2" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="float:right;"></span>
+<span id="menuup2" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="float:right;"></span></div>
+ <div id="panel2">
+ <div class="form-group">
+  <label for="name"><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>&nbsp;评星</label>
+   <div class="row">
+    <div class="col-sm-6 col-xs-6">
+      <img src="<?php echo $feedback->getProductcombinationpicture();?>" style="height:100px;width:120px;">
+      </div>
+      <div class="col-sm-6 col-xs-6">
+      <div class="row"><span style="font-weight:bold;">产品：</span>
+      <span><?php echo $feedback->getProductcombinationname();?></span>
+      <p style="font-size: 130%;"><?php echo $feedback->getProdtitle();?><p></div>
+      <div class="row">评星：
+<?php switch ($feedback->getFbproduct()):?>
+<?php case 1:?>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php case 2:?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php case 3:?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php case 4:?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php case 5:?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php endswitch;?></div>
+      </div>
+   </div>
+ </div>
+ <div class="form-group">
+    <label for="name"><span class="glyphicon glyphicon-font" aria-hidden="true"></span>&nbsp;评价</label>     
+      <div style="background-color: #F5F5F5;"><?php echo ubbReplace($feedback->getFbadvise1());?></div>
+ </div>
+ <div class="form-group">
+    <label for="name"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span>&nbsp;图片</label>
+    <div class="row">
+          <?php 
+          preg_match_all("/([^;]+);/u",
+              $feedback->getSmallpicturegroup2(),
+              $original, PREG_PATTERN_ORDER);
+          preg_match_all("/([^;]+);/u",
+              $feedback->getOriginalpicturegroup2(),
+              $zoomed, PREG_PATTERN_ORDER);
+          for ($i=0;$i<count($original[1]);$i++):
+          ?>
+           <div class="col-xs-3 col-sm-3"><img data-zoomed="/fbpicture/<?php echo $zoomed[1][$i];?>" class="fbpicture" alt=""  src="/fbpicture/<?php echo $original[1][$i];?>"></div>
+          <?php endfor;?>
+          </div>
+  </div>
+  <div class="form-group">
+    <label for="name">店家回复&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img alt="" src="/img/emotionicon.png" style="width: 18%;height:18%;" id="emotion2"></label>
+   <?php echo $this->formtextarea($form->get('salcomment2'));?>
+  </div>
+  </div>
+</div>
+  <br> <br>  
+<div class="addBorder">   
+<div class="row well" id="flip3">
+<span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;服务评星与评价
+<span id="menudown3" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="float:right;"></span>
+<span id="menuup3" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="float:right;"></span></div>   
+ <div id="panel3">
+ <div class="form-group">
+  <label for="name"><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>&nbsp;评星</label>  
+   <div class="row">
+    <div class="col-sm-6 col-xs-6">
+      <img src="<?php echo $feedback->getCosphoto();?>" style="height:100px;width:120px;">
+      </div>
+      <div class="col-sm-6 col-xs-6">
+      <div class="row"><span style="font-weight:bold;">美容师：</span><?php echo $feedback->getCosname();?></div>
+      <div class="row">评星：
+<?php switch ($feedback->getFbcosmetologist()):?>
+<?php case 1:?>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php case 2:?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php case 3:?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php case 4:?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php case 5:?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php endswitch;?></div>
+      </div>
+   </div>
+ </div>
+ <div class="form-group">
+    <label for="name"><span class="glyphicon glyphicon-font" aria-hidden="true"></span>&nbsp;评价</label>          
+     <div style="background-color: #F5F5F5;"><?php echo ubbReplace($feedback->getFbadvise2());?></div>
+ </div>
+ <div class="form-group">
+    <label for="name"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span>&nbsp;图片</label>
+    <div class="row">
+          <?php 
+          preg_match_all("/([^;]+);/u",
+              $feedback->getSmallpicturegroup3(),
+              $original, PREG_PATTERN_ORDER);
+          preg_match_all("/([^;]+);/u",
+              $feedback->getOriginalpicturegroup3(),
+              $zoomed, PREG_PATTERN_ORDER);
+          for ($i=0;$i<count($original[1]);$i++):
+          ?>
+           <div class="col-xs-3 col-sm-3"><img data-zoomed="/fbpicture/<?php echo $zoomed[1][$i];?>" class="fbpicture" alt=""  src="/fbpicture/<?php echo $original[1][$i];?>"></div>
+          <?php endfor;?>
+          </div>
+  </div>
+  <div class="form-group">
+    <label for="name">店家回复&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img alt="" src="/img/emotionicon.png" style="width: 18%;height:18%;" id="emotion3"></label>
+    <?php echo $this->formtextarea($form->get('salcomment3'));?>
+  </div>
+  </div>
+</div>
+<div class="row well" > <?php echo $this->formInput($form->get('submit')); ?></div> 
+
+
+</div>
+
+ <?php
+ echo $this->form()->closeTag($form);?>
+
+ 
+
+   
+   
+
+
+
+<script>
+$('#fbsurrounding').val(3);
+$('#fbproduct').val(3);
+$('#fbcosmetologist').val(3);
+$('#div1').raty({
+	score:3,
+	  click: function(score, evt) {
+		  $('#fbsurrounding').val(score);
+	  }
+	});
+</script>
+
+<script>
+$('#div2').raty({
+	score:3,
+	  click: function(score, evt) {
+		  $('#fbproduct').val(score);
+	  }
+	});
+</script>
+
+<script>
+$('#div3').raty({
+	score:3,
+	  click: function(score, evt) {
+		  $('#fbcosmetologist').val(score);
+	  }
+	});
+</script>
+
+
+<script type="text/javascript">
+
+$(function(){
+
+	$('#emotion1').qqFace({
+
+		id : 'facebox', 
+
+		assign:'salcomment1', 
+
+		path:'/arclist/'	//表情存放的路径
+
+	});
+	$('#emotion2').qqFace({
+
+		id : 'facebox', 
+
+		assign:'salcomment2', 
+
+		path:'/arclist/'	//表情存放的路径
+
+	});
+	$('#emotion3').qqFace({
+
+		id : 'facebox', 
+
+		assign:'salcomment3', 
+
+		path:'/arclist/'	//表情存放的路径
+
+	});
+	
+
+});
+
+
+</script>
+
+
+<script type="text/javascript">
+//图片点击放大
+    $('.fbpicture').zoomify();
+</script>
+<script type="text/javascript">
+//图片点击放大
+$(document).ready(function(){
+	$('.fbpicture').click(function(){
+		setTimeout('$("body").scrollTop($("body").scrollTop()+1)',1)
+		
+		});
+})
+</script>

@@ -27,8 +27,7 @@ class FeedbacksForm extends Form
                 'label' => 'treid'
             ),
             'attributes' => array(
-                'id'=>'treid',
-                'maxlength' => 100
+                'id'=>'treid'
             )
         ));
         
@@ -39,8 +38,7 @@ class FeedbacksForm extends Form
                 'label' => 'salbranch'
             ),
             'attributes' => array(
-                'id'=>'salbranch',
-                'maxlength' => 100
+                'id'=>'salbranch'
             )
         ));
         $this->add(array(
@@ -50,8 +48,7 @@ class FeedbacksForm extends Form
                 'label' => 'cosid'
             ),
             'attributes' => array(
-                'id'=>'cosid',
-                'maxlength' => 100
+                'id'=>'cosid'
             )
         ));
         
@@ -62,8 +59,7 @@ class FeedbacksForm extends Form
                 'label' => 'fbsurrounding'
             ),
             'attributes' => array(
-                'id'=>'fbsurrounding',
-                'maxlength' => 100
+                'id'=>'fbsurrounding'
             )
         ));
         
@@ -74,8 +70,7 @@ class FeedbacksForm extends Form
                 'label' => 'fbproduct'
             ),
             'attributes' => array(
-                'id'=>'fbproduct',
-                'maxlength' => 100
+                'id'=>'fbproduct'
             )
         ));
         
@@ -86,8 +81,7 @@ class FeedbacksForm extends Form
                 'label' => 'fbcosmetologist'
             ),
             'attributes' => array(
-                'id'=>'fbcosmetologist',
-                'maxlength' => 100
+                'id'=>'fbcosmetologist'
             )
         ));
         
@@ -98,7 +92,6 @@ class FeedbacksForm extends Form
             'attributes' => array(
                 'id'=>'fbadvise',
                 'class'=>"form-control",
-                'maxlength' => 100,
                 'placeholder'=>"评价与建议"
             )
         ));
@@ -109,7 +102,6 @@ class FeedbacksForm extends Form
             'attributes' => array(
                 'id'=>'fbadvise1',
                 'class'=>"form-control",
-                'maxlength' => 100,
                 'placeholder'=>"评价与建议"
             )
         ));
@@ -120,7 +112,6 @@ class FeedbacksForm extends Form
             'attributes' => array(
                 'id'=>'fbadvise2',
                 'class'=>"form-control",
-                'maxlength' => 100,
                 'placeholder'=>"评价与建议"
             )
         ));
@@ -132,8 +123,7 @@ class FeedbacksForm extends Form
             
             'attributes' => array(
                 'id'=>'fbpicture1',
-                'class'=>'form-control',
-                'maxlength' => 100
+                'class'=>'form-control'
             )
         ));
         $this->add(array(
@@ -158,8 +148,7 @@ class FeedbacksForm extends Form
             
             'attributes' => array(
                 'id'=>'fbpicture2',
-                'class'=>'form-control',
-                'maxlength' => 100
+                'class'=>'form-control'
             )
         ));
         $this->add(array(
@@ -184,8 +173,7 @@ class FeedbacksForm extends Form
             
             'attributes' => array(
                 'id'=>'fbpicture3',
-                'class'=>'form-control',
-                'maxlength' => 100
+                'class'=>'form-control'
             )
         ));
         $this->add(array(
@@ -203,6 +191,38 @@ class FeedbacksForm extends Form
             )
         ));
       
+        //店家回复1
+        $this->add(array(
+            'name' => 'salcomment1',
+            'type' => 'text',
+            
+            'attributes' => array(
+                'id'=>'salcomment1',
+                'class'=>'form-control'
+            )
+        ));
+        
+        //店家回复2
+        $this->add(array(
+            'name' => 'salcomment2',
+            'type' => 'text',
+            
+            'attributes' => array(
+                'id'=>'salcomment2',
+                'class'=>'form-control'
+            )
+        ));
+        //店家回复3
+        $this->add(array(
+            'name' => 'salcomment3',
+            'type' => 'text',
+            
+            'attributes' => array(
+                'id'=>'salcomment3',
+                'class'=>'form-control'
+            )
+        ));
+        
         $this->add(array(
             'name' => 'submit',
             'attributes' => array(
