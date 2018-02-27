@@ -53,6 +53,9 @@ $(document).ready(function(){
 </script>
 
 <style>
+.fbpicture{
+	width:200px;
+}
 .addBorder{
 	border:2px solid #FFDAB9;
 	margin:2px;
@@ -163,7 +166,7 @@ echo $this->form()->openTag($form);?>
               $zoomed, PREG_PATTERN_ORDER);
           for ($i=0;$i<count($original[1]);$i++):
           ?>
-           <div class="col-xs-3 col-sm-3"><img data-zoomed="/fbpicture/<?php echo $zoomed[1][$i];?>" class="fbpicture" alt=""  src="/fbpicture/<?php echo $original[1][$i];?>"></div>
+           <div class="col-xs-3 col-sm-3"><img data-zoomed="/fbpicture/<?php echo $zoomed[1][$i];?>" class="fbpicture" alt=""  src="/fbpicture/<?php echo $zoomed[1][$i];?>"></div>
           <?php endfor;?>
           </div>
   </div>
@@ -237,7 +240,7 @@ echo $this->form()->openTag($form);?>
               $zoomed, PREG_PATTERN_ORDER);
           for ($i=0;$i<count($original[1]);$i++):
           ?>
-           <div class="col-xs-3 col-sm-3"><img data-zoomed="/fbpicture/<?php echo $zoomed[1][$i];?>" class="fbpicture" alt=""  src="/fbpicture/<?php echo $original[1][$i];?>"></div>
+           <div class="col-xs-3 col-sm-3"><img data-zoomed="/fbpicture/<?php echo $zoomed[1][$i];?>" class="fbpicture" alt=""  src="/fbpicture/<?php echo $zoomed[1][$i];?>"></div>
           <?php endfor;?>
           </div>
   </div>
@@ -309,7 +312,7 @@ echo $this->form()->openTag($form);?>
               $zoomed, PREG_PATTERN_ORDER);
           for ($i=0;$i<count($original[1]);$i++):
           ?>
-           <div class="col-xs-3 col-sm-3"><img data-zoomed="/fbpicture/<?php echo $zoomed[1][$i];?>" class="fbpicture" alt=""  src="/fbpicture/<?php echo $original[1][$i];?>"></div>
+           <div class="col-xs-3 col-sm-3"><img data-zoomed="/fbpicture/<?php echo $zoomed[1][$i];?>" class="fbpicture" alt=""  src="/fbpicture/<?php echo $zoomed[1][$i];?>"></div>
           <?php endfor;?>
           </div>
   </div>
@@ -369,7 +372,6 @@ $(function(){
 
 </script>
 
-
 <script type="text/javascript">
 //图片点击放大
     $('.fbpicture').zoomify();
@@ -378,7 +380,7 @@ $(function(){
 //图片点击放大
 $(document).ready(function(){
 	$('.fbpicture').click(function(){
-		setTimeout('$("body").scrollTop($("body").scrollTop()+1)',1)
+		setTimeout('$("body").scrollTop($("body").scrollTop()+1)',100);
 		
 		});
 })
