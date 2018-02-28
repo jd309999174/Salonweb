@@ -29,6 +29,7 @@ $form->setAttribute('action', $this->url('cosmetic', array(
     'action' => 'saloncouponissueadd'
 )));
 $form->get('submit')->setAttribute('value', '添加');
+$form->get('cusid')->setAttribute('value', '0');
 $form->get('sciavailable')->setAttribute('readonly', 'readonly');
 $form->prepare();
 
