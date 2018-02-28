@@ -557,7 +557,7 @@ $(document).ready(function(){
         //加引号就是字符串
     	window.android.cusidsave(<?php echo $cusid;?>);
         }
-    if(isiOS){//
+    if(isiOS){
         window.webkit.messageHandlers.ioscusidsave.postMessage(<?php echo $cusid;?>);
             }
 })
