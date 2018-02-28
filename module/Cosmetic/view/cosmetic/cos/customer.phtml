@@ -28,6 +28,7 @@ $this->headTitle($title);
  <table class="table table-hover">
  <caption>顾客数：<?php echo count($carscount);?></caption>
  <tr>
+     <th>编号</th>
      <th>&nbsp;</th>
      <th>姓名</th>
      <th>会员等级</th>
@@ -40,6 +41,7 @@ $this->headTitle($title);
  <?php foreach ($cars as $car): ?>
  
  <tr>
+     <td><?php echo $this->escapeHtml($car['cusid']); ?></td>
      <td><img src="/portrait/<?php echo $this->escapeHtml($car['cusphoto']); ?>" style="height:30px;width:30px;"></td>
      <td>
          <a href="<?php echo $this->url('cosmetic',
