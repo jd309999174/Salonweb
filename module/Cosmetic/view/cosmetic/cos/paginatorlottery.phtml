@@ -1,0 +1,35 @@
+<?php if ($this->pageCount): ?>
+<div class="paginationControl">
+<!-- Previous page link -->
+<?php if (isset($this->previous)): ?>
+  <a href="<?php echo $this->url($this->route, array('action'=>'lotterycheck','sub' => $this->previous));?>
+  ?cusname=<?php echo $_GET['cusname']?>">
+    &lt; 上一页
+  </a> |
+<?php else: ?>
+  <span class="disabled">&lt; 上一页</span> |
+<?php endif; ?>
+
+<!-- Numbered page links -->
+<?php foreach ($this->pagesInRange as $page): ?>
+  <?php if ($page != $this->current): ?>
+    <a href="<?php echo $this->url($this->route, array('action'=>'lotterycheck','sub' => $page));?>
+    ?cusname=<?php echo $_GET['cusname']?>">
+        <?php echo $page; ?>
+    </a> |
+  <?php else: ?>
+    <?php echo $page; ?> |
+  <?php endif; ?>
+<?php endforeach; ?>
+
+<!-- Next page link -->
+<?php if (isset($this->next)): ?>
+  <a href="<?php echo $this->url($this->route, array('action'=>'lotterycheck','sub' => $this->next));?>
+  ?cusname=<?php echo $_GET['cusname']?>">
+    下一页 &gt;
+  </a>
+<?php else: ?>
+  <span class="disabled">下一页 &gt;</span>
+<?php endif; ?>
+</div>
+<?php endif; ?>

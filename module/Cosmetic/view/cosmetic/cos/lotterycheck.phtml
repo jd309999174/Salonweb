@@ -1,0 +1,54 @@
+<?php
+$title = '抽奖查询';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<form class="form-inline"  role="form" action="<?php echo $this->url('cosmetic', array('action'=>'lotterycheck'));?>" method="get">
+  <div class="form-group">
+    <label for="name">姓名</label>
+    <input type="text" class="form-control" name="cusname"  placeholder="请输入姓名" value="<?php echo $_GET['cusname'];?>">
+  </div>
+  <button type="submit" class="btn btn-default">提交</button>
+</form>
+
+
+
+
+<table class="table">
+  <caption>条目数：<?php echo count($carscount);?></caption>
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th>顾客</th>
+      <th>电话</th>
+      <th>奖品</th>
+      <th>中奖时间</th>
+      <th>领取状态</th>
+      <th>领取时间</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+ <?php foreach ($cars as $car): ?>
+ <?php if ($this->escapeHtml($car['prizepicture'])!=="/img/thanksforyou.jpg"):?>
+ <tr>
+     <td><img src="/portrait/<?php echo $this->escapeHtml($car['cusphoto']); ?>" style="height:50px;width:50px;"></td>
+     <td><?php echo $this->escapeHtml($car['cusname']); ?></td>
+     <td><?php echo $this->escapeHtml($car['cusphone']); ?></td>
+     <td>
+     <img src="<?php echo $this->escapeHtml($car['prizepicture']); ?>" style="height:50px;width:50px;">
+     </td>
+     <td><?php echo date("Y-m-d h:i:s", $car['winningtime']); ?></td>
+     <td><?php if ($car['receivestate']){echo "已领取";}else{echo "未领取";} ?></td>
+     <td><?php if ($car['receivetime']){echo date("Y-m-d h:i:s", $car['receivetime']);} ?></td>
+ </tr>
+ <?php endif;?>
+ <?php endforeach; ?>
+  </tbody>
+</table>
+
+
+<?php echo $this->paginationControl($cars,
+                                    'Sliding',
+                                    'paginatorlottery', array('route' => 'cosmetic')); ?>

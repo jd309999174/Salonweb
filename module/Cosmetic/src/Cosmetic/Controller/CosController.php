@@ -276,6 +276,11 @@ class CosController extends AbstractActionController
         $sm = $this->getServiceLocator();
         return $sm->get('SignupMapper');
     }
+    public function getLotteryMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('LotteryMapper');
+    }
     
     
     public function personalwebAction()
@@ -3401,5 +3406,48 @@ class CosController extends AbstractActionController
         $homepage=$homepage=$this->getPageMapper()->getHomepage($sub);//美容院标识
         
         return array('sub'=>$sub,'third'=>$third,'homepage'=>$homepage);
+    }
+    
+    
+    //TODO lotterycheck
+    public function lotterycheckAction(){
+        $container = new Container('salonlogin');
+        $id = $container->salnumber;
+        //$sub = $this->params('sub');
+        
+        $lotterychecks=$this->getLotteryMapper()->getLotterysal($id);
+        
+        //存入数组
+        $cars=array();
+        foreach ($lotterychecks as $lotterycheck){
+            if(preg_match("^".$_GET['cusname']."^", $lotterycheck->getCusname())){
+                    array_push($cars,array(
+                        "cusid"=>$lotterycheck->getCusid(),
+                        "cusname"=>$lotterycheck->getCusname(),
+                        "cusphone"=>$lotterycheck->getCusphone(),
+                        "cusphoto"=>$lotterycheck->getCusphoto(),
+                        "winningtime"=>$lotterycheck->getWinningtime(),
+                        "prizepicture"=>$lotterycheck->getPrizepicture(),
+                        "receivetime"=>$lotterycheck->getReceivetime(),
+                        "receivestate"=>$lotterycheck->getReceivestate()
+                    ));
+            } };
+            
+            foreach ($cars as $key => $row) {
+                $x[$key] = $row['winningtime'];}
+                if ($x){
+                    array_multisort($x, SORT_DESC, $cars);
+                }
+                
+                $paginator = new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\ArrayAdapter($cars));
+                $paginator->setCurrentPageNumber($this->params()->fromRoute('sub'));
+                
+                
+        
+                return new ViewModel(array(
+                    'id' => $id,
+                    'cars'=>$paginator,
+                    'carscount'=>$cars
+                ));
     }
 }
