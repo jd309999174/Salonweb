@@ -21,8 +21,42 @@ class TreatmentEntity
     protected $productquantity;
     protected $couponidused;
     protected $gmtclose;
+    protected $paymothed;
+    protected $payid;
    
    
+    /**
+     * @return the $paymothed
+     */
+    public function getPaymothed()
+    {
+        return $this->paymothed;
+    }
+
+    /**
+     * @return the $payid
+     */
+    public function getPayid()
+    {
+        return $this->payid;
+    }
+
+    /**
+     * @param field_type $paymothed
+     */
+    public function setPaymothed($paymothed)
+    {
+        $this->paymothed = $paymothed;
+    }
+
+    /**
+     * @param field_type $payid
+     */
+    public function setPayid($payid)
+    {
+        $this->payid = $payid;
+    }
+
     /**
      * @return the $prodsalnumber
      */
