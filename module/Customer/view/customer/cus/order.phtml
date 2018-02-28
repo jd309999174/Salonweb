@@ -13,9 +13,10 @@ $(document).ready(function(){
 		,type:"POST",
 			success:function(result){
 				$("#div1").html(result);
-				setTimeout(function () { 
-					 location="<?php echo $this->url('customer', array('action'=>'me'));?>";
-					 }, 3000);
+				location="<?php echo $this->url('customer', array('action'=>'me'));?>";
+				//setTimeout(function () { 延迟跳转用户多次点击提交订单会生成多个订单
+					// location="<?php // echo $this->url('customer', array('action'=>'me'));?>";
+					 //}, 3000);
 				
 		}});
 		})
