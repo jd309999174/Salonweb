@@ -1,3 +1,59 @@
+<?php
+$dbms='mysql';     //数据库类型
+$host='localhost'; //数据库主机名
+$dbName='company';    //使用的数据库
+$user='root';      //数据库连接用户名
+$pass='';          //对应的密码
+$dsn="$dbms:host=$host;dbname=$dbName";
+
+
+try {
+    $dbh = new PDO($dsn, $user, $pass); //初始化一个PDO对象
+    echo "连接成功<br/>";
+    /*你还可以进行一次搜索操作
+    foreach ($dbh->query('SELECT * from treatment') as $row) {
+        print_r($row); //你可以用 echo($GLOBAL); 来看到这些值
+    }*/
+    $sql = 'UPDATE treatment
+        SET trestate="paid",gmtclose="123"
+        WHERE orderid=123512220180217163028';
+    //$sql = "UPDATE treatment SET trestate='paid',gtmclose='123' WHERE orderid='123512220180217163028'";
+    $dbh->query($sql);
+    $dbh = null;
+} catch (PDOException $e) {
+    die ("Error!: " . $e->getMessage() . "<br/>");
+}
+//默认这个不是长连接，如果需要数据库长连接，需要最后加一个参数：array(PDO::ATTR_PERSISTENT => true) 变成这样：
+//$db = new PDO($dsn, $user, $pass, array(PDO::ATTR_PERSISTENT => true));
+
+?>
+
+
+
+<link rel="stylesheet" href="/css/zoomify.css">
+<script src="/js/zoomify.js"></script>
+
+
+<img data-zoomed="/fbpicture/D4rZXXtPpEskPDT.gif" class="fbpicture2 zoomify" alt="" data-original="/fbpicture/sYRfSPICivTRUZq.gif" src="/fbpicture/sYRfSPICivTRUZq.gif" style="display: inline;">
+
+<script type="text/javascript">
+//图片点击放大
+	$('.fbpicture2').zoomify();
+</script>
+<script type="text/javascript">
+//图片点击放大
+$(document).ready(function(){
+	$('.fbpicture2').click(function(){
+		setTimeout('$("body").scrollTop($("body").scrollTop()+1)',1)
+		
+		});
+})
+</script>
+
+
+
+
+
 <div style="width:100px; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">试试看试试看试试看试试看试试看试试看试试看试试看试试看试试看试试看</div>  
 
 
