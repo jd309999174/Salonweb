@@ -29,17 +29,17 @@ $form->setAttribute('action', $this->url('cosmetic', array(
     'action' => 'saloncouponissueadd'
 )));
 $form->get('submit')->setAttribute('value', '添加');
-$form->get('sciavailable')->setAttribute('class', 'ui_timepicker');
+$form->get('sciavailable')->setAttribute('readonly', 'readonly');
 $form->prepare();
 
 echo $this->form()->openTag($form);
-echo $this->formHidden($form->get('sciid'));
-echo $this->formhidden($form->get('salnumber'));
-echo $this->formRow($form->get('cusid'));
-echo $this->formRow($form->get('scirestriction'));
-echo $this->formRow($form->get('scimoney'));
-echo $this->formRow($form->get('sciavailable'));
-echo $this->formRow($form->get('scitimes'));
+echo $this->formHidden($form->get('sciid')); echo "<br>";
+echo $this->formhidden($form->get('salnumber')); echo "<br>";
+echo $this->formRow($form->get('cusid')); echo "<br>";
+echo $this->formRow($form->get('scirestriction')); echo "<br>";
+echo $this->formRow($form->get('scimoney')); echo "<br>";
+echo $this->formRow($form->get('sciavailable')); echo "<br>";
+echo $this->formRow($form->get('scitimes')); echo "<br>";
 ?>
 <div>
  <?php echo $this->formInput($form->get('submit')); ?>

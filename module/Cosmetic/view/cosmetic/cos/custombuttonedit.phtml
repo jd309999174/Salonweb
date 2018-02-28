@@ -21,7 +21,11 @@ echo $this->formhidden($form->get('salnumber'));
 echo $this->formRow($form->get('buttonname'));
 ?></div><div class="form-group"><label>按钮链接</label><?php
 echo $this->formRow($form->get('buttonlink'));
-?></div>
+?><span class="input-group-btn">
+						<button class="btn btn-default linkchoose1" type="button" >
+							<span class="ui-icon  ui-icon-link"></span>
+						</button>
+					</span></div>
 <div>
  <?php echo $this->formInput($form->get('submit')); ?>
  </div>

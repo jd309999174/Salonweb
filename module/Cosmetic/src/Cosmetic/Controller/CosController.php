@@ -3307,13 +3307,17 @@ class CosController extends AbstractActionController
         }
         //链接需要的对象：产品，页面，分类，首页
         $products = $this->getProductMapper()->getProduct($id);
-        $pages = $this->getPageMapper()->getPage($id);
+        $pagesactivity = $this->getPageMapper()->getPageactivity($id);
+        $pagesalonbranch = $this->getPageMapper()->getPagesalonbranch($id);//美容院分页
+        $pagecosmetologist = $this->getPageMapper()->getPagecosmetologist($id);//美容师分页
         $demandclassifyseriess = $this->getDemandclassifyseriesMapper()->getDemandclassifyseries2($id);
         return array(
             'form' => $form,
             'id' => $id,
             'products'=>$products,
-            'pages'=>$pages,
+            'pagesactivity'=>$pagesactivity,
+            'pagesalonbranch'=>$pagesalonbranch,
+            'pagecosmetologist'=>$pagecosmetologist,
             'demandclassifyseriess'=>$demandclassifyseriess
         );
     }
@@ -3353,11 +3357,21 @@ class CosController extends AbstractActionController
                 ));
             }
         }
-    
+        //链接需要的对象：产品，页面，分类，首页
+        $products = $this->getProductMapper()->getProduct($id);
+        $pagesactivity = $this->getPageMapper()->getPageactivity($id);
+        $pagesalonbranch = $this->getPageMapper()->getPagesalonbranch($id);//美容院分页
+        $pagecosmetologist = $this->getPageMapper()->getPagecosmetologist($id);//美容师分页
+        $demandclassifyseriess = $this->getDemandclassifyseriesMapper()->getDemandclassifyseries2($id);
         return array(
+            'form' => $form,
+            'sub'=>$sub,
             'id' => $id,
-            'sub' => $sub,
-            'form' => $form
+            'products'=>$products,
+            'pagesactivity'=>$pagesactivity,
+            'pagesalonbranch'=>$pagesalonbranch,
+            'pagecosmetologist'=>$pagecosmetologist,
+            'demandclassifyseriess'=>$demandclassifyseriess
         );
     }
     

@@ -31,7 +31,8 @@ class SaloncouponissueForm extends Form
                 'label' => '用户编号'
             ),
             'attributes' => array(
-                'maxlength' => 100
+                'maxlength' => 100,
+                'class'=>'form-control'
             )
         ));
         $this->add(array(
@@ -41,7 +42,8 @@ class SaloncouponissueForm extends Form
                 'label' => '使用限制'
             ),
             'attributes' => array(
-                'maxlength' => 100
+                'maxlength' => 100,
+                'class'=>'form-control'
             )
         ));
         $this->add(array(
@@ -51,7 +53,8 @@ class SaloncouponissueForm extends Form
                 'label' => '优惠券金额'
             ),
             'attributes' => array(
-                'maxlength' => 100
+                'maxlength' => 100,
+                'class'=>'form-control'
             )
         ));
         $this->add(array(
@@ -61,7 +64,8 @@ class SaloncouponissueForm extends Form
                 'label' => '有效截止日期'
             ),
             'attributes' => array(
-                'maxlength' => 100
+                'maxlength' => 100,
+                'class'=>'form-control ui_timepicker'
             )
         ));
         $this->add(array(
@@ -71,7 +75,8 @@ class SaloncouponissueForm extends Form
                 'label' => '每人限领次数'
             ),
             'attributes' => array(
-                'maxlength' => 100
+                'maxlength' => 100,
+                'class'=>'form-control'
             )
         ));
         
