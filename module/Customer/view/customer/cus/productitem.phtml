@@ -366,7 +366,7 @@ $(document).ready(function(){
 
 
 <!-- Swiper -->
-<div class="swiper-container" id="ios"
+<div class="swiper-container swiperswiper" id="ios"
 	onclick="window.history.back(-1);">
 	<div class="swiper-wrapper">
 		<div class="swiper-slide">
@@ -386,7 +386,7 @@ $(document).ready(function(){
 		</div>
 	</div>
 	<!-- Add Pagination -->
-	<div class="swiper-pagination"></div>
+	<div class="swiper-pagination swiperpagination"></div>
 </div>
 
 
@@ -817,20 +817,7 @@ $(document).ready(function(){
 		});
 })
 </script>
-<?php //TODO 幻灯片初始化?>
-<!-- Initialize Swiper -->
-<script>
-    var swiper = new Swiper('.swiper-container', {
-        pagination: '.swiper-pagination',
-        
-        paginationClickable: true,
-        spaceBetween: 30,
-        centeredSlides: true,
-        autoplay: 2500,
-        autoplayDisableOnInteraction: false
-    });
-    
-</script>
+
 
 <script type="text/javascript">
 //图片点击放大
@@ -845,4 +832,3 @@ $(document).ready(function(){
 		});
 })
 </script>
-

@@ -434,3 +434,32 @@ window.onload=function(){
 <?php break;?>
 <?php endswitch; ?>
 <?php endforeach;?>
+
+
+ <script>
+ //幻灯片初始化
+    var swiper = new Swiper('.swiperswiper', {
+      spaceBetween: 30,
+      centeredSlides: true,
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '.swiperpagination',
+        clickable: true,
+      },
+    });
+    var imgtext = new Swiper('.imgtextswiper', {
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: '.imgtextpagination',
+          clickable: true,
+        },
+    });
+  </script>
