@@ -1375,6 +1375,7 @@ class CosController extends AbstractActionController
             $y = $request->getFiles()->toArray();
             $post = array_merge_recursive($request->getPost()->toArray(), $request->getFiles()->toArray());
             $post['salnumber'] = $id;
+            $post['prodsales'] = "0";
            
             $form->setData($post);
             if ($form->isValid()) {
