@@ -68,14 +68,15 @@ if($page->getPagetype()=="活动"):?>
         <span class="glyphicon glyphicon-chevron-left"></span>
         </button>
 </span>
+<span style="font-size: 120%;"><span><img alt="" style="height:20px;" src="/meicon/meicon22.png"></span>&nbsp;&nbsp;<?php echo $page->getPagename();?></span>
 <?php elseif ($page->getPagetype()=="动态"):?>
 <span class="input-group-btn" onclick="location='<?php echo $this->url('customer', array('action'=>'homepage','sub'=>$id,'third'=>'dynamic'));?>'">
         <button class="btn btn-default" type="button">
         <span class="glyphicon glyphicon-chevron-left"></span>
         </button>
 </span>
+<span style="font-size: 120%;"><span><img alt="" style="height:20px;" src="/meicon/meicon20.png"></span>&nbsp;&nbsp;<?php echo $page->getPagename();?></span>
 <?php endif;?>
-<span><?php echo $page->getPagename();?></span>
 </div>
 <div class="nav_wrap homepagenav" id="homepagenav1" >
    <ul id="sortable" class="nav_ul">
