@@ -42,9 +42,9 @@ array_push($cars,array("salnumber"=>$demandclassifyseries->getSalnumber(),"dcsco
      </td>
      
      <td>
-     <?php if($car["salnumber"]!=="1"){?>
+     <?php if($car["salnumber"]==$id){?>
          <a href="<?php echo $this->url('cosmetic',
-             array('action'=>'demandclassifyseriesdelete','sub'=>$car["dcsid"]));?>">Delete</a>
+             array('action'=>'demandclassifyseriesdelete','sub'=>$car["dcsid"]));?>">删除</a>
              <?php }?>
      </td>
  </tr>
@@ -70,9 +70,9 @@ array_push($cars,array("salnumber"=>$demandclassifyseries->getSalnumber(),"dcsco
      </td>
      
      <td>
-     <?php if($car["salnumber"]!=="1"){?>
+     <?php if($car["salnumber"]==$id){?>
          <a href="<?php echo $this->url('cosmetic',
-             array('action'=>'demandclassifyseriesdelete','sub'=>$car["dcsid"]));?>">Delete</a>
+             array('action'=>'demandclassifyseriesdelete','sub'=>$car["dcsid"]));?>">删除</a>
              <?php }?>
      </td>
  </tr>
@@ -94,9 +94,9 @@ array_push($cars,array("salnumber"=>$demandclassifyseries->getSalnumber(),"dcsco
              <?php echo $car["dcsname"]; ?></a>
      </td>
      <td>
-     <?php if($car["salnumber"]!=="1"){?>
+     <?php if($car["salnumber"]==$id){?>
          <a href="<?php echo $this->url('cosmetic',
-             array('action'=>'demandclassifyseriesdelete','sub'=>$car["dcsid"]));?>">Delete</a>
+             array('action'=>'demandclassifyseriesdelete','sub'=>$car["dcsid"]));?>">删除</a>
              <?php }?>
      </td>
  </tr>
