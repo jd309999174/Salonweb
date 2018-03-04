@@ -1,4 +1,8 @@
- <?php
+<style>
+.trolleyitem{border-bottom:0.1px solid rgba(0, 0, 0, 0.0980392);}
+</style>
+
+<?php
 $cars=array();
 foreach ($trolleys as $trolley):
 array_push($cars,array("productcombinationpicture"=>$trolley->getProductcombinationpicture(),
@@ -49,7 +53,7 @@ array_multisort($x, SORT_DESC, $cars);
 <?php //购物车内容?>
 <div class="container">
 <?php foreach ($cars as $car):?>
-   <div class="row" style="padding-top:10px; ">
+   <div class="row trolleyitem" style="padding:10px; ">
       <div class="col-xs-4 col-sm-4">
       <img style="width: 100px;height:100px;" src="<?php echo $car['productcombinationpicture']; ?>">
       </div>
@@ -62,7 +66,7 @@ array_multisort($x, SORT_DESC, $cars);
       <div class="row">
       <?php echo $car['productcombinationname']; ?>
       </div>
-      <div class="row" style="bottom:0;">
+      <div class="row">
       <span style="color:red;float:left;">¥&nbsp;<?php echo $car['productcombinationprice']; ?></span>
       <span style="float: right;">x&nbsp;<?php echo $car['productquantity']; ?></span>
       </div>
