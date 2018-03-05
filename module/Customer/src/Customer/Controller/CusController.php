@@ -34,6 +34,7 @@ use Cosmetic\Unread\UnreadEntity;
 use Cosmetic\Signup\SignupEntity;
 use function Zend\Mvc\Controller\params;
 use Cosmetic\Lottery\LotteryEntity;
+use Cosmetic\Cusleveltype\CusleveltypeEntity;
 
 class CusController extends AbstractActionController
 {
@@ -238,11 +239,31 @@ class CusController extends AbstractActionController
         $sm = $this->getServiceLocator();
         return $sm->get('DemandclassifyseriesMapper');
     }
+    public function getCusleveltypeMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('CusleveltypeMapper');
+    }
     // TODO index
     public function indexAction()
     {
         
         return new ViewModel();
+    }
+    // TODO cusdetail
+    public function cusdetailAction()
+    {
+        $container = new Container('customerlogin');
+        $id = $container->salnumber;
+        $cusid = $container->cusid;
+        $cusname = $container->cusname;
+        $cusphone = $container->cusphone;
+        
+        $customer = $this->getCustomerMapper()->getCustomer1($cusid);
+        
+        $cusleveltype=$this->getCusleveltypeMapper()->getTask($cusid);
+        
+        return new ViewModel(array('cusleveltype'=>$cusleveltype,'customer'=>$customer));
     }
     // TODO register
     public function registerAction()
@@ -358,10 +379,30 @@ class CusController extends AbstractActionController
                 }
                 
                 
+                //取出cus
+                $customer = $this->getCustomerMapper()->getCustomerexist($post['cusphone']);
+                //存入等级类型
+                $cusleveltype=new CusleveltypeEntity();
+                $cusleveltype->setCusid($customer->getCusid());
+                $cusleveltype->setCuspoints(0);
+                $cusleveltype->setCuslevel(0);
+                $this->getCusleveltypeMapper()->saveTask($cusleveltype);
+                
+                
+                
+                // 设置session
+                $container = new Container('customerlogin');
+                $container->salnumber = $sub;
+                $container->cusid = $customer->getCusid();
+                $container->cusname = $customer->getCusname();
+                $container->cusphone = $customer->getCusphone();
+                $container->cusphoto = $customer->getCusphoto();
+                
                 // Redirect to list of tasks
                 return $this->redirect()->toRoute('customer', array(
-                    'action' => 'login',
-                    'sub' => $sub
+                    'action' => 'homepage',
+                    'sub' => $sub,
+                    'third'=>"login"
                 ));
             }
           }else{
@@ -410,14 +451,14 @@ class CusController extends AbstractActionController
         $cusname = $container->cusname;
         $cusphone = $container->cusphone;
         
-    
+        
         $homepage = $homepage = $this->getPageMapper()->getHomepage($id); // 美容院标识
-    
+        
         $entity=$this->getCustomerMapper()->getCustomer1($cusid);
         
         $form = new CustomerForm();
         $form->bind($entity);
-    
+        
         $request = $this->getRequest();
         if ($request->isPost()) {
             $x = $request->getPost()->toArray();
