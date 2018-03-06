@@ -451,13 +451,18 @@ class CusController extends AbstractActionController
         $cusname = $container->cusname;
         $cusphone = $container->cusphone;
         
+        $containerregister = new Container('customerregister');
+        $cusverification = $containerregister->cusverification;
+        $cusregisterphone = $containerregister->cusregisterphone;
+        
+        $sub = $this->params('sub'); //需修改的项目 例：cusname
         
         $homepage = $homepage = $this->getPageMapper()->getHomepage($id); // 美容院标识
         
         $entity=$this->getCustomerMapper()->getCustomer1($cusid);
         
         $form = new CustomerForm();
-        $form->bind($entity);
+        //$form->bind($entity);
         
         $request = $this->getRequest();
         if ($request->isPost()) {
@@ -465,11 +470,45 @@ class CusController extends AbstractActionController
             $y = $request->getFiles()->toArray();
             $post = array_merge_recursive($request->getPost()->toArray(), $request->getFiles()->toArray());
             
-            
             $form->setData($post);
-            if ($form->isValid()) {
-                $data = $form->getData();
-                $this->getCustomerMapper()->saveCustomer($entity);
+            if (1) {
+                
+                
+                if ($sub=="cusname"){
+                    $entity->setCusname($post['cusname']);
+                    $container->cusname = $post['cusname'];
+                }elseif ($sub=="cusphone"){
+                    //判断手机号是否已存在
+                    $existcustomer=$this->getCustomerMapper()->getCustomerexist($post['cusphone']);
+                    if ($existcustomer){
+                        return array(
+                            'form' => $form,
+                            'homepage' => $homepage,
+                            'existcustomer'=>$existcustomer,
+                            'sub' => $sub);
+                    }
+                    //判断验证码是否正确
+                  if ($_POST['registerverification']!=$cusverification){
+                      return array(
+                          'form' => $form,
+                          'homepage' => $homepage,
+                          'verificationwrong'=>"验证码错误",
+                          'cusverification'=>$cusverification,
+                          'registerverification'=>$_POST['registerverification'],
+                          'sub' => $sub
+                      );
+                  }
+                    $entity->setCusphone($post['cusphone']);
+                    $container->cusphone = $post['cusphone'];
+                }elseif ($sub=="cuspassword"){
+                    $entity->setCuspassword($post['cuspassword']);
+                }elseif ($sub=="cusaddress"){
+                    $entity->setCusaddress($post['cusaddress']);
+                }elseif ($sub=="cusidentity"){
+                    $entity->setCusidentity($post['cusidentity']);
+                }elseif ($sub=="cusphoto"){
+                    $entity->setCusphoto($post['cusphoto']);
+                    $container->cusphoto = $post['cusphoto'];
                 if (! file_exists('public/portrait')) {
                     mkdir('public/portrait');
                 }
@@ -534,11 +573,12 @@ class CusController extends AbstractActionController
                     }
                     
                 }
-    
+            }
+            //保存修改后的customer
+            $this->getCustomerMapper()->saveCustomer($entity);
                 // Redirect to list of tasks
                 return $this->redirect()->toRoute('customer', array(
-                    'action' => 'login',
-                    'sub' => $id
+                    'action' => 'cusdetail'
                 ));
             }
         }
@@ -550,7 +590,8 @@ class CusController extends AbstractActionController
             'homepage' => $homepage,
             //'customers' => $customers,
             'sub' => $id,
-            'cusphone'=>$cusphone
+            'cusphone'=>$cusphone,
+            'sub'=>$sub
         );
     }
     // TODO login

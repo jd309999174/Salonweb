@@ -22,6 +22,12 @@ $("document").ready(function(){
 	    	$("#repeatwrong").show();
 		    }
 	});
+	//密码不同点击提交无效
+	$("#submitbtn").click(function(){
+		 if($("#repeatpassword").val()!==$("#cuspassword").val()){
+		    	$("#repeatwrong").show();
+			    }else{$("#submit").click();}
+		})
 	$("#repeatpassword").focus(function(){
 		$("#repeatwrong").hide();
 	});
@@ -72,9 +78,12 @@ $form = $this->form;
 $form->setAttribute('action',$this->url('customer', array(
     'action' => 'register','sub'=>$sub
 )));
-$form->get('submit')->setAttribute('value', '提交');
+$form->get('submit')->setAttribute('style', 'visibility: hidden');
 $form->get('cusphone')->setAttribute('onblur', 'checkout()');
 $form->get('cusphone')->setAttribute('onfocus', 'getfocus()');
+$form->get('cusphone')->setAttribute('required', 'required');
+$form->get('cuspassword')->setAttribute('required', 'required');
+$form->get('cusname')->setAttribute('required', 'required');
 $form->prepare();echo $this->form()->openTag($form);?>
 <fieldset>
     <legend>注册账号</legend>
@@ -112,7 +121,7 @@ $form->prepare();echo $this->form()->openTag($form);?>
     <div style="color:red;display:none;" id="repeatwrong">
      两次输入密码不匹配
     </div>
-    <input type="password" class="form-control" placeholder="请再次输入密码" id="repeatpassword">
+    <input type="password" name="repeatpassword" class="form-control" required="required" placeholder="请再次输入密码" id="repeatpassword">
   </div>
    <div class="form-group">
     <label for="name"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;姓名</label>
@@ -124,11 +133,12 @@ $form->prepare();echo $this->form()->openTag($form);?>
      <?php echo $this->formRow($form->get('cusphotof'));?>
   </div>
   <div class="form-group" style="text-align:center">
-    <?php echo $this->formInput($form->get('submit')); ?>
+  <button type="button" id="submitbtn" class="btn btn-primary btn-lg btn-block">提交</button>
+  <button type="button" class="btn btn-default btn-lg btn-block" onclick="location='../login/<?php echo $sub;?>'">登陆</button>
+  <?php echo $this->formInput($form->get('submit')); //已隐藏?>
   </div>
 </fieldset>
 <?php echo $this->form()->closeTag($form);?>
-<button type="button" class="btn btn-default btn-lg btn-block" onclick="location='../login/<?php echo $sub;?>'">登陆</button>
 
 
 
