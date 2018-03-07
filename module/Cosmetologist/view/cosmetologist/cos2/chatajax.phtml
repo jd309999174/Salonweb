@@ -36,7 +36,7 @@ array_multisort($x, SORT_ASC, $cars);
       <p><?php echo $car['chatdate'];?></p>
       <?php echo ubbReplace($car['chatword']);?>
       <?php if($car['chatpicture']!==null){?>
-      <img style="width: 100%;height:100%;" src="/chatpicture/<?php echo $car['chatpicture'];?>">
+      <img class="chatpicture" style="width: 100%;height:100%;" src="/chatpicture/<?php echo $car['chatpicture'];?>">
       <?php }?>
       </div>
       <div class="col-xs-2 col-sm-2" style="padding: 5px">
@@ -50,7 +50,7 @@ array_multisort($x, SORT_ASC, $cars);
       <p><?php echo $car['chatdate'];?></p>
       <?php echo ubbReplace($car['chatword']);?>
       <?php if($car['chatpicture']!==null){?>
-      <img style="width:100%;height:100%;" src="/chatpicture/<?php echo $car['chatpicture'];?>">
+      <img class="chatpicture" style="width:100%;height:100%;" src="/chatpicture/<?php echo $car['chatpicture'];?>">
       <?php }?>
       </div>
       <div class="col-xs-2 col-sm-2" style="padding: 5px">
@@ -75,3 +75,8 @@ $(document).ready(function(){
 });
 </script>
 <?php endif;?>
+
+<script type="text/javascript">
+//图片点击放大
+	$('.chatpicture').zoomify();
+</script>
