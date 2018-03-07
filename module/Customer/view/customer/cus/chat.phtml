@@ -34,7 +34,7 @@ vertical-align: baseline; margin: 0 2px; outline: none; cursor: pointer; text-al
 </script>
  
  <div class="input-group input-group-sm" style="background-color:white;padding: 5px;z-index:10;position:fixed;text-align:center;" id="searchcolumn">
-      <span class="input-group-btn" onclick="window.history.go(-1);">
+      <span class="input-group-btn" onclick="location='<?php echo $this->url('customer', array('action'=>'cosmetologist'));?>';">
         <button class="btn btn-default" type="button">
         <span class="glyphicon glyphicon-chevron-left"></span>
         </button>
