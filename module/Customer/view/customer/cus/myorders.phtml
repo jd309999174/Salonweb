@@ -104,7 +104,7 @@ foreach ($cars as $car):if($car['trestate']!=="nonpayment"){?>
    <button class="btn btn-success" onclick="location='<?php echo $this->url('customer', array('action'=>'myorderdetail','sub'=>$car['treid']));?>';">订单详情</button>
    <button class="btn btn-danger" onclick='$.ajax({url:"<?php echo $this->url('customer', array('action'=>'trepayment'));?>",dataType:"text",data:"treid=<?php echo $car['treid'];?>",type:"POST",success:function(result){
 			$("#div1").append(result);
-			location="<?php echo $this->url('customer', array('action'=>'myorders','sub'=>'paid'));?>"; }});'>付款</button></div>
+			location="<?php echo $this->url('customer', array('action'=>'me'));?>"; }});'>付款</button></div>
 			<div id="div1" style="display:none;"></div>
 
 </div>

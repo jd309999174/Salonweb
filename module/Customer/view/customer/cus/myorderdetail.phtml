@@ -51,10 +51,11 @@
        <div class="row">x&nbsp;<?php echo $myorder->getProductquantity();?></div>
        </div> 
    </div>
+   <div class="row" style="float:right;">共<?php echo $myorder->getProductquantity();?>件产品&nbsp;<span>合计：¥<?php echo $myorder->getTreprice();?></span></div>
+   <br>
    <div class="row" style="float:right;">
      生成日期：<?php echo $myorder->getTreregdate();?>
    </div>
-   <div class="row" style="float:right;">共<?php echo $myorder->getProductquantity();?>件产品&nbsp;<span>合计：¥<?php echo $myorder->getTreprice();?></span></div>
 </div>
 </div>
 

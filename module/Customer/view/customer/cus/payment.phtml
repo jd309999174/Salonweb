@@ -1,31 +1,3 @@
-<div class="input-group input-group-sm" style="padding: 5px; position:fixed" id="searchcolumn">
-      <span class="input-group-btn" onclick="history.go(-1)">
-        <button class="btn btn-default" type="button">
-        <span class="glyphicon glyphicon-chevron-left"></span>
-        </button>
-      </span>
-       &nbsp;&nbsp;&nbsp;&nbsp;
-      <span style="font-size:larger;">订单详情</span>
-</div>
- 
-<div class="input-group input-group-sm" style="padding: 5px;visibility:hidden;">
-      <span class="input-group-btn" onclick="history.go(-1)">
-        <button class="btn btn-default" type="button">
-        <span class="glyphicon glyphicon-chevron-left"></span>
-        </button>
-      </span>
-      <span>订单详情</span>
-</div>
- 
- 
- <?php echo $_POST['prodid'];?><p></p>
- <?php echo $_POST['productcombinationid'];?><p></p>
- <?php echo $_POST['treprice'];?><p></p>
- <?php echo $_POST['treremark'];?><p></p>
- <?php echo $_POST['productquantity'];?><p></p>
- <?php echo $_POST['couponidused'];?><p></p>
- <?php echo $_POST['productcombinationname'];?><p></p>
-
 <?php 
 require_once 'public/alipaysign/AopSdk.php';
 $aop = new AopClient;
