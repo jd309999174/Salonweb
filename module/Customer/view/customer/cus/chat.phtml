@@ -43,7 +43,7 @@ vertical-align: baseline; margin: 0 2px; outline: none; cursor: pointer; text-al
       <?php echo $cosmetologist->getCosname();?>
       </span>
       <span>
-      <button type="button" class="btn btn-info" onclick="location='<?php echo $this->url('customer', array('action'=>'chathistory','sub'=>$sub));?>';">聊天历史</button>
+      <button style="float: right;" type="button" class="btn btn-info" onclick="location='<?php echo $this->url('customer', array('action'=>'chathistory','sub'=>$sub));?>';"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span></button>
       </span>
  </div>
 <!-- 没有作用，只为平衡高度 -->
