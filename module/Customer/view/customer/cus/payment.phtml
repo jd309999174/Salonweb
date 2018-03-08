@@ -11,14 +11,14 @@ $aop->alipayrsaPublicKey = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAonUNWUL8
 //实例化具体API对应的request类,类名称和接口名称对应,当前调用接口名称：alipay.trade.app.pay
 $request = new AlipayTradeAppPayRequest();
 //SDK已经封装掉了公共参数，这里只需要传入业务参数
-$bizcontent = "{'body':'我是测试数据'," 
-                . "'subject': 'App支付测试',"
+$bizcontent = "{'body':'".$cusid."，".$_POST['prodid']."，".$_POST['productquantity']."，"."'," 
+                . "'subject': '".$_POST['prodtitle']."',"
                 . "'out_trade_no': '".$orderid."',"
                 . "'timeout_express': '30m'," 
                 . "'total_amount': '".$treprice."',"
                 . "'product_code':'QUICK_MSECURITY_PAY'"
                 . "}";
-$request->setNotifyUrl("http://47.96.173.116/customerajax/alipaycheckout");
+$request->setNotifyUrl("https://www.oushelun.cn/customerajax/alipaycheckout");
 $request->setBizContent($bizcontent);
 //这里和普通的接口调用不同，使用的是sdkExecute
 $response = $aop->sdkExecute($request);
