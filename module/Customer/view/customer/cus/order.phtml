@@ -136,10 +136,10 @@ $(document).ready(function(){
 </div>
 			     
 <div class="row well">
-<div class="col-xs-8 col-sm-8">优惠券</div>
-<div class="col-xs-4 col-sm-4">
+<div class="col-xs-7 col-sm-7">优惠券</div>
+<div class="col-xs-5 col-sm-5">
 
-<select name="couponmoney">
+<select class="form-control" name="couponmoney">
 <?php if ($coupongetarray):?>
 <option value="0">
 选择优惠券
@@ -163,16 +163,18 @@ $(document).ready(function(){
 
 
 <div class="row well">
-<div class="col-xs-8 col-sm-8">支付方式</div>
-<div class="col-xs-4 col-sm-4">
+<div class="col-xs-7 col-sm-7">支付方式</div>
+<div class="col-xs-5 col-sm-5">
 <div class="radio">
 	<label>
-		<input type="radio" name="paymethod" checked value="alipay" />支付宝
+		<input type="radio" name="paymethod" checked value="alipay" />
+		<img alt="支付宝" style="height: 30px;" src="/img/alipay.png">
 	</label>
 </div>
 <div class="radio">
 	<label>
-		<input type="radio" name="paymethod"  value="wechat"/>微信
+		<input type="radio" name="paymethod"  value="wechat"/>
+		<img alt="微信" style="height: 30px;"  src="/img/wechat.png">
 	</label>
 </div>	
 </div>
