@@ -1664,13 +1664,21 @@ public function chatajaxAction()
         // 此用户拥有的，未使用的优惠券
         // $customercoupons=$this->getSaloncoupongetMapper()->getSaloncouponget4($id,$cusid);
         
+        //查询积分总数
+        $cusleveltype=$this->getCusleveltypeMapper()->getTask($cusid);
+        
+        //单个产品可抵用积分
+        $cuspointssingle=$_POST['productcombinationprice']*5/100;
+        
         // treatment表单
         $form = new TreatmentForm();
         return array(
             'id' => $id,
             'cusid' => $cusid,
             'coupongetarray' => $coupongetarray,
-            'form' => $form
+            'form' => $form,
+            'cusleveltype'=>$cusleveltype,
+            'cuspointssingle'=>$cuspointssingle
         )
         ;
     }
@@ -1713,6 +1721,12 @@ public function chatajaxAction()
             $couponused=$this->getSaloncoupongetMapper()->getSaloncoupongetused($_POST['couponidused']);
             $couponused->setScgstate("used");
             $this->getSaloncoupongetMapper()->saveSaloncouponget($couponused);}
+            //积分已使用
+            if ($_POST['cuspointsused']){
+                $cusleveltype=$this->getCusleveltypeMapper()->getTask($cusid);
+                $cusleveltype->setCuspoints($cusleveltype->getCuspoints()-$_POST['cuspointsused']);
+                $this->getCusleveltypeMapper()->saveTask($cusleveltype);
+            }
         }
         
         return array(

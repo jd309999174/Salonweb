@@ -1,3 +1,38 @@
+<?php //开关按钮?>
+<style>
+#switchdiv1{
+        width: 65px;
+        height: 40px;
+        border-radius: 50px;
+        position: relative;
+    }
+    #switchdiv2{
+        width: 35px;
+        height: 35px;
+        border-radius: 48px;
+        position: absolute;
+        background: white;
+        box-shadow: 0px 2px 4px rgba(0,0,0,0.4);
+    }
+    .open1{
+        background: rgba(0,184,0,0.8);
+    }
+    .open2{
+        top: 2px;
+        right: 1px;
+    }
+    .close1{
+        background: rgba(255,255,255,0.4);
+        border:3px solid rgba(0,0,0,0.15);
+        border-left: transparent;
+    }
+    .close2{
+        left: 0px;
+        top: 0px;
+        border:2px solid rgba(0,0,0,0.1);
+    }
+    </style>
+
 <?php  //TODO 提交订单?>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -8,6 +43,7 @@ $(document).ready(function(){
 			data:{prodid:'<?php echo $_POST['prodid'];?>',productcombinationid:'<?php echo $_POST['productcombinationid'];?>',
 				treprice:$("#total").html(),treremark:$("#treremark").val(),
 				productquantity:$("#productquantity").val(),couponidused:$('option:checked').attr("data-id"),
+				cuspointsused:$("#cuspoints").attr("data-used"),
 				productcombinationname:'<?php echo $_POST['productcombinationname'];?>',
 				prodtitle:'<?php echo $_POST['prodtitle'];?>',
 				prodsalnumber:'<?php echo $_POST['prodsalnumber'];?>',
@@ -52,13 +88,10 @@ $(document).ready(function(){
  </div>
 
 <?php //TODO 数量选择器?>
-<script type="text/javascript" src="/spinner/jquery.spinner.js"></script>
-<link href="/soinner/jquery.spinner.css" media="screen" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/js/num-alignment.js"></script>
 <script type="text/javascript">
 $(document).ready(function () {
-	$('.spinner').spinner(
-			defaults = {value:<?php echo $_POST['productquantity'];?>, min:1}
-			); 
+	$('#productquantity').val("<?php echo $_POST['productquantity'];?>");
 });
 </script>
 <style>
@@ -74,32 +107,61 @@ $(document).ready(function(){
 	暂时无法获取订单信息，请稍后再试
 	的情况，应该是直接传递过去的价格格式问题
 	*/
-	$("#total").html(<?php echo $_POST['productcombinationprice']*$_POST['productquantity'];?>);
-	//数量改变时
-	$("#productquantity").change(function(){
-		if($('option:checked').val()==null){
-          $("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val());
+	$("#total").html(<?php echo $_POST['productcombinationprice']*$_POST['productquantity'];?>);//总价默认值
+	//默认积分值
+	if(<?php echo $cuspointssingle;?>*$("#productquantity").val() > <?php echo $cusleveltype->getCuspoints();?>){
+        $("#cuspoints").html(<?php echo $cusleveltype->getCuspoints();?>);
 		}else{
+		$("#cuspoints").html(<?php echo $cuspointssingle;?>*$("#productquantity").val());
+		}
+	//积分变化
+	  $("#switchdiv2").click(function(){
+          $("#switchdiv1").attr("class",($("#switchdiv1").attr("class")=="close1")?"open1":"close1");
+          $("#switchdiv2").attr("class",($("#switchdiv2").attr("class")=="close2")?"open2":"close2");
+          if($("#switchdiv1").attr("class")=="close1"){
+              $("#cuspoints").attr("data-used",0);
+        	  $("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val());
+          }else{
+        	  $("#cuspoints").attr("data-used",$("#cuspoints").html());
+        	  $("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val()-$("#cuspoints").html());
+               }
+           })
+	//数量改变时
+	$("#productquantityl").click(function(){
+		if(<?php echo $cuspointssingle;?>*$("#productquantity").val() > <?php echo $cusleveltype->getCuspoints();?>){
+            $("#cuspoints").html(<?php echo $cusleveltype->getCuspoints();?>);
+			}else{
+			$("#cuspoints").html(<?php echo $cuspointssingle;?>*$("#productquantity").val());
+			}
+	    if($("#switchdiv1").attr("class")=="close1"){
+	    	$("#cuspoints").attr("data-used",0);
 			$("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val());
-			}
+       }else{
+    	   $("#cuspoints").attr("data-used",$("#cuspoints").html());
+			$("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val()-$("#cuspoints").html());
+            }
     	});
-	$(".increase").click(function(){
-		if($('option:checked').val()==null){
-	          $("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val());
+	$("#productquantityr").click(function(){
+		if(<?php echo $cuspointssingle;?>*$("#productquantity").val() > <?php echo $cusleveltype->getCuspoints();?>){
+            $("#cuspoints").html(<?php echo $cusleveltype->getCuspoints();?>);
 			}else{
-				$("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val());
+			$("#cuspoints").html(<?php echo $cuspointssingle;?>*$("#productquantity").val());
 			}
-		 });
-	$(".decrease").click(function(){
-		if($('option:checked').val()==null){
-	          $("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val());
-			}else{
-				$("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val());
-			}
-		 });
+	    if($("#switchdiv1").attr("class")=="close1"){
+	    	$("#cuspoints").attr("data-used",0);
+			$("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val());
+       }else{
+    	   $("#cuspoints").attr("data-used",$("#cuspoints").html());
+			$("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val()-$("#cuspoints").html());
+            }
+	});
 	//优惠券改变时
 	$('select').change(function(){
-		$("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val());
+		if($("#switchdiv1").attr("class")=="close1"){
+			$("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val());
+       }else{
+    	   $("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val()-$("#cuspoints").html());
+            }
 		});
 })
 </script>
@@ -129,9 +191,9 @@ $(document).ready(function(){
 </div>
 
  <div class="row well">
-						<div class="col-xs-8 col-sm-8">数量</div>
-						<div class="col-xs-4 col-sm-4">
-							<input type="text" class="spinner" style="width: 30px" id="productquantity" />
+						<div class="col-xs-7 col-sm-7">数量</div>
+						<div class="col-xs-5 col-sm-5">
+							<input id="productquantity" data_step="1" data_min="1" data_max="99" data_digit="0" value="3"/>
 						</div>
 </div>
 			     
@@ -162,6 +224,20 @@ $(document).ready(function(){
 </div>
 
 
+ <div class="row well">
+						<div class="col-xs-7 col-sm-7">
+						<div>积分抵用<span id="cuspoints" data-used="0"></span>元</div>
+						<div style="font-size:80%;color:#708090;">（拥有<?php echo $cusleveltype->getCuspoints();?>积分）</div>
+						</div>
+						<div class="col-xs-5 col-sm-5">
+							   <div id="switchdiv1" class="close1">
+                                  <div id="switchdiv2" class="close2"></div>
+                               </div>
+						</div>
+</div>
+
+
+
 <div class="row well">
 <div class="col-xs-7 col-sm-7">支付方式</div>
 <div class="col-xs-5 col-sm-5">
@@ -190,6 +266,10 @@ $(document).ready(function(){
   </div>	
 </div>
 </div>
+
+
+
+
 
 <?php  //TODO 占位用?>
 <div class="container" style="width:100%;border:1px solid gray; visibility:hidden;">
@@ -228,3 +308,6 @@ $(document).ready(function(){
 </div>
 </div>
 
+<script type="text/javascript">
+$(".decrease").addClass("btn");
+</script>
