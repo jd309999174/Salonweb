@@ -2,10 +2,12 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$('#ordersubmit').click(function(){
+		//判断是支付宝还是微信
+		if($('input:radio[name="paymethod"]:checked').val()=="alipay"){
 		$.ajax({url:"<?php echo $this->url('customer', array('action'=>'payment'));?>",dataType:"text",
 			data:{prodid:'<?php echo $_POST['prodid'];?>',productcombinationid:'<?php echo $_POST['productcombinationid'];?>',
 				treprice:$("#total").html(),treremark:$("#treremark").val(),
-				productquantity:$("#productquantity").val(),couponidused:$('input:radio[name="couponmoney"]:checked').attr("data-id"),
+				productquantity:$("#productquantity").val(),couponidused:$('option:checked').attr("data-id"),
 				productcombinationname:'<?php echo $_POST['productcombinationname'];?>',
 				prodtitle:'<?php echo $_POST['prodtitle'];?>',
 				prodsalnumber:'<?php echo $_POST['prodsalnumber'];?>',
@@ -19,6 +21,11 @@ $(document).ready(function(){
 					 //}, 3000);
 				
 		}});
+		}
+		if($('input:radio[name="paymethod"]:checked').val()=="wechat"){
+            alert("微信支付");
+			}
+		
 		})
 })
 </script>
@@ -70,29 +77,29 @@ $(document).ready(function(){
 	$("#total").html(<?php echo $_POST['productcombinationprice']*$_POST['productquantity'];?>);
 	//数量改变时
 	$("#productquantity").change(function(){
-		if($('input:radio[name="couponmoney"]:checked').val()==null){
+		if($('option:checked').val()==null){
           $("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val());
 		}else{
-			$("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('input:radio[name="couponmoney"]:checked').val());
+			$("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val());
 			}
     	});
 	$(".increase").click(function(){
-		if($('input:radio[name="couponmoney"]:checked').val()==null){
+		if($('option:checked').val()==null){
 	          $("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val());
 			}else{
-				$("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('input:radio[name="couponmoney"]:checked').val());
+				$("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val());
 			}
 		 });
 	$(".decrease").click(function(){
-		if($('input:radio[name="couponmoney"]:checked').val()==null){
+		if($('option:checked').val()==null){
 	          $("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val());
 			}else{
-				$("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('input:radio[name="couponmoney"]:checked').val());
+				$("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val());
 			}
 		 });
 	//优惠券改变时
-	$('input:radio[name="couponmoney"]').click(function(){
-		$("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('input:radio[name="couponmoney"]:checked').val());
+	$('select').change(function(){
+		$("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val());
 		});
 })
 </script>
@@ -131,16 +138,46 @@ $(document).ready(function(){
 <div class="row well">
 <div class="col-xs-8 col-sm-8">优惠券</div>
 <div class="col-xs-4 col-sm-4">
+
+<select name="couponmoney">
+<?php if ($coupongetarray):?>
+<option value="0">
+选择优惠券
+</option>
+<?php else :?>
+<option value="0">
+没有优惠券
+</option>
+<?php endif;?>
 <?php foreach ($coupongetarray as $couponget):?>
 <?php if ($couponget):?>
-<p>
-<input type="radio" name="couponmoney" data-id="<?php echo $couponget->getScgid();?>" value="<?php echo $couponget->getScimoney();?>" />
-<span>立减 &nbsp; &nbsp;<?php echo $couponget->getScimoney();?>元</span>
-</p>
+<option data-id="<?php echo $couponget->getScgid();?>" value="<?php echo $couponget->getScimoney();?>">
+立减 &nbsp; &nbsp;<?php echo $couponget->getScimoney();?>元
+</option>
 <?php endif;?>
-<?php endforeach;?>		
+<?php endforeach;?>	
+</select>
+	
 </div>
 </div>
+
+
+<div class="row well">
+<div class="col-xs-8 col-sm-8">支付方式</div>
+<div class="col-xs-4 col-sm-4">
+<div class="radio">
+	<label>
+		<input type="radio" name="paymethod" checked value="alipay" />支付宝
+	</label>
+</div>
+<div class="radio">
+	<label>
+		<input type="radio" name="paymethod"  value="wechat"/>微信
+	</label>
+</div>	
+</div>
+</div>
+
 
 
 <div class="row well">
