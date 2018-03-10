@@ -579,7 +579,7 @@ include_once 'public/php/templateforui.phtml';?>
 <?php 
 // 通过ajax领取优惠券，并返回领取的结果
 foreach ($saloncouponissues as $saloncouponissue) :
-    if (strtotime($saloncouponissue->getSciavailable()) > time()) {
+if (strtotime($saloncouponissue->getSciavailable()) > time()&&$saloncouponissue->getScitimes()>0) {
         
         ?>
         
