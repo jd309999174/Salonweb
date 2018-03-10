@@ -109,10 +109,10 @@ $(document).ready(function(){
 	*/
 	$("#total").html(<?php echo $_POST['productcombinationprice']*$_POST['productquantity'];?>);//总价默认值
 	//默认积分值
-	if(<?php echo $cuspointssingle;?>*$("#productquantity").val() > <?php echo $cusleveltype->getCuspoints();?>){
-        $("#cuspoints").html(<?php echo $cusleveltype->getCuspoints();?>);
+	if(<?php echo round($cuspointssingle,2);?>*$("#productquantity").val() > <?php echo $cusleveltype->getCuspoints();?>){
+        round($("#cuspoints").html(<?php echo $cusleveltype->getCuspoints();?>),2);
 		}else{
-		$("#cuspoints").html(<?php echo $cuspointssingle;?>*$("#productquantity").val());
+		round($("#cuspoints").html(<?php echo $cuspointssingle;?>*$("#productquantity").val()),2);
 		}
 	//积分变化
 	  $("#switchdiv2").click(function(){
@@ -120,47 +120,47 @@ $(document).ready(function(){
           $("#switchdiv2").attr("class",($("#switchdiv2").attr("class")=="close2")?"open2":"close2");
           if($("#switchdiv1").attr("class")=="close1"){
               $("#cuspoints").attr("data-used",0);
-        	  $("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val());
+        	  round($("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val()),2);
           }else{
         	  $("#cuspoints").attr("data-used",$("#cuspoints").html());
-        	  $("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val()-$("#cuspoints").html());
+        	  round($("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val()-$("#cuspoints").html()),2);
                }
            })
 	//数量改变时
 	$("#productquantityl").click(function(){
 		if(<?php echo $cuspointssingle;?>*$("#productquantity").val() > <?php echo $cusleveltype->getCuspoints();?>){
-            $("#cuspoints").html(<?php echo $cusleveltype->getCuspoints();?>);
+            round($("#cuspoints").html(<?php echo $cusleveltype->getCuspoints();?>),2);
 			}else{
-			$("#cuspoints").html(<?php echo $cuspointssingle;?>*$("#productquantity").val());
+			round($("#cuspoints").html(<?php echo $cuspointssingle;?>*$("#productquantity").val()),2);
 			}
 	    if($("#switchdiv1").attr("class")=="close1"){
 	    	$("#cuspoints").attr("data-used",0);
-			$("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val());
+			round($("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val()),2);
        }else{
     	   $("#cuspoints").attr("data-used",$("#cuspoints").html());
-			$("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val()-$("#cuspoints").html());
+			round($("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val()-$("#cuspoints").html()),2);
             }
     	});
 	$("#productquantityr").click(function(){
 		if(<?php echo $cuspointssingle;?>*$("#productquantity").val() > <?php echo $cusleveltype->getCuspoints();?>){
             $("#cuspoints").html(<?php echo $cusleveltype->getCuspoints();?>);
 			}else{
-			$("#cuspoints").html(<?php echo $cuspointssingle;?>*$("#productquantity").val());
+			round($("#cuspoints").html(<?php echo $cuspointssingle;?>*$("#productquantity").val()),2);
 			}
 	    if($("#switchdiv1").attr("class")=="close1"){
 	    	$("#cuspoints").attr("data-used",0);
-			$("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val());
+			round($("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val()),2);
        }else{
-    	   $("#cuspoints").attr("data-used",$("#cuspoints").html());
-			$("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val()-$("#cuspoints").html());
+    	    round($("#cuspoints").attr("data-used",$("#cuspoints").html()),2);
+			round($("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val()-$("#cuspoints").html()),2);
             }
 	});
 	//优惠券改变时
 	$('select').change(function(){
 		if($("#switchdiv1").attr("class")=="close1"){
-			$("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val());
+			round($("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val()),2);
        }else{
-    	   $("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val()-$("#cuspoints").html());
+    	   round($("#total").html(<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val()-$("#cuspoints").html()),2);
             }
 		});
 })
@@ -278,7 +278,7 @@ $(document).ready(function(){
 		<div style="float:right;color:red;padding-top:20px;padding-right:20px;font-size:larger;">
 		<span>合计：¥&nbsp;&nbsp;</span>
 		<span>
-		<?php echo $_POST['productcombinationprice']*$_POST['productquantity'];?>
+		<?php echo round($_POST['productcombinationprice']*$_POST['productquantity'],2);?>
 		</span>
 		</div>
 		</div>
@@ -298,7 +298,7 @@ $(document).ready(function(){
 		<div style="float:right;color:red;padding-top:20px;padding-right:20px;font-size:larger;">
 		<span>合计：¥&nbsp;&nbsp;</span>
 		<span id="total">
-		<?php echo $_POST['productcombinationprice']*$_POST['productquantity'];?>
+		<?php echo round($_POST['productcombinationprice']*$_POST['productquantity'],2);?>
 		</span>
 		</div>
 		</div>
