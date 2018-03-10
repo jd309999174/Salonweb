@@ -594,7 +594,8 @@ foreach ($saloncouponissues as $saloncouponissue) :
 			<div class="col-xs-4 col-sm-4"
 				style="text-align: center; padding-top: 40px;"
 				onclick='$.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'saloncoupongetajax'));?>",dataType:"text",
-data:{sciid:<?php echo $saloncouponissue->getSciid();?>,scimoney:<?php echo $saloncouponissue->getScimoney();?>},
+data:{sciid:<?php echo $saloncouponissue->getSciid();?>,scimoney:<?php echo $saloncouponissue->getScimoney();?>,
+scirestriction:<?php echo $saloncouponissue->getScirestriction();?>,comparedate:<?php echo $saloncouponissue->getComparedate();?>},
 type:"POST",success:function(result){$("#successAlert").show();$("#successAlert").html(result);setTimeout(function(){$("#successAlert").hide()},1000);}});'>
 				<p style="font-size: large;">点击领取</p>
 				<p>限领次数：<?php echo $saloncouponissue->getScitimes();?></p>

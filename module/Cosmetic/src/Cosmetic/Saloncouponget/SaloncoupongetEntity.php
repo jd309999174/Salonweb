@@ -9,6 +9,41 @@ class SaloncoupongetEntity
     protected $sciid;
     protected $scgstate;
     protected $scimoney;
+    protected $scirestriction;
+    protected $comparedate;
+    
+    /**
+     * @return the $scirestriction
+     */
+    public function getScirestriction()
+    {
+        return $this->scirestriction;
+    }
+
+    /**
+     * @return the $comparedate
+     */
+    public function getComparedate()
+    {
+        return $this->comparedate;
+    }
+
+    /**
+     * @param field_type $scirestriction
+     */
+    public function setScirestriction($scirestriction)
+    {
+        $this->scirestriction = $scirestriction;
+    }
+
+    /**
+     * @param field_type $comparedate
+     */
+    public function setComparedate($comparedate)
+    {
+        $this->comparedate = $comparedate;
+    }
+
     /**
      * @return the $scimoney
      */

@@ -202,19 +202,13 @@ $(document).ready(function(){
 <div class="col-xs-5 col-sm-5">
 
 <select class="form-control" name="couponmoney">
-<?php if ($coupongetarray):?>
 <option value="0">
 选择优惠券
 </option>
-<?php else :?>
-<option value="0">
-没有优惠券
-</option>
-<?php endif;?>
 <?php foreach ($coupongetarray as $couponget):?>
-<?php if ($couponget):?>
-<option data-id="<?php echo $couponget->getScgid();?>" value="<?php echo $couponget->getScimoney();?>">
-立减 &nbsp; &nbsp;<?php echo $couponget->getScimoney();?>元
+<?php if ($couponget['scirestriction'] <= $_POST['productcombinationprice']*$_POST['productquantity']):?>
+<option data-id="<?php echo $couponget['scgid'];?>" value="<?php echo $couponget['scimoney'];?>">
+立减 &nbsp; &nbsp;<?php echo $couponget['scimoney'];?>元
 </option>
 <?php endif;?>
 <?php endforeach;?>	

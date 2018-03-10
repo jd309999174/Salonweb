@@ -181,7 +181,27 @@ class saloncoupongetMapper
         return $saloncouponget;
     }
     
-
+    //按美容院id,顾客id，和未使用，取出已有的未使用的优惠券
+    public function getSaloncouponget6($id,$cusid)
+    {
+        $select = $this->sql->select();
+        $select->where(array('salnumber' => $id,'cusid'=>$cusid,'scgstate'=>'unused','comparedate>'.strtotime("now")));
+        //$select->order(array('salid ASC', 'salnumber ASC'));
+        $statement = $this->sql->prepareStatementForSqlObject($select);
+        $results = $statement->execute();
+        if (!$results) {
+            return null;
+        }
+        
+        
+        $entityPrototype = new SaloncoupongetEntity();
+        $hydrator = new ClassMethods();
+        $resultset = new HydratingResultSet($hydrator, $entityPrototype);
+        $resultset->initialize($results);
+        return $resultset;
+    }
+   
+    
     //按id
     public function getSaloncoupongetused($scgid)
     {

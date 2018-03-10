@@ -38,6 +38,22 @@ use Cosmetic\Cusleveltype\CusleveltypeEntity;
 
 class CusController extends AbstractActionController
 {
+    //二维数组内部的一维数组因某一个键值不能相同，删除重复项
+    function second_array_unique_bykey($arr, $key){
+        $tmp_arr = array();
+        foreach($arr as $k => $v)
+        {
+            if(in_array($v[$key], $tmp_arr))   //搜索$v[$key]是否在$tmp_arr数组中存在，若存在返回true
+            {
+                unset($arr[$k]); //销毁一个变量  如果$tmp_arr中已存在相同的值就删除该值
+            }
+            else {
+                $tmp_arr[$k] = $v[$key];  //将不同的值放在该数组中保存
+            }
+        }
+        //ksort($arr); //ksort函数对数组进行排序(保留原键值key)  sort为不保留key值
+        return $arr;
+    }  
     // 生成随机文件名
     public function newfilename($length, $filename)
     {
@@ -1057,6 +1073,8 @@ class CusController extends AbstractActionController
             $entity->setSalnumber($id);
             $entity->setScgstate("unused");
             $entity->setScimoney($post["scimoney"]);
+            $entity->setScirestriction($post['scirestriction']);
+            $entity->setComparedate($post['comparedate']);
             $this->getSaloncoupongetMapper()->saveSaloncouponget($entity);
             return array(
                 'couponResult' => "领取成功",
@@ -1652,17 +1670,36 @@ public function chatajaxAction()
         $id = $container->salnumber;
         $cusid = $container->cusid;
         // 优惠券,先按美容院，价格，时间，客户，搜索符合条件的已发布的优惠券
-        $salcoupons = $this->getSaloncouponissueMapper()->getSaloncouponissue4($id, $cusid, $_POST['productcombinationprice']);
-        // 每种优惠券获取一张
-        $coupongetarray = array();
+        //$salcoupons = $this->getSaloncouponissueMapper()->getSaloncouponissue4($id, $cusid, $_POST['productcombinationprice']);
         
-        foreach ($salcoupons as $salcoupon) {
+        // 每种优惠券获取一张
+        //$coupongetarray = array();
+        
+        //foreach ($salcoupons as $salcoupon) {
             // 循环取出一个未使用的此id的优惠券
-            $couponget = $this->getSaloncoupongetMapper()->getSaloncouponget5($id, $cusid, $salcoupon->getSciid());
-            array_push($coupongetarray, $couponget);
-        }
+           // $couponget = $this->getSaloncoupongetMapper()->getSaloncouponget5($id, $cusid, $salcoupon->getSciid());
+            //array_push($coupongetarray, $couponget);
+        //}
         // 此用户拥有的，未使用的优惠券
         // $customercoupons=$this->getSaloncoupongetMapper()->getSaloncouponget4($id,$cusid);
+        
+        
+        //取出顾客已有的,未使用，未过期的优惠券
+        $salcoupons = $this->getSaloncoupongetMapper()->getSaloncouponget6($id,$cusid);
+        //转为数组
+        $cars=array();
+        foreach ($salcoupons as $salcoupon){
+            array_push($cars,array(
+                "sciid"=>$salcoupon->getSciid(),
+                "scgid"=>$salcoupon->getScgid(),
+                "scirestriction"=>$salcoupon->getScirestriction(),
+                "scimoney"=>$salcoupon->getScimoney()
+            ));
+        }
+        //按sciid只保留第一个
+        $key ='sciid';
+        $coupongetarray = $this->second_array_unique_bykey($cars,$key);  
+        
         
         //查询积分总数
         $cusleveltype=$this->getCusleveltypeMapper()->getTask($cusid);
