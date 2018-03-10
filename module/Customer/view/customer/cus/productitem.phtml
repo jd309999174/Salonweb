@@ -272,7 +272,9 @@ $(function() {
     //立即购买，下订单，跳转订单页面
     $("#order").click(function(){
         $(".btnbottom").show();
-    	if($("#combinationName").html()==""){alert("请选择一项分类")}else{
+    	if($("#combinationName").html()==""){
+        	//alert("请选择一项分类");
+        	}else{
     	$( "#combinationDialog" ).dialog( "close" );
         //确认选择的组合分类,并改变此页面产品价格,并通过ajax传入订单
         $("#combinationOpenerSpan").html("已选择"+$("#combinationName").html());
@@ -298,7 +300,9 @@ $(function() {
     //购物车
     $( "#trolley" ).click(function() {
     	$(".btnbottom").show();
-    	if($('#hint').hasClass('active')){}else{
+    	if($('#hint').hasClass('active')){
+        	//alert("请选择一项分类");
+        	}else{
         $( "#combinationDialog" ).dialog( "close" );
         //确认选择的组合分类,并改变此页面产品价格,并通过ajax传入购物车
         $("#combinationOpenerSpan").html("已选择"+$("#combinationName").html());
