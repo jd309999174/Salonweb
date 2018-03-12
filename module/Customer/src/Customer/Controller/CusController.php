@@ -739,6 +739,8 @@ class CusController extends AbstractActionController
             
             //取出抽奖时间
             $lotterydate=$this->getCustomerMapper()->getCustomer1($cusid)->getLotterydate();
+            //取出积分
+            $cuspoints=$this->getCusleveltypeMapper()->getTask($cusid)->getCuspoints();
             return array(
                 'third'=>$third,
                 'id' => $id,
@@ -753,7 +755,8 @@ class CusController extends AbstractActionController
                 'custombuttons' => $custombuttons,
                 'salnumber' => $_COOKIE['salnumber'],
                 'unreadsum'=>$unreadsum,
-                'lotterydate'=>$lotterydate
+                'lotterydate'=>$lotterydate,
+                'cuspoints'=>$cuspoints
             );
     }
     
@@ -823,6 +826,8 @@ class CusController extends AbstractActionController
         $salonmanager=$this->getCosmetologistMapper()->getSalonmanager($id);
         //取出抽奖时间
         $lotterydate=$this->getCustomerMapper()->getCustomer1($cusid)->getLotterydate();
+        //取出积分
+        $cuspoints=$this->getCusleveltypeMapper()->getTask($cusid)->getCuspoints();
         return array(
             'id' => $id,
             'cusid' => $cusid,
@@ -834,7 +839,8 @@ class CusController extends AbstractActionController
             'saloncouponissues' => $saloncouponissues,
             'feedbacks'=>$feedbacks,
             'salonmanager'=>$salonmanager,
-            'lotterydate'=>$lotterydate
+            'lotterydate'=>$lotterydate,
+            'cuspoints'=>$cuspoints
         );
     }
     
@@ -2226,12 +2232,19 @@ public function chatajaxAction()
         
         //获取评价
         $feedbacks=$this->getFeedbacksMapper()->getSalbranch($id,$salonbranch->getSalbranch());
+        //取出抽奖时间
+        $lotterydate=$this->getCustomerMapper()->getCustomer1($cusid)->getLotterydate();
+        //取出积分
+        $cuspoints=$this->getCusleveltypeMapper()->getTask($cusid)->getCuspoints();
         
         return array(
             'homepage'=>$homepage,
             'templateitem'=>$template,
             'salonbranch'=>$salonbranch,
-            'feedbacks'=>$feedbacks
+            'feedbacks'=>$feedbacks,
+            'lotterydate'=>$lotterydate,
+            'cuspoints'=>$cuspoints
+            
         );
     }
     //TODO cosmetologistpage
@@ -2249,11 +2262,18 @@ public function chatajaxAction()
         //获取评价
         $feedbacks=$this->getFeedbacksMapper()->getTask1($page->getPageheaddata1());
         
+        //取出抽奖时间
+        $lotterydate=$this->getCustomerMapper()->getCustomer1($cusid)->getLotterydate();
+        //取出积分
+        $cuspoints=$this->getCusleveltypeMapper()->getTask($cusid)->getCuspoints();
+        
         return array(
             'homepage'=>$homepage,
             'templateitem'=>$template,
             'cosmetologist'=>$cosmetologist,
-            'feedbacks'=>$feedbacks
+            'feedbacks'=>$feedbacks,
+            'lotterydate'=>$lotterydate,
+            'cuspoints'=>$cuspoints
         );
     }
     
