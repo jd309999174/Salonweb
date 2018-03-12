@@ -3444,7 +3444,8 @@ class CosController extends AbstractActionController
                         "winningtime"=>$lotterycheck->getWinningtime(),
                         "prizepicture"=>$lotterycheck->getPrizepicture(),
                         "receivetime"=>$lotterycheck->getReceivetime(),
-                        "receivestate"=>$lotterycheck->getReceivestate()
+                        "receivestate"=>$lotterycheck->getReceivestate(),
+                        "lotterytype"=>$lotterycheck->getLotterytype()
                     ));
             } };
             

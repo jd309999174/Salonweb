@@ -1,3 +1,7 @@
+<link rel="stylesheet" href="/css/zoomify.css">
+<script src="/js/zoomify.js"></script>
+
+
 <?php
 $title = '抽奖查询';
 $this->headTitle($title);
@@ -26,6 +30,7 @@ $this->headTitle($title);
       <th>中奖时间</th>
       <th>领取状态</th>
       <th>领取时间</th>
+      <th>抽奖类型</th>
     </tr>
   </thead>
   <tbody>
@@ -37,11 +42,12 @@ $this->headTitle($title);
      <td><?php echo $this->escapeHtml($car['cusname']); ?></td>
      <td><?php echo $this->escapeHtml($car['cusphone']); ?></td>
      <td>
-     <img src="<?php echo $this->escapeHtml($car['prizepicture']); ?>" style="height:50px;width:50px;">
+     <img class="prizeimg" src="<?php echo $this->escapeHtml($car['prizepicture']); ?>" style="height:50px;width:50px;">
      </td>
      <td><?php echo date("Y-m-d h:i:s", $car['winningtime']); ?></td>
      <td><?php if ($car['receivestate']){echo "已领取";}else{echo "未领取";} ?></td>
      <td><?php if ($car['receivetime']){echo date("Y-m-d h:i:s", $car['receivetime']);} ?></td>
+     <td><?php echo $car['lotterytype']?></td>
  </tr>
  <?php endif;?>
  <?php endforeach; ?>
@@ -52,3 +58,8 @@ $this->headTitle($title);
 <?php echo $this->paginationControl($cars,
                                     'Sliding',
                                     'paginatorlottery', array('route' => 'cosmetic')); ?>
+
+<script type="text/javascript">
+//图片点击放大
+	$('.prizeimg').zoomify();
+</script>
