@@ -1,3 +1,19 @@
+<script>
+$(document).ready(function(){
+  $("div").hover(function(){
+    $(".deletebtn").show();
+    },function(){
+    $(".deletebtn").hide();
+  });
+});
+</script>
+
+<style>
+.deletebtn{
+display:none;
+}
+</style>
+
 <?php foreach ($templateitem as $item) :?>
 <?php switch ($item->getTemplatetype()): ?>
 <?php case "singlerow": ?>
@@ -11,7 +27,7 @@
            $("#singlerowlink").val($(this).find(".singlea").attr("data-href"));
            $(".fieldset").hide();
            $("#singlerowfield").show();}'>
-					<div class="content">
+					<div class="content" style="position:relative;">
 						<div class="row">
 							<div class="col">
 								<div class="col-demo">
@@ -21,6 +37,9 @@
 								</div>
 							</div>
 						</div>
+						 <div class="deletebtn" style="position:absolute;z-indent:2;left:2px;top:2px;">
+                          <span style="color: black;" onclick='$(this).parents(".intro").remove();' class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                         </div>
 					</div>
 				</li>
 <?php break;?>
@@ -37,7 +56,7 @@
            $("#doublerowlink2").val($(this).find(".doublea2").attr("data-href"));
            $(".fieldset").hide();
            $("#doublerowfield").show();}'>
-					<div class="content">
+					<div class="content" style="position:relative;">
 						<div class="row">
 							<div class="col">
 								<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -54,6 +73,9 @@
 								</div>
 							</div>
 						</div>
+						<div class="deletebtn" style="position:absolute;z-indent:2;left:2px;top:2px;">
+                          <span style="color: black;" onclick='$(this).parents(".intro").remove();' class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                         </div>
 					</div>
 				</li>
 <?php break;?>
@@ -80,7 +102,7 @@
            $(".fieldset").hide();
            $("#swiperrowfield").show();}'>
 		    <!-- Swiper -->
-    <div class="swiper-container swiperswiper" style="height:200px">
+    <div class="swiper-container swiperswiper" style="height:200px;position:relative;" >
         <div class="swiper-wrapper">
         <?php if($item->getTemplatedata2()!="/img/mylogo.png"):?>
             <div class="swiper-slide"><a  data-href="<?php echo  $item->getTemplatedata1()?>" class="swipera1"> <img alt=""
@@ -105,6 +127,9 @@
         </div>
         <!-- Add Pagination -->
         <div class="swiper-pagination swiperpagination"></div>
+                         <div class="deletebtn" style="position:absolute;z-indent:2;left:2px;top:2px;">
+                          <span style="color: black;" onclick='$(this).parents(".intro").remove();' class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                         </div>
         </div>
 </li>
 <?php break;?>
@@ -119,7 +144,7 @@
 	       $("#headlinerowlink").val($(this).find(".headlinea").attr("data-href"));
            $(".fieldset").hide();
            $("#headlinerowfield").show();}'>
-					<div class="content">
+					<div class="content" style="position:relative;">
 						<div class="row" >
 							<div class="col">
 							<div class="col-demo">
@@ -132,6 +157,9 @@
 						    </div>
 							</div>
 						</div>
+						<div class="deletebtn" style="position:absolute;z-indent:2;left:2px;top:2px;">
+                          <span style="color: black;" onclick='$(this).parents(".intro").remove();' class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                         </div>
 					</div>
 				</li>
 <?php break;?>
@@ -145,7 +173,7 @@
 	       $("#textrowtext").val($(this).find(".texttext").html());
            $(".fieldset").hide();
            $("#textrowfield").show();}'>
-					<div class="content">
+					<div class="content" style="position:relative;">
 						<div class="row" >
 							<div class="col">
 							<div class="col-demo">
@@ -155,6 +183,9 @@
 						    </div>
 							</div>
 						</div>
+						<div class="deletebtn" style="position:absolute;z-indent:2;left:2px;top:2px;">
+                          <span style="color: black;" onclick='$(this).parents(".intro").remove();' class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                         </div>
 					</div>
 				</li>
 <?php break;?>
@@ -178,7 +209,7 @@
            $(".fieldset").hide();
            $("#imgtextrowfield").show();}'>
 					<!-- Swiper图文 -->
-    <div class="swiper-container imgtextswiper" style="height:200px">
+    <div class="swiper-container imgtextswiper"  style="position:relative;height:200px;">
         <div class="parallax-bg imgtextimg" data-backgroundimage="<?php echo $item->getTemplatedata1();?>" style="background-image:url(<?php echo $item->getTemplatedata1()?>)" data-swiper-parallax="-23%"></div>
         <div class="swiper-wrapper">
             <div class="swiper-slide">
@@ -204,6 +235,9 @@
         </div>
         <!-- Add Pagination -->
         <div class="swiper-pagination imgtextpagination swiper-pagination-white"></div>
+                         <div class="deletebtn" style="position:absolute;z-indent:2;left:2px;top:2px;">
+                          <span style="color: black;" onclick='$(this).parents(".intro").remove();' class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                         </div>
     </div>
 </li>
 <?php break;?>
@@ -217,7 +251,7 @@
 	       $("#videorowsrc").attr("src",$(this).find(".videosrc").attr("src"));
            $(".fieldset").hide();
            $("#videorowfield").show();}'>
-					<div class="content">
+					<div class="content" style="position:relative;">
 						<div class="row">
 							<div class="col">
 								<div class="col-demo">
@@ -230,6 +264,9 @@
 								</div>
 							</div>
 						</div>
+						<div class="deletebtn" style="position:absolute;z-indent:2;left:2px;top:2px;">
+                          <span style="color: black;" onclick='$(this).parents(".intro").remove();' class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                         </div>
 					</div>
 				</li>
 <?php break;?>
@@ -252,7 +289,7 @@
 	       $("#lotteryrowtext2").val($(this).find(".lotterytable").attr("data-lotterypoints"));
            $(".fieldset").hide();
            $("#lotteryrowfield").show();}'>
-					<div class="content">
+					<div class="content" style="position:relative;">
 						<div class="row">
   <div id="lottery">
     <table class="lotterytable" data-lotteryrate="<?php echo $item->getTemplatedata9();?>" data-lotterypoints="<?php echo $item->getTemplatedata10();?>">
@@ -275,6 +312,9 @@
     </tbody></table>
   </div>
 						</div>
+						<div class="deletebtn" style="position:absolute;z-indent:2;left:2px;top:2px;">
+                          <span style="color: black;" onclick='$(this).parents(".intro").remove();' class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                         </div>
 					</div>
 				</li>
 <?php break;?>
@@ -297,7 +337,7 @@
 	       $("#lotterypointsrowtext2").val($(this).find(".lotterypointstable").attr("data-lotterypointspoints"));
            $(".fieldset").hide();
            $("#lotterypointsrowfield").show();}'>
-					<div class="content">
+					<div class="content" style="position:relative;">
 						<div class="row">
   <div id="lotterypoints">
     <table class="lotterypointstable" data-lotterypointsrate="<?php echo $item->getTemplatedata9();?>" data-lotterypointspoints="<?php echo $item->getTemplatedata10();?>">
@@ -320,6 +360,9 @@
     </tbody></table>
   </div>
 						</div>
+						<div class="deletebtn" style="position:absolute;z-indent:2;left:2px;top:2px;">
+                          <span style="color: black;" onclick='$(this).parents(".intro").remove();' class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                         </div>
 					</div>
 				</li>
 <?php break;?>
