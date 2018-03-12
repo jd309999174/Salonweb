@@ -593,9 +593,8 @@ function roll(){
                 };
                 //中奖提示
                 $prizepicture=$(".lottery-unit-"+lottery.prize).find("img").attr("src");
-                $.ajax({url:"<?php echo $this->url('customer', array('action'=>'lotterypointswinning'));?>",dataType:"text",data:{prizepicture:$prizepicture,expendpoints:<?php echo $item->getTemplatedata10();?>},type:"POST"});
+                $.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'lotterywinning2'));?>",dataType:"text",data:{prizepicture:$prizepicture,expendpoints:<?php echo $item->getTemplatedata10();?>},type:"POST",success:function(result){$("#showremainingpoints").html(result);}});
                 lotteryremainingpoints=lotteryremainingpoints-<?php echo $item->getTemplatedata10();?>;
-                $("#showremainingpoints").html(lotteryremainingpoints);
                 $("#lotterypointsAlert").show();
                 setTimeout(function(){$("#lotterypointsAlert").hide()},5000);
                 lotterystate=lotteryremainingpoints < <?php echo $item->getTemplatedata10();?>?1:0; //可用状态

@@ -39,14 +39,11 @@
     </script>
     <script>
     $(document).ready(function(){
-        $("#div2").click(function(){
-           $("#div1").attr("class",($("#div1").attr("class")=="close1")?"open1":"close1");
-           $("#div2").attr("class",($("#div2").attr("class")=="close2")?"open2":"close2");
-           if($("#div1").attr("class")=="close1"){
-           $("p").html("1");
-               }else{$("p").html("2");}
-            })
+    	$.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'lotterywinning2'));?>",dataType:"text",data:{prizepicture:'123.png',expendpoints:'10'},type:"POST",
+        	success:function(result){alert(result);},error: function(XMLHttpRequest, textStatus, errorThrown){
+                alert(textStatus+errorThrown);
+             }});
         })
     </script>
     
-    <p></p>
+    <?php echo phpinfo();?>

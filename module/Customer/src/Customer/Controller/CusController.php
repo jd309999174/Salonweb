@@ -2323,17 +2323,6 @@ public function chatajaxAction()
         $customer->setLotterydate(date("Ymd"));
         $this->getCustomerMapper()->saveCustomer($customer);
         
-        //保存入抽奖奖品表
-        $lotteryentity=new LotteryEntity();
-        $lotteryentity->setSalnumber($id);
-        $lotteryentity->setCusid($cusid);
-        $lotteryentity->setCusname($cusname);
-        $lotteryentity->setCusphone($cusphone);
-        $lotteryentity->setCusphoto($cusphoto);
-        $lotteryentity->setPrizepicture($_POST['prizepicture']);
-        $lotteryentity->setReceivestate(0);
-        $lotteryentity->setLotterytype("每日抽奖");
-        $this->getLotteryMapper()->saveLottery($lotteryentity);
         
         //获取文件名，不包括后缀
         $prizepicturename=basename($_POST['prizepicture'],substr(strrchr($_POST['prizepicture'], '.'), 0));
@@ -2355,18 +2344,56 @@ public function chatajaxAction()
             $entity->setScirestriction($couponissue->getScirestriction());
             $entity->setComparedate($couponissue->getComparedate());
             $this->getSaloncoupongetMapper()->saveSaloncouponget($entity);
-        }
-        if (preg_match($pointsregex, $prizepicturename, $matches)){
+            
+            //保存入抽奖奖品表
+            $lotteryentity=new LotteryEntity();
+            $lotteryentity->setSalnumber($id);
+            $lotteryentity->setCusid($cusid);
+            $lotteryentity->setCusname($cusname);
+            $lotteryentity->setCusphone($cusphone);
+            $lotteryentity->setCusphoto($cusphoto);
+            $lotteryentity->setPrizepicture($_POST['prizepicture']);
+            $lotteryentity->setReceivestate(1);
+            $lotteryentity->setReceivetime(time());
+            $lotteryentity->setLotterytype("每日抽奖");
+            $this->getLotteryMapper()->saveLottery($lotteryentity);
+        }elseif (preg_match($pointsregex, $prizepicturename, $matches)){
            //加入用户积分中 
             $cusleveltype=$this->getCusleveltypeMapper()->getTask($cusid);
             $cusleveltype->setCuspoints($cusleveltype->getCuspoints()+$matches['2']);
             $this->getCusleveltypeMapper()->saveTask($cusleveltype);
+            
+            //保存入抽奖奖品表
+            $lotteryentity=new LotteryEntity();
+            $lotteryentity->setSalnumber($id);
+            $lotteryentity->setCusid($cusid);
+            $lotteryentity->setCusname($cusname);
+            $lotteryentity->setCusphone($cusphone);
+            $lotteryentity->setCusphoto($cusphoto);
+            $lotteryentity->setPrizepicture($_POST['prizepicture']);
+            $lotteryentity->setReceivestate(1);
+            $lotteryentity->setReceivetime(time());
+            $lotteryentity->setLotterytype("每日抽奖");
+            $this->getLotteryMapper()->saveLottery($lotteryentity);
+        }else{
+            
+            //保存入抽奖奖品表
+            $lotteryentity=new LotteryEntity();
+            $lotteryentity->setSalnumber($id);
+            $lotteryentity->setCusid($cusid);
+            $lotteryentity->setCusname($cusname);
+            $lotteryentity->setCusphone($cusphone);
+            $lotteryentity->setCusphoto($cusphoto);
+            $lotteryentity->setPrizepicture($_POST['prizepicture']);
+            $lotteryentity->setReceivestate(0);
+            $lotteryentity->setLotterytype("每日抽奖");
+            $this->getLotteryMapper()->saveLottery($lotteryentity);
         }
         
     }
     
     //TODO lotterypointswinning
-    public function lotterypointswinningAction(){
+    public function lotterywinning2Action(){
         $container = new Container('customerlogin');
         $id = $container->salnumber;
         $cusid = $container->cusid;
@@ -2375,23 +2402,6 @@ public function chatajaxAction()
         $cusphoto = $container->cusphoto;
         
         
-        //保存入抽奖奖品表
-        $lotteryentity=new LotteryEntity();
-        $lotteryentity->setSalnumber($id);
-        $lotteryentity->setCusid($cusid);
-        $lotteryentity->setCusname($cusname);
-        $lotteryentity->setCusphone($cusphone);
-        $lotteryentity->setCusphoto($cusphoto);
-        $lotteryentity->setPrizepicture($_POST['prizepicture']);
-        $lotteryentity->setReceivestate(0);
-        $lotteryentity->setLotterytype("积分抽奖");
-        $this->getLotteryMapper()->saveLottery($lotteryentity);
-        
-        //消耗积分  （为什么必须放在//保存入抽奖奖品表 下面才会保存抽奖，靠）
-        $cusleveltype=$this->getCusleveltypeMapper()->getTask($cusid);
-        $remainingpoints=$cusleveltype->getCuspoints()-$_POST['expendpoints'];
-        $cusleveltype->setCuspoints($remainingpoints);
-        $this->getCusleveltypeMapper()->saveTask($cusleveltype);
         
         //获取文件名，不包括后缀
         $prizepicturename=basename($_POST['prizepicture'],substr(strrchr($_POST['prizepicture'], '.'), 0));
@@ -2413,13 +2423,58 @@ public function chatajaxAction()
             $entity->setScirestriction($couponissue->getScirestriction());
             $entity->setComparedate($couponissue->getComparedate());
             $this->getSaloncoupongetMapper()->saveSaloncouponget($entity);
-        }
-        if (preg_match($pointsregex, $prizepicturename, $matches)){
+            
+            //保存入抽奖奖品表
+            $lotteryentity=new LotteryEntity();
+            $lotteryentity->setSalnumber($id);
+            $lotteryentity->setCusid($cusid);
+            $lotteryentity->setCusname($cusname);
+            $lotteryentity->setCusphone($cusphone);
+            $lotteryentity->setCusphoto($cusphoto);
+            $lotteryentity->setPrizepicture($_POST['prizepicture']);
+            $lotteryentity->setReceivestate(1);
+            $lotteryentity->setReceivetime(time());
+            $lotteryentity->setLotterytype("积分抽奖");
+            $this->getLotteryMapper()->saveLottery($lotteryentity);
+        }elseif (preg_match($pointsregex, $prizepicturename, $matches)){
             //加入用户积分中
             $cusleveltype=$this->getCusleveltypeMapper()->getTask($cusid);
             $cusleveltype->setCuspoints($cusleveltype->getCuspoints()+$matches['2']);
             $this->getCusleveltypeMapper()->saveTask($cusleveltype);
+            
+            //保存入抽奖奖品表
+            $lotteryentity=new LotteryEntity();
+            $lotteryentity->setSalnumber($id);
+            $lotteryentity->setCusid($cusid);
+            $lotteryentity->setCusname($cusname);
+            $lotteryentity->setCusphone($cusphone);
+            $lotteryentity->setCusphoto($cusphoto);
+            $lotteryentity->setPrizepicture($_POST['prizepicture']);
+            $lotteryentity->setReceivestate(1);
+            $lotteryentity->setReceivetime(time());
+            $lotteryentity->setLotterytype("积分抽奖");
+            $this->getLotteryMapper()->saveLottery($lotteryentity);
+        }else{
+            //保存入抽奖奖品表
+            $lotteryentity=new LotteryEntity();
+            $lotteryentity->setSalnumber($id);
+            $lotteryentity->setCusid($cusid);
+            $lotteryentity->setCusname($cusname);
+            $lotteryentity->setCusphone($cusphone);
+            $lotteryentity->setCusphoto($cusphoto);
+            $lotteryentity->setPrizepicture($_POST['prizepicture']);
+            $lotteryentity->setReceivestate(0);
+            $lotteryentity->setLotterytype("积分抽奖");
+            $this->getLotteryMapper()->saveLottery($lotteryentity);
+            
         }
+        
+        //消耗积分  （为什么必须放在//保存入抽奖奖品表 下面才会保存抽奖，靠）
+        //saveTask 如果是更新，.ajax是报错
+        $cusleveltype=$this->getCusleveltypeMapper()->getTask($cusid);
+        $remainingpoints=$cusleveltype->getCuspoints()-$_POST['expendpoints'];
+        $cusleveltype->setCuspoints($remainingpoints);
+        $this->getCusleveltypeMapper()->saveTask($cusleveltype);
         
         return array('remainingpoints'=>$remainingpoints);
         
