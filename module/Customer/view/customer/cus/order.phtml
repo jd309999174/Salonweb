@@ -23,7 +23,7 @@
     }
     .close1{
         background: rgba(255,255,255,0.4);
-        border:3px solid rgba(0,0,0,0.15);
+        border:2px solid rgba(0,0,0,0.15);
         border-left: transparent;
     }
     .close2{
@@ -31,6 +31,10 @@
         top: 0px;
         border:2px solid rgba(0,0,0,0.1);
     }
+    </style>
+    
+    <style>
+    option{color:#8B795E;} 
     </style>
 
 <?php  //TODO 提交订单?>
@@ -127,8 +131,9 @@ $(document).ready(function(){
                }
            })
 	//数量改变时
-	$("#productquantityl").click(function(){
-		if(<?php echo $cuspointssingle;?>*$("#productquantity").val() > <?php echo $cusleveltype->getCuspoints();?>){
+	$("#productquantityl").click(function(){//数量减少
+		if($("#couponselect option:selected").attr("data-scirestriction") <= <?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()){
+        if(<?php echo $cuspointssingle;?>*$("#productquantity").val() > <?php echo $cusleveltype->getCuspoints();?>){
             $("#cuspoints").html(<?php echo $cusleveltype->getCuspoints();?>);
 			}else{
 			$("#cuspoints").html(Math.floor(<?php echo $cuspointssingle;?>*$("#productquantity").val()*100)/100);
@@ -140,8 +145,28 @@ $(document).ready(function(){
     	   $("#cuspoints").attr("data-used",$("#cuspoints").html());
 			$("#total").html(Math.floor((<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val()-$("#cuspoints").html())*100)/100);
             }
+		}else{
+			$("#coupondefault").attr("selected","selected");
+			$("#coupondefault").removeAttr("selected");
+			if(<?php echo $cuspointssingle;?>*$("#productquantity").val() > <?php echo $cusleveltype->getCuspoints();?>){
+	            $("#cuspoints").html(<?php echo $cusleveltype->getCuspoints();?>);
+				}else{
+				$("#cuspoints").html(Math.floor(<?php echo $cuspointssingle;?>*$("#productquantity").val()*100)/100);
+				}
+		    if($("#switchdiv1").attr("class")=="close1"){
+		    	$("#cuspoints").attr("data-used",0);
+				$("#total").html(Math.floor((<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val())*100)/100);
+	       }else{
+	    	   $("#cuspoints").attr("data-used",$("#cuspoints").html());
+				$("#total").html(Math.floor((<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val()-$("#cuspoints").html())*100)/100);
+	            }
+			}
+		$("#couponselect option").each(function(){ //遍历全部option  
+			  if($(this).attr("data-scirestriction") > <?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val())  
+				  $(this).hide();
+			  });  
     	});
-	$("#productquantityr").click(function(){
+	$("#productquantityr").click(function(){//数量增加
 		if(<?php echo $cuspointssingle;?>*$("#productquantity").val() > <?php echo $cusleveltype->getCuspoints();?>){
             $("#cuspoints").html(<?php echo $cusleveltype->getCuspoints();?>);
 			}else{
@@ -154,6 +179,10 @@ $(document).ready(function(){
     	   $("#cuspoints").attr("data-used",$("#cuspoints").html());
 			$("#total").html(Math.floor((<?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val()-$('option:checked').val()-$("#cuspoints").html())*100)/100);
             }
+	    $("#couponselect option").each(function(){ //遍历全部option  
+			  if($(this).attr("data-scirestriction") <= <?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val())  
+				  $(this).show();
+			  });  
 	});
 	//优惠券改变时
 	$('select').change(function(){
@@ -201,14 +230,18 @@ $(document).ready(function(){
 <div class="col-xs-7 col-sm-7">优惠券</div>
 <div class="col-xs-5 col-sm-5">
 
-<select class="form-control" name="couponmoney">
-<option value="0">
+<select class="form-control" name="couponmoney" id="couponselect">
+<option id="coupondefault" value="0" data-scirestriction="0">
 选择优惠券
 </option>
 <?php foreach ($coupongetarray as $couponget):?>
 <?php if ($couponget['scirestriction'] <= $_POST['productcombinationprice']*$_POST['productquantity']):?>
-<option data-id="<?php echo $couponget['scgid'];?>" value="<?php echo $couponget['scimoney'];?>">
-立减 &nbsp; &nbsp;<?php echo $couponget['scimoney'];?>元
+<option data-scirestriction="<?php echo $couponget['scirestriction'];?>" data-id="<?php echo $couponget['scgid'];?>" value="<?php echo $couponget['scimoney'];?>">
+满<?php echo $couponget['scirestriction'];?> &nbsp;减 &nbsp;<?php echo $couponget['scimoney'];?>
+</option>
+<?php else:?>
+<option style="display:none;" data-scirestriction="<?php echo $couponget['scirestriction'];?>" data-id="<?php echo $couponget['scgid'];?>" value="<?php echo $couponget['scimoney'];?>">
+满<?php echo $couponget['scirestriction'];?> &nbsp;减 &nbsp;<?php echo $couponget['scimoney'];?>
 </option>
 <?php endif;?>
 <?php endforeach;?>	
