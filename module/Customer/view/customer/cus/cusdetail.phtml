@@ -1,0 +1,86 @@
+<div class="input-group input-group-sm" style="background-color:white;padding: 5px;text-align:center;">
+<span class="input-group-btn" onclick="location='<?php echo $this->url('customer', array('action'=>'me'));?>';">
+        <button class="btn btn-default" type="button" style="border:none;">
+        <span class="glyphicon glyphicon-chevron-left" style="color:black;"></span>
+        </button>
+      </span>
+     <span style="font-size: 120%;">账号设置<?php echo $cusidentity;?></span>
+</div>
+
+<style>
+.form-group{padding:15px;
+border-bottom:0.1px solid rgba(0, 0, 0, 0.0980392);}
+.col-xs-9{text-align:center;}
+.col-xs-10{text-align:center;}
+.glyphicon{color:red;}
+</style>
+
+
+<form class="form-horizontal" role="form">
+  <div class="form-group">
+		<label for="firstname" class="col-xs-2 control-label">头像</label>
+		<div class="col-xs-9">
+			<img src="/portrait/<?php echo $customer->getCusphoto();?>">
+		</div>
+		<span class="glyphicon glyphicon-pencil" aria-hidden="true" onclick="location='<?php echo $this->url('customer', array('action'=>'reset','sub'=>"cusphoto"));?>';"></span>
+	</div>
+	<div class="form-group">
+		<label for="firstname" class="col-xs-2 control-label">姓名</label>
+		<div class="col-xs-9">
+			<?php echo $customer->getCusname();?>
+		</div>
+		<span class="glyphicon glyphicon-pencil" aria-hidden="true" onclick="location='<?php echo $this->url('customer', array('action'=>'reset','sub'=>"cusname"));?>';"></span>
+	</div>
+	<div class="form-group">
+		<label for="firstname" class="col-xs-2 control-label">电话</label>
+		<div class="col-xs-9">
+			<?php echo $customer->getCusphone();?>
+		</div>
+		<span class="glyphicon glyphicon-pencil" aria-hidden="true" onclick="location='<?php echo $this->url('customer', array('action'=>'reset','sub'=>"cusphone"));?>';"></span>
+	</div>
+	<div class="form-group">
+		<label for="firstname" class="col-xs-2 control-label">密码</label>
+		<div class="col-xs-9">
+			<?php echo $customer->getCuspassword();?>
+		</div>
+		<span class="glyphicon glyphicon-pencil" aria-hidden="true" onclick="location='<?php echo $this->url('customer', array('action'=>'reset','sub'=>"cuspassword"));?>';"></span>
+	</div>
+	<div class="form-group">
+		<label for="firstname" class="col-xs-2 control-label">地址</label>
+		<div class="col-xs-9">
+			<?php echo $customer->getCusaddress();?>
+		</div>
+		<span class="glyphicon glyphicon-pencil" aria-hidden="true" onclick="location='<?php echo $this->url('customer', array('action'=>'reset','sub'=>"cusaddress"));?>';"></span>
+	</div>
+	<div class="form-group">
+		<label for="firstname" class="col-xs-2 control-label">身份证号</label>
+		<div class="col-xs-9">
+			<?php echo $customer->getCusidentity();?>
+		</div>
+		<span class="glyphicon glyphicon-pencil" aria-hidden="true" onclick="location='<?php echo $this->url('customer', array('action'=>'reset','sub'=>"cusidentity"));?>';"></span>
+	</div>
+    <div class="form-group">
+		<label for="firstname" class="col-xs-2 control-label">注册日期</label>
+		<div class="col-xs-10">
+			<?php echo $customer->getCusregdate();?>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="firstname" class="col-xs-2 control-label">消费金额</label>
+		<div class="col-xs-10">
+			<?php echo $customer->getCusnumber();?>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="firstname" class="col-xs-2 control-label">积分余额</label>
+		<div class="col-xs-10">
+			<?php echo $cusleveltype->getCuspoints();?>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="firstname" class="col-xs-2 control-label">会员等级</label>
+		<div class="col-xs-10">
+			<?php echo $cusleveltype->getCuslevel();?>
+		</div>
+	</div>
+</form>
