@@ -897,12 +897,15 @@ class CusController extends AbstractActionController
         
         //取出抽奖时间
         $lotterydate=$this->getCustomerMapper()->getCustomer1($cusid)->getLotterydate();
+        //取出积分
+        $cuspoints=$this->getCusleveltypeMapper()->getTask($cusid)->getCuspoints();
         return array(
             'id' => $id,
             'page' => $page,
             'templateitem' => $template,
             'signupstate'=>$signupstate,
-            'lotterydate'=>$lotterydate
+            'lotterydate'=>$lotterydate,
+            'cuspoints'=>$cuspoints
         );
     }
     
@@ -2295,11 +2298,12 @@ public function chatajaxAction()
         $cusname = $container->cusname;
         $cusphone = $container->cusphone;
         $cusphoto = $container->cusphoto;
-        
+        //
         $customer=$this->getCustomerMapper()->getCustomer1($cusid);
         $customer->setLotterydate(date("Ymd"));
         $this->getCustomerMapper()->saveCustomer($customer);
         
+        //保存入抽奖奖品表
         $lotteryentity=new LotteryEntity();
         $lotteryentity->setSalnumber($id);
         $lotteryentity->setCusid($cusid);
@@ -2308,7 +2312,96 @@ public function chatajaxAction()
         $lotteryentity->setCusphoto($cusphoto);
         $lotteryentity->setPrizepicture($_POST['prizepicture']);
         $lotteryentity->setReceivestate(0);
+        $lotteryentity->setLotterytype("每日抽奖");
         $this->getLotteryMapper()->saveLottery($lotteryentity);
+        
+        //获取文件名，不包括后缀
+        $prizepicturename=basename($_POST['prizepicture'],substr(strrchr($_POST['prizepicture'], '.'), 0));
+        
+        //判断是优惠券还是积分
+        $couponregex = "/(coupon)(.*)/u";
+        $pointsregex = "/(points)(.*)/u";
+        $matches = array();
+        if(preg_match($couponregex, $prizepicturename, $matches)){
+            //获取优惠券
+            $couponissue=$this->getSaloncouponissueMapper()->getSaloncouponissue1($matches['2']);
+            //存入用户领取表中
+            $entity=new SaloncoupongetEntity();
+            $entity->setCusid($cusid);
+            $entity->setSciid($couponissue->getSciid());
+            $entity->setSalnumber($id);
+            $entity->setScgstate("unused");
+            $entity->setScimoney($couponissue->getScimoney());
+            $entity->setScirestriction($couponissue->getScirestriction());
+            $entity->setComparedate($couponissue->getComparedate());
+            $this->getSaloncoupongetMapper()->saveSaloncouponget($entity);
+        }
+        if (preg_match($pointsregex, $prizepicturename, $matches)){
+           //加入用户积分中 
+            $cusleveltype=$this->getCusleveltypeMapper()->getTask($cusid);
+            $cusleveltype->setCuspoints($cusleveltype->getCuspoints()+$matches['2']);
+            $this->getCusleveltypeMapper()->saveTask($cusleveltype);
+        }
+        
+    }
+    
+    //TODO lotterypointswinning
+    public function lotterypointswinningAction(){
+        $container = new Container('customerlogin');
+        $id = $container->salnumber;
+        $cusid = $container->cusid;
+        $cusname = $container->cusname;
+        $cusphone = $container->cusphone;
+        $cusphoto = $container->cusphoto;
+        
+        
+        //保存入抽奖奖品表
+        $lotteryentity=new LotteryEntity();
+        $lotteryentity->setSalnumber($id);
+        $lotteryentity->setCusid($cusid);
+        $lotteryentity->setCusname($cusname);
+        $lotteryentity->setCusphone($cusphone);
+        $lotteryentity->setCusphoto($cusphoto);
+        $lotteryentity->setPrizepicture($_POST['prizepicture']);
+        $lotteryentity->setReceivestate(0);
+        $lotteryentity->setLotterytype("积分抽奖");
+        $this->getLotteryMapper()->saveLottery($lotteryentity);
+        
+        //消耗积分  （为什么必须放在//保存入抽奖奖品表 下面才会保存抽奖，靠）
+        $cusleveltype=$this->getCusleveltypeMapper()->getTask($cusid);
+        $remainingpoints=$cusleveltype->getCuspoints()-$_POST['expendpoints'];
+        $cusleveltype->setCuspoints($remainingpoints);
+        $this->getCusleveltypeMapper()->saveTask($cusleveltype);
+        
+        //获取文件名，不包括后缀
+        $prizepicturename=basename($_POST['prizepicture'],substr(strrchr($_POST['prizepicture'], '.'), 0));
+        
+        //判断是优惠券还是积分
+        $couponregex = "/(coupon)(.*)/u";
+        $pointsregex = "/(points)(.*)/u";
+        $matches = array();
+        if(preg_match($couponregex, $prizepicturename, $matches)){
+            //获取优惠券
+            $couponissue=$this->getSaloncouponissueMapper()->getSaloncouponissue1($matches['2']);
+            //存入用户领取表中
+            $entity=new SaloncoupongetEntity();
+            $entity->setCusid($cusid);
+            $entity->setSciid($couponissue->getSciid());
+            $entity->setSalnumber($id);
+            $entity->setScgstate("unused");
+            $entity->setScimoney($couponissue->getScimoney());
+            $entity->setScirestriction($couponissue->getScirestriction());
+            $entity->setComparedate($couponissue->getComparedate());
+            $this->getSaloncoupongetMapper()->saveSaloncouponget($entity);
+        }
+        if (preg_match($pointsregex, $prizepicturename, $matches)){
+            //加入用户积分中
+            $cusleveltype=$this->getCusleveltypeMapper()->getTask($cusid);
+            $cusleveltype->setCuspoints($cusleveltype->getCuspoints()+$matches['2']);
+            $this->getCusleveltypeMapper()->saveTask($cusleveltype);
+        }
+        
+        return array('remainingpoints'=>$remainingpoints);
         
     }
 }

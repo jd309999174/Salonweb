@@ -234,7 +234,7 @@
 						</div>
 					</div>
 				</li>
-		 <!-- 抽奖  -->
+		 <!-- 每日抽奖  -->
 				<li id="draggable42" data-type="lotteryrow" class="ui-state-highlight intro"
 					onclick='if($(this).parent().attr("id")){
 						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
@@ -249,13 +249,14 @@
 	       $("#lotteryrowimg6").attr("src",$(this).find(".lotteryimg6").attr("src"));
 	       $("#lotteryrowimg7").attr("src",$(this).find(".lotteryimg7").attr("src"));
 	       $("#lotteryrowimg8").attr("src",$(this).find(".lotteryimg8").attr("src"));
-	       $("#lotteryrowtext1").val($(this).find(".lotteryrowtext1").attr("data-lotteryrate"));
+	       $("#lotteryrowtext1").val($(this).find(".lotterytable").attr("data-lotteryrate"));
+	       $("#lotteryrowtext2").val($(this).find(".lotterytable").attr("data-lotterypoints"));
            $(".fieldset").hide();
            $("#lotteryrowfield").show();}'>
 					<div class="content">
 						<div class="row"> 
   <div id="lottery">
-    <table class="lotteryrowtext1" data-lotteryrate="">
+    <table class="lotterytable" data-lotteryrate="" data-lotterypoints="">
      <caption style="font-size: 150%">&nbsp;<span style="color: #ba1809;" class="glyphicon glyphicon-gift" aria-hidden="true"></span>&nbsp;&nbsp;每日抽奖</caption>
         <tbody><tr>
             <td class="lottery-unit lottery-unit-0 active"><img src="/img/prize1.jpg" class="lotteryimg1"><div class="mask"></div></td>
@@ -271,6 +272,51 @@
             <td class="lottery-unit lottery-unit-6"><img src="/img/prize7.jpg" class="lotteryimg7"><div class="mask"></div></td>
             <td class="lottery-unit lottery-unit-5"><img src="/img/prize6.jpg" class="lotteryimg6"><div class="mask"></div></td>
             <td class="lottery-unit lottery-unit-4"><img src="/img/prize5.jpg" class="lotteryimg5"><div class="mask"></div></td>
+        </tr>
+    </tbody></table>
+  </div>
+						</div>
+					</div>
+				</li>
+				
+				<!-- 积分抽奖  -->
+				<li id="draggable43" data-type="lotterypointsrow" class="ui-state-highlight intro"
+					onclick='if($(this).parent().attr("id")){
+						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
+                        $(this).css("background","#ccc");
+						$("#lotterypointssubmit").attr("onclick","mylotterypoints("+$(this).index(".intro")+")");
+						$("#lotterypointsdelete").attr("onclick","mydelete("+$(this).index(".intro")+")");
+	       $("#lotterypointsrowimg1").attr("src",$(this).find(".lotterypointsimg1").attr("src"));
+	       $("#lotterypointsrowimg2").attr("src",$(this).find(".lotterypointsimg2").attr("src"));
+	       $("#lotterypointsrowimg3").attr("src",$(this).find(".lotterypointsimg3").attr("src"));
+	       $("#lotterypointsrowimg4").attr("src",$(this).find(".lotterypointsimg4").attr("src"));
+	       $("#lotterypointsrowimg5").attr("src",$(this).find(".lotterypointsimg5").attr("src"));
+	       $("#lotterypointsrowimg6").attr("src",$(this).find(".lotterypointsimg6").attr("src"));
+	       $("#lotterypointsrowimg7").attr("src",$(this).find(".lotterypointsimg7").attr("src"));
+	       $("#lotterypointsrowimg8").attr("src",$(this).find(".lotterypointsimg8").attr("src"));
+	       $("#lotterypointsrowtext1").val($(this).find(".lotterypointstable").attr("data-lotterypointsrate"));
+	       $("#lotterypointsrowtext2").val($(this).find(".lotterypointstable").attr("data-lotterypointspoints"));
+           $(".fieldset").hide();
+           $("#lotterypointsrowfield").show();}'>
+					<div class="content">
+						<div class="row"> 
+  <div id="lotterypoints">
+    <table class="lotterypointstable" data-lotterypointsrate="" data-lotterypointspoints="">
+     <caption style="font-size: 150%">&nbsp;<span style="color: #ba1809;" class="glyphicon glyphicon-gift" aria-hidden="true"></span>&nbsp;&nbsp;积分抽奖</caption>
+        <tbody><tr>
+            <td class="lottery-unit lottery-unit-0 active"><img src="/img/prize1.jpg" class="lotterypointsimg1"><div class="mask"></div></td>
+            <td class="lottery-unit lottery-unit-1"><img src="/img/prize2.jpg" class="lotterypointsimg2"><div class="mask"></div></td>
+            <td class="lottery-unit lottery-unit-2"><img src="/img/prize3.jpg" class="lotterypointsimg3"><div class="mask"></div></td>
+        </tr>
+        <tr>
+            <td class="lottery-unit lottery-unit-7"><img src="/img/thanksforyou.jpg" class="lotterypointsimg8"><div class="mask"></div></td>
+            <td><a href="#"><img src="/img/lottery1.jpg"></a></td>
+            <td class="lottery-unit lottery-unit-3"><img src="/img/prize4.jpg" class="lotterypointsimg4"><div class="mask"></div></td>
+        </tr>
+        <tr>
+            <td class="lottery-unit lottery-unit-6"><img src="/img/prize7.jpg" class="lotterypointsimg7"><div class="mask"></div></td>
+            <td class="lottery-unit lottery-unit-5"><img src="/img/prize6.jpg" class="lotterypointsimg6"><div class="mask"></div></td>
+            <td class="lottery-unit lottery-unit-4"><img src="/img/prize5.jpg" class="lotterypointsimg5"><div class="mask"></div></td>
         </tr>
     </tbody></table>
   </div>

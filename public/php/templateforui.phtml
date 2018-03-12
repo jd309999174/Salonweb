@@ -270,7 +270,7 @@
   <div id="lotteryexhaustAlert" style="text-align:center;display:none;">
     <div class="alert alert-danger" style="font-size: 120%">您今天抽奖次数已用完，明天再来吧！</div>
   </div>
-    <table class="lotteryrowtext1" data-lotteryrate="<?php echo $item->getTemplatedata9();?>">
+    <table class="lotterytable" data-lotteryrate="<?php echo $item->getTemplatedata9();?>" data-lotterypoints="<?php echo $item->getTemplatedata10();?>">
     <caption style="font-size: 150%">&nbsp;<span style="color: #ba1809;" class="glyphicon glyphicon-gift" aria-hidden="true"></span>
     &nbsp;&nbsp;每日抽奖&nbsp;&nbsp;<span id="lotterydescription"  style="font-size: 80%;color: #ba1809;"><?php if ($lotterydate==date("Ymd")){echo "您今天已抽过奖了";}else{echo "您今天还有一次抽奖机会";}?></span></caption>
         <tbody><tr>
@@ -422,6 +422,216 @@ window.onload=function(){
             roll();    //转圈过程不响应click事件，会将click置为false
             click=true; //一次抽奖完成后，设置click为true，可继续抽奖
             $("#lotterydescription").html("您今天已抽过奖了");
+            return false;
+        }
+        }
+    });
+};
+</script>
+						</div>
+					</div>
+				</li>
+<?php break;?>
+<?php case "lotterypointsrow": ?>
+				<li  data-type="lotterypointsrow" class="ui-state-highlight intro">
+					<div class="content">
+						<div class="row">
+<?php //TODO style 第一，第二是抽奖的?>
+<style>
+#lotterypoints{width:100%px;height:100%px;margin:0px auto;border:4px solid #ba1809;}
+#lotterypoints table{background-color:white;}
+#lotterypoints table td{position:relative;width:33%;height:100%;text-align:center;color:#333;font-index:-999}
+#lotterypoints table td img{display:block;width:100%;}
+#lotterypoints table td a{width:100%;height:100%;display:block;text-decoration:none;background:url(/img/lottery1.jpg) no-repeat top center;}
+#lotterypoints table td a:hover{background-image:url(/img/lottery2.jpg);}
+#lotterypoints table td.active .mask{display:block;}
+.mask{
+    width:100%;
+    height:100%;
+    position:absolute;
+    left:0;
+    top:0;
+    background-color: rgba(252,211,4,0.5);
+    display:none;
+}
+</style>
+
+<style>@font-face{font-family:uc-nexus-iconfont;src:url(chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.woff) format('woff'),url(chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.ttf) format('truetype')}</style><style type="text/css">
+:root div[style="background:#C91521;height:90px;"],
+:root .txtAdBox,
+:root .titright,
+:root .red[href*=".wsisp.net/"],
+:root .plate-layout,
+:root .newsMainBox-textad,
+:root .kwLink,
+:root .adtext,
+:root .adfixbug,
+:root .adbox,
+:root .Postcon-ad
+{ display: none !important; }
+</style>
+  <div id="lotterypoints">
+  <div id="lotterypointsAlert" style="text-align:center;display:none;">
+    <div class="alert alert-danger" style="font-size: 120%">您的中奖奖品可在 我->我的奖品 中查询</div>
+  </div>
+  <div id="lotterypointsexhaustAlert" style="text-align:center;display:none;">
+    <div class="alert alert-danger" style="font-size: 120%">您的积分不够了，下次再来吧</div>
+  </div>
+    <table class="lotterypointstable" data-lotterypointsrate="<?php echo $item->getTemplatedata9();?>" data-lotterypointspoints="<?php echo $item->getTemplatedata10();?>">
+    <caption style="font-size: 150%">&nbsp;<span style="color: #ba1809;" class="glyphicon glyphicon-gift" aria-hidden="true"></span>
+    &nbsp;&nbsp;积分抽奖&nbsp;&nbsp;<span id="lotterypointsdescription"  style="font-size: 80%;color: #ba1809;"><?php echo $item->getTemplatedata10()."/次"?>，剩余<span id="showremainingpoints" style="font-size: 80%;color: #ba1809;"><?php echo $cuspoints;?></span>积分</span></caption>
+        <tbody><tr>
+            <td class="lottery-unit lottery-unit-0 active"><img src="<?php echo $item->getTemplatedata1();?>" class="lotterypointsimg1"><div class="mask"></div></td>
+            <td style="width:0.5%"></td>
+            <td class="lottery-unit lottery-unit-1"><img src="<?php echo $item->getTemplatedata2();?>" class="lotterypointsimg2"><div class="mask"></div></td>
+            <td style="width:0.5%"></td>
+            <td class="lottery-unit lottery-unit-2"><img src="<?php echo $item->getTemplatedata3();?>" class="lotterypointsimg3"><div class="mask"></div></td>
+        </tr>
+        <tr>
+            <td class="lottery-unit lottery-unit-7"><img src="<?php echo $item->getTemplatedata8();?>" class="lotterypointsimg8"><div class="mask"></div></td>
+            <td style="width:0.5%"></td>
+            <td><a href="#"><img style="height:100%" src="/img/lottery1.jpg"></a></td>
+            <td style="width:0.5%"></td>
+            <td class="lottery-unit lottery-unit-3"><img src="<?php echo $item->getTemplatedata4();?>" class="lotterypointsimg4"><div class="mask"></div></td>
+        </tr>
+        <tr>
+            <td class="lottery-unit lottery-unit-6"><img src="<?php echo $item->getTemplatedata7();?>" class="lotterypointsimg7"><div class="mask"></div></td>
+            <td style="width:0.5%"></td>
+            <td class="lottery-unit lottery-unit-5"><img src="<?php echo $item->getTemplatedata6();?>" class="lotterypointsimg6"><div class="mask"></div></td>
+            <td style="width:0.5%"></td>
+            <td class="lottery-unit lottery-unit-4"><img src="<?php echo $item->getTemplatedata5();?>" class="lotterypointsimg5"><div class="mask"></div></td>
+        </tr>
+    </tbody></table>
+  </div>
+  <script type="text/javascript">
+var lotteryremainingpoints=<?php echo $cuspoints;?>;
+var lotterystate=lotteryremainingpoints < <?php echo $item->getTemplatedata10();?>?1:0; //可用状态
+var lottery={//抽奖的script
+    index:-1,    //当前转动到哪个位置，起点位置
+    count:0,    //总共有多少个位置
+    timer:0,    //setTimeout的ID，用clearTimeout清除
+    speed:20,    //初始转动速度
+    times:0,    //转动次数
+    cycle:50,    //转动基本次数：即至少需要转动多少次再进入抽奖环节
+    prize:-1,    //中奖位置
+    init:function(id){
+        if ($("#"+id).find(".lottery-unit").length>0) {
+            $lottery = $("#"+id);
+            $units = $lottery.find(".lottery-unit");
+            this.obj = $lottery;
+            this.count = $units.length;
+            $lottery.find(".lottery-unit-"+this.index).addClass("active");
+        };
+    },
+    roll:function(){
+        var index = this.index;
+        var count = this.count;
+        var lottery = this.obj;
+        $(lottery).find(".lottery-unit-"+index).removeClass("active");
+        index += 1;
+        if (index>count-1) {
+            index = 0;
+        };
+        $(lottery).find(".lottery-unit-"+index).addClass("active");
+        this.index=index;
+        return false;
+    },
+    stop:function(index){
+        this.prize=index;
+        return false;
+    }
+};
+
+function roll(){
+    lottery.times += 1;
+    lottery.roll();//转动过程调用的是lottery的roll方法，这里是第一次调用初始化
+    if (lottery.times > lottery.cycle+10 && lottery.prize==lottery.index) {
+        clearTimeout(lottery.timer);
+        lottery.prize=-1;
+        lottery.times=0;
+        click=false;
+    }else{
+        if (lottery.times<lottery.cycle) {
+            lottery.speed -= 10;
+        }else if(lottery.times==lottery.cycle) {
+      	  <?php   preg_match_all("/([^,]+),/u",
+    			  $item->getTemplatedata9(),
+    			  $out, PREG_PATTERN_ORDER);
+    			  $prizerate1=$out[1][0]*100;
+    			  $prizerate2=$out[1][1]*100;
+    			  $prizerate3=$out[1][2]*100;
+    			  $prizerate4=$out[1][3]*100;
+    			  $prizerate5=$out[1][4]*100;
+    			  $prizerate6=$out[1][5]*100;
+    			  $prizerate7=$out[1][6]*100;
+    			  $prizerate8=$out[1][7]*100;
+    			  ?>
+            var index =Math.floor((Math.random()*10000)+1);//中奖物品通过一个随机数生成
+            if(index<=<?php echo $prizerate1;?>){
+            	lottery.prize = 0;  
+                };
+            if(index><?php echo $prizerate1;?>&&index<=<?php echo $prizerate1+$prizerate2;?>){
+            	lottery.prize = 1;  
+                };
+            if(index><?php echo $prizerate1+$prizerate2;?>&&index<=<?php echo $prizerate1+$prizerate2+$prizerate3;?>){
+            	lottery.prize = 2;  
+                };
+            if(index><?php echo $prizerate1+$prizerate2+$prizerate3;?>&&index<=<?php echo $prizerate1+$prizerate2+$prizerate3+$prizerate4;?>){
+            	lottery.prize = 3;
+                };
+            if(index><?php echo $prizerate1+$prizerate2+$prizerate3+$prizerate4;?>&&index<=<?php echo $prizerate1+$prizerate2+$prizerate3+$prizerate4+$prizerate5;?>){
+            	lottery.prize = 4;
+                };
+            if(index><?php echo $prizerate1+$prizerate2+$prizerate3+$prizerate4+$prizerate5;?>&&index<=<?php echo $prizerate1+$prizerate2+$prizerate3+$prizerate4+$prizerate5+$prizerate6;?>){
+            	lottery.prize = 5;
+                };
+            if(index><?php echo $prizerate1+$prizerate2+$prizerate3+$prizerate4+$prizerate5+$prizerate6;?>&&index<=<?php echo $prizerate1+$prizerate2+$prizerate3+$prizerate4+$prizerate5+$prizerate6+$prizerate7;?>){
+            	lottery.prize = 6;
+                };
+            if(index><?php echo $prizerate1+$prizerate2+$prizerate3+$prizerate4+$prizerate5+$prizerate6+$prizerate7;?>){
+            	lottery.prize = 7;
+                };
+                //中奖提示
+                $prizepicture=$(".lottery-unit-"+lottery.prize).find("img").attr("src");
+                $.ajax({url:"<?php echo $this->url('customer', array('action'=>'lotterypointswinning'));?>",dataType:"text",data:{prizepicture:$prizepicture,expendpoints:<?php echo $item->getTemplatedata10();?>},type:"POST"});
+                lotteryremainingpoints=lotteryremainingpoints-<?php echo $item->getTemplatedata10();?>;
+                $("#showremainingpoints").html(lotteryremainingpoints);
+                $("#lotterypointsAlert").show();
+                setTimeout(function(){$("#lotterypointsAlert").hide()},5000);
+                lotterystate=lotteryremainingpoints < <?php echo $item->getTemplatedata10();?>?1:0; //可用状态
+        }else{
+            if (lottery.times > lottery.cycle+10 && ((lottery.prize==0 && lottery.index==7) || lottery.prize==lottery.index+1)) {
+                lottery.speed += 110;
+            }else{
+                lottery.speed += 20;
+            }
+        }
+        if (lottery.speed<40) {
+            lottery.speed=40;
+        };
+        //console.log(lottery.times+'^^^^^^'+lottery.speed+'^^^^^^^'+lottery.prize);
+        lottery.timer = setTimeout(roll,lottery.speed);//循环调用
+    }
+    return false;
+}
+
+var click=false;
+
+window.onload=function(){
+    lottery.init('lotterypoints');
+    $("#lotterypoints a").click(function(){
+    	if(lotterystate){//已抽过奖
+        	$("#lotterypointsexhaustAlert").show();
+            setTimeout(function(){$("#lotterypointsexhaustAlert").hide()},3000);
+            $("#lotterypointsdescription").html("您的积分剩余"+lotteryremainingpoints+"，下次再来吧！");
+            return false;
+            }else{//未抽过奖
+        if (click) {//click控制一次抽奖过程中不能重复点击抽奖按钮，后面的点击不响应
+            return false;
+        }else{
+            lottery.speed=100;
+            roll();    //转圈过程不响应click事件，会将click置为false
+            click=true; //一次抽奖完成后，设置click为true，可继续抽奖
             return false;
         }
         }

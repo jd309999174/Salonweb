@@ -13,12 +13,30 @@ class LotteryEntity
     protected $prizepicture;
     protected $receivetime;
     protected $receivestate;
+    protected $lotterytype;
+    
     
     public function __construct()
     {
         $this->winningtime = time();
     }
     
+    /**
+     * @return the $lotterytype
+     */
+    public function getLotterytype()
+    {
+        return $this->lotterytype;
+    }
+
+    /**
+     * @param field_type $lotterytype
+     */
+    public function setLotterytype($lotterytype)
+    {
+        $this->lotterytype = $lotterytype;
+    }
+
     /**
      * @return the $cusphone
      */

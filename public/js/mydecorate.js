@@ -87,9 +87,23 @@ function mylottery($x){//抽奖
 	    $(".intro").eq($x).find(".lotteryimg6").attr("src",$("#lotteryrowimg6").attr("src"));
 	    $(".intro").eq($x).find(".lotteryimg7").attr("src",$("#lotteryrowimg7").attr("src"));
 	    $(".intro").eq($x).find(".lotteryimg8").attr("src",$("#lotteryrowimg8").attr("src"));
-	    $(".intro").eq($x).find(".lotteryrowtext1").attr("data-lotteryrate",$("#lotteryrowtext1").val());
+	    $(".intro").eq($x).find(".lotterytable").attr("data-lotteryrate",$("#lotteryrowtext1").val());
+	    $(".intro").eq($x).find(".lotterytable").attr("data-lotterypoints",$("#lotteryrowtext2").val());
 		$(".fieldset").hide();
 		};
+function mylotterypoints($x){//抽奖
+		$(".intro").eq($x).find(".lotterypointsimg1").attr("src",$("#lotterypointsrowimg1").attr("src"));
+		$(".intro").eq($x).find(".lotterypointsimg2").attr("src",$("#lotterypointsrowimg2").attr("src"));
+		$(".intro").eq($x).find(".lotterypointsimg3").attr("src",$("#lotterypointsrowimg3").attr("src"));
+		$(".intro").eq($x).find(".lotterypointsimg4").attr("src",$("#lotterypointsrowimg4").attr("src"));
+	    $(".intro").eq($x).find(".lotterypointsimg5").attr("src",$("#lotterypointsrowimg5").attr("src"));
+	    $(".intro").eq($x).find(".lotterypointsimg6").attr("src",$("#lotterypointsrowimg6").attr("src"));
+		$(".intro").eq($x).find(".lotterypointsimg7").attr("src",$("#lotterypointsrowimg7").attr("src"));
+		$(".intro").eq($x).find(".lotterypointsimg8").attr("src",$("#lotterypointsrowimg8").attr("src"));
+		$(".intro").eq($x).find(".lotterypointstable").attr("data-lotterypointsrate",$("#lotterypointsrowtext1").val());
+		$(".intro").eq($x).find(".lotterypointstable").attr("data-lotterypointspoints",$("#lotterypointsrowtext2").val());
+	    $(".fieldset").hide();
+	    };
 //删除元素
 function mydelete($x){
 	  $(".intro").eq($x).remove();
@@ -136,6 +150,11 @@ $(function() {
         revert: "invalid"
       });
     $( "#draggable42" ).draggable({
+        connectToSortable: "#sortable",
+        helper: "clone",
+        revert: "invalid"
+      });
+    $( "#draggable43" ).draggable({
         connectToSortable: "#sortable",
         helper: "clone",
         revert: "invalid"

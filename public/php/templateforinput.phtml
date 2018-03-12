@@ -306,9 +306,9 @@
 			<button onclick="myvideo('100')" id="videosubmit">提交</button>
 		<button onclick="mydelete('100')" id="videodelete">删除</button>
 	</fieldset>
-		<!-- 抽奖 -->
+		<!-- 每日抽奖 -->
 	<fieldset class="fieldset" id="lotteryrowfield">
-		<legend>抽奖</legend>
+		<legend>每日抽奖</legend>
 		奖品1<br> <img alt="" src="/img/mylogo.png" id="lotteryrowimg1" class="picturechoose1 img1"> 
 		奖品2<br> <img alt="" src="/img/mylogo.png" id="lotteryrowimg2" class="picturechoose2 img1"> 
 		奖品3<br> <img alt="" src="/img/mylogo.png" id="lotteryrowimg3" class="picturechoose3 img1"> 
@@ -317,13 +317,55 @@
 		奖品6<br> <img alt="" src="/img/mylogo.png" id="lotteryrowimg6" class="picturechoose6 img1"> 
 		奖品7<br> <img alt="" src="/img/mylogo.png" id="lotteryrowimg7" class="picturechoose7 img1"> 
 		奖品8<br> <img alt="" src="/img/mylogo.png" id="lotteryrowimg8" class="picturechoose8 img1">
-		<div class="tooltip-test" data-toggle="tooltip" title="中奖率按转动顺序，以逗号‘,’为分隔，总和为100，例如：0.1,0.5,0.9,10,10,10,30,38.5,">中奖率</div><br> <div class="input-group">
+		<div class="tooltip-test" data-toggle="tooltip" title="中奖率按转动顺序，以逗号‘,’为分隔，总和为100，例如：0.1,0.5,0.9,10,10,10,30,38.5,">中奖率</div>
+		<br> 
+		<div class="input-group">
 		            <textarea class="form-control" id="lotteryrowtext1"></textarea>
 					<span class="input-group-addon">
 							<span class="ui-icon  ui-icon-document" onclick="$('#lotteryrowtext1').val('');"></span>
 					</span>	
-					</div>
+		</div>
+		<br>
+		<div class="tooltip-test" style="display:none;" data-toggle="tooltip" title="每日首次为免费抽奖，然后需积分抽奖，0为无积分抽奖">积分抽奖</div>
+		<br> 
+		<div class="input-group" style="display:none;">
+		            <textarea class="form-control" id="lotteryrowtext2"></textarea>
+					<span class="input-group-addon">
+							<span class="ui-icon  ui-icon-document" onclick="$('#lotteryrowtext2').val('');"></span>
+					</span>	
+		</div>
 		<button onclick="mylottery('100')" id="lotterysubmit">提交</button>
 		<button onclick="mydelete('100')" id="lotterydelete">删除</button>
+	</fieldset>
+	<!-- 积分抽奖 -->
+	<fieldset class="fieldset" id="lotterypointsrowfield">
+		<legend>积分抽奖</legend>
+		奖品1<br> <img alt="" src="/img/mylogo.png" id="lotterypointsrowimg1" class="picturechoose1 img1"> 
+		奖品2<br> <img alt="" src="/img/mylogo.png" id="lotterypointsrowimg2" class="picturechoose2 img1"> 
+		奖品3<br> <img alt="" src="/img/mylogo.png" id="lotterypointsrowimg3" class="picturechoose3 img1"> 
+		奖品4<br> <img alt="" src="/img/mylogo.png" id="lotterypointsrowimg4" class="picturechoose4 img1"> 
+		奖品5<br> <img alt="" src="/img/mylogo.png" id="lotterypointsrowimg5" class="picturechoose5 img1"> 
+		奖品6<br> <img alt="" src="/img/mylogo.png" id="lotterypointsrowimg6" class="picturechoose6 img1"> 
+		奖品7<br> <img alt="" src="/img/mylogo.png" id="lotterypointsrowimg7" class="picturechoose7 img1"> 
+		奖品8<br> <img alt="" src="/img/mylogo.png" id="lotterypointsrowimg8" class="picturechoose8 img1">
+		<div class="tooltip-test" data-toggle="tooltip" title="中奖率按转动顺序，以逗号‘,’为分隔，总和为100，例如：0.1,0.5,0.9,10,10,10,30,38.5,">中奖率</div>
+		<br> 
+		<div class="input-group">
+		            <textarea class="form-control" id="lotterypointsrowtext1"></textarea>
+					<span class="input-group-addon">
+							<span class="ui-icon  ui-icon-document" onclick="$('#lotterypointsrowtext1').val('');"></span>
+					</span>	
+		</div>
+		<br>
+		<div class="tooltip-test" data-toggle="tooltip" title="0为无积分抽奖">积分抽奖</div>
+		<br> 
+		<div class="input-group">
+		            <textarea class="form-control" id="lotterypointsrowtext2"></textarea>
+					<span class="input-group-addon">
+							<span class="ui-icon  ui-icon-document" onclick="$('#lotterypointsrowtext2').val('');"></span>
+					</span>	
+		</div>
+		<button onclick="mylotterypoints('100')" id="lotterypointssubmit">提交</button>
+		<button onclick="mydelete('100')" id="lotterypointsdelete">删除</button>
 	</fieldset>
 </div>

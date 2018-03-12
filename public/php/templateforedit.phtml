@@ -248,13 +248,14 @@
 	       $("#lotteryrowimg6").attr("src",$(this).find(".lotteryimg6").attr("src"));
 	       $("#lotteryrowimg7").attr("src",$(this).find(".lotteryimg7").attr("src"));
 	       $("#lotteryrowimg8").attr("src",$(this).find(".lotteryimg8").attr("src"));
-	       $("#lotteryrowtext1").val($(this).find(".lotteryrowtext1").attr("data-lotteryrate"));
+	       $("#lotteryrowtext1").val($(this).find(".lotterytable").attr("data-lotteryrate"));
+	       $("#lotteryrowtext2").val($(this).find(".lotterytable").attr("data-lotterypoints"));
            $(".fieldset").hide();
            $("#lotteryrowfield").show();}'>
 					<div class="content">
 						<div class="row">
   <div id="lottery">
-    <table class="lotteryrowtext1" data-lotteryrate="<?php echo $item->getTemplatedata9();?>">
+    <table class="lotterytable" data-lotteryrate="<?php echo $item->getTemplatedata9();?>" data-lotterypoints="<?php echo $item->getTemplatedata10();?>">
     <caption style="font-size: 150%">&nbsp;<span style="color: #ba1809;" class="glyphicon glyphicon-gift" aria-hidden="true"></span>&nbsp;&nbsp;每日抽奖</caption>
         <tbody><tr>
             <td class="lottery-unit lottery-unit-0 active"><img src="<?php echo $item->getTemplatedata1();?>" class="lotteryimg1"><div class="mask"></div></td>
@@ -270,6 +271,51 @@
             <td class="lottery-unit lottery-unit-6"><img src="<?php echo $item->getTemplatedata7();?>" class="lotteryimg7"><div class="mask"></div></td>
             <td class="lottery-unit lottery-unit-5"><img src="<?php echo $item->getTemplatedata6();?>" class="lotteryimg6"><div class="mask"></div></td>
             <td class="lottery-unit lottery-unit-4"><img src="<?php echo $item->getTemplatedata5();?>" class="lotteryimg5"><div class="mask"></div></td>
+        </tr>
+    </tbody></table>
+  </div>
+						</div>
+					</div>
+				</li>
+<?php break;?>
+<?php case "lotterypointsrow": ?>
+				<li  data-type="lotterypointsrow" class="ui-state-highlight intro"
+					onclick='if($(this).parent().attr("id")){
+						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
+                        $(this).css("background","#ccc");
+						$("#lotterypointssubmit").attr("onclick","mylotterypoints("+$(this).index(".intro")+")");
+						$("#lotterypointsdelete").attr("onclick","mydelete("+$(this).index(".intro")+")");
+	       $("#lotterypointsrowimg1").attr("src",$(this).find(".lotterypointsimg1").attr("src"));
+	       $("#lotterypointsrowimg2").attr("src",$(this).find(".lotterypointsimg2").attr("src"));
+	       $("#lotterypointsrowimg3").attr("src",$(this).find(".lotterypointsimg3").attr("src"));
+	       $("#lotterypointsrowimg4").attr("src",$(this).find(".lotterypointsimg4").attr("src"));
+	       $("#lotterypointsrowimg5").attr("src",$(this).find(".lotterypointsimg5").attr("src"));
+	       $("#lotterypointsrowimg6").attr("src",$(this).find(".lotterypointsimg6").attr("src"));
+	       $("#lotterypointsrowimg7").attr("src",$(this).find(".lotterypointsimg7").attr("src"));
+	       $("#lotterypointsrowimg8").attr("src",$(this).find(".lotterypointsimg8").attr("src"));
+	       $("#lotterypointsrowtext1").val($(this).find(".lotterypointstable").attr("data-lotterypointsrate"));
+	       $("#lotterypointsrowtext2").val($(this).find(".lotterypointstable").attr("data-lotterypointspoints"));
+           $(".fieldset").hide();
+           $("#lotterypointsrowfield").show();}'>
+					<div class="content">
+						<div class="row">
+  <div id="lotterypoints">
+    <table class="lotterypointstable" data-lotterypointsrate="<?php echo $item->getTemplatedata9();?>" data-lotterypointspoints="<?php echo $item->getTemplatedata10();?>">
+    <caption style="font-size: 150%">&nbsp;<span style="color: #ba1809;" class="glyphicon glyphicon-gift" aria-hidden="true"></span>&nbsp;&nbsp;积分抽奖</caption>
+        <tbody><tr>
+            <td class="lottery-unit lottery-unit-0 active"><img src="<?php echo $item->getTemplatedata1();?>" class="lotterypointsimg1"><div class="mask"></div></td>
+            <td class="lottery-unit lottery-unit-1"><img src="<?php echo $item->getTemplatedata2();?>" class="lotterypointsimg2"><div class="mask"></div></td>
+            <td class="lottery-unit lottery-unit-2"><img src="<?php echo $item->getTemplatedata3();?>" class="lotterypointsimg3"><div class="mask"></div></td>
+        </tr>
+        <tr>
+            <td class="lottery-unit lottery-unit-7"><img src="<?php echo $item->getTemplatedata8();?>" class="lotterypointsimg8"><div class="mask"></div></td>
+            <td><a href="#"><img src="/img/lottery1.jpg"></a></td>
+            <td class="lottery-unit lottery-unit-3"><img src="<?php echo $item->getTemplatedata4();?>" class="lotterypointsimg4"><div class="mask"></div></td>
+        </tr>
+        <tr>
+            <td class="lottery-unit lottery-unit-6"><img src="<?php echo $item->getTemplatedata7();?>" class="lotterypointsimg7"><div class="mask"></div></td>
+            <td class="lottery-unit lottery-unit-5"><img src="<?php echo $item->getTemplatedata6();?>" class="lotterypointsimg6"><div class="mask"></div></td>
+            <td class="lottery-unit lottery-unit-4"><img src="<?php echo $item->getTemplatedata5();?>" class="lotterypointsimg5"><div class="mask"></div></td>
         </tr>
     </tbody></table>
   </div>
