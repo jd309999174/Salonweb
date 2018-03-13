@@ -1,3 +1,7 @@
+<style>
+.texttext{overflow:hidden}
+</style>
+
 <?php foreach ($templateitem as $item) :?>
 <?php switch ($item->getTemplatetype()): ?>
 <?php case "singlerow": ?>
@@ -146,8 +150,8 @@
 						<div class="row">
 							<div class="col">
 								<div class="col-demo">
-									<div class="well">
-										<div class="texttext"><?php echo $item->getTemplatedata1()?> </div>
+									<div>
+										<div class="texttext" ><?php echo $item->getTemplatedata1()?> </div>
 									</div>
 								</div>
 							</div>
