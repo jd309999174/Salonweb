@@ -136,7 +136,8 @@
 				</li>
 				<!-- 文本  -->
 				<li id="draggable32" data-type="textrow" class="ui-state-highlight intro"
-					onclick='if($(this).parent().attr("id")){
+					onclick='editorsync2($(this).find(".texttext").html());
+					if($(this).parent().attr("id")){
 						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
                         $(this).css("background","#ccc");
 						$("#textsubmit").attr("onclick","mytext("+$(this).index(".intro")+")");
