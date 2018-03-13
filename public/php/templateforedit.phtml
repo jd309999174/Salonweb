@@ -1,6 +1,7 @@
 <script>
+//快捷删除按钮
 $(document).ready(function(){
-  $("div").hover(function(){
+  $("li").hover(function(){
     $(".deletebtn").show();
     },function(){
     $(".deletebtn").hide();
@@ -165,7 +166,8 @@ display:none;
 <?php break;?>
 <?php case "textrow": ?>
 <li  data-type="textrow" class="ui-state-highlight intro"
-					onclick='if($(this).parent().attr("id")){
+					onclick='editorsync2($(this).find(".texttext").html());
+					if($(this).parent().attr("id")){
 						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
                         $(this).css("background","#ccc");
 						$("#textsubmit").attr("onclick","mytext("+$(this).index(".intro")+")");
@@ -177,8 +179,8 @@ display:none;
 						<div class="row" >
 							<div class="col">
 							<div class="col-demo">
-							<div class="well">
-							<span class="texttext"><?php echo $item->getTemplatedata1()?> </span>
+							<div>
+							<div class="texttext"><?php echo $item->getTemplatedata1(); ?></div>
 							</div>
 						    </div>
 							</div>

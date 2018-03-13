@@ -182,12 +182,9 @@
 		<legend>文本</legend>
 		      文本  <br> 
 		        	<div class="input-group">
-		            <textarea class="form-control" id="textrowtext"></textarea>
-					<span class="input-group-addon">
-							<span class="ui-icon  ui-icon-document" onclick="$('#textrowtext').val('');"></span>
-					</span>
+		            <textarea style="width:322px;height:200px;" class="form-control" id="textrowtext"></textarea>
 				</div><!-- /input-group -->
-			<button onclick="mytext('100')" id="textsubmit">提交</button>
+			<button onclick="mytext('100')" id="textsubmit" onfocus="editorsync()">提交</button>
 		<button onclick="mydelete('100')" id="textdelete">删除</button>
 	</fieldset>
 	<!--图文-->
