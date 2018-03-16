@@ -7,7 +7,10 @@ $notify_url="https://www.oushelun.cn/customerajax/wechatcheckout";
 $key="94cef0925df4693e6f5e89ddf3084ce3";
 $wechatAppPay = new wechatAppPay($appid, $mch_id, $notify_url, $key);
 $result = $wechatAppPay->getNotifyData();
-if ($result['appid']==$appid&&$result['mch_id']==$mch_id){
+$receivedsign=$result['sign'];
+unset($result['sign']);
+$resultsign=$wechatAppPay->MakeSign($result);
+if ($receivedsign==$resultsign){
     
     
     $dbms='mysql';     //数据库类型
