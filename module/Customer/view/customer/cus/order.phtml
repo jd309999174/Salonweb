@@ -43,7 +43,7 @@ $(document).ready(function(){
 	$('#ordersubmit').click(function(){
 		//判断是支付宝还是微信
 		if($('input:radio[name="paymethod"]:checked').val()=="alipay"){
-		$.ajax({url:"<?php echo $this->url('customer', array('action'=>'payment'));?>",dataType:"text",
+		$.ajax({url:"<?php echo $this->url('customer', array('action'=>'payment','sub'=>'alipay'));?>",dataType:"text",
 			data:{prodid:'<?php echo $_POST['prodid'];?>',productcombinationid:'<?php echo $_POST['productcombinationid'];?>',
 				treprice:$("#total").html(),treremark:$("#treremark").val(),
 				productquantity:$("#productquantity").val(),couponidused:$('option:checked').attr("data-id"),
@@ -63,7 +63,24 @@ $(document).ready(function(){
 		}});
 		}
 		if($('input:radio[name="paymethod"]:checked').val()=="wechat"){
-            alert("微信支付");
+			$.ajax({url:"<?php echo $this->url('customer', array('action'=>'payment','sub'=>'wechat'));?>",dataType:"text",
+				data:{prodid:'<?php echo $_POST['prodid'];?>',productcombinationid:'<?php echo $_POST['productcombinationid'];?>',
+					treprice:$("#total").html(),treremark:$("#treremark").val(),
+					productquantity:$("#productquantity").val(),couponidused:$('option:checked').attr("data-id"),
+					cuspointsused:$("#cuspoints").attr("data-used"),
+					productcombinationname:'<?php echo $_POST['productcombinationname'];?>',
+					prodtitle:'<?php echo $_POST['prodtitle'];?>',
+					prodsalnumber:'<?php echo $_POST['prodsalnumber'];?>',
+					productcombinationpicture:'<?php echo $_POST['productcombinationpicture'];?>'}
+			,type:"POST",
+				success:function(result){
+					$("#div1").html(result);
+					location="<?php echo $this->url('customer', array('action'=>'me'));?>";
+					//setTimeout(function () { 延迟跳转用户多次点击提交订单会生成多个订单
+						// location="<?php // echo $this->url('customer', array('action'=>'me'));?>";
+						 //}, 3000);
+					
+			}});
 			}
 		
 		})

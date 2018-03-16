@@ -1,50 +1,16 @@
-<?php
-    $_POST['content1']="<p>nihaoma</p>";
-	$htmlData = '';
-	if (!empty($_POST['content1'])) {
-		if (get_magic_quotes_gpc()) {
-			$htmlData = stripslashes($_POST['content1']);
-		} else {
-			$htmlData = $_POST['content1'];
-		}
-	}
-?>
-    <link rel="stylesheet" href="/kindeditor-master/themes/simple/simple.css" />
-	<link rel="stylesheet" href="/kindeditor-master/themes/default/default.css" />
-	<link rel="stylesheet" href="/kindeditor-master/plugins/code/prettify.css" />
-	<script charset="utf-8" src="/kindeditor-master/kindeditor-all.js"></script>
-	<script charset="utf-8" src="/kindeditor-master/lang/zh-CN.js"></script>
-	<script charset="utf-8" src="/kindeditor-master/plugins/code/prettify.js"></script>
-	<script>
-	var editor1;
-		KindEditor.ready(function(K) {
-			editor1 = K.create('textarea[name="content1"]', {
-				items:[
-			        'source', '|', 'undo', 'redo','preview', 'template', 'cut', 'copy', 'paste',
-			        'justifyleft', 'justifycenter', 'justifyright',
-			        'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
-			        'superscript', 'clearhtml', 'quickformat', 'selectall', 'fullscreen',
-			        'formatblock', 'fontname', 'fontsize', 'forecolor', 'hilitecolor', 'bold',
-			        'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', 'table', 'hr', 'emoticons', 'baidumap',],
-			    minWidth:"340px",
-				cssPath : '/kindeditor-master/plugins/code/prettify.css',
-				themeType : 'simple',
-				uploadJson : '/kindeditor-master/php/upload_json.php',
-				fileManagerJson : '/kindeditor-master/php/file_manager_json.php',
-				allowFileManager : true,
-			});
-			prettyPrint();
-		});
-		function sync2(content){
-			editor1.html(content);
-			}
-	</script>
-
-	<?php echo $htmlData; ?>
-	<form name="example" method="post" action="demo.php">
-		<textarea id="nihao" name="content1" style="width:340px;height:200px;visibility:hidden;">sadasdasds</textarea>
-		<br />
-		<input type="submit" name="button" value="提交内容" /> (提交快捷键: Ctrl + Enter)
-	</form>
-<button onclick="sync2('zxczxczxc')">asdadads</button>
-
+<script>
+$(document).ready(function(){
+	$.ajax({url:"<?php echo $this->url('customer', array('action'=>'foo'));?>",dataType:"text",
+		data:{prodid:'123'}
+	,type:"POST",
+		success:function(result){
+			$("#div1").html(result);
+			//location="<?php //echo $this->url('customer', array('action'=>'foo'));?>";
+			//setTimeout(function () { 延迟跳转用户多次点击提交订单会生成多个订单
+				// location="<?php // echo $this->url('customer', array('action'=>'me'));?>";
+				 //}, 3000);
+			
+	}});
+})
+</script>
+<div id="div1"></div>

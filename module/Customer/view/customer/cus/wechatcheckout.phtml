@@ -1,0 +1,85 @@
+<?php
+include 'public/php/wechatAppPay.class.php';
+//1.统一下单方法
+$appid="wxc7ff179d403b7a51";
+$mch_id="1500212872";
+$notify_url="https://www.oushelun.cn/customerajax/wechatcheckout";
+$key="94cef0925df4693e6f5e89ddf3084ce3";
+$wechatAppPay = new wechatAppPay($appid, $mch_id, $notify_url, $key);
+$result = $wechatAppPay->getNotifyData();
+if ($result['appid']==$appid&&$result['mch_id']==$mch_id){
+    
+    
+    $dbms='mysql';     //数据库类型
+    $host='47.96.173.116:3306'; //数据库主机名
+    $dbName='company';    //使用的数据库
+    $user='root';      //数据库连接用户名
+    $pass='j12321456';          //对应的密码
+    $dsn="$dbms:host=$host;dbname=$dbName";
+    
+    
+    try {
+        $dbh = new PDO($dsn, $user, $pass); //初始化一个PDO对象
+        
+        //取出cusid,prodid,productquantity
+        preg_match_all("/([^，]+)，/u",
+            $result['attach'],
+            $out, PREG_PATTERN_ORDER);
+        $cusid=$out[1][0];
+        $prodid=$out[1][1];
+        $productquantity=$out[1][2];
+        //echo $out[1][0] . "| " . $out[1][1] . "| " .$out[1][2]."| " .$out[1][3]."\n";
+        /*你还可以进行一次搜索操作
+         foreach ($dbh->query('SELECT * from treatment') as $row) {
+         print_r($row); //你可以用 echo($GLOBAL); 来看到这些值
+         }*/
+        //订单改为已支付
+        $sql = 'UPDATE treatment
+        SET trestate="paid",gmtclose="'.$result['time_end'].'",paymothed="wechat",payid="'.$result['transaction_id'].'"
+        WHERE orderid="'.$result['out_trade_no'].'"';
+        $dbh->query($sql);
+        
+        //用户消费金额的增加
+        $cusnumberselect='SELECT cusnumber
+        FROM customer
+        WHERE cusid="'.$cusid.'"';
+        foreach ($dbh->query($cusnumberselect) as $row) {
+            $cusnumber=$row['cusnumber']+($result['total_fee']/100);
+        }
+        $cusnumberupdate = 'UPDATE customer
+        SET cusnumber="'.$cusnumber.'"
+        WHERE cusid="'.$cusid.'"';
+        $dbh->query($cusnumberupdate);
+        
+        //用户积分的增加
+        $cuspointsselect='SELECT cuspoints
+        FROM cusleveltype
+        WHERE cusid="'.$cusid.'"';
+        foreach ($dbh->query($cuspointsselect) as $row) {
+            $cuspoints=$row['cuspoints']+($result['total_fee']/100);
+        }
+        $cuspointsupdate = 'UPDATE cusleveltype
+        SET cuspoints="'.$cuspoints.'"
+        WHERE cusid="'.$cusid.'"';
+        $dbh->query($cuspointsupdate);
+        
+        //产品销量增加
+        $prodsalesselect='SELECT prodsales
+        FROM product
+        WHERE prodid="'.$prodid.'"';
+        foreach ($dbh->query($prodsalesselect) as $row) {
+            $prodsales=$row['prodsales']+$productquantity;
+        }
+        $prodsalesupdate = 'UPDATE product
+        SET prodsales="'.$prodsales.'"
+        WHERE prodid="'.$prodid.'"';
+        $dbh->query($prodsalesupdate);
+        
+        
+        $dbh = null;
+    } catch (PDOException $e) {
+        //die ("Error!: " . $e->getMessage() . "<br/>");
+    }
+    
+    $wechatAppPay->replyNotify();
+}

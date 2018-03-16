@@ -1,14 +1,4 @@
 <?php
-header('Content-type: application/json');
-//获取回调函数名
-$jsoncallback = htmlspecialchars($_REQUEST ['jsoncallback']);
-//json数据
-$json_data = "<xml><return_code><![CDATA[FAIL]]></return_code><return_msg><![CDATA[璇蜂娇鐢╬ost鏂规硶]]></return_msg></xml>";
-//输出jsonp格式的数据
-echo $json_data;
-?>
-
-<?php
 class wechatAppPay
  { 
  //接口API URL前缀
@@ -63,7 +53,7 @@ public function unifiedOrder( $params ){
  $this->total_fee = $params['total_fee'];
  $this->trade_type = $params['trade_type'];
  $this->nonce_str = $this->genRandomString();
- $this->spbill_create_ip = $_SERVER['REMOTE_ADDR'];
+ $this->spbill_create_ip = "117.60.68.219";
  $this->params['appid'] = $this->appid;
  $this->params['mch_id'] = $this->mch_id;
  $this->params['nonce_str'] = $this->nonce_str;
@@ -73,6 +63,7 @@ public function unifiedOrder( $params ){
  $this->params['spbill_create_ip'] = $this->spbill_create_ip;
  $this->params['notify_url'] = $this->notify_url;
  $this->params['trade_type'] = $this->trade_type;
+ $this->params['attach']=$params['attach'];;
  //获取签名数据
 $this->sign = $this->MakeSign( $this->params );
  $this->params['sign'] = $this->sign;
@@ -303,10 +294,10 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
  if($useCert == true){
  //设置证书
 //使用证书：cert 与 key 分别属于两个.pem文件
-curl_setopt($ch,CURLOPT_SSLCERTTYPE,'PEM');
- //curl_setopt($ch,CURLOPT_SSLCERT, WxPayConfig::SSLCERT_PATH);
- curl_setopt($ch,CURLOPT_SSLKEYTYPE,'PEM');
- //curl_setopt($ch,CURLOPT_SSLKEY, WxPayConfig::SSLKEY_PATH);
+ //curl_setopt($ch,CURLOPT_SSLCERTTYPE,'PEM');
+ curl_setopt($ch,CURLOPT_SSLCERT, "public/php/apiclient_cert.pem");
+ //curl_setopt($ch,CURLOPT_SSLKEYTYPE,'PEM');
+ curl_setopt($ch,CURLOPT_SSLKEY, "public/php/apiclient_key.pem");
  }
  //post提交方式
 curl_setopt($ch, CURLOPT_POST, TRUE);

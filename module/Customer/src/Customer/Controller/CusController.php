@@ -1732,6 +1732,8 @@ public function chatajaxAction()
     // TODO 订单提交页支付
     public function paymentAction()
     {
+        $sub=$this->params('sub');//支付方式 'alipay' 'wechat'
+        
         $container = new Container('customerlogin');
         $id = $container->salnumber;
         $cusid = $container->cusid;
@@ -1779,7 +1781,8 @@ public function chatajaxAction()
             'id' => $id,
             'cusid' => $cusid,
             'orderid'=>$orderid,
-            'treprice'=>$_POST['treprice']
+            'treprice'=>$_POST['treprice'],
+            'sub'=>$sub
         );
     }
     //TODO 支付宝验签
@@ -1789,6 +1792,16 @@ public function chatajaxAction()
           return array(
             'treatment'=>$treatment
           );
+        }
+        
+    }
+    //TODO 微信支付通知
+    public function wechatcheckoutAction(){
+        if(!empty($_POST)){
+            $treatment = $this->getTreatmentMapper()->getTreatmentcheckout($_POST['out_trade_no'],$_POST['total_amount']);
+            return array(
+                'treatment'=>$treatment
+            );
         }
         
     }
