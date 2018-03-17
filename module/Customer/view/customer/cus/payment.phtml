@@ -70,7 +70,8 @@ $(document).ready(function(){
     if(isAndroid){
     	window.android.wechat("<?php echo $data['appid'];?>","<?php echo $data['partnerid'];?>","<?php echo $data['prepayid'];?>","<?php echo $data['noncestr'];?>","<?php echo time();?>","<?php echo $data['sign'];?>");
         }else{
-        webkit.messageHandlers.iosWechat.postMessage("<?php echo $data['appid'];?>","<?php echo $data['partnerid'];?>","<?php echo $data['prepayid'];?>","<?php echo $data['noncestr'];?>","<?php echo time();?>","<?php echo $data['sign'];?>");
+        var allpara=new Array("<?php echo $data['appid'];?>","<?php echo $data['partnerid'];?>","<?php echo $data['prepayid'];?>","<?php echo $data['noncestr'];?>","<?php echo time();?>","<?php echo $data['sign'];?>");
+        webkit.messageHandlers.iosWechat.postMessage(allpara);
             }
 })
 </script>

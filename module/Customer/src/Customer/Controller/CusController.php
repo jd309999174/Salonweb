@@ -2322,7 +2322,59 @@ public function chatajaxAction()
            }
         }
     }
-    
+    //TODO mycoupon
+    public function mycouponAction(){
+        $container = new Container('customerlogin');
+        $id = $container->salnumber;
+        $cusid = $container->cusid;
+        
+        //取出顾客已有的,未使用，未过期的优惠券
+        $salcoupons = $this->getSaloncoupongetMapper()->getSaloncouponget6($id,$cusid);
+        //转为数组
+        $cars=array();
+        foreach ($salcoupons as $salcoupon){
+            array_push($cars,array(
+                "sciid"=>$salcoupon->getSciid(),
+                "scgid"=>$salcoupon->getScgid(),
+                "scirestriction"=>$salcoupon->getScirestriction(),
+                "scimoney"=>$salcoupon->getScimoney(),
+                "comparedate"=>$salcoupon->getComparedate(),
+            ));
+        }
+        //按sciid只保留第一个
+        $key ='sciid';
+        $coupongetarray = $this->second_array_unique_bykey($cars,$key);  
+        
+        return array(
+            'coupongetarray'=>$coupongetarray
+        );
+    }
+    //TODO lotteryprize
+    public function lotteryprizeAction(){
+        $container = new Container('customerlogin');
+        $id = $container->salnumber;
+        $cusid = $container->cusid;
+        
+        $customer=$this->getCustomerMapper()->getCustomer1($cusid);
+        
+        $lotteryhistory=$this->getLotteryMapper()->getLotterycus($cusid);
+        
+        return array(
+            'lotteryhistory'=>$lotteryhistory
+        );
+    }
+    //TODO lotterygetajax
+    public function lotterygetajaxAction(){
+        
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $post = $request->getPost()->toArray();
+            $lotteryprize=$this->getLotteryMapper()->getLotteryid($post['lotteryid']);
+            $lotteryprize->setReceivetime(time());
+            $lotteryprize->setReceivestate("1");
+            $this->getLotteryMapper()->saveLottery($lotteryprize);
+        }
+    }
     //TODO lotterywinning
     public function lotterywinningAction(){
         $container = new Container('customerlogin');

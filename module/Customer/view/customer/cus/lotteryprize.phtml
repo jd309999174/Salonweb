@@ -1,0 +1,56 @@
+<link rel="stylesheet" href="/css/zoomify.css">
+<script src="/js/zoomify.js"></script>
+
+ <div class="input-group input-group-sm" style="background-color:white;padding: 5px;z-index:10;position:fixed;text-align:center;" id="searchcolumn">
+      <span class="input-group-btn" onclick="window.history.back();">
+        <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <span>
+      <img alt="" style="height:20px;" src="/meicon/lotteryprizepicture.png">&nbsp;&nbsp;我的奖品
+      </span>
+ </div>
+<!-- 没有作用，只为平衡高度 -->
+<div class="input-group input-group-sm" style="visibility:hidden;padding: 5px;" >
+      <span class="input-group-btn" >
+        <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <span onclick="window.history.back();">
+      </span>
+ </div>
+
+<table class="table">
+  <caption>抽奖奖品（实物奖品请在到店领取后点击确认领取）</caption>
+  <thead>
+    <tr>
+      <th>时间</th>
+      <th>奖品</th>
+      <th>状态</th></tr>
+  </thead>
+  <tbody>
+  <?php foreach ($lotteryhistory as $lotteyprize):?>
+  <?php if ($lotteyprize->getReceivestate()):?>
+    <tr class="success" style="padding: 5px;">
+    <?php else :?>
+     <tr class="danger" style="padding: 5px;">
+     <?php endif;?>
+      <td><?php echo date("Y-m-d H:i:s",$lotteyprize->getWinningtime());?></td>
+      <td><img class="lotterypicture" alt="奖品" src="<?php echo $lotteyprize->getPrizepicture();?>" style="height:50px;width:50px;"></td>
+    <?php if ($lotteyprize->getReceivestate()):?>
+    <td><button type="button" class="btn btn-default" disabled="disabled">已经领取</button></td>
+    <?php else :?>
+     <td><button onclick='$.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'lotterygetajax'));?>",dataType:"text",data:"lotteryid=<?php echo $lotteyprize->getId();?>",type:"POST",success:function(result){}});
+         $(this).html("已经领取");$(this).attr("disabled","disabled");$(this).removeClass("btn btn-success");$(this).addClass("btn btn-default");' type="button" class="btn btn-success">确认领取</button></td>
+     <?php endif;?>
+      </tr>
+      <?php endforeach;?>
+  </tbody>
+</table>
+
+<script type="text/javascript">
+//图片点击放大
+	$('.lotterypicture').zoomify();
+</script>

@@ -1,0 +1,55 @@
+ <style>
+.stamp {  display: inline-block; padding: 10px; background: white; position: relative; -webkit-filter: drop-shadow(0px 0px 10px rgba(0,0,0,0.5)); /*The stamp cutout will be created using crisp radial gradients*/
+background: radial-gradient(  transparent 0px,  transparent 4px,  white 4px,  white  ); /*reducing the gradient size*/
+background-size: 20px 20px; /*Offset to move the holes to the edge*/
+background-position: -10px -10px; }
+.stamp:after { content: ''; position: absolute; /*We can shrink the pseudo element here to hide the shadow edges*/
+left: 5px; top: 5px; right: 5px; bottom: 5px; /*Shadow - doesn't look good because of the stamp cutout. We can still move this into another pseudo element behind the .stamp main element*/
+    
+  /*box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.5);*/
+    /*pushing it back*/
+z-index: -1; }
+ 
+ </style>
+ 
+ 
+ <div class="input-group input-group-sm" style="background-color:white;padding: 5px;z-index:10;position:fixed;text-align:center;" id="searchcolumn">
+      <span class="input-group-btn" onclick="window.history.back();">
+        <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <span>
+      <img alt="" style="height:20px;" src="/meicon/couponpicture.png">&nbsp;&nbsp;我的优惠券
+      </span>
+ </div>
+<!-- 没有作用，只为平衡高度 -->
+<div class="input-group input-group-sm" style="visibility:hidden;padding: 5px;" >
+      <span class="input-group-btn" >
+        <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <span onclick="window.history.back();">
+      </span>
+ </div>
+
+
+<div class="row" style="text-align: center;">
+<?php foreach ($coupongetarray as $couponget):?>
+<div class="container stamp" style="margin: 10px;">
+		<div class="row"
+			style="background-color: rgb(255, 241, 241); border-radius: 15px;">
+			<div class="col-xs-8 col-sm-8" style="padding: 10px;">
+				
+				<p style="font-size: large;">满<?php echo $couponget['scirestriction'];?>使用</p>
+				<p>截止日期：<?php echo date("Y-m-d H:i:s",$couponget['comparedate']);?></p>
+			</div>
+			<div class="col-xs-4 col-sm-4"
+				style="text-align: center; padding-top: 40px;">
+				<p style="font-size: large;">¥<?php echo $couponget['scimoney'];?></p>
+			</div>
+		</div>
+</div>
+<?php endforeach;?>
+</div>
