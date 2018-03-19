@@ -1,3 +1,11 @@
+<style>
+.row{padding:5px;}
+</style>
+
+<link rel="stylesheet" href="/css/zoomify.css">
+<script src="/js/zoomify.zoomed.js"></script>
+
+
 <?php
 //表情转换方法
 include_once 'public/php/emotionreplace.php';?>
@@ -41,8 +49,22 @@ include_once 'public/php/emotionreplace.php';?>
       <div class="row"><span style="font-weight:bold;">美容院：</span><?php echo $feedback->getSalname();?></div>
       <div id="div1" data-score="1"></div>
       </div>
-      <input type="text" class="form-control" value="<?php echo ubbReplace($feedback->getFbadvise());?>" readonly="readonly" />   
    </div>
+    <div class="row">
+          <?php 
+          preg_match_all("/([^;]+);/u",
+              $feedback->getSmallpicturegroup3(),
+              $original, PREG_PATTERN_ORDER);
+          preg_match_all("/([^;]+);/u",
+              $feedback->getOriginalpicturegroup3(),
+              $zoomed, PREG_PATTERN_ORDER);
+          for ($i=0;$i<count($original[1]);$i++):
+          ?>
+           <div class="col-xs-3 col-sm-3"><img data-zoomed="/fbpicture/<?php echo $zoomed[1][$i];?>" class="fbpicture" alt=""  data-original="/fbpicture/<?php echo $original[1][$i];?>"></div>
+          <?php endfor;?>
+          </div>
+   <div class="row"><?php echo ubbReplace($feedback->getFbadvise());?></div>
+   
 <div class="row well" style="font-weight:bold;">2.产品评星与评价</div>
    <div class="row">
     <div class="col-sm-6 col-xs-6">
@@ -54,8 +76,22 @@ include_once 'public/php/emotionreplace.php';?>
       <p style="font-size: 130%;"><?php echo $feedback->getProdtitle();?><p></div>
       <div  id="div2" data-score="1"></div>
       </div>   
-     <input type="text" class="form-control" value="<?php echo ubbReplace($feedback->getFbadvise1());?>" readonly="readonly" />
-   </div>
+     </div>
+      <div class="row">
+          <?php 
+          preg_match_all("/([^;]+);/u",
+              $feedback->getSmallpicturegroup2(),
+              $original, PREG_PATTERN_ORDER);
+          preg_match_all("/([^;]+);/u",
+              $feedback->getOriginalpicturegroup2(),
+              $zoomed, PREG_PATTERN_ORDER);
+          for ($i=0;$i<count($original[1]);$i++):
+          ?>
+           <div class="col-xs-3 col-sm-3"><img data-zoomed="/fbpicture/<?php echo $zoomed[1][$i];?>" class="fbpicture" alt=""  data-original="/fbpicture/<?php echo $original[1][$i];?>"></div>
+          <?php endfor;?>
+          </div>
+     <div class="row"><?php echo ubbReplace($feedback->getFbadvise1());?></div>
+   
 <div class="row well" style="font-weight:bold;">3.服务评星与评价</div>   
    <div class="row">
     <div class="col-sm-6 col-xs-6">
@@ -64,9 +100,22 @@ include_once 'public/php/emotionreplace.php';?>
       <div class="col-sm-6 col-xs-6">
       <div class="row"><span style="font-weight:bold;">美容师：</span><?php echo $feedback->getCosname();?></div>
       <div id="div3" data-score="1"></div>
-      </div>    
-      <input type="text" class="form-control" value="<?php echo ubbReplace($feedback->getFbadvise2());?>" readonly="readonly" />
+      </div>     
    </div>
+    <div class="row">
+          <?php 
+          preg_match_all("/([^;]+);/u",
+              $feedback->getSmallpicturegroup3(),
+              $original, PREG_PATTERN_ORDER);
+          preg_match_all("/([^;]+);/u",
+              $feedback->getOriginalpicturegroup3(),
+              $zoomed, PREG_PATTERN_ORDER);
+          for ($i=0;$i<count($original[1]);$i++):
+          ?>
+           <div class="col-xs-3 col-sm-3"><img data-zoomed="/fbpicture/<?php echo $zoomed[1][$i];?>" class="fbpicture" alt=""  data-original="/fbpicture/<?php echo $original[1][$i];?>"></div>
+          <?php endfor;?>
+          </div>
+   <div class="row"><?php echo ubbReplace($feedback->getFbadvise2());?></div>
    
 <div class="row well" style="font-weight:bold;color:green">评价日期：<?php echo $feedback->getFbdate();?></div> 
 
@@ -113,4 +162,16 @@ $('#div3').raty({
 
 
 
-
+<script type="text/javascript">
+//图片点击放大
+	$('.fbpicture').zoomify();
+</script>
+<script type="text/javascript">
+//图片点击放大
+$(document).ready(function(){
+	$('.fbpicture').click(function(){
+		setTimeout('$("body").scrollTop($("body").scrollTop()+1)',1)
+		
+		});
+})
+</script>
