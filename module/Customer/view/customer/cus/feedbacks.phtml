@@ -1,3 +1,9 @@
+<style>
+.well{
+	border-radius: 25px;
+}
+</style>
+
 <?php //文件上传?>
 <link href="/css/fileinput.min.css" media="screen" rel="stylesheet" type="text/css">
 <script src="/js/fileinput.min.js"></script>
@@ -56,10 +62,7 @@ $(document).ready(function(){
 </script>
 
 <style>
-.addBorder{
-	border:2px solid #FFDAB9;
-	margin:2px;
-}
+
 #panel1 {display:none;}
 #panel2 {display:none;}
 #panel3 {display:none;}
@@ -89,7 +92,7 @@ font-weight:bold}
 
 
 <?php //加载图?>
-<img id="loadingimg" src="/img/loading.gif" style="width:100%;position:fixed;z-index:10;">
+<img id="loadingimg" src="/img/loadingpicture.gif" style="width:100%;position:fixed;z-index:10;">
 
 <?php
 $form = $this->form;
@@ -136,7 +139,7 @@ echo $this->formhidden($form->get('fbcosmetologist'));?>
   </div>
   </div>
 </div>
-<br> <br> 
+<hr>
 <div class="addBorder">
 <div class="row well" id="flip2">
 <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>&nbsp;产品评星与评价
@@ -168,7 +171,7 @@ echo $this->formhidden($form->get('fbcosmetologist'));?>
   </div>
   </div>
 </div>
-  <br> <br>  
+ <hr>
 <div class="addBorder">   
 <div class="row well" id="flip3">
 <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;服务评星与评价
@@ -198,6 +201,7 @@ echo $this->formhidden($form->get('fbcosmetologist'));?>
   </div>
   </div>
 </div>
+<hr>
 <div class="row well" ><?php echo $this->formInput($form->get('submit')); ?></div> 
 
 
