@@ -1,3 +1,7 @@
+<?php
+//表情转换方法
+include_once 'public/php/emotionreplace.php';?>
+
 <link href="/raty/labs.css" media="screen" rel="stylesheet" type="text/css">
 <script src="/raty/labs.js"></script>
 <link href="/lib/jquery.raty.css" media="screen" rel="stylesheet" type="text/css">
@@ -37,7 +41,7 @@
       <div class="row"><span style="font-weight:bold;">美容院：</span><?php echo $feedback->getSalname();?></div>
       <div id="div1" data-score="1"></div>
       </div>
-      <input type="text" class="form-control" value="<?php echo $feedback->getFbadvise();?>" readonly="readonly" />   
+      <input type="text" class="form-control" value="<?php echo ubbReplace($feedback->getFbadvise());?>" readonly="readonly" />   
    </div>
 <div class="row well" style="font-weight:bold;">2.产品评星与评价</div>
    <div class="row">
@@ -50,7 +54,7 @@
       <p style="font-size: 130%;"><?php echo $feedback->getProdtitle();?><p></div>
       <div  id="div2" data-score="1"></div>
       </div>   
-     <input type="text" class="form-control" value="<?php echo $feedback->getFbadvise1();?>" readonly="readonly" />
+     <input type="text" class="form-control" value="<?php echo ubbReplace($feedback->getFbadvise1());?>" readonly="readonly" />
    </div>
 <div class="row well" style="font-weight:bold;">3.服务评星与评价</div>   
    <div class="row">
@@ -61,7 +65,7 @@
       <div class="row"><span style="font-weight:bold;">美容师：</span><?php echo $feedback->getCosname();?></div>
       <div id="div3" data-score="1"></div>
       </div>    
-      <input type="text" class="form-control" value="<?php echo $feedback->getFbadvise2();?>" readonly="readonly" />
+      <input type="text" class="form-control" value="<?php echo ubbReplace($feedback->getFbadvise2());?>" readonly="readonly" />
    </div>
    
 <div class="row well" style="font-weight:bold;color:green">评价日期：<?php echo $feedback->getFbdate();?></div> 
