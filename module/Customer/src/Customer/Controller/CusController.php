@@ -267,11 +267,27 @@ class CusController extends AbstractActionController
         $sm = $this->getServiceLocator();
         return $sm->get('CusleveltypeMapper');
     }
+    // TODO aftertrepaid
+    public function aftertrepaidAction()
+    {
+        
+        $container = new Container('customerlogin');
+        $id = $container->salnumber;
+        
+        return array('sub'=>$id);
+    }
+    // TODO aftertippaid
+    public function aftertippaidAction()
+    {
+        $container = new Container('customerlogin');
+        $id = $container->salnumber;
+        
+        return array('sub'=>$id);
+    }
     // TODO index
     public function indexAction()
     {
-        $entity=new TipEntity();
-        $this->getTipMapper()->saveTask($entity);
+        
         
         return new ViewModel();
     }

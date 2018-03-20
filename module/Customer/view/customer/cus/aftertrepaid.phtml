@@ -1,0 +1,33 @@
+<style>
+.row{padding:10px;text-align: center;}
+input {
+ border: 0;
+ border-bottom: thin solid;
+	width:100px;
+}
+</style>
+
+
+<div class="container">
+   <div class="row">
+          <img src="/img/thankyou.png" style="width: 200px;">
+   </div>
+   <div class="row">
+          <img src="/img/thanksforyou.png" style="width: 200px;">
+   </div>
+   <div class="row">
+    <img src="/img/ourduty.png" style="width: 200px;">
+   </div>
+   <div class="row">
+     <div class="col-xs-6 col-sm-6">
+     <button class="btn btn-success" type="button" onclick="location='<?php echo $this->url('customer', array('action'=>'homepage','sub'=>$sub));?>';">返回首页</button>
+     </div>
+     <div class="col-xs-6 col-sm-6">
+     <button class="btn btn-success" type="button" onclick="location='<?php echo $this->url('customer', array('action'=>'myorders','sub'=>'paid'));?>';">去订单页</button>
+     </div> 
+</div>
+   <div class="row" style="padding: 50px;">
+ 您会获得相应积分，积分可用来抽奖，或在购买产品与服务时抵用现金
+   </div>
+</div>
+   
