@@ -37,9 +37,10 @@ use Cosmetic\Lottery\LotteryEntity;
 use Cosmetic\Cusleveltype\CusleveltypeEntity;
 use Cosmetic\Tip\TipForm;
 use Cosmetic\Tip\TipEntity;
-
+date_default_timezone_set('Asia/Shanghai');//时区
 class CusController extends AbstractActionController
 {
+    
     //二维数组内部的一维数组因某一个键值不能相同，删除重复项
     function second_array_unique_bykey($arr, $key){
         $tmp_arr = array();

@@ -57,7 +57,7 @@ use Cosmetic\Cusleveltype\CusleveltypeEntity;
 use Cosmetic\Cusleveltype\CusleveltypeForm;
 use Cosmetic\Cusbrowsinghistory\CusbrowsinghistoryEntity;
 use Cosmetic\Feedbacks\FeedbacksForm;
-
+date_default_timezone_set('Asia/Shanghai');//时区
 class CosController extends AbstractActionController
 {
     // 生成随机文件名

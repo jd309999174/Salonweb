@@ -17,7 +17,7 @@ use Zend\View\Model\ViewModel;
 use Cosmetic\Account\AccountEntity;
 use Cosmetic\Account\AccountForm;
 use Cosmetic\Page\PageEntity;
-
+date_default_timezone_set('Asia/Shanghai');//时区
 class SalonbossController extends AbstractActionController
 {
     public function getSignupMapper()

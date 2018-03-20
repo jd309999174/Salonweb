@@ -19,7 +19,7 @@ use Zend\Authentication\Adapter\DbTable as AuthAdapter;
 use Cosmetic\Chatmodule\ChatmoduleEntity;
 use Cosmetic\Chatmodule\ChatmoduleForm;
 use Cosmetic\Unread\UnreadEntity;
-
+date_default_timezone_set('Asia/Shanghai');//时区
 class Cos2Controller extends AbstractActionController
 {
     // 生成随机文件名

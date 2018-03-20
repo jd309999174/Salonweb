@@ -14,7 +14,7 @@ use Zend\Session\Container;
 use Decorate\Template\TemplateEntity;
 use Cosmetic\Page\PageForm;
 use Cosmetic\Page\PageEntity;
-
+date_default_timezone_set('Asia/Shanghai');//时区
 class DecController extends AbstractActionController
 {
     public function getTemplateMapper()
