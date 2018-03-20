@@ -21,16 +21,16 @@ class TreatmentEntity
     protected $productquantity;
     protected $couponidused;
     protected $gmtclose;
-    protected $paymothed;
+    protected $paymethod;
     protected $payid;
    
    
     /**
-     * @return the $paymothed
+     * @return the $paymethod
      */
-    public function getPaymothed()
+    public function getPaymethod()
     {
-        return $this->paymothed;
+        return $this->paymethod;
     }
 
     /**
@@ -42,11 +42,11 @@ class TreatmentEntity
     }
 
     /**
-     * @param field_type $paymothed
+     * @param field_type $paymethod
      */
-    public function setPaymothed($paymothed)
+    public function setPaymethod($paymethod)
     {
-        $this->paymothed = $paymothed;
+        $this->paymethod = $paymethod;
     }
 
     /**

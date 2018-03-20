@@ -35,6 +35,8 @@ use Cosmetic\Signup\SignupEntity;
 use function Zend\Mvc\Controller\params;
 use Cosmetic\Lottery\LotteryEntity;
 use Cosmetic\Cusleveltype\CusleveltypeEntity;
+use Cosmetic\Tip\TipForm;
+use Cosmetic\Tip\TipEntity;
 
 class CusController extends AbstractActionController
 {
@@ -67,6 +69,11 @@ class CusController extends AbstractActionController
         }
         $newfilename = $hash . '.' . $extension;
         return $newfilename;
+    }
+    public function getTipMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('TipMapper');
     }
     public function getLotteryMapper()
     {
@@ -263,6 +270,8 @@ class CusController extends AbstractActionController
     // TODO index
     public function indexAction()
     {
+        $entity=new TipEntity();
+        $this->getTipMapper()->saveTask($entity);
         
         return new ViewModel();
     }
@@ -1672,6 +1681,27 @@ public function chatajaxAction()
         $this->getLotteryMapper()->saveLottery($lotteryentity);
         return $vm;
     }
+    
+    // TODO tip
+    public function tipchoseAction()
+    {
+        $form=new TipForm();
+        
+        $sub=$this->params('sub');
+        $third=$this->params('third');
+
+        //提取美容师
+        $cosmetologist=$this->getCosmetologistMapper()->getCosmetologist1($sub);
+
+        
+        return array(
+            'form'=>$form,
+            'sub'=>$sub,
+            'third'=>$third,
+            'cosmetologist'=>$cosmetologist
+        );
+    }
+    
     // TODO order
     public function orderAction()
     {
@@ -1733,11 +1763,13 @@ public function chatajaxAction()
     public function paymentAction()
     {
         $sub=$this->params('sub');//支付方式 'alipay' 'wechat'
+        $third=$this->params('third');//支付项目 'product' 'tip'
         
         $container = new Container('customerlogin');
         $id = $container->salnumber;
         $cusid = $container->cusid;
         $cusname = $container->cusname; 
+        $cusphoto = $container->cusphoto;
         
         // 存入订单
         $request = $this->getRequest();
@@ -1745,6 +1777,8 @@ public function chatajaxAction()
             $x = $request->getPost()->toArray();
             $y = $request->getFiles()->toArray();
             $post = array_merge_recursive($request->getPost()->toArray(), $request->getFiles()->toArray());
+            
+            if ($third=='product'){
             $entity = new TreatmentEntity();
             $entity->setSalnumber($id);
             $orderid=$id.$cusid.$_POST['prodid'].date('YmdHis');
@@ -1775,15 +1809,43 @@ public function chatajaxAction()
                 $cusleveltype->setCuspoints($cusleveltype->getCuspoints()-$_POST['cuspointsused']);
                 $this->getCusleveltypeMapper()->saveTask($cusleveltype);
             }
+            return array(
+                'id' => $id,
+                'cusid' => $cusid,
+                'orderid'=>$orderid,
+                'treprice'=>$_POST['treprice'],
+                'sub'=>$sub,
+                'third'=>$third
+            );
+            }
+        if ($third=='tippay'){
+           
+            $entity = new TipEntity();
+            $entity->setCusid($cusid);
+            $entity->setCusname($cusname);
+            $entity->setCusphoto($cusphoto);
+            $entity->setCosid($_POST['cosid']);
+            $entity->setCosname($_POST['cosname']);
+            $entity->setCosphoto($_POST['cosphoto']);
+            $entity->setSalnumber($id);
+            $entity->setTipstate("nonpayment");
+            $orderid=$id.$cusid.$_POST['cosid'].date('YmdHis');
+            $entity->setOrderid($orderid);
+            $entity->setTipmoney($_POST['tipmoney']);
+            
+            $this->getTipMapper()->saveTask($entity);
+            
+            return array(
+                'id' => $id,
+                'cusid' => $cusid,
+                'orderid'=>$orderid,
+                'tipmoney'=>$_POST['tipmoney'],
+                'sub'=>$sub,
+                'third'=>$third
+            );
+        }
         }
         
-        return array(
-            'id' => $id,
-            'cusid' => $cusid,
-            'orderid'=>$orderid,
-            'treprice'=>$_POST['treprice'],
-            'sub'=>$sub
-        );
     }
     //TODO 支付宝验签
     public function alipaycheckoutAction(){
@@ -2164,9 +2226,18 @@ public function chatajaxAction()
                 $task->setSmallpicturegroup2($smallPictureGroup2);
                 $task->setSmallpicturegroup3($smallPictureGroup3);
                 $this->getFeedbacksMapper()->saveTask($task);
-                return $this->redirect()->toRoute('customer', array(
-                    'action' => 'me'
-                ));
+                
+                //大于3星跳转打赏页
+                if ($post['fbcosmetologist']>3){
+                    return $this->redirect()->toRoute('customer', array(
+                        'action' => 'tipchose','sub'=>$post['cosid'],'third'=>$post['fbcosmetologist']
+                    ));
+                }else{
+                    return $this->redirect()->toRoute('customer', array(
+                        'action' => 'me'
+                    ));
+                }
+                
             }
             
         }else{

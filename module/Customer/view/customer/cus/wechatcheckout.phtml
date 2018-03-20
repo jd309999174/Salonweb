@@ -20,7 +20,20 @@ if ($receivedsign==$resultsign){
     $pass='j12321456';          //对应的密码
     $dsn="$dbms:host=$host;dbname=$dbName";
     
-    
+    if ($result['attach']=="tippay")
+    {
+        try {
+            $dbh = new PDO($dsn, $user, $pass); //初始化一个PDO对象
+            //打赏变支付
+            $sql = 'UPDATE tippay
+        SET tipstate="paid",gmtclose="'.$result['time_end'].'",paymethod="wechat",payid="'.$result['transaction_id'].'"
+        WHERE orderid="'.$result['out_trade_no'].'"';
+            $dbh->query($sql);
+            
+        } catch (PDOException $e) {
+        }
+        
+    }else{
     try {
         $dbh = new PDO($dsn, $user, $pass); //初始化一个PDO对象
         
@@ -38,7 +51,7 @@ if ($receivedsign==$resultsign){
          }*/
         //订单改为已支付
         $sql = 'UPDATE treatment
-        SET trestate="paid",gmtclose="'.$result['time_end'].'",paymothed="wechat",payid="'.$result['transaction_id'].'"
+        SET trestate="paid",gmtclose="'.$result['time_end'].'",paymethod="wechat",payid="'.$result['transaction_id'].'"
         WHERE orderid="'.$result['out_trade_no'].'"';
         $dbh->query($sql);
         
@@ -83,6 +96,6 @@ if ($receivedsign==$resultsign){
     } catch (PDOException $e) {
         //die ("Error!: " . $e->getMessage() . "<br/>");
     }
-    
+    }
     $wechatAppPay->replyNotify();
 }

@@ -43,7 +43,7 @@ $(document).ready(function(){
 	$('#ordersubmit').click(function(){
 		//判断是支付宝还是微信
 		if($('input:radio[name="paymethod"]:checked').val()=="alipay"){
-		$.ajax({url:"<?php echo $this->url('customer', array('action'=>'payment','sub'=>'alipay'));?>",dataType:"text",
+		$.ajax({url:"<?php echo $this->url('customer', array('action'=>'payment','sub'=>'alipay','third'=>'product'));?>",dataType:"text",
 			data:{prodid:'<?php echo $_POST['prodid'];?>',productcombinationid:'<?php echo $_POST['productcombinationid'];?>',
 				treprice:$("#total").html(),treremark:$("#treremark").val(),
 				productquantity:$("#productquantity").val(),couponidused:$('option:checked').attr("data-id"),
@@ -63,7 +63,7 @@ $(document).ready(function(){
 		}});
 		}
 		if($('input:radio[name="paymethod"]:checked').val()=="wechat"){
-			$.ajax({url:"<?php echo $this->url('customer', array('action'=>'payment','sub'=>'wechat'));?>",dataType:"text",
+			$.ajax({url:"<?php echo $this->url('customer', array('action'=>'payment','sub'=>'wechat','third'=>'product'));?>",dataType:"text",
 				data:{prodid:'<?php echo $_POST['prodid'];?>',productcombinationid:'<?php echo $_POST['productcombinationid'];?>',
 					treprice:$("#total").html(),treremark:$("#treremark").val(),
 					productquantity:$("#productquantity").val(),couponidused:$('option:checked').attr("data-id"),

@@ -7,7 +7,7 @@ $flag = $aop->rsaCheckV1($_POST, NULL, "RSA2");
 
 if ($flag){
     if(!empty($_POST)){
-        if($treatment){
+        
            if ($_POST['app_id']=='2018022402261840'&&$_POST['trade_status']=='TRADE_SUCCESS'){
                $timestamp = strtotime($_POST['gmt_payment']);//时间换为时间戳
                $gmtclose = date('YmdHis', $timestamp);//时间戳换为时间
@@ -21,6 +21,22 @@ if ($flag){
                $dsn="$dbms:host=$host;dbname=$dbName";
                
                
+               if ($_POST['body']=='tippay')
+               {
+                   
+                   try {
+                       $dbh = new PDO($dsn, $user, $pass); //初始化一个PDO对象
+                       //打赏改为已支付
+                       $sql = 'UPDATE tippay
+        SET tipstate="paid",gmtclose="'.$gmtclose.'",paymethod="alipay",payid="'.$_POST['trade_no'].'"
+        WHERE orderid="'.$_POST['out_trade_no'].'"';
+                       $dbh->query($sql);
+                       
+                       $dbh = null;
+                   } catch (PDOException $e) {
+                   }
+                   
+               }else{
                try {
                    $dbh = new PDO($dsn, $user, $pass); //初始化一个PDO对象
                    
@@ -38,7 +54,7 @@ if ($flag){
                     }*/
                    //订单改为已支付
                    $sql = 'UPDATE treatment
-        SET trestate="paid",gmtclose="'.$gmtclose.'",paymothed="alipay",payid="'.$_POST['trade_no'].'"
+        SET trestate="paid",gmtclose="'.$gmtclose.'",paymethod="alipay",payid="'.$_POST['trade_no'].'"
         WHERE orderid="'.$_POST['out_trade_no'].'"';
                    $dbh->query($sql);
                    
@@ -83,10 +99,11 @@ if ($flag){
                } catch (PDOException $e) {
                    //die ("Error!: " . $e->getMessage() . "<br/>");
                }
+               }
                
                echo "success";
            } 
-        }
+        
     }
 }
 ?>

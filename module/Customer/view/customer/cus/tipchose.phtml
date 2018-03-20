@@ -1,0 +1,102 @@
+<style>
+.row{padding:10px;text-align: center;}
+input {
+ border: 0;
+ border-bottom: thin solid;
+	width:100px;
+}
+</style>
+
+
+<?php  //TODO 提交订单?>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#ordersubmit').click(function(){
+		if($('#tipmoney').html()==""||$('#tipmoney').html()==0||!(/(^[1-9]\d*$)/.test($('#tipmoney').html()))){
+			$('#moneryalert').show();
+			}else{
+		//判断是支付宝还是微信
+		if($('input:radio[name="paymethod"]:checked').val()=="alipay"){
+		$.ajax({url:"<?php echo $this->url('customer', array('action'=>'payment','sub'=>'alipay','third'=>'tippay'));?>",dataType:"text",
+			data:{cosid:'<?php echo $cosmetologist->getCosid();?>',
+				cosname:'<?php echo $cosmetologist->getCosname();?>',
+				cosphoto:'<?php echo $cosmetologist->getCosphoto();?>',
+				tipmoney:$('#tipmoney').html()}
+		,type:"POST",
+			success:function(result){
+				$("#div1").html(result);
+				location="<?php echo $this->url('customer', array('action'=>'me'));?>";
+				//setTimeout(function () { 延迟跳转用户多次点击提交订单会生成多个订单
+					// location="<?php // echo $this->url('customer', array('action'=>'me'));?>";
+					 //}, 3000);
+				
+		},error: function (XMLHttpRequest, textStatus, errorThrown) {
+        alert(XMLHttpRequest.status);
+         alert(XMLHttpRequest.readyState);
+         alert(textStatus);
+         alert(errorThrown);
+  }
+	});
+		}
+		if($('input:radio[name="paymethod"]:checked').val()=="wechat"){
+			$.ajax({url:"<?php echo $this->url('customer', array('action'=>'payment','sub'=>'wechat','third'=>'tippay'));?>",dataType:"text",
+				data:{cosid:'<?php echo $cosmetologist->getCosid();?>',
+					cosname:'<?php echo $cosmetologist->getCosname();?>',
+					cosphoto:'<?php echo $cosmetologist->getCosphoto();?>',
+					tipmoney:$('#tipmoney').html()}
+			,type:"POST",
+				success:function(result){
+					$("#div1").html(result);
+					location="<?php echo $this->url('customer', array('action'=>'me'));?>";
+					//setTimeout(function () { 延迟跳转用户多次点击提交订单会生成多个订单
+						// location="<?php // echo $this->url('customer', array('action'=>'me'));?>";
+						 //}, 3000);
+					
+			}});
+			}
+			}
+		})
+})
+</script>
+
+<div class="container">
+   <div class="row">
+          <img src="/img/tippacket.png" style="height: 200px;">
+   </div>
+   <div class="row" id="moneryalert" style="color: red;display:none;">
+     打赏金额必须为正整数
+   </div>
+   <div class="row">
+     您对美容师<?php echo $cosmetologist->getCosname();?>的评价达到<?php echo $third;?>星，可选择对其服务进行打赏哦
+   </div>
+   <div class="row">
+   <button class="btn btn-default" type="button" onclick="$('#tipmoney').html('2');">2元</button>
+   <button class="btn btn-default" type="button" onclick="$('#tipmoney').html('5');">5元</button>
+   <button class="btn btn-default" type="button" onclick="$('#tipmoney').html('10');">10元</button>
+   </div>
+    <div class="row">
+    <input type="number" onchange="$('#tipmoney').html($('#custommoney').val());" id="custommoney" maxlength="8" placeholder="自定义金额">元
+   </div>
+   <div class="row">
+        <div class="col-xs-6 col-sm-6">
+         <input type="radio" name="paymethod" checked value="alipay" />
+		<img alt="支付宝" style="height: 30px;" src="/img/alipay.png">
+        </div>
+        <div class="col-xs-6 col-sm-6">
+         <input type="radio" name="paymethod"  value="wechat"/>
+		<img alt="微信" style="height: 30px;"  src="/img/wechat.png">
+        </div>
+
+</div>
+</div>
+   <div class="row">
+     <div class="col-xs-6 col-sm-6">
+     <button class="btn btn-default" type="button">返回首页</button>
+     </div>
+     <div class="col-xs-6 col-sm-6">
+     <button class="btn btn-danger" type="button" id="ordersubmit">打赏<span id="tipmoney">2</span>元</button>
+     </div> 
+</div>
+
+
+<div id="div1"></div>
