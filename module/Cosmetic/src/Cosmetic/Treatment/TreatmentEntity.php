@@ -347,7 +347,7 @@ class TreatmentEntity
 
     public function __construct()
     {
-        $this->treregdate = date('Y-m-d H:i:s');
+        $this->treregdate = date('YmdHis');
     }
     
     

@@ -63,7 +63,7 @@ foreach ($cars as $car):if($car['trestate']!=="nonpayment"){?>
       <div class="row" onclick="location='<?php echo $this->url('customer', array('action'=>'productitem','sub'=>$car['prodid']));?>';">
       <?php echo $car['prodtitle']?>
       </div>
-      <div class="row">
+      <div class="row" style="color: #8B7E66;">
       <?php echo $car['productcombinationname']?>
       </div>
       </div>   
@@ -75,8 +75,11 @@ foreach ($cars as $car):if($car['trestate']!=="nonpayment"){?>
    
    <div class="row" style="float:right;">共<?php echo $car['productquantity'];?>件产品&nbsp;<span>合计：¥<?php echo $car['treprice'];?></span></div>
    <br>
-   <div class="row" style="float:right;">
+   <div class="row">
+   <div><?php echo date('Y-m-d H:i:s',strtotime($car['treregdate']));?></div>
+   <div style="float:right;">
    <button class="btn btn-success" onclick="location='<?php echo $this->url('customer', array('action'=>'myorderdetail','sub'=>$car['treid']));?>';">订单详情</button>
+   </div>
    </div>
 </div>
 <?php }else{?>
@@ -89,7 +92,7 @@ foreach ($cars as $car):if($car['trestate']!=="nonpayment"){?>
       <div class="row" onclick="location='<?php echo $this->url('customer', array('action'=>'productitem','sub'=>$car['prodid']));?>';">
       <?php echo $car['prodtitle']?>
       </div>
-      <div class="row">
+      <div class="row"  style="color: #8B7E66;">
       <?php echo $car['productcombinationname']?>
       </div>
       </div>   
@@ -100,11 +103,16 @@ foreach ($cars as $car):if($car['trestate']!=="nonpayment"){?>
    </div>
    <div class="row" style="float:right;">共<?php echo $car['productquantity'];?>件产品&nbsp;<span>合计：¥<?php echo $car['treprice'];?></span></div>
    <br>
-   <div class="row" style="float:right;">
+   <div class="row">
+   <div><?php echo date('Y-m-d H:i:s',strtotime($car['treregdate']));?></div>
+   <div style="float:right;">
    <button class="btn btn-success" onclick="location='<?php echo $this->url('customer', array('action'=>'myorderdetail','sub'=>$car['treid']));?>';">订单详情</button>
    <button class="btn btn-danger" onclick='$.ajax({url:"<?php echo $this->url('customer', array('action'=>'trepayment'));?>",dataType:"text",data:"treid=<?php echo $car['treid'];?>",type:"POST",success:function(result){
 			$("#div1").append(result);
-			location="<?php echo $this->url('customer', array('action'=>'me'));?>"; }});'>支付宝付款</button></div>
+			location="<?php echo $this->url('customer', array('action'=>'me'));?>"; }});'>支付宝付款</button>
+   </div>
+			
+			</div>
 			<div id="div1" style="display:none;"></div>
 
 </div>
