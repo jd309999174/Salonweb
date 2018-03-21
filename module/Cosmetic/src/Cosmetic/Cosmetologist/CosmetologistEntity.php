@@ -22,8 +22,43 @@ class CosmetologistEntity {
    protected $unread;
    protected $recentstar;
    protected $pageid;
+   protected $tipsum;
+   protected $tiptimes;
+   
    
    /**
+     * @return the $tipsum
+     */
+    public function getTipsum()
+    {
+        return $this->tipsum;
+    }
+
+/**
+     * @return the $tiptimes
+     */
+    public function getTiptimes()
+    {
+        return $this->tiptimes;
+    }
+
+/**
+     * @param field_type $tipsum
+     */
+    public function setTipsum($tipsum)
+    {
+        $this->tipsum = $tipsum;
+    }
+
+/**
+     * @param field_type $tiptimes
+     */
+    public function setTiptimes($tiptimes)
+    {
+        $this->tiptimes = $tiptimes;
+    }
+
+    /**
      * @return the $pageid
      */
     public function getPageid()

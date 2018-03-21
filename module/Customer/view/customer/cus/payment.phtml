@@ -13,7 +13,7 @@ $aop->alipayrsaPublicKey = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAonUNWUL8
 //实例化具体API对应的request类,类名称和接口名称对应,当前调用接口名称：alipay.trade.app.pay
 $request = new AlipayTradeAppPayRequest();
 //SDK已经封装掉了公共参数，这里只需要传入业务参数
-$bizcontent = "{'body':'".$cusid."，".$_POST['prodid']."，".$_POST['productquantity']."，"."'," 
+$bizcontent = "{'body':'".$id."，".$cusid."，".$_POST['prodid']."，".$_POST['productquantity']."，"."'," 
                 . "'subject': '".$_POST['prodtitle']."',"
                 . "'out_trade_no': '".$orderid."',"
                 . "'timeout_express': '30m'," 
@@ -54,7 +54,7 @@ $params['body'] = $_POST['prodtitle']; //商品描述
 $params['out_trade_no'] = $orderid; //自定义的订单号
 $params['total_fee'] = $treprice*100; //订单金额 只能为整数 单位为分
 $params['trade_type'] = 'APP'; //交易类型 JSAPI | NATIVE | APP | WAP 
-$params['attach']=$cusid."，".$_POST['prodid']."，".$_POST['productquantity']."，";//附加数据
+$params['attach']=$id."，".$cusid."，".$_POST['prodid']."，".$_POST['productquantity']."，";//附加数据
 $result = $wechatAppPay->unifiedOrder( $params );
  print_r($result); // result中就是返回的各种信息信息，成功的情况下也包含很重要的prepay_id
  //2.创建APP端预支付参数
@@ -98,7 +98,7 @@ $aop->alipayrsaPublicKey = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAonUNWUL8
 //实例化具体API对应的request类,类名称和接口名称对应,当前调用接口名称：alipay.trade.app.pay
 $request = new AlipayTradeAppPayRequest();
 //SDK已经封装掉了公共参数，这里只需要传入业务参数
-$bizcontent = "{'body':'tippay'," 
+$bizcontent = "{'body':'".$id."，".$cusid."，".$cosid."，tippay，"."'," 
                 . "'subject': '打赏',"
                 . "'out_trade_no': '".$orderid."',"
                 . "'timeout_express': '30m'," 
@@ -139,7 +139,7 @@ $params['body'] = "打赏"; //商品描述
 $params['out_trade_no'] = $orderid; //自定义的订单号
 $params['total_fee'] = $tipmoney*100; //订单金额 只能为整数 单位为分
 $params['trade_type'] = 'APP'; //交易类型 JSAPI | NATIVE | APP | WAP 
-$params['attach']="tippay";//附加数据
+$params['attach']=$id."，".$cusid."，".$cosid."，tippay，";//附加数据
 $result = $wechatAppPay->unifiedOrder( $params );
  print_r($result); // result中就是返回的各种信息信息，成功的情况下也包含很重要的prepay_id
  //2.创建APP端预支付参数

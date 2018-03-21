@@ -20,16 +20,110 @@ if ($receivedsign==$resultsign){
     $pass='j12321456';          //对应的密码
     $dsn="$dbms:host=$host;dbname=$dbName";
     
-    if ($result['attach']=="tippay")
+    
+    //取出cusid,prodid,productquantity
+    preg_match_all("/([^，]+)，/u",
+        $result['attach'],
+        $out, PREG_PATTERN_ORDER);
+    //购买产品
+    $salnumber=$out[1][0];
+    $cusid=$out[1][1];
+    $prodid=$out[1][2];
+    $productquantity=$out[1][3];
+    //打赏
+    $cosid=$out[1][2];
+    $tippay=$out[1][3];
+    //echo $out[1][0] . "| " . $out[1][1] . "| " .$out[1][2]."| " .$out[1][3]."\n";
+    /*你还可以进行一次搜索操作
+     foreach ($dbh->query('SELECT * from treatment') as $row) {
+     print_r($row); //你可以用 echo($GLOBAL); 来看到这些值
+     }*/
+    $payid=$result['transaction_id'];
+    $orderid=$result['out_trade_no'];
+    $paymoney=$result['total_fee']/100;
+    
+    $gmtclose=$result['time_end'];
+    
+    
+    
+    if ($tippay=="tippay")
     {
         try {
             $dbh = new PDO($dsn, $user, $pass); //初始化一个PDO对象
-            //打赏变支付
+           
+            //打赏改为已支付
             $sql = 'UPDATE tippay
-        SET tipstate="paid",gmtclose="'.$result['time_end'].'",paymethod="wechat",payid="'.$result['transaction_id'].'"
-        WHERE orderid="'.$result['out_trade_no'].'"';
+        SET tipstate="paid",gmtclose="'.$gmtclose.'",paymethod="wechat",payid="'.$payid.'"
+        WHERE orderid="'.$orderid.'"';
             $dbh->query($sql);
             
+            //用户积分的增加
+            $cuspointsselect='SELECT cuspoints
+        FROM cusleveltype
+        WHERE cusid="'.$cusid.'"';
+            foreach ($dbh->query($cuspointsselect) as $row) {
+                $cuspoints=$row['cuspoints']+$paymoney;
+            }
+            $cuspointsupdate = 'UPDATE cusleveltype
+        SET cuspoints="'.$cuspoints.'"
+        WHERE cusid="'.$cusid.'"';
+            $dbh->query($cuspointsupdate);
+            
+            //用户打赏金额与打赏次数增加
+            $custipselect='SELECT tipsum,tiptimes
+        FROM customer
+        WHERE cusid="'.$cusid.'"';
+            foreach ($dbh->query($custipselect) as $row) {
+                $custipsum=$row['tipsum']+$paymoney;
+                $custiptimes=$row['tiptimes']+1;
+            }
+            $custipupdate = 'UPDATE customer
+        SET tipsum="'.$custipsum.'",tiptimes="'.$custiptimes.'"
+        WHERE cusid="'.$cusid.'"';
+            $dbh->query($custipupdate);
+            
+            //美容师打赏金额与打赏次数增加
+            $costipselect='SELECT tipsum,tiptimes
+        FROM cosmetologist
+        WHERE cosid="'.$cosid.'"';
+            foreach ($dbh->query($costipselect) as $row) {
+                $costipsum=$row['tipsum']+$paymoney;
+                $costiptimes=$row['tiptimes']+1;
+            }
+            $costipupdate = 'UPDATE cosmetologist
+        SET tipsum="'.$costipsum.'",tiptimes="'.$costiptimes.'"
+        WHERE cosid="'.$cosid.'"';
+            $dbh->query($costipupdate);
+            
+            
+            //美容院打赏金额与打赏次数增加
+            $salontipselect='SELECT tipsum,tiptimes
+        FROM account
+        WHERE salnumber="'.$salnumber.'"';
+            foreach ($dbh->query($salontipselect) as $row) {
+                $salontipsum=$row['tipsum']+$paymoney;
+                $salontiptimes=$row['tiptimes']+1;
+            }
+            $salontipupdate = 'UPDATE account
+        SET tipsum="'.$salontipsum.'",tiptimes="'.$salontiptimes.'"
+        WHERE salnumber="'.$salnumber.'"';
+            $dbh->query($salontipupdate);
+            
+            //欧奢伦的总打赏金额与打赏次数增加
+            $ousheluntipselect='SELECT tipsum,tiptimes
+        FROM account
+        WHERE salnumber="1"';
+            foreach ($dbh->query($ousheluntipselect) as $row) {
+                $ousheluntipsum=$row['tipsum']+$paymoney;
+                $ousheluntiptimes=$row['tiptimes']+1;
+            }
+            $ousheluntipupdate = 'UPDATE account
+        SET tipsum="'.$ousheluntipsum.'",tiptimes="'.$ousheluntiptimes.'"
+        WHERE salnumber="1"';
+            $dbh->query($ousheluntipupdate);
+            
+            
+            $dbh = null;
         } catch (PDOException $e) {
         }
         
@@ -37,22 +131,10 @@ if ($receivedsign==$resultsign){
     try {
         $dbh = new PDO($dsn, $user, $pass); //初始化一个PDO对象
         
-        //取出cusid,prodid,productquantity
-        preg_match_all("/([^，]+)，/u",
-            $result['attach'],
-            $out, PREG_PATTERN_ORDER);
-        $cusid=$out[1][0];
-        $prodid=$out[1][1];
-        $productquantity=$out[1][2];
-        //echo $out[1][0] . "| " . $out[1][1] . "| " .$out[1][2]."| " .$out[1][3]."\n";
-        /*你还可以进行一次搜索操作
-         foreach ($dbh->query('SELECT * from treatment') as $row) {
-         print_r($row); //你可以用 echo($GLOBAL); 来看到这些值
-         }*/
         //订单改为已支付
         $sql = 'UPDATE treatment
-        SET trestate="paid",gmtclose="'.$result['time_end'].'",paymethod="wechat",payid="'.$result['transaction_id'].'"
-        WHERE orderid="'.$result['out_trade_no'].'"';
+        SET trestate="paid",gmtclose="'.$gmtclose.'",paymethod="wechat",payid="'.$payid.'"
+        WHERE orderid="'.$orderid.'"';
         $dbh->query($sql);
         
         //用户消费金额的增加
@@ -60,7 +142,7 @@ if ($receivedsign==$resultsign){
         FROM customer
         WHERE cusid="'.$cusid.'"';
         foreach ($dbh->query($cusnumberselect) as $row) {
-            $cusnumber=$row['cusnumber']+($result['total_fee']/100);
+            $cusnumber=$row['cusnumber']+$paymoney;
         }
         $cusnumberupdate = 'UPDATE customer
         SET cusnumber="'.$cusnumber.'"
@@ -72,7 +154,7 @@ if ($receivedsign==$resultsign){
         FROM cusleveltype
         WHERE cusid="'.$cusid.'"';
         foreach ($dbh->query($cuspointsselect) as $row) {
-            $cuspoints=$row['cuspoints']+($result['total_fee']/100);
+            $cuspoints=$row['cuspoints']+$paymoney;
         }
         $cuspointsupdate = 'UPDATE cusleveltype
         SET cuspoints="'.$cuspoints.'"
@@ -90,6 +172,32 @@ if ($receivedsign==$resultsign){
         SET prodsales="'.$prodsales.'"
         WHERE prodid="'.$prodid.'"';
         $dbh->query($prodsalesupdate);
+        
+        //美容院销售金额与销售次数增加
+        $salonprodselect='SELECT prodsum,prodtimes
+        FROM account
+        WHERE salnumber="'.$salnumber.'"';
+        foreach ($dbh->query($salonprodselect) as $row) {
+            $salonprodsum=$row['prodsum']+$paymoney;
+            $salonprodtimes=$row['prodtimes']+$productquantity;
+        }
+        $salonprodupdate = 'UPDATE account
+        SET prodsum="'.$salonprodsum.'",prodtimes="'.$salonprodtimes.'"
+        WHERE salnumber="'.$salnumber.'"';
+        $dbh->query($salonprodupdate);
+        
+        //欧奢伦的总销售金额与销售次数增加
+        $oushelunprodselect='SELECT prodsum,prodtimes
+        FROM account
+        WHERE salnumber="1"';
+        foreach ($dbh->query($oushelunprodselect) as $row) {
+            $oushelunprodsum=$row['prodsum']+$paymoney;
+            $oushelunprodtimes=$row['prodtimes']+$productquantity;
+        }
+        $oushelunprodupdate = 'UPDATE account
+        SET prodsum="'.$oushelunprodsum.'",prodtimes="'.$oushelunprodtimes.'"
+        WHERE salnumber="1"';
+        $dbh->query($oushelunprodupdate);
         
         
         $dbh = null;

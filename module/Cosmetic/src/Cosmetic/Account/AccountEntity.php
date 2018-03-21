@@ -12,11 +12,81 @@ class AccountEntity
     protected $salbossphoto;
     protected $salbossidentity;
     protected $accountregdate;
+    protected $prodsum;
+    protected $prodtimes;
+    protected $tipsum;
+    protected $tiptimes;
     
     public function __construct()
     {
         $this->accountregdate = date('Y-m-d H:i:s');
     }
+    
+    
+    /**
+     * @return the $prodsum
+     */
+    public function getProdsum()
+    {
+        return $this->prodsum;
+    }
+
+    /**
+     * @return the $prodtimes
+     */
+    public function getProdtimes()
+    {
+        return $this->prodtimes;
+    }
+
+    /**
+     * @return the $tipsum
+     */
+    public function getTipsum()
+    {
+        return $this->tipsum;
+    }
+
+    /**
+     * @return the $tiptimes
+     */
+    public function getTiptimes()
+    {
+        return $this->tiptimes;
+    }
+
+    /**
+     * @param field_type $prodsum
+     */
+    public function setProdsum($prodsum)
+    {
+        $this->prodsum = $prodsum;
+    }
+
+    /**
+     * @param field_type $prodtimes
+     */
+    public function setProdtimes($prodtimes)
+    {
+        $this->prodtimes = $prodtimes;
+    }
+
+    /**
+     * @param field_type $tipsum
+     */
+    public function setTipsum($tipsum)
+    {
+        $this->tipsum = $tipsum;
+    }
+
+    /**
+     * @param field_type $tiptimes
+     */
+    public function setTiptimes($tiptimes)
+    {
+        $this->tiptimes = $tiptimes;
+    }
+
     /**
      * @return the $accountid
      */

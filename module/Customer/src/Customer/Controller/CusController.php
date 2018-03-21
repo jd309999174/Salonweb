@@ -1855,6 +1855,7 @@ public function chatajaxAction()
             return array(
                 'id' => $id,
                 'cusid' => $cusid,
+                'cosid'=>$_POST['cosid'],
                 'orderid'=>$orderid,
                 'tipmoney'=>$_POST['tipmoney'],
                 'sub'=>$sub,

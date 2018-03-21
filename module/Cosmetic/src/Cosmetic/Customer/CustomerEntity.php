@@ -19,6 +19,8 @@ class CustomerEntity
     protected $currentip;
     protected $unread;
     protected $lotterydate;
+    protected $tipsum;
+    protected $tiptimes;
     
 
     
@@ -28,6 +30,39 @@ class CustomerEntity
         $this->cusregdatestamp = time();
     }
     
+    
+    /**
+     * @return the $tipsum
+     */
+    public function getTipsum()
+    {
+        return $this->tipsum;
+    }
+
+    /**
+     * @return the $tiptimes
+     */
+    public function getTiptimes()
+    {
+        return $this->tiptimes;
+    }
+
+    /**
+     * @param field_type $tipsum
+     */
+    public function setTipsum($tipsum)
+    {
+        $this->tipsum = $tipsum;
+    }
+
+    /**
+     * @param field_type $tiptimes
+     */
+    public function setTiptimes($tiptimes)
+    {
+        $this->tiptimes = $tiptimes;
+    }
+
     /**
      * @return the $lotterydate
      */
