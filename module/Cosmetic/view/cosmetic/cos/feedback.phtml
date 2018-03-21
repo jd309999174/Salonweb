@@ -3,29 +3,9 @@
 <link href="/lib/jquery.raty.css" media="screen" rel="stylesheet" type="text/css">
 <script src="/lib/jquery.raty.js"></script>
 
-
- <div class="input-group input-group-sm" style="background-color:white;padding: 5px;z-index:10;position:fixed;text-align:center;" id="searchcolumn">
-      <span class="input-group-btn" onclick="window.history.back();">
-        <button class="btn btn-default" type="button">
-        <span class="glyphicon glyphicon-chevron-left"></span>
-        </button>
-      </span>
-      <span>
-      疗程评价
-      </span>
- </div>
-<!-- 没有作用，只为平衡高度 -->
-<div class="input-group input-group-sm" style="visibility:hidden;padding: 5px;" >
-      <span class="input-group-btn" >
-        <button class="btn btn-default" type="button">
-        <span class="glyphicon glyphicon-chevron-left"></span>
-        </button>
-      </span>
-      <span>
-      疗程评价
-      </span>
- </div>
-
+<?php
+//表情转换方法
+include_once 'public/php/emotionreplace.php';?>
 
 <div class="container">
 <div class="row well"  style="font-weight:bold;">1.环境评星与评价</div>
@@ -37,7 +17,20 @@
       <div class="row"><span style="font-weight:bold;">美容院：</span><?php echo $feedback->getSalname();?></div>
       <div id="div1" data-score="1"></div>
       </div>
-      <input type="text" class="form-control" value="<?php echo $feedback->getFbadvise();?>" readonly="readonly" />   
+      <div class="row">
+          <?php 
+          preg_match_all("/([^;]+);/u",
+              $feedback->getSmallpicturegroup3(),
+              $original, PREG_PATTERN_ORDER);
+          preg_match_all("/([^;]+);/u",
+              $feedback->getOriginalpicturegroup3(),
+              $zoomed, PREG_PATTERN_ORDER);
+          for ($i=0;$i<count($original[1]);$i++):
+          ?>
+           <div class="col-xs-3 col-sm-3"><img data-zoomed="/fbpicture/<?php echo $zoomed[1][$i];?>" class="fbpicture" alt=""  data-original="/fbpicture/<?php echo $original[1][$i];?>"></div>
+          <?php endfor;?>
+          </div>
+      <div class="row"><?php echo ubbReplace($feedback->getFbadvise());?></div>
    </div>
 <div class="row well" style="font-weight:bold;">2.产品评星与评价</div>
    <div class="row">
@@ -50,7 +43,20 @@
       <p style="font-size: 130%;"><?php echo $feedback->getProdtitle();?><p></div>
       <div  id="div2" data-score="1"></div>
       </div>   
-     <input type="text" class="form-control" value="<?php echo $feedback->getFbadvise1();?>" readonly="readonly" />
+      <div class="row">
+          <?php 
+          preg_match_all("/([^;]+);/u",
+              $feedback->getSmallpicturegroup2(),
+              $original, PREG_PATTERN_ORDER);
+          preg_match_all("/([^;]+);/u",
+              $feedback->getOriginalpicturegroup2(),
+              $zoomed, PREG_PATTERN_ORDER);
+          for ($i=0;$i<count($original[1]);$i++):
+          ?>
+           <div class="col-xs-3 col-sm-3"><img data-zoomed="/fbpicture/<?php echo $zoomed[1][$i];?>" class="fbpicture" alt=""  data-original="/fbpicture/<?php echo $original[1][$i];?>"></div>
+          <?php endfor;?>
+          </div>
+     <div class="row"><?php echo ubbReplace($feedback->getFbadvise1());?></div>
    </div>
 <div class="row well" style="font-weight:bold;">3.服务评星与评价</div>   
    <div class="row">
@@ -60,8 +66,21 @@
       <div class="col-sm-6 col-xs-6">
       <div class="row"><span style="font-weight:bold;">美容师：</span><?php echo $feedback->getCosname();?></div>
       <div id="div3" data-score="1"></div>
-      </div>    
-      <input type="text" class="form-control" value="<?php echo $feedback->getFbadvise2();?>" readonly="readonly" />
+      </div>   
+       <div class="row">
+          <?php 
+          preg_match_all("/([^;]+);/u",
+              $feedback->getSmallpicturegroup3(),
+              $original, PREG_PATTERN_ORDER);
+          preg_match_all("/([^;]+);/u",
+              $feedback->getOriginalpicturegroup3(),
+              $zoomed, PREG_PATTERN_ORDER);
+          for ($i=0;$i<count($original[1]);$i++):
+          ?>
+           <div class="col-xs-3 col-sm-3"><img data-zoomed="/fbpicture/<?php echo $zoomed[1][$i];?>" class="fbpicture" alt=""  data-original="/fbpicture/<?php echo $original[1][$i];?>"></div>
+          <?php endfor;?>
+          </div> 
+      <div class="row"><?php echo ubbReplace($feedback->getFbadvise2());?></div>
    </div>
    
 <div class="row well" style="font-weight:bold;color:green">评价日期：<?php echo $feedback->getFbdate();?></div> 

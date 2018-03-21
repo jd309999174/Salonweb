@@ -1,0 +1,47 @@
+ <div class="input-group input-group-sm" style="background-color:white;padding: 5px;z-index:10;position:fixed;text-align:center;" id="searchcolumn">
+      <span class="input-group-btn" onclick="window.history.back();">
+        <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <span>
+      打赏记录
+      </span>
+ </div>
+<!-- 没有作用，只为平衡高度 -->
+<div class="input-group input-group-sm" style="visibility:hidden;padding: 5px;" >
+      <span class="input-group-btn" >
+        <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <span>
+      打赏记录
+      </span>
+ </div>
+
+
+<table class="table table-striped">
+  <caption>
+  <span>打赏总金额：<?php echo $cosmetologist->getTipsum();?>元</span>
+  </caption>
+  <caption>
+  <span>打赏总次数：<?php echo $cosmetologist->getTiptimes();?>次</span>
+  </caption>
+  <thead>
+    <tr>
+      <th>日期</th>
+      <th>顾客</th>
+      <th>金额</th>
+    </tr>
+  </thead>
+  <tbody>
+  <?php foreach ($tiplist as $tip):?>
+    <tr>
+      <td><?php echo date("Y-m-d H:i:s",strtotime($tip->getGmtclose()))?></td>
+      <td><?php echo $tip->getCusname();?></td>
+      <td><?php echo $tip->getTipmoney();?>元</td>
+    </tr>
+    <?php endforeach;?>
+  </tbody>
+</table>

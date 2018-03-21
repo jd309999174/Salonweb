@@ -70,15 +70,32 @@
 
 
 
+<hr>
+<div class="row">
+      <div class="col-xs-6 col-sm-6">
+     <button type="button" class="btn btn-default btn-lg" onclick="location='<?php echo $this->url('customer',
+             array('action'=>'trolley'));?>';" style="width: 100%;"><img alt="" style="height:20px;" src="/meicon/mytrolley.png">&nbsp;&nbsp;购物车</button>
+      </div>
+      <div class="col-xs-6 col-sm-6">
+           <button type="button" class="btn btn-default btn-lg" onclick="location='<?php echo $this->url('customer',
+             array('action'=>'mycoupon'));?>';" style="width: 100%;"><img alt="" style="height:20px;" src="/meicon/mycoupon.png">&nbsp;&nbsp;优惠券</button>
+      </div>      
+ </div>
 
-<button type="button" class="btn btn-default btn-lg btn-block" onclick="location='<?php echo $this->url('customer',
-             array('action'=>'trolley'));?>';" style="margin-top: 20px"><img alt="" style="height:20px;" src="/meicon/cartlogo.png">&nbsp;&nbsp;购物车</button>
+<hr>
+<div class="row">
+      <div class="col-xs-6 col-sm-6">
+     <button type="button" class="btn btn-default btn-lg" onclick="location='<?php echo $this->url('customer',
+             array('action'=>'lotteryprize'));?>';" style="width: 100%;"><img alt="" style="height:20px;" src="/meicon/myprize.png">&nbsp;&nbsp;我的奖品</button>
+      </div>
+      <div class="col-xs-6 col-sm-6">
+     <button type="button" class="btn btn-default btn-lg" onclick="location='<?php echo $this->url('customer',
+             array('action'=>'mytiplist'));?>';" style="width: 100%;"><img alt="" style="height:20px;" src="/meicon/mytip.png">&nbsp;&nbsp;我的打赏</button>
+      </div>      
+ </div>
+
              
-<button type="button" class="btn btn-default btn-lg btn-block" onclick="location='<?php echo $this->url('customer',
-             array('action'=>'lotteryprize'));?>';" style="margin-top: 20px"><img alt="" style="height:20px;" src="/meicon/lotteryprizepicture.png">&nbsp;&nbsp;我的奖品</button>
 
-<button type="button" class="btn btn-default btn-lg btn-block" onclick="location='<?php echo $this->url('customer',
-             array('action'=>'mycoupon'));?>';" style="margin-top: 20px"><img alt="" style="height:20px;" src="/meicon/couponpicture.png">&nbsp;&nbsp;我的优惠券</button>
               
 <?php //TODO 底部菜单栏  用于站位?>
 <div class="btn-group btn-group-justified" role="group" style="visibility:hidden">

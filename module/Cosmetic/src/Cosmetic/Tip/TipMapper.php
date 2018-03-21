@@ -80,6 +80,60 @@ public function saveTask(TipEntity $task)
      return $task;
  }
  
+ //顾客全部打赏
+ public function getTask1($cusid)
+ {
+     $select = $this->sql->select();
+     $select->where(array('cusid' => $cusid,'tipstate'=>'paid'));
+     $select->order(array('gmtclose DESC'));
+     
+     
+     $statement = $this->sql->prepareStatementForSqlObject($select);
+     $results = $statement->execute();
+     
+     $entityPrototype = new TipEntity();
+     $hydrator = new ClassMethods();
+     $resultset = new HydratingResultSet($hydrator, $entityPrototype);
+     $resultset->initialize($results);
+     return $resultset;
+ }
+ 
+ //美容师全部打赏
+ public function getTask2($cosid)
+ {
+     $select = $this->sql->select();
+     $select->where(array('cosid' => $cosid,'tipstate'=>'paid'));
+     $select->order(array('gmtclose DESC'));
+     
+     
+     $statement = $this->sql->prepareStatementForSqlObject($select);
+     $results = $statement->execute();
+     
+     $entityPrototype = new TipEntity();
+     $hydrator = new ClassMethods();
+     $resultset = new HydratingResultSet($hydrator, $entityPrototype);
+     $resultset->initialize($results);
+     return $resultset;
+ }
+ 
+ //美容院全部打赏
+ public function getTask3($salnumber)
+ {
+     $select = $this->sql->select();
+     $select->where(array('salnumber' => $salnumber,'tipstate'=>'paid'));
+     $select->order(array('gmtclose DESC'));
+     
+     
+     $statement = $this->sql->prepareStatementForSqlObject($select);
+     $results = $statement->execute();
+     
+     $entityPrototype = new TipEntity();
+     $hydrator = new ClassMethods();
+     $resultset = new HydratingResultSet($hydrator, $entityPrototype);
+     $resultset->initialize($results);
+     return $resultset;
+ }
+ 
  public function deleteTask($id)
  {
      $delete = $this->sql->delete();

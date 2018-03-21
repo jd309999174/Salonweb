@@ -97,6 +97,11 @@ class CosController extends AbstractActionController
         }
         return true;
     }
+    public function getTipMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('TipMapper');
+    }
     public function getTemplateMapper()
     {
         $sm = $this->getServiceLocator();
@@ -3464,6 +3469,52 @@ class CosController extends AbstractActionController
                     'id' => $id,
                     'cars'=>$paginator,
                     'carscount'=>$cars
+                ));
+    }
+    
+    //TODO tipcheck
+    public function tipcheckAction(){
+        $container = new Container('salonlogin');
+        $id = $container->salnumber;
+        //$sub = $this->params('sub');
+        
+        $tipchecks=$tiplist=$this->getTipMapper()->getTask3($id);
+        
+        //存入数组
+        $cars=array();
+        foreach ($tipchecks as $tipcheck){
+            if(preg_match("^".$_GET['cusname']."^", $tipcheck->getCusname())&&preg_match("^".$_GET['cosname']."^", $tipcheck->getCosname())){
+                array_push($cars,array(
+                    "cusid"=>$tipcheck->getCusid(),
+                    "cusname"=>$tipcheck->getCusname(),
+                    "cusphoto"=>$tipcheck->getCusphoto(),
+                    "cosid"=>$tipcheck->getCosid(),
+                    "cosname"=>$tipcheck->getCosname(),
+                    "cosphoto"=>$tipcheck->getCosphoto(),
+                    "gmtclose"=>$tipcheck->getGmtclose(),
+                    "tipmoney"=>$tipcheck->getTipmoney(),
+                    "paymethod"=>$tipcheck->getPaymethod(),
+                    "payid"=>$tipcheck->getPayid()
+                ));
+            }};
+            
+            foreach ($cars as $key => $row) {
+                $x[$key] = $row['gmtclose'];
+                $y[$key] = $row['tipmoney'];}
+                if ($x){
+                    array_multisort($x, SORT_DESC, $cars);
+                }
+                
+                $paginator = new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\ArrayAdapter($cars));
+                $paginator->setCurrentPageNumber($this->params()->fromRoute('sub'));
+                
+                
+                
+                return new ViewModel(array(
+                    'id' => $id,
+                    'cars'=>$paginator,
+                    'carscount'=>$cars,
+                    'tipmoney'=>$y
                 ));
     }
 }

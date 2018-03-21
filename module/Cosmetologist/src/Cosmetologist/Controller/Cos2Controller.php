@@ -36,7 +36,11 @@ class Cos2Controller extends AbstractActionController
         $newfilename = $hash . '.' . $extension;
         return $newfilename;
     }
-    
+    public function getTipMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('TipMapper');
+    }
     public function getFeedbacksMapper()
     {
         $sm = $this->getServiceLocator();
@@ -684,6 +688,22 @@ class Cos2Controller extends AbstractActionController
         //获取顾客未读信息
         $unreads=$this->getUnreadMapper()->getUnreadmessage("cos".$sub);
         return array('unreads'=>$unreads);
+    }
+    
+    // TODO mytiplist
+    public function mytiplistAction()
+    {
+        $container = new Container('cosmetologistlogin');
+        $id = $container->salnumber;
+        $cosid = $container->cosid;
+        
+        $cosmetologist=$this->getCosmetologistMapper()->getCosmetologist1($cosid);//美容师头像
+        $tiplist=$this->getTipMapper()->getTask2($cosid);
+        
+        return array(
+            'cosmetologist'=>$cosmetologist,
+            'tiplist'=>$tiplist
+        );
     }
     
 }

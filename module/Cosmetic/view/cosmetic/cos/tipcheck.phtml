@@ -1,0 +1,53 @@
+<?php
+$title = '打赏查询';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<form class="form-inline"  role="form" action="<?php echo $this->url('cosmetic', array('action'=>'tipcheck'));?>" method="get">
+  <div class="form-group">
+    <label for="name">顾客姓名</label>
+    <input type="text" class="form-control" name="cusname"  placeholder="请输入姓名" value="<?php echo $_GET['cusname'];?>">
+    <label for="name">美容师姓名</label>
+    <input type="text" class="form-control" name="cosname"  placeholder="请输入姓名" value="<?php echo $_GET['cosname'];?>">
+  </div>
+  <button type="submit" class="btn btn-default">提交</button>
+</form>
+
+
+
+
+<table class="table">
+  <caption>打赏金额：<?php echo array_sum($tipmoney);?>元</caption>
+  <caption>打赏次数：<?php echo count($carscount);?>次</caption>
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th>顾客</th>
+      <th>&nbsp;</th>
+      <th>美容师</th>
+      <th>时间</th>
+      <th>金额</th>
+      <th>订单号</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+ <?php foreach ($cars as $car): ?>
+ <tr>
+     <td><img src="/portrait/<?php echo $this->escapeHtml($car['cusphoto']); ?>" style="height:50px;width:50px;"></td>
+     <td><?php echo $this->escapeHtml($car['cusname']); ?></td>
+     <td><img src="<?php echo $this->escapeHtml($car['cosphoto']); ?>" style="height:50px;width:50px;"></td>
+     <td><?php echo $this->escapeHtml($car['cosname']); ?></td>
+     <td><?php echo $this->escapeHtml(date("Y-m-d H:i:s",strtotime($car['gmtclose']))); ?></td>
+     <td><?php echo $this->escapeHtml($car['tipmoney']); ?>元</td>
+     <td><?php if ($car['paymethod']=='alipay'){echo "支付宝订单号：".$car['payid'];}elseif($car['paymethod']=='wechat'){echo "微信订单号：".$car['payid'];}?></td>
+ </tr>
+ <?php endforeach; ?>
+  </tbody>
+</table>
+
+
+<?php echo $this->paginationControl($cars,
+                                    'Sliding',
+                                    'paginatortip', array('route' => 'cosmetic')); ?>

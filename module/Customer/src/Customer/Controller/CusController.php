@@ -285,6 +285,24 @@ class CusController extends AbstractActionController
         
         return array('sub'=>$id);
     }
+    // TODO mytiplist
+    public function mytiplistAction()
+    {
+        $container = new Container('customerlogin');
+        $id = $container->salnumber;
+        $cusid = $container->cusid;
+        $cusname = $container->cusname;
+        $cusphone = $container->cusphone;
+        
+        $customer=$this->getCustomerMapper()->getCustomer1($cusid);
+        $tiplist=$this->getTipMapper()->getTask1($cusid);
+        
+        
+        return array(
+            'customer'=>$customer,
+            'tiplist'=>$tiplist
+        );
+    }
     // TODO index
     public function indexAction()
     {

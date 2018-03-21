@@ -8,7 +8,7 @@
         </button>
       </span>
       <span>
-      <img alt="" style="height:20px;" src="/meicon/lotteryprizepicture.png">&nbsp;&nbsp;我的奖品
+      <img alt="" style="height:20px;" src="/meicon/myprize.png">&nbsp;&nbsp;我的奖品
       </span>
  </div>
 <!-- 没有作用，只为平衡高度 -->
@@ -32,6 +32,7 @@
   </thead>
   <tbody>
   <?php foreach ($lotteryhistory as $lotteyprize):?>
+  <?php if ($lotteyprize->getPrizepicture()!=="/img/thanksforyou.jpg"):?>
   <?php if ($lotteyprize->getReceivestate()):?>
     <tr class="success" style="padding: 5px;">
     <?php else :?>
@@ -46,6 +47,7 @@
          $(this).html("已经领取");$(this).attr("disabled","disabled");$(this).removeClass("btn btn-success");$(this).addClass("btn btn-default");' type="button" class="btn btn-success">确认领取</button></td>
      <?php endif;?>
       </tr>
+      <?php endif;?>
       <?php endforeach;?>
   </tbody>
 </table>
