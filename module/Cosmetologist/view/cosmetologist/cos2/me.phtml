@@ -32,53 +32,18 @@ color:#FFD700;
              array('action'=>'login', 'sub'=>$id));?>'">重新登陆</button>
 </div> 
 
+<hr>
+<div class="row">
+      <div class="col-xs-6 col-sm-6">
+     <button type="button" class="btn btn-default btn-lg" onclick="location='<?php echo $this->url('cosmetologist',
+             array('action'=>'myfeedbacks'));?>';" style="width: 100%;"><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>&nbsp;&nbsp;我的评价</button>
+      </div>
+      <div class="col-xs-6 col-sm-6">
+     <button type="button" class="btn btn-default btn-lg" onclick="location='<?php echo $this->url('cosmetologist',
+             array('action'=>'mytiplist'));?>';" style="width: 100%;"><span class="glyphicon glyphicon-yen" aria-hidden="true"></span>&nbsp;&nbsp;我的打赏</button>
+      </div>      
+ </div>
 
-
-<table class="table">
-  <caption>对我的评价</caption>
-  <thead>
-    <tr>
-      <th>时间</th>
-      <th>星级</th>
-    </tr>
-  </thead>
-  <tbody>
-  <?php foreach ($feedbacks as $feedback):?>
-    <tr>
-      <td><?php echo $feedback->getFbdate();?></td>
-      <td>
-<?php switch ($feedback->getFbcosmetologist()):?>
-<?php case 1:?>
-<span class="glyphicon glyphicon-star"></span>
-<?php break;?>
-<?php case 2:?>
-<span class="glyphicon glyphicon-star"></span>
-<span class="glyphicon glyphicon-star"></span>
-<?php break;?>
-<?php case 3:?>
-<span class="glyphicon glyphicon-star"></span>
-<span class="glyphicon glyphicon-star"></span>
-<span class="glyphicon glyphicon-star"></span>
-<?php break;?>
-<?php case 4:?>
-<span class="glyphicon glyphicon-star"></span>
-<span class="glyphicon glyphicon-star"></span>
-<span class="glyphicon glyphicon-star"></span>
-<span class="glyphicon glyphicon-star"></span>
-<?php break;?>
-<?php case 5:?>
-<span class="glyphicon glyphicon-star"></span>
-<span class="glyphicon glyphicon-star"></span>
-<span class="glyphicon glyphicon-star"></span>
-<span class="glyphicon glyphicon-star"></span>
-<span class="glyphicon glyphicon-star"></span>
-<?php break;?>
-<?php endswitch;?> 
-      </td>
-    </tr>
-    <?php endforeach;?>
-  </tbody>
-</table>
 
 <?php //TODO 底部菜单栏  用于站位?>
 <div class="btn-group btn-group-justified" role="group" style="visibility:hidden">

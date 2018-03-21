@@ -665,7 +665,7 @@ class Cos2Controller extends AbstractActionController
         
         $cosmetologist=$this->getCosmetologistMapper()->getCosmetologist1($cosid);//美容师头像
         
-        $feedbacks=$this->getFeedbacksMapper()->getTask11($cosid);//对美容师的评星
+        //$feedbacks=$this->getFeedbacksMapper()->getTask11($cosid);//对美容师的评星
         //未读信息
         $unread=$this->getUnreadMapper()->getTask1("cos".$cosid);
         $unreadsum=0;
@@ -677,8 +677,8 @@ class Cos2Controller extends AbstractActionController
             'cosid'=>$cosid,
             'unreadsum'=>$unreadsum,
             'cosmetologist'=>$cosmetologist,
-            'homepage'=>$homepage,
-            'feedbacks'=>$feedbacks
+            'homepage'=>$homepage
+            //'feedbacks'=>$feedbacks
         );
     }
     //TODO unreadjson
@@ -689,6 +689,22 @@ class Cos2Controller extends AbstractActionController
         $unreads=$this->getUnreadMapper()->getUnreadmessage("cos".$sub);
         return array('unreads'=>$unreads);
     }
+    
+    
+    // TODO myfeedbacks
+    public function myfeedbacksAction()
+    {
+        $container = new Container('cosmetologistlogin');
+        $id = $container->salnumber;
+        $cosid = $container->cosid;
+        
+        $feedbacks=$this->getFeedbacksMapper()->getTask11($cosid);//对美容师的评星
+        
+        return array(
+            'feedbacks'=>$feedbacks
+        );
+    }
+    
     
     // TODO mytiplist
     public function mytiplistAction()
@@ -705,5 +721,6 @@ class Cos2Controller extends AbstractActionController
             'tiplist'=>$tiplist
         );
     }
+    
     
 }

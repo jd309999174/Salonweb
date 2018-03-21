@@ -1,0 +1,74 @@
+ <div class="input-group input-group-sm" style="background-color:white;padding: 5px;z-index:10;position:fixed;text-align:center;" id="searchcolumn">
+      <span class="input-group-btn" onclick="window.history.back();">
+        <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <span>
+     <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>&nbsp;&nbsp;评价记录
+      </span>
+ </div>
+<!-- 没有作用，只为平衡高度 -->
+<div class="input-group input-group-sm" style="visibility:hidden;padding: 5px;" >
+      <span class="input-group-btn" >
+        <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <span>
+      评价记录
+      </span>
+ </div>
+
+<style>
+.glyphicon-star{
+color:#FFD700;
+}
+</style>
+
+
+<table class="table">
+  <caption>对我的评价</caption>
+  <thead>
+    <tr>
+      <th>时间</th>
+      <th>星级</th>
+    </tr>
+  </thead>
+  <tbody>
+  <?php foreach ($feedbacks as $feedback):?>
+    <tr>
+      <td><?php echo $feedback->getFbdate();?></td>
+      <td>
+<?php switch ($feedback->getFbcosmetologist()):?>
+<?php case 1:?>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php case 2:?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php case 3:?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php case 4:?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php case 5:?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php endswitch;?> 
+      </td>
+    </tr>
+    <?php endforeach;?>
+  </tbody>
+</table>
