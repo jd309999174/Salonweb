@@ -25,7 +25,7 @@
  
  
  <div class="input-group input-group-sm" style="background-color:white;padding: 5px;z-index:10;position:fixed;text-align:center;" id="searchcolumn">
-      <span class="input-group-btn" onclick="window.history.back();">
+      <span class="input-group-btn" onclick="location='<?php echo $this->url('customer', array('action'=>'me'));?>';">
         <button class="btn btn-default" type="button">
         <span class="glyphicon glyphicon-chevron-left"></span>
         </button>
@@ -49,8 +49,8 @@
 <div style="text-align: center;">
 <img class="angleimg" style="float: left;" src="/decorativeimg/angleimg1.png">  
 <img class="angleimg" id="angleimgtopright" style="float: right;" src="/decorativeimg/angleimg1.png"> 
-  <div>打赏总金额：<?php echo $customer->getTipsum();?>元</div>
-  <div>打赏总次数：<?php echo $customer->getTiptimes();?>次</div>
+  <div>打赏总金额：<span style="color:red;"><?php echo $customer->getTipsum();?>元</span></div>
+  <div>打赏总次数：<span style="color:red;"><?php echo $customer->getTiptimes();?>次</span></div>
 </div>
 
 
@@ -66,22 +66,10 @@
   <tbody>
   <?php foreach ($tiplist as $tip):?>
     <tr>
-    <?php if ($tip->getTipmoney()<=2):?>
-      <td><img alt="" src="/decorativeimg/medal1.png" style="height:30px;"></td>
-    <?php elseif ($tip->getTipmoney()<=5&&$tip->getTipmoney()>2):?>
-    <td><img alt="" src="/decorativeimg/medal2.png" style="height:30px;"></td>
-    <?php elseif ($tip->getTipmoney()<=10&&$tip->getTipmoney()>5):?>
-    <td><img alt="" src="/decorativeimg/medal3.png" style="height:30px;"></td>
-    <?php elseif ($tip->getTipmoney()<=50&&$tip->getTipmoney()>10):?>
-    <td><img alt="" src="/decorativeimg/medal4.png" style="height:30px;"></td>
-    <?php elseif ($tip->getTipmoney()<=100&&$tip->getTipmoney()>50):?>
-    <td><img alt="" src="/decorativeimg/medal5.png" style="height:30px;"></td>
-    <?php elseif ($tip->getTipmoney()>100):?>
-    <td><img alt="" src="/decorativeimg/medal6.png" style="height:30px;"></td>
-    <?php endif;?>
+    <td><img alt="" src="/decorativeimg/medalicon.png" style="height:30px;"></td>
       <td><?php echo date("Y-m-d H:i:s",strtotime($tip->getGmtclose()))?></td>
       <td><?php echo $tip->getCosname();?></td>
-      <td><?php echo $tip->getTipmoney();?>元</td>
+      <td><span style="color:red;"><?php echo $tip->getTipmoney();?>元</span></td>
     </tr>
     <?php endforeach;?>
   </tbody>

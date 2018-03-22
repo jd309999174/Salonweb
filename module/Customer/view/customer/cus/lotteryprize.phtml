@@ -69,7 +69,7 @@
   <?php foreach ($lotteryhistory as $lotteyprize):?>
   <?php if ($lotteyprize->getPrizepicture()!=="/img/thanksforyou.jpg"):?>
     <tr>
-    <td><img alt="" src="/decorativeimg/medalprize.png" style="height:30px;"></td>
+    <td><img alt="" src="/decorativeimg/prizeicon.png" style="height:30px;"></td>
       <td><?php echo date("Y-m-d H:i:s",$lotteyprize->getWinningtime());?></td>
       <td><img class="lotterypicture" alt="奖品" src="<?php echo $lotteyprize->getPrizepicture();?>" style="height:50px;width:50px;"></td>
     <?php if ($lotteyprize->getReceivestate()):?>

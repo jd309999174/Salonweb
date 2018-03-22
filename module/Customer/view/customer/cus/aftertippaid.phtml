@@ -18,13 +18,17 @@ input {
    <div class="row">
     <img src="/img/foryoutip.png" style="width: 200px;">
    </div>
-   </div>
    <div class="row">
      <div class="col-xs-6 col-sm-6">
      <button class="btn btn-success" type="button" onclick="location='<?php echo $this->url('customer', array('action'=>'homepage','sub'=>$sub));?>';">返回首页</button>
      </div>
      <div class="col-xs-6 col-sm-6">
-     <button class="btn btn-success" type="button" onclick="location='<?php echo $this->url('customer', array('action'=>'myorders','sub'=>'paid'));?>';">去订单页</button>
+     <button class="btn btn-success" type="button" onclick="location='<?php echo $this->url('customer', array('action'=>'mytiplist','sub'=>'paid'));?>';">去打赏页</button>
      </div> 
    </div>
+   <div class="row" style="padding: 50px;">
+     打赏将获得<span style="color:red;">10倍</span>积分，积分可用来抽奖，或在购买产品与服务时抵用现金
+   </div>
+   </div>
+   
   

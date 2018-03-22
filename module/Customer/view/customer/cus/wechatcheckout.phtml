@@ -62,7 +62,7 @@ if ($receivedsign==$resultsign){
         FROM cusleveltype
         WHERE cusid="'.$cusid.'"';
             foreach ($dbh->query($cuspointsselect) as $row) {
-                $cuspoints=$row['cuspoints']+$paymoney;
+                $cuspoints=$row['cuspoints']+($paymoney*10);
             }
             $cuspointsupdate = 'UPDATE cusleveltype
         SET cuspoints="'.$cuspoints.'"
