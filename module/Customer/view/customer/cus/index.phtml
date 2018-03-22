@@ -1,32 +1,54 @@
-打赏总额（顾客打赏额打赏次数，美容师被打赏额，打赏次数），打赏列表查询，打赏排行，次数，金额
-
-增加美容院总消费额，总销量，总打赏额，总打赏量
-
-
-<?php
-$dbms='mysql';     //数据库类型
-$host='47.96.173.116:3306'; //数据库主机名
-$dbName='company';    //使用的数据库
-$user='root';      //数据库连接用户名
-$pass='j12321456';          //对应的密码
-$dsn="$dbms:host=$host;dbname=$dbName";
-
-
-try {
-    $dbh = new PDO($dsn, $user, $pass); //初始化一个PDO对象
-    echo "连接成功<br/>";
-    //你还可以进行一次搜索操作
-    foreach ($dbh->query('SELECT cusid,salnumber from customer where cusid=27') as $row) {
-       // print_r($row); //你可以用 echo($GLOBAL); 来看到这些值
-       echo $row['salnumber'];
-       echo $row[1];
-    }
-    
-    $dbh = null;
-} catch (PDOException $e) {
-    die ("Error!: " . $e->getMessage() . "<br/>");
+<style>
+#angleimgtopright{
+	transform:rotate(90deg);
+-ms-transform:rotate(90deg); /* Internet Explorer */
+-moz-transform:rotate(90deg); /* Firefox */
+-webkit-transform:rotate(90deg); /* Safari 和 Chrome */
+-o-transform:rotate(90deg); /* Opera */
 }
-//默认这个不是长连接，如果需要数据库长连接，需要最后加一个参数：array(PDO::ATTR_PERSISTENT => true) 变成这样：
-$db = new PDO($dsn, $user, $pass, array(PDO::ATTR_PERSISTENT => true));
+#angleimgbottomright{
+	transform:rotate(180deg);
+-ms-transform:rotate(180deg); /* Internet Explorer */
+-moz-transform:rotate(180deg); /* Firefox */
+-webkit-transform:rotate(180deg); /* Safari 和 Chrome */
+-o-transform:rotate(180deg); /* Opera */
+}
+#angleimgbottomleft{
+	transform:rotate(270deg);
+-ms-transform:rotate(270deg); /* Internet Explorer */
+-moz-transform:rotate(270deg); /* Firefox */
+-webkit-transform:rotate(270deg); /* Safari 和 Chrome */
+-o-transform:rotate(270deg); /* Opera */
+}
+</style>
 
-?>
+
+<img class="angleimg" style="float: left;width:50px;" src="/decorativeimg/angleimg2.png">  <img class="angleimg" id="angleimgtopright" style="float: right;width:50px;" src="/decorativeimg/angleimg2.png"> 
+<table class="table table-striped">
+  <caption>条纹表格布局</caption>
+  <thead>
+    <tr>
+      <th>名称</th>
+      <th>城市</th>
+      <th>邮编</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Tanmay</td>
+      <td>Bangalore</td>
+      <td>560001</td>
+    </tr>
+    <tr>
+      <td>Sachin</td>
+      <td>Mumbai</td>
+      <td>400003</td>
+    </tr>
+    <tr>
+      <td>Uma</td>
+      <td>Pune</td>
+      <td>411027</td>
+    </tr>
+  </tbody>
+</table>
+<img class="angleimg" id="angleimgbottomleft" style="float: left;width:50px;" src="/decorativeimg/angleimg1.png">  <img class="angleimg" id="angleimgbottomright" style="float: right;width:50px;" src="/decorativeimg/angleimg1.png"> 

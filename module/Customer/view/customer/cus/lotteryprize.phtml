@@ -1,6 +1,32 @@
 <link rel="stylesheet" href="/css/zoomify.css">
 <script src="/js/zoomify.js"></script>
 
+ <style>
+.angleimg{width:50px;z-index:100;}
+#angleimgtopright{
+	transform:rotate(90deg);
+-ms-transform:rotate(90deg); /* Internet Explorer */
+-moz-transform:rotate(90deg); /* Firefox */
+-webkit-transform:rotate(90deg); /* Safari 和 Chrome */
+-o-transform:rotate(90deg); /* Opera */
+}
+#angleimgbottomright{
+	transform:rotate(180deg);
+-ms-transform:rotate(180deg); /* Internet Explorer */
+-moz-transform:rotate(180deg); /* Firefox */
+-webkit-transform:rotate(180deg); /* Safari 和 Chrome */
+-o-transform:rotate(180deg); /* Opera */
+}
+#angleimgbottomleft{
+	transform:rotate(270deg);
+-ms-transform:rotate(270deg); /* Internet Explorer */
+-moz-transform:rotate(270deg); /* Firefox */
+-webkit-transform:rotate(270deg); /* Safari 和 Chrome */
+-o-transform:rotate(270deg); /* Opera */
+}
+</style>
+
+
  <div class="input-group input-group-sm" style="background-color:white;padding: 5px;z-index:10;position:fixed;text-align:center;" id="searchcolumn">
       <span class="input-group-btn" onclick="window.history.back();">
         <button class="btn btn-default" type="button">
@@ -22,10 +48,19 @@
       </span>
  </div>
 
-<table class="table">
-  <caption>抽奖奖品（实物奖品请在到店领取后点击确认领取）</caption>
+
+<div style="text-align: center;">
+<img class="angleimg" style="float: left;" src="/decorativeimg/angleimg1.png">  
+<img class="angleimg" id="angleimgtopright" style="float: right;" src="/decorativeimg/angleimg1.png"> 
+  <div>实物奖品请在到店领取后点击确认领取</div>
+</div>
+
+
+
+<table class="table table-striped">
   <thead>
     <tr>
+    <th>&nbsp;</th>
       <th>时间</th>
       <th>奖品</th>
       <th>状态</th></tr>
@@ -33,11 +68,8 @@
   <tbody>
   <?php foreach ($lotteryhistory as $lotteyprize):?>
   <?php if ($lotteyprize->getPrizepicture()!=="/img/thanksforyou.jpg"):?>
-  <?php if ($lotteyprize->getReceivestate()):?>
-    <tr class="success" style="padding: 5px;">
-    <?php else :?>
-     <tr class="danger" style="padding: 5px;">
-     <?php endif;?>
+    <tr>
+    <td><img alt="" src="/decorativeimg/medalprize.png" style="height:30px;"></td>
       <td><?php echo date("Y-m-d H:i:s",$lotteyprize->getWinningtime());?></td>
       <td><img class="lotterypicture" alt="奖品" src="<?php echo $lotteyprize->getPrizepicture();?>" style="height:50px;width:50px;"></td>
     <?php if ($lotteyprize->getReceivestate()):?>

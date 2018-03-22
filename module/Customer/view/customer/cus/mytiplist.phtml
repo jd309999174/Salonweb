@@ -1,3 +1,29 @@
+ <style>
+.angleimg{width:50px;z-index:100;}
+#angleimgtopright{
+	transform:rotate(90deg);
+-ms-transform:rotate(90deg); /* Internet Explorer */
+-moz-transform:rotate(90deg); /* Firefox */
+-webkit-transform:rotate(90deg); /* Safari 和 Chrome */
+-o-transform:rotate(90deg); /* Opera */
+}
+#angleimgbottomright{
+	transform:rotate(180deg);
+-ms-transform:rotate(180deg); /* Internet Explorer */
+-moz-transform:rotate(180deg); /* Firefox */
+-webkit-transform:rotate(180deg); /* Safari 和 Chrome */
+-o-transform:rotate(180deg); /* Opera */
+}
+#angleimgbottomleft{
+	transform:rotate(270deg);
+-ms-transform:rotate(270deg); /* Internet Explorer */
+-moz-transform:rotate(270deg); /* Firefox */
+-webkit-transform:rotate(270deg); /* Safari 和 Chrome */
+-o-transform:rotate(270deg); /* Opera */
+}
+</style>
+ 
+ 
  <div class="input-group input-group-sm" style="background-color:white;padding: 5px;z-index:10;position:fixed;text-align:center;" id="searchcolumn">
       <span class="input-group-btn" onclick="window.history.back();">
         <button class="btn btn-default" type="button">
@@ -20,16 +46,18 @@
       </span>
  </div>
 
+<div style="text-align: center;">
+<img class="angleimg" style="float: left;" src="/decorativeimg/angleimg1.png">  
+<img class="angleimg" id="angleimgtopright" style="float: right;" src="/decorativeimg/angleimg1.png"> 
+  <div>打赏总金额：<?php echo $customer->getTipsum();?>元</div>
+  <div>打赏总次数：<?php echo $customer->getTiptimes();?>次</div>
+</div>
+
 
 <table class="table table-striped">
-  <caption>
-  <span>打赏总金额：<?php echo $customer->getTipsum();?>元</span>
-  </caption>
-  <caption>
-  <span>打赏总次数：<?php echo $customer->getTiptimes();?>次</span>
-  </caption>
   <thead>
     <tr>
+      <th>&nbsp;</th>
       <th>日期</th>
       <th>美容师</th>
       <th>金额</th>
@@ -38,6 +66,19 @@
   <tbody>
   <?php foreach ($tiplist as $tip):?>
     <tr>
+    <?php if ($tip->getTipmoney()<=2):?>
+      <td><img alt="" src="/decorativeimg/medal1.png" style="height:30px;"></td>
+    <?php elseif ($tip->getTipmoney()<=5&&$tip->getTipmoney()>2):?>
+    <td><img alt="" src="/decorativeimg/medal2.png" style="height:30px;"></td>
+    <?php elseif ($tip->getTipmoney()<=10&&$tip->getTipmoney()>5):?>
+    <td><img alt="" src="/decorativeimg/medal3.png" style="height:30px;"></td>
+    <?php elseif ($tip->getTipmoney()<=50&&$tip->getTipmoney()>10):?>
+    <td><img alt="" src="/decorativeimg/medal4.png" style="height:30px;"></td>
+    <?php elseif ($tip->getTipmoney()<=100&&$tip->getTipmoney()>50):?>
+    <td><img alt="" src="/decorativeimg/medal5.png" style="height:30px;"></td>
+    <?php elseif ($tip->getTipmoney()>100):?>
+    <td><img alt="" src="/decorativeimg/medal6.png" style="height:30px;"></td>
+    <?php endif;?>
       <td><?php echo date("Y-m-d H:i:s",strtotime($tip->getGmtclose()))?></td>
       <td><?php echo $tip->getCosname();?></td>
       <td><?php echo $tip->getTipmoney();?>元</td>
@@ -45,3 +86,4 @@
     <?php endforeach;?>
   </tbody>
 </table>
+<img class="angleimg" id="angleimgbottomleft" style="float: left;" src="/decorativeimg/angleimg1.png">  <img class="angleimg" id="angleimgbottomright" style="float: right;" src="/decorativeimg/angleimg1.png">
