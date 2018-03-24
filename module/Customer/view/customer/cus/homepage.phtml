@@ -237,7 +237,7 @@ function redHeader(){
 <div class="container" style="position:fixed;opacity:1;z-index:100">
    <div class="row" id="headpagebtnset" style="width:100%;">
    <div class="col-xs-2" onclick='window.android.qr();'>
-   <button type="button" class="btn btn-default btn-sm pageheadbtn" onclick='callNativeApp();'>
+   <button style="border-width:1px;border-style:solid;"  type="button" class="btn btn-default btn-sm pageheadbtn btn-border" onclick='callNativeApp();'>
   <span class="glyphicon glyphicon-qrcode" aria-hidden="true" ></span>
 </button>
 </div>
@@ -246,20 +246,20 @@ function redHeader(){
  <div class="input-group input-group-sm">
       <input type="text" name="searching" class="form-control pageheadbtn"  placeholder="Search for...">
       <span class="input-group-btn">
-       <button type="button" class="btn btn-default btn-sm pageheadbtn">
-  <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-</button>
+       <button style=" border-width:1px;border-style:solid;" type="button" class="btn btn-default btn-sm pageheadbtn">
+                搜
+       </button>
       </span>
     </div>
     </form>
  </div>
  <div class="col-xs-2" onclick="location='<?php echo $this->url('customer', array('action'=>'classify'));?>'">
-<button type="button" class="btn btn-default btn-sm pageheadbtn">
+<button style=" border-width:1px;border-style:solid;" type="button" class="btn btn-default btn-sm pageheadbtn btn-border">
   <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
 </button>
  </div>
  <div class="col-xs-2">
-<button type="button" class="btn btn-default btn-sm pageheadbtn">
+<button style=" border-width:1px;border-style:solid;"   type="button" class="btn btn-default btn-sm pageheadbtn btn-border">
   <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 </button>
  </div>
