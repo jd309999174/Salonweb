@@ -33,13 +33,13 @@ vertical-align: baseline; margin: 0 2px; outline: none; cursor: pointer; text-al
 //加载ajax上传文件插件
 </script>
  
- <div class="input-group input-group-sm" style="background-color:white;padding: 5px;z-index:10;position:fixed;text-align:center;" id="searchcolumn">
+ <div class="input-group input-group-sm" style="opacity:0.9;background-color:white;padding: 5px;z-index:10;position:fixed;text-align:center;" id="searchcolumn">
       <span class="input-group-btn" onclick="location='<?php echo $this->url('customer', array('action'=>'cosmetologist'));?>';">
-        <button class="btn btn-default" type="button">
+        <button  class="btn btn-default btn-lg" type="button" style="color:	#00E5EE;">
         <span class="glyphicon glyphicon-chevron-left"></span>
         </button>
       </span>
-      <span>
+      <span style="font-weight: bold;">
       <?php echo $cosmetologist->getCosname();?>
       </span>
       <span>

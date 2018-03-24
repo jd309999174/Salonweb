@@ -53,6 +53,7 @@ display: -webkit-box;
 .pageheadbtn{
 	opacity:0.7;
 }
+.button,
 .btn-default{
 	color:<?php echo $page->getPagecolor();?>;
 }
@@ -245,7 +246,9 @@ function redHeader(){
  <div class="input-group input-group-sm">
       <input type="text" name="searching" class="form-control pageheadbtn"  placeholder="Search for...">
       <span class="input-group-btn">
-        <input type="submit" value="搜" class="btn btn-default pageheadbtn">
+       <button type="button" class="btn btn-default btn-sm pageheadbtn">
+  <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+</button>
       </span>
     </div>
     </form>
@@ -503,7 +506,7 @@ $(document).ready(function(){
 
 <div class="row" style="position:fixed;top:80%;right:0px;z-index:100;float:right;">
     <div class="btn-group dropup">
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">菜单
+        <button type="button" class="button white bigrounded" data-toggle="dropdown">菜单
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu dropdown-menu-right" role="menu">

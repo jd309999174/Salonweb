@@ -126,7 +126,7 @@ $(document).ready(function(){
 
 
 <?php //TODO 倒计时?>
-<div class="panel panel-default" onclick="location='<?php echo $this->url('customer', array('action'=>'myappointments','sub'=>'unexpired'));?>';" class="well" style="text-align:center;font-size:large;">
+<div class="panel panel-default" onclick="location='<?php echo $this->url('customer', array('action'=>'myappointments','sub'=>'unexpired'));?>';" class="well" style="text-align:center;font-size:large;background-color:#F8F8FF;">
 <div class="panel-heading" style="color:#2F4F4F;border-radius: 16px;background-color:<?php echo $homepage->getPagecolor();?>;"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span>&nbsp;&nbsp;最近预约倒计时</div>
 <div class="panel-body">
 
@@ -220,7 +220,7 @@ $(document).ready(function(){
 <br>
 <div style="text-align: center;">
 <span>
-    <button style="opacity: 0;" type="button"  class="btn btn-warning">上一项</button>
+    <button style="opacity: 0;" type="button"  class="button orange bigrounded">上一项</button>
 </span>
 &nbsp;
 <span>
@@ -228,7 +228,7 @@ $(document).ready(function(){
 <span class="glyphicon glyphicon-user" aria-hidden="true" style="color: #8B7E66;"></span>&nbsp;&nbsp;->&nbsp;
 <span class="glyphicon glyphicon-calendar" aria-hidden="true" style="color: #8B7E66;"></span>&nbsp;</span>
 <span>
-	<button id="salonToCosmetologistNext" type="button"  class="btn btn-success">下一项</button>
+	<button id="salonToCosmetologistNext" type="button"  class="button green bigrounded">下一项</button>
 </span>
 </div>
 <br>
@@ -252,12 +252,12 @@ $(document).ready(function(){
 </div>
 </div>
 
-<div id="selectPart2" class="selectPart">
+<div id="selectPart2" class="selectPart" style="display:none;">
 <br>
 <!-- 预约流程 -->
 <div style="text-align: center;">
 <span>
-     <button id="cosmetologistToDatePrevious" type="button"  class="btn btn-warning">上一项</button>
+     <button id="cosmetologistToDatePrevious" type="button"  class="button orange bigrounded">上一项</button>
 </span>
 &nbsp;
 <span>
@@ -265,7 +265,7 @@ $(document).ready(function(){
 <span style="color: red;"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;</span>&nbsp;->&nbsp;
 <span class="glyphicon glyphicon-calendar" aria-hidden="true" style="color: #8B7E66;"></span>&nbsp;</span>
 <span>
-	<button id="cosmetologistToDateNext" type="button"  class="btn btn-success">下一项</button>
+	<button id="cosmetologistToDateNext" type="button"  class="button green bigrounded">下一项</button>
 </span>
 </div>
 <br>
@@ -275,13 +275,13 @@ $(document).ready(function(){
 
 
 
-<div id="selectPart3" class="selectPart">
+<div id="selectPart3" class="selectPart" style="display:none;">
 <div id="dateTimeSelect">
 <br>
 <!-- 预约流程 -->
 <div style="text-align: center;">
 <span>
-    <button id="dateTimePrevious" type="button"  class="btn btn-warning">上一项</button>
+    <button id="dateTimePrevious" type="button"  class="button orange bigrounded">上一项</button>
 </span>
 &nbsp;
 <span>
@@ -289,7 +289,7 @@ $(document).ready(function(){
 <span class="glyphicon glyphicon-user" aria-hidden="true" style="color: #8B7E66;"></span>&nbsp;&nbsp;->&nbsp;
 <span style="color: red;"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;</span></span>
 <span>
-    <button id="appointmentsubmit" type="button"  class="btn btn-primary">提&nbsp;&nbsp;&nbsp;交</button>
+    <button id="appointmentsubmit" type="button"  class="button red bigrounded">提&nbsp;&nbsp;&nbsp;交</button>
 </span>
 </div>
 

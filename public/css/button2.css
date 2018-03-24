@@ -1,0 +1,21 @@
+@CHARSET "UTF-8";
+/*线性渐变:多色*/
+.linear-white{background-image:linear-gradient(180deg, rgba(255,255,255,1),  rgba(255,255,255,0) 90%);}
+.linear1{background-image:linear-gradient(180deg, red, orange,yellow,yellow,red);}
+.linear2{background-image:linear-gradient(180deg, red, orange,yellow,green,blue,indigo,violet);}
+/*径向渐变*/
+.radial1{background-image:radial-gradient(at 50% 78%, yellow 8%, orange,red);}
+.radial2{background-image:radial-gradient(at 50% 78%, #fea6fc 8%,#c95ceb ,#5b0491 );}
+.radial3{background-image:radial-gradient(at 50% 78%, #5ebaf9 8%,#3871e3,#2244aa  );}
+.radial4{background-image:radial-gradient(at 50% 78%, #e0f2fc 8%,#5baadc,#0f4e79  );}
+.radial5{background-image:radial-gradient(at 50% 78%, #e9fcfc 8%,#a9beca,#465363  );}
+.radial6{background-image:radial-gradient(at 50% 78%, #fafafa 8%,#b5b5b5,#888888  );}
+.radial7{background-image:radial-gradient(at 50% 78%, #4dfd47 8%,#23e621,#028500  );}
+.radial8{background-image:radial-gradient(at 50% 78%, #fefa68 8%,#feba22,#aa5600  );}
+
+.img-rectangle{-webkit-border-radius:20%;-moz-border-radius:20%;-ms-border-radius:20%;-o-border-radius:20%;border-radius:20%;}
+.img-circle{-webkit-border-radius:50%;-moz-border-radius:50%;-ms-border-radius:50%;-o-border-radius:50%;border-radius:50%;}
+.apple-btn{position:relative;width:100px;height:100px;margin:20px;float:left;}
+.mask{position:absolute;top:5px;left:13px;right:13px;height:50px;}
+.apple-btn p{position:absolute;color:#fff;top:50%;margin-top:-20px;font-size:32px;font-family:'Microsoft YaHei';width:100%;text-align:center;text-shadow:0 2px 5px #999;z-index:2;}
+.clear{clear:both;}

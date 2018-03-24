@@ -1,3 +1,17 @@
+ <div class="input-group input-group-sm" style="background-color:white;padding: 5px;z-index:10;position:absolute;text-align:center;" id="searchcolumn">
+      <div class="input-group-btn"  onclick="location='<?php echo $this->url('customer', array('action'=>'cosmetologist'));?>';">
+       <a href="#" class="button white mediumbutton"><span class="glyphicon glyphicon-chevron-left"></span></a>
+      </div>
+      <div style="float: right;"  onclick="location='<?php echo $this->url('customer', array('action'=>'chathistory','sub'=>$sub));?>';">
+      <a href="#" class="button green mediumbutton"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span></a>
+      </div>
+ </div>
+
+
+
+
+
+
 <style>
 #angleimgtopright{
 	transform:rotate(90deg);
