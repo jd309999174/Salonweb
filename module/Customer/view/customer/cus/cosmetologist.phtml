@@ -63,8 +63,8 @@ array_push($cars1,array(
 
 <div id="accordion">
  <?php foreach ($salons as $salon): ?>
-  <h3><?php echo $salon->getSalbranch();?>:<?php echo $salon->getSalname();?></h3>
-  <div>
+  <h3><?php echo $salon->getSalbranch();?>:<?php echo $salon->getSalname();?><span id="salbranch<?php echo $salon->getSalbranch();?>" class="badge" style="float:right;background-color:red;"></span></h3>
+  <div class="h3after">
     <table class="table table-hover" style="background-color:#FFFAFA;">
  <tr>
      <th>头像</th>
@@ -122,7 +122,14 @@ array_push($cars1,array(
 <td>
 <?php foreach ($cars1 as $car1){
     if ($car1['sendid']=="cos".$car['cosid']&&$car1['number']>0){?>
-<span class="badge" style="background-color:red;"><?php echo $car1['number'];?></span>
+<span class="badge" id="<?php echo "cos".$car['cosid'];?>" style="background-color:red;"><?php echo $car1['number'];?></span>
+<script>
+//分院未读
+$(document).ready(function(){
+  $branchbadge=$("#<?php echo "cos".$car['cosid'];?>").parents(".h3after").siblings("h3").children("#salbranch<?php echo $salon->getSalbranch();?>");
+  $branchbadge.html($branchbadge.html()+<?php echo $car1['number'];?>);
+});
+</script>
 <?php };} ?>
 </td>
 </tr>
