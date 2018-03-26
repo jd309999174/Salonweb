@@ -2577,19 +2577,50 @@ class CosController extends AbstractActionController
         ));
     }
 
-    public function pictureaddAction()
-    {
+    
+    public function pictureaddAction(){
         $container = new Container('salonlogin');
         $id = $container->salnumber;
         $sub = $this->params('sub');
-        
         $form = new pictureForm();
+        return array('id'=>$id,'sub'=>$sub,'form'=>$form);
+    }
+    
+    //由于dropzone的原因，已采用
+    public function pictureaddajaxAction(){
+        $sub = $this->params('sub');
+        $third = $this->params('third');
+        
+        if($third==null){
+        $file=$_FILES['file'];
+        $pname = iconv('utf-8', 'gbk', $_FILES['file']['name']);
+        $pname1=iconv('utf-8', 'gbk', 'public/salon/'.$sub.'/');//文件路径
+        $pname2=iconv('utf-8', 'gbk', $_FILES['file']['tmp_name']);
+        move_uploaded_file($pname2, $pname1.$pname);
+        }else{
+            $file=$_FILES['file'];
+            $pname = iconv('utf-8', 'gbk', $_FILES['file']['name']);
+            $pname1=iconv('utf-8', 'gbk', 'public/salon/'.$sub.'/'.$third.'/');//文件路径
+            $pname2=iconv('utf-8', 'gbk', $_FILES['file']['tmp_name']);
+            move_uploaded_file($pname2, $pname1.$pname);
+        }
+        return array('filename'=>$_FILES['file']['name']);
+    }
+    
+    //由于dropzone的原因，已作废
+    public function pictureaddtestAction()
+    {
+        //$container = new Container('salonlogin');
+        //$id = $container->salnumber;
+        $sub = $this->params('sub');
+        $id = $this->params('third');
+        
 
         $request = $this->getRequest();
         if ($request->isPost()) {
                 $y = $request->getFiles()->toArray();
                 if($sub==null){
-                foreach ($y['picturefile'] as $picturesrc) {
+                foreach ($y['file'] as $picturesrc) {
                     $pname = iconv('utf-8', 'gbk', $picturesrc['name']);
                     $pname1=iconv('utf-8', 'gbk', 'public/salon/'.$id.'/');//文件路径
                     $pname2=iconv('utf-8', 'gbk', $picturesrc['tmp_name']);
@@ -2664,7 +2695,7 @@ class CosController extends AbstractActionController
                     'action' => 'picture'
                 ));
                 }else {
-                    foreach ($y['picturefile'] as $picturesrc) {
+                    foreach ($y['file'] as $picturesrc) {
                         $pname = iconv('utf-8', 'gbk', $picturesrc['name']);//文件名
                         $pname1=iconv('utf-8', 'gbk', 'public/salon/'.$id.'/'.$sub.'/');//文件路径
                         $pname2=iconv('utf-8', 'gbk', $picturesrc['tmp_name']);//临时文件名
@@ -2743,7 +2774,6 @@ class CosController extends AbstractActionController
                 }
         }
         return array(
-            'form' => $form,
             'id' => $id,
             'sub'=>$sub
         );

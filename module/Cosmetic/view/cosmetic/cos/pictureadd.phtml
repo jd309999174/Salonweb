@@ -1,36 +1,45 @@
-<link href="/css/fileinput.min.css" media="screen" rel="stylesheet" type="text/css">
-<script src="/js/fileinput.min.js"></script>
-<script src="/js/fileinput.zh.js"></script>
-
 
 <?php
-$title = '添加图片';
+$title = '点击上传或拖放图片上传';
 $this->headTitle($title);
 ?>
-<h5><?php echo $this->escapeHtml($title); ?></h5>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
 
-<?php
-$form = $this->form;
-$form->setAttribute('action', $this->url('cosmetic', array(
-    'action' => 'pictureadd','sub'=>$sub
-)));
-$form->get('submit')->setAttribute('value', '提交');
-$form->prepare();
-echo $this->form()->openTag($form);
-echo $this->formRow($form->get('picturefile'));
-?>
-<div>
- <?php echo $this->formInput($form->get('submit')); ?>
- </div>
 
- 
+
+<link href="/dropupload/basic.min.css" rel='stylesheet' type='text/css' />
+<link href="/dropupload/dropzone.min.css" rel='stylesheet' type='text/css' />
+<script type="text/javascript" src="/dropupload/dropzone.min.js"></script>
+<script type="text/javascript" src="/dropupload/dropzone-amd-module.min.js"></script>
+<style>
+	.dropzone {
+    border: 2px dashed #0087F7;
+    border-radius: 5px;
+    background: white;
+}
+	
+</style>
+
+
+
+
+<div class="dropzone"></div>
 <script>
-$(document).on('ready', function() {
-    $("#picturefile").fileinput({
-    	language: 'zh', //设置语言
-        showUpload: false,
-        maxFileCount: 30,
-        mainClass: "input-group-normal"
-    });
+$("div.dropzone").dropzone({
+    url: "<?php echo $this->url('cosmeticajax',array('action'=>'pictureaddajax','sub'=>$id,'third'=>$sub));?>",//上传文件的地址，
+    maxFiles: 20,//最多上传几个图片
+    maxFilesize: 5,//图片的大小，单位是M
+    addRemoveLinks:true,//是否有删除图片的功能
+    dictRemoveFile:"",//删除图片的文字
+    acceptedFiles: ".jpg,.jpeg,.png,.gif",//支持的格式
+    paramName:'file',//上传的FILE名称，即服务端可以通过此来获取上传的图片，如$_FILES['dropimage']
+    init: function() {//初始化是的事件
+        this.on("success", function(file) {
+            console.log("File " + file.name + "uploaded");
+        });
+        this.on("removedfile", function(file) {
+            console.log("File " + file.name + "removed");
+        });
+    }
 });
 </script>
