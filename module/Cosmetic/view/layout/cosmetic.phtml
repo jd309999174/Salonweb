@@ -13,6 +13,7 @@
         <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
                         ->prependStylesheet($this->basePath('css/jquery-ui.css'))
                         ->prependStylesheet($this->basePath('css/bootstrap.css'))
+                        ->prependStylesheet($this->basePath('css/button1.css'))
                         ;?>
 
         <!-- Scripts -->
@@ -77,6 +78,14 @@ obj2.value=obj.value;
 }
 .subtitletext{
 	font-size:120%;
+}
+.btnshadow {
+box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.radius-circle {
+-webkit-border-radius: 20px;
+-moz-border-radius: 20px;
+border-radius: 20px;
 }
 </style>
 

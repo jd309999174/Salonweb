@@ -34,6 +34,7 @@ $form->setAttribute('action', $this->url('salonboss', array(
     'action' => 'salonbossregister'
 )));
 $form->get('submit')->setAttribute('value', '注册');
+$form->get('submit')->setAttribute('class', 'button blue bigrounded');
 $form->prepare();
 echo $this->form()->openTag($form);?>
 <fieldset>

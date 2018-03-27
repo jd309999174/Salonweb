@@ -1,0 +1,60 @@
+<div class="well btnshadow radius-circle" style="text-align:center"><h4><?php echo $homepage->getPageheaddata2();?></h4></div>
+
+<br>
+
+<div style="text-align:center">
+<img class="btnshadow img-rounded" src="<?php echo $homepage->getPageheaddata1();?>" style="height:100px;width:120px;">
+</div>
+
+
+<hr>
+
+<?php if ($appname=='androidcustomer'):?>
+<div style="text-align:center">
+<img class="img-rounded" src="/img/androidicon.png" style="height:100px;width:100px;">
+</div>
+<br>
+<div style="text-align:center">
+<a class="button blue bigrounded" href="https://www.oushelun.cn/appdownload/<?php echo $salonnumber;?>/Customer.apk">点击下载</a>
+</div>
+<?php elseif($appname=='androidcosmetologist'): ?>
+<div style="text-align:center">
+<img class="img-rounded" src="/img/androidicon.png" style="height:100px;width:100px;">
+</div>
+<br>
+<div style="text-align:center">
+<a class="button blue bigrounded" href="https://www.oushelun.cn/appdownload/<?php echo $salonnumber;?>/Cosmetologist.apk">点击下载</a>
+</div>
+<?php elseif($appname=='salonboss'): ?>
+<div style="text-align:center">
+<img class="img-rounded" src="/img/androidicon.png" style="height:100px;width:100px;">
+</div>
+<br>
+<div style="text-align:center">
+<a class="button blue bigrounded" href="https://www.oushelun.cn/appdownload/<?php echo $salonnumber;?>/Salonboss.apk">点击下载</a>
+</div>
+<?php elseif($appname=='ioscustomer'): ?>
+<div style="text-align:center">
+<img class="img-rounded" src="/img/appleicon.png" style="height:100px;width:100px;">
+</div>
+<br>
+<div style="text-align:center">
+<a class="button blue bigrounded" href="itms-services://?action=download-manifest&url=https://www.oushelun.cn/appdownload/<?php echo $salonnumber;?>/Customerios.plist">点击下载</a>
+</div>
+<?php elseif($appname=='ioscosmetologist'): ?>
+<div style="text-align:center">
+<img class="img-rounded" src="/img/appleicon.png" style="height:100px;width:100px;">
+</div>
+<br>
+<div style="text-align:center">
+<a class="button blue bigrounded" href="itms-services://?action=download-manifest&url=https://www.oushelun.cn/appdownload/<?php echo $salonnumber;?>/Cosmetologistios.plist">点击下载</a>
+</div>
+<?php elseif($appname=='iossalonboss'): ?>
+<div style="text-align:center">
+<img class="img-rounded" src="/img/appleicon.png" style="height:100px;width:100px;">
+</div>
+<br>
+<div style="text-align:center">
+<a class="button blue bigrounded" href="itms-services://?action=download-manifest&url=https://www.oushelun.cn/appdownload/<?php echo $salonnumber;?>/Salonbossios.plist">点击下载</a>
+</div>
+<?php endif;?>

@@ -9,6 +9,7 @@ $form->setAttribute('action', $this->url('cosmeticlogin', array(
     'action' => 'login','sub'=>$sub
 )));
 $form->get('submit')->setAttribute('value', '登陆');
+$form->get('submit')->setAttribute('class', 'button blue bigrounded');
 $form->prepare();
 echo $this->form()->openTag($form);?>
 <fieldset>

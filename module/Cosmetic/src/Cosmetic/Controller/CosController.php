@@ -300,6 +300,19 @@ class CosController extends AbstractActionController
             'salons' => $mapper->fetchAll()
         ));
     }
+    public function appdownloadAction()
+    {
+        $salonnumber=$this->params('sub');
+        $appname=$this->params('third');
+        
+        $homepage = $homepage = $this->getPageMapper()->getHomepage($salonnumber); // 美容院标识
+        
+        return new ViewModel(array(
+            'salonnumber' => $salonnumber,
+            'appname'=>$appname,
+            'homepage'=>$homepage
+        ));
+    }
     public function feedbackAction()
     {
         //订单id
