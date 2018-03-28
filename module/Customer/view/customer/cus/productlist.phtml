@@ -15,20 +15,69 @@ display: -webkit-box;
 	}
 </style>
 <script>
-//排序按钮
+//疗程下拉加载更多
 $(document).ready(function(){
-	$('#prodpriceup').hide();$('#prodpricedown').hide();$('#prodsales').hide();$('#prodregdate').hide();
+  $prodoffset=0;
+  $prodstyle=2;
+  $prodtitle="<?php echo $_GET['searching'];?>";
+  $.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:0,prodorder:"prodsynthesis",prodtitle:$prodtitle,prodstyle:$prodstyle},type:"POST",success:function(data,status){
+      	   $("#homepagetwocontent").append(data);
+	}});
+  $("#sortsynthesis").addClass("active");
 	$("#sortsynthesis").click(function(){
-	    $('.prodsort').hide();$('#prodsynthesis').show();});
+		$prodoffset=0;
+		$("#homepagetwocontent").attr("data-order","prodsynthesis");
+		$.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:0,prodorder:"prodsynthesis",prodtitle:$prodtitle,prodstyle:$prodstyle},type:"POST",success:function(data,status){
+			   $("#homepagetwocontent").html(data);
+			}});
+		});
 	$("#sortpriceup").click(function(){
-	    $('.prodsort').hide();$('#prodpriceup').show();});
+		$prodoffset=0;
+		$("#sortsynthesis").removeClass("active");
+		$("#homepagetwocontent").attr("data-order","prodpriceup");
+		$.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:0,prodorder:"prodpriceup",prodtitle:$prodtitle,prodstyle:$prodstyle},type:"POST",success:function(data,status){
+			   $("#homepagetwocontent").html(data);
+
+			}});
+	    });
 	$("#sortpricedown").click(function(){
-		$('.prodsort').hide();$('#prodpricedown').show();});
+		$prodoffset=0;
+		$("#sortsynthesis").removeClass("active");
+		$("#homepagetwocontent").attr("data-order","prodpricedown");
+		$.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:0,prodorder:"prodpricedown",prodtitle:$prodtitle,prodstyle:$prodstyle},type:"POST",success:function(data,status){
+			   $("#homepagetwocontent").html(data);
+
+			}});
+		});
 	$("#sortsales").click(function(){
-	    $('.prodsort').hide();$('#prodsales').show();});
+		$prodoffset=0;
+		$("#sortsynthesis").removeClass("active");
+		$("#homepagetwocontent").attr("data-order","prodsales");
+		$.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:0,prodorder:"prodsales",prodtitle:$prodtitle,prodstyle:$prodstyle},type:"POST",success:function(data,status){
+			   $("#homepagetwocontent").html(data);
+
+			}});
+	    });
 	$("#sortregdate").click(function(){
-	    $('.prodsort').hide();$('#prodregdate').show();});
-})
+		$prodoffset=0;
+		$("#sortsynthesis").removeClass("active");
+		$("#homepagetwocontent").attr("data-order","prodregdate");
+		$.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:0,prodorder:"prodregdate",prodtitle:$prodtitle,prodstyle:$prodstyle},type:"POST",success:function(data,status){
+			   $("#homepagetwocontent").html(data);
+			}});
+	    });
+  $(document).scroll(function(){
+   if($(window).scrollTop()+$(window).height()>$("#prodfixedstandard").offset().top-100){
+	   //判断激活的按钮
+	   $prodorder=$("#homepagetwocontent").attr("data-order");
+	   $prodoffset=$prodoffset+1;
+	   $.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:$prodoffset,prodorder:$prodorder,prodtitle:$prodtitle,prodstyle:$prodstyle},type:"POST",success:function(data,status){
+		   $("#homepagetwocontent").append(data);
+		}});
+   }
+  })
+  setInterval(function(){$(".prodloading").remove();}, 1000*3);
+});
 </script>
 <script type="text/javascript">
 //上滑消失，下滑显示
@@ -82,143 +131,9 @@ $(document).ready(function(){
 </div>
 </div>
 <div id="fixedstandard"></div>
-<?php
-$homepage2cars=array();
-foreach ($products as $product){
-    if (preg_match("^".$_GET['classify']."^", $product->getProddemandclassifyseries())) {
-        if(preg_match("^".$_GET['searching']."^", $product->getProdtitle())){
-array_push($homepage2cars,array("prodid"=>$product->getProdid(),"prodsales"=>$product->getProdsales(),
-    "prodtitle"=>$product->getProdtitle(),"prodpicture1"=>$product->getProdpicture1(),
-    "prodprice"=>$product->getProdprice(),"prodoriginal"=>$product->getProdoriginal(),
-    "prodregdate"=>$product->getProdregdate(),
-    "proddiscount"=>$product->getProddiscount()));
-    }
-    }
-}?>
 
-<div id="prodsynthesis" class="prodsort">
- <?php //综合排序
-foreach ($homepage2cars as $key => $row) {
-$x[$key] = $row['prodprice'];}
-if($x){
-array_multisort($x, SORT_DESC,$homepage2cars);
-}else{?>
-    <div id="noproductAlert" style="text-align:center;">
-    <div class="alert alert-danger">没有相关产品或服务，请重新输入搜索条件</div>
-    </div>
-    
-    <script type="text/javascript">
-    $(document).ready(function(){
-    setTimeout(function(){$("#noproductAlert").hide()},3000);
-    })
-    </script>
-<?php }?>
-<div class="row" >
-<?php foreach ($homepage2cars as $car): ?>
-  <div class="col-xs-6 productdisplay" onclick="location='productitem/<?php echo $car["prodid"];?>';">
-  <img alt="" src="<?php echo $car["prodpicture1"];?>" style="height:150px;width:100%">
-  <div style="padding: 3px;">
-  <p class="producttitle"><?php echo $car["prodtitle"];?></p>
-  <p>原价：<span style="text-decoration:line-through;color:gray;font-size:small;"><?php echo $car["prodoriginal"];?></span></p>
-  <p>
-  <span style="color:red;font-size:large;">¥ <?php echo $car["prodprice"];?></span>
-  <span style="float:right;color:gray;">销量：<?php echo $car["prodsales"];?></span>
-  </p>
-  </div>
-  </div>
-<?php endforeach;?>
-</div>
-</div>
+<div id="homepagetwocontent" data-order="prodsynthesis">
 
-<div id="prodpriceup" class="prodsort">
- <?php //价格升
-foreach ($homepage2cars as $key => $row) {
-$x[$key] = $row['prodprice'];}
-array_multisort($x, SORT_ASC,$homepage2cars);
-?>
-<div class="row" >
-<?php foreach ($homepage2cars as $car): ?>
-  <div class="col-xs-6 productdisplay" onclick="location='productitem/<?php echo $car["prodid"];?>';">
-  <img alt="" src="<?php echo $car["prodpicture1"];?>" style="height:150px;width:100%">
-  <div style="padding: 3px;">
-  <p class="producttitle"><?php echo $car["prodtitle"];?></p>
-    <p>原价：<span style="text-decoration:line-through;color:gray;font-size:small;"><?php echo $car["prodoriginal"];?></span></p>
-  <p>
-  <span style="color:red;font-size:large;">¥ <?php echo $car["prodprice"];?></span>
-  <span style="float:right;color:gray;">销量：<?php echo $car["prodsales"];?></span>
-  </p>
-  </div>
 </div>
-<?php endforeach;?>
-</div>
-</div>
-
-<div id="prodpricedown" class="prodsort">
- <?php //价格降
-foreach ($homepage2cars as $key => $row) {
-$x[$key] = $row['prodprice'];}
-array_multisort($x, SORT_DESC,$homepage2cars);
-?>
-<div class="row">
-<?php foreach ($homepage2cars as $car): ?>
-  <div class="col-xs-6 productdisplay" style="float:left;" onclick="location='productitem/<?php echo $car["prodid"];?>';">
-  <img alt="" src="<?php echo $car["prodpicture1"];?>" style="height:150px;width:100%">
-  <div  style="padding: 3px;">
-  <p class="producttitle"><?php echo $car["prodtitle"];?></p>
-    <p>原价：<span style="text-decoration:line-through;color:gray;font-size:small;"><?php echo $car["prodoriginal"];?></span></p>
-  <p>
-  <span style="color:red;font-size:large;">¥ <?php echo $car["prodprice"];?></span>
-  <span style="float:right;color:gray;">销量：<?php echo $car["prodsales"];?></span>
-  </p>
- </div>
-</div>
-<?php endforeach;?>
-</div>
-</div>
-
-<div id="prodsales" class="prodsort">
- <?php  //销量排序
-foreach ($homepage2cars as $key => $row) {
-$x[$key] = $row['prodsales'];}
-array_multisort($x, SORT_ASC,$homepage2cars);
-?>
-<div class="row">
-<?php foreach ($homepage2cars as $car): ?>
-  <div class="col-xs-6 productdisplay" style="float: left" onclick="location='productitem/<?php echo $car["prodid"];?>';">
-  <img alt="" src="<?php echo $car["prodpicture1"];?>" style="height:150px;width:100%">
-  <div style="padding: 3px;">
-  <p class="producttitle"><?php echo $car["prodtitle"];?></p>
-  <p>原价：<span style="text-decoration:line-through;color:gray;font-size:small;"><?php echo $car["prodoriginal"];?></span></p>
-  <p>
-  <span style="color:red;font-size:large;">¥ <?php echo $car["prodprice"];?></span>
-  <span style="float:right;color:gray;">销量：<?php echo $car["prodsales"];?></span>
-  </p>
-  </div>
-  </div>
-<?php endforeach;?>
-</div>
-</div>
-
-<div id="prodregdate" class="prodsort">
- <?php  //新品排序
-foreach ($homepage2cars as $key => $row) {
-$x[$key] = $row['prodregdate'];}
-array_multisort($x, SORT_DESC,$homepage2cars);
-?>
-<div class="row" >
-<?php foreach ($homepage2cars as $car): ?>
-  <div class="col-xs-6 productdisplay" style="float:left;" onclick="location='productitem/<?php echo $car["prodid"];?>';">
-  <img alt="" src="<?php echo $car["prodpicture1"];?>" style="height:150px;width:100%">
-  <div style="padding: 3px;">
-  <p class="producttitle"><?php echo $car["prodtitle"];?></p>
-  <p>原价：<span style="text-decoration:line-through;color:gray;font-size:small;"><?php echo $car["prodoriginal"];?></span></p>
-  <p>
-  <span style="color:red;font-size:large;">¥ <?php echo $car["prodprice"];?></span>
-  <span style="float:right;color:gray;">销量：<?php echo $car["prodsales"];?></span>
-  </p>
-  </div>
-  </div>
-<?php endforeach;?>
-</div>
-</div>
+<div id="prodfixedstandard"  style="text-align:center;color:#696969;">
 </div>

@@ -1,4 +1,4 @@
-<?php
+<?php //改动： 排序由按钮触发ajax完成
 $homepage2cars=array();
 foreach ($products as $product){
 array_push($homepage2cars,array("prodid"=>$product->getProdid(),"prodsales"=>$product->getProdsales(),
@@ -7,15 +7,10 @@ array_push($homepage2cars,array("prodid"=>$product->getProdid(),"prodsales"=>$pr
     "prodregdate"=>$product->getProdregdate(),
     "proddiscount"=>$product->getProddiscount()));
 }?>
+<?php  //风格1
+if ($prodstyle=="1"):?>
 <?php  //存在则输出， 不存在则为空
 if ($homepage2cars):?>
-
-<div id="prodsynthesis" class="prodsort">
- <?php //综合排序
-foreach ($homepage2cars as $key => $row) {
-$x[$key] = $row['prodprice'];}
-array_multisort($x, SORT_DESC,$homepage2cars);
-?>
 <?php foreach ($homepage2cars as $car): ?>
 <div class="row productdisplay"  onclick="location='<?php echo $this->url('customer', array('action'=>'productitem','sub'=>$car["prodid"]));?>';">
   <div class="col-xs-4"><img alt="" src="<?php echo $car["prodpicture1"];?>" style="height:124px;width:100%"></div>
@@ -30,91 +25,41 @@ array_multisort($x, SORT_DESC,$homepage2cars);
   </div>
 </div>
 <?php endforeach;?>
+<?php if (count($homepage2cars)<10):?>
+<div  class="" style="text-align:center;color:#696969;">
+已加载全部。。。
 </div>
-
-<div id="prodpriceup" style="display: none;" class="prodsort">
- <?php //价格排序
-foreach ($homepage2cars as $key => $row) {
-$x[$key] = $row['prodprice'];}
-array_multisort($x, SORT_ASC,$homepage2cars);
-?>
+<?php else:?>
+<div  class="prodloading" style="text-align:center;color:#696969;">
+加载中。。。
+</div>
+<?php endif;?>
+<?php endif;?>
+<?php   //风格2
+elseif ($prodstyle=="2"):?>
+<?php  //存在则输出， 不存在则为空
+if ($homepage2cars):?>
 <?php foreach ($homepage2cars as $car): ?>
-<div class="row productdisplay"  onclick="location='<?php echo $this->url('customer', array('action'=>'productitem','sub'=>$car["prodid"]));?>';">
-  <div class="col-xs-4"><img alt="" src="<?php echo $car["prodpicture1"];?>" style="height:124px;width:100%"></div>
-  <div class="col-xs-8" style="padding: 2px">
+  <div class="col-xs-6 productdisplay" onclick="location=<?php echo $this->url('customer', array('action'=>'productitem','sub'=>$car["prodid"]));?>';">
+  <img alt="" src="<?php echo $car["prodpicture1"];?>" style="height:150px;width:100%">
+  <div style="padding: 3px;">
   <p class="producttitle"><?php echo $car["prodtitle"];?></p>
-  <p>原价：<span style="text-decoration:line-through;color:gray"><?php echo $car["prodoriginal"];?></span></p>
+  <p>原价：<span style="text-decoration:line-through;color:gray;font-size:small;"><?php echo $car["prodoriginal"];?></span></p>
   <p>
   <span style="color:red;font-size:large;">¥ <?php echo $car["prodprice"];?></span>
   <span style="float:right;color:gray;">销量：<?php echo $car["prodsales"];?></span>
   </p>
   </div>
-</div>
-<?php endforeach;?>
-</div>
-
-<div id="prodpricedown" style="display: none;" class="prodsort">
- <?php //价格排序
-foreach ($homepage2cars as $key => $row) {
-$x[$key] = $row['prodprice'];}
-array_multisort($x, SORT_DESC,$homepage2cars);
-?>
-<?php foreach ($homepage2cars as $car): ?>
-<div class="row productdisplay" onclick="location='<?php echo $this->url('customer', array('action'=>'productitem','sub'=>$car["prodid"]));?>';">
-  <div class="col-xs-4"><img alt="" src="<?php echo $car["prodpicture1"];?>" style="height:124px;width:100%"></div>
-  <div class="col-xs-8" style="padding: 2px">
-  <p class="producttitle"><?php echo $car["prodtitle"];?></p>
-  <p>原价：<span style="text-decoration:line-through;color:gray"><?php echo $car["prodoriginal"];?></span></p>
-  <p>
-  <span style="color:red;font-size:large;">¥ <?php echo $car["prodprice"];?></span>
-  <span style="float:right;color:gray;">销量：<?php echo $car["prodsales"];?></span>
-  </p>
   </div>
-</div>
 <?php endforeach;?>
+<?php if (count($homepage2cars)<10):?>
+<div  class="" style="text-align:center;color:#696969;">
+已加载全部。。。
 </div>
-
-<div id="prodsales" style="display: none;" class="prodsort">
- <?php  //销量排序
-foreach ($homepage2cars as $key => $row) {
-$x[$key] = $row['prodsales'];}
-array_multisort($x, SORT_ASC,$homepage2cars);
-?>
-<?php foreach ($homepage2cars as $car): ?>
-<div class="row productdisplay" onclick="location='<?php echo $this->url('customer', array('action'=>'productitem','sub'=>$car["prodid"]));?>';">
-  <div class="col-xs-4"><img alt="" src="<?php echo $car["prodpicture1"];?>" style="height:124px;width:100%"></div>
-  <div class="col-xs-8" style="padding: 2px">
-  <p class="producttitle"><?php echo $car["prodtitle"];?></p>
-  <p>原价：<span style="text-decoration:line-through;color:gray"><?php echo $car["prodoriginal"];?></span></p>
-  <p>
-  <span style="color:red;font-size:large;">¥ <?php echo $car["prodprice"];?></span>
-  <span style="float:right;color:gray;">销量：<?php echo $car["prodsales"];?></span>
-  </p>
-  </div>
+<?php else:?>
+<div  class="prodloading" style="text-align:center;color:#696969;">
+加载中。。。
 </div>
-<?php endforeach;?>
-</div>
-
-
-<div id="prodregdate" style="display: none;" class="prodsort">
- <?php  //新品排序
-foreach ($homepage2cars as $key => $row) {
-$x[$key] = $row['prodregdate'];}
-array_multisort($x, SORT_DESC,$homepage2cars);
-?>
-<?php foreach ($homepage2cars as $car): ?>
-<div class="row productdisplay" style="padding:5px;" onclick="location='<?php echo $this->url('customer', array('action'=>'productitem','sub'=>$car["prodid"]));?>';">
-  <div class="col-xs-4"><img alt="" src="<?php echo $car["prodpicture1"];?>" style="height:124px;width:100%"></div>
-  <div class="col-xs-8" style="padding: 2px">
-  <p class="producttitle"><?php echo $car["prodtitle"];?></p>
-  <p>原价：<span style="text-decoration:line-through;color:gray"><?php echo $car["prodoriginal"];?></span></p>
-  <p>
-  <span style="color:red;font-size:large;">¥ <?php echo $car["prodprice"];?></span>
-  <span style="float:right;color:gray;">销量：<?php echo $car["prodsales"];?></span>
-  </p>
-  </div>
-</div>
-<?php endforeach;?>
-</div>
-
+<?php endif;?>
+<?php endif;?>
 <?php endif;?>

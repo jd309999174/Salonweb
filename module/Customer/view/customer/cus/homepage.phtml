@@ -246,9 +246,7 @@ function redHeader(){
  <div class="input-group input-group-sm">
       <input type="text" name="searching" class="form-control pageheadbtn"  placeholder="Search for...">
       <span class="input-group-btn">
-       <button style=" border-width:1px;border-style:solid;" type="button" class="btn btn-default btn-sm pageheadbtn">
-                搜
-       </button>
+     <input style="border-width:1px;border-style:solid;border-color:#ccc;" type="submit" value="搜" class="btn btn-default pageheadbtn">
       </span>
     </div>
     </form>
@@ -334,46 +332,70 @@ include_once 'public/php/templateforui.phtml';?>
 </div>
 
 <?php //TODO homepage2?>
-<script>
-//排序按钮
-$(document).ready(function(){
-    $("#sortsynthesis").addClass("active");
-	$("#sortsynthesis").click(function(){
-	    $('.prodsort').hide();$('#prodsynthesis').show();});
-	$("#sortpriceup").click(function(){
-		$("#sortsynthesis").removeClass("active");
-	    $('.prodsort').hide();$('#prodpriceup').show();});
-	$("#sortpricedown").click(function(){
-		$("#sortsynthesis").removeClass("active");
-		$('.prodsort').hide();$('#prodpricedown').show();});
-	$("#sortsales").click(function(){
-		$("#sortsynthesis").removeClass("active");
-	    $('.prodsort').hide();$('#prodsales').show();});
-	$("#sortregdate").click(function(){
-		$("#sortsynthesis").removeClass("active");
-	    $('.prodsort').hide();$('#prodregdate').show();});
-})
-</script>
 
 <script>
 //疗程下拉加载更多
 $(document).ready(function(){
   $prodoffset=0;
-  $.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:$prodoffset},type:"POST",success:function(data,status){
-	   $("#homepagetwocontent").append(data);	
-	}});
-  $(document).scroll(function(){
-   if($(window).scrollTop()+$(window).height()>$("#prodfixedstandard").offset().top-100){
-	   $.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:$prodoffset},type:"POST",success:function(data,status){
-           if(data!=""){
-		   $("#homepagetwocontent").append(data);
-           }else{
-           $("#prodfixedstandard").html("已加载全部");
-               }
+  $prodstyle=1;
+  $prodtitle="";
+  $.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:0,prodorder:"prodsynthesis",prodtitle:$prodtitle,prodstyle:$prodstyle},type:"POST",success:function(data,status){
+	   $("#homepagetwocontent").append(data);
+}});
+$("#sortsynthesis").addClass("active");
+$("#sortsynthesis").click(function(){
+	$prodoffset=0;
+	$("#homepagetwocontent").attr("data-order","prodsynthesis");
+	$.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:0,prodorder:"prodsynthesis",prodtitle:$prodtitle,prodstyle:$prodstyle},type:"POST",success:function(data,status){
+		   $("#homepagetwocontent").html(data);
 		}});
-	   $prodoffset=$prodoffset+1;
-   }
-  })
+	});
+$("#sortpriceup").click(function(){
+	$prodoffset=0;
+	$("#sortsynthesis").removeClass("active");
+	$("#homepagetwocontent").attr("data-order","prodpriceup");
+	$.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:0,prodorder:"prodpriceup",prodtitle:$prodtitle,prodstyle:$prodstyle},type:"POST",success:function(data,status){
+		   $("#homepagetwocontent").html(data);
+
+		}});
+  });
+$("#sortpricedown").click(function(){
+	$prodoffset=0;
+	$("#sortsynthesis").removeClass("active");
+	$("#homepagetwocontent").attr("data-order","prodpricedown");
+	$.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:0,prodorder:"prodpricedown",prodtitle:$prodtitle,prodstyle:$prodstyle},type:"POST",success:function(data,status){
+		   $("#homepagetwocontent").html(data);
+
+		}});
+	});
+$("#sortsales").click(function(){
+	$prodoffset=0;
+	$("#sortsynthesis").removeClass("active");
+	$("#homepagetwocontent").attr("data-order","prodsales");
+	$.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:0,prodorder:"prodsales",prodtitle:$prodtitle,prodstyle:$prodstyle},type:"POST",success:function(data,status){
+		   $("#homepagetwocontent").html(data);
+
+		}});
+  });
+$("#sortregdate").click(function(){
+	$prodoffset=0;
+	$("#sortsynthesis").removeClass("active");
+	$("#homepagetwocontent").attr("data-order","prodregdate");
+	$.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:0,prodorder:"prodregdate",prodtitle:$prodtitle,prodstyle:$prodstyle},type:"POST",success:function(data,status){
+		   $("#homepagetwocontent").html(data);
+		}});
+  });
+$(document).scroll(function(){
+if($(window).scrollTop()+$(window).height()>$("#prodfixedstandard").offset().top-100){
+ //判断激活的按钮
+ $prodorder=$("#homepagetwocontent").attr("data-order");
+ $prodoffset=$prodoffset+1;
+ $.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:$prodoffset,prodorder:$prodorder,prodtitle:$prodtitle,prodstyle:$prodstyle},type:"POST",success:function(data,status){
+	   $("#homepagetwocontent").append(data);
+	}});
+}
+})
+setInterval(function(){$(".prodloading").remove();}, 1000*3);
 });
 </script>
 <div id="homepagenav2" class="homepagenav">
@@ -394,11 +416,10 @@ $(document).ready(function(){
     <button type="button" class="btn btn-default"  id="sortregdate">新品</button>
   </div>
 </div>
-<div id="homepagetwocontent">
+<div id="homepagetwocontent" data-order="prodsynthesis">
 
 </div>
-<div id="prodfixedstandard" style="height:50px;text-align:center;color:#696969;">
-加载中。。。
+<div id="prodfixedstandard"  style="text-align:center;color:#696969;">
 </div>
 <?php //TODO 底部菜单栏  用于站位?>
 <div class="btn-group btn-group-justified" role="group" style="visibility:hidden">

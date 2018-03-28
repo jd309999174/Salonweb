@@ -84,10 +84,30 @@ public function saveProduct(ProductEntity $product)
      return $resultset;
  }
  //按美容院编号搜索所有产品，包括我的产品          下拉加载更多
- public function getProductoffset($id,$prodoffset)
+ public function getProductoffset($id,$prodoffset,$prodorder,$prodtitle)
  {
      $select = $this->sql->select();
-     $select->where(array('salnumber' => array($id,1)));
+     $select->where(array('salnumber' => array($id,1),'prodtitle LIKE "%'.$prodtitle.'%"'));
+     switch ($prodorder)
+     {
+         case "prodsynthesis":
+             //$select->order(array('prodid ASC', 'salnumber ASC'));//综合就是无排序
+             break;
+         case "prodpriceup":
+             $select->order(array('prodprice ASC'));//价格升
+             break;
+         case "prodpricedown":
+             $select->order(array('prodprice DESC'));//价格降
+             break;
+         case "prodsales":
+             $select->order(array('prodsales DESC'));//销量
+             break;
+         case "prodregdate":
+             $select->order(array('prodid DESC'));//新品就是按id来排序
+             break;
+         default:
+             //无排序
+     }
      $select->order(array('prodid ASC', 'salnumber ASC'));
      $select->limit(10);
      $select->offset($prodoffset*10);
