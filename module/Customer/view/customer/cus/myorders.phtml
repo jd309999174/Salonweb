@@ -41,13 +41,13 @@ array_push($cars,array("treid"=>$myorder->getTreid(),"orderid"=>$myorder->getOrd
     "prodtitle"=>$myorder->getProdtitle(),"productcombinationname"=>$myorder->getProductcombinationname(),
     "productcombinationpicture"=>$myorder->getProductcombinationpicture(),
     "treprice"=>$myorder->getTreprice(),"productquantity"=>$myorder->getProductquantity(),
-    "treregdate"=>$myorder->getTreregdate(),"trestate"=>$myorder->getTrestate()
+    "treregdate"=>$myorder->getTreregdate(),"trestate"=>$myorder->getTrestate(),"gmtclose"=>$myorder->getGmtclose(),
 ));?>
 <?php endforeach;?>
 
  <?php //排序：
 foreach ($cars as $key => $row) {
-$x[$key] = $row['treregdate'];}
+$x[$key] = $row['gmtclose'];}
 if ($x){
 array_multisort($x, SORT_DESC,$cars);
 }?>
@@ -76,7 +76,7 @@ foreach ($cars as $car):if($car['trestate']!=="nonpayment"){?>
    <div class="row" style="float:right;">共<?php echo $car['productquantity'];?>件产品&nbsp;<span>合计：¥<?php echo $car['treprice'];?></span></div>
    <br>
    <div class="row">
-   <div><?php echo date('Y-m-d H:i:s',strtotime($car['treregdate']));?></div>
+   <div><?php echo date('Y-m-d H:i:s',strtotime($car['gmtclose']));?></div>
    <div style="float:right;">
    <button class="btn btn-success" onclick="location='<?php echo $this->url('customer', array('action'=>'myorderdetail','sub'=>$car['treid']));?>';">订单详情</button>
    </div>
@@ -104,12 +104,12 @@ foreach ($cars as $car):if($car['trestate']!=="nonpayment"){?>
    <div class="row" style="float:right;">共<?php echo $car['productquantity'];?>件产品&nbsp;<span>合计：¥<?php echo $car['treprice'];?></span></div>
    <br>
    <div class="row">
-   <div><?php echo date('Y-m-d H:i:s',strtotime($car['treregdate']));?></div>
+   <div><?php echo date('Y-m-d H:i:s',strtotime($car['gmtclose']));?></div>
    <div style="float:right;">
    <button class="btn btn-success" onclick="location='<?php echo $this->url('customer', array('action'=>'myorderdetail','sub'=>$car['treid']));?>';">订单详情</button>
    <button class="btn btn-danger" onclick='$.ajax({url:"<?php echo $this->url('customer', array('action'=>'trepayment'));?>",dataType:"text",data:"treid=<?php echo $car['treid'];?>",type:"POST",success:function(result){
 			$("#div1").append(result);
-			location="<?php echo $this->url('customer', array('action'=>'me'));?>"; }});'>支付宝付款</button>
+			location="<?php echo $this->url('customer', array('action'=>'aftertrepaid'));?>"; }});'>支付宝付款</button>
    </div>
 			
 			</div>

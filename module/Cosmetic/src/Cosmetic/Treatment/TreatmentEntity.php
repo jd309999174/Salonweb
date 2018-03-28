@@ -348,6 +348,7 @@ class TreatmentEntity
     public function __construct()
     {
         $this->treregdate = date('YmdHis');
+        $this->gmtclose = date('YmdHis');
     }
     
     
