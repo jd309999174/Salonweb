@@ -84,10 +84,10 @@ public function saveProduct(ProductEntity $product)
      return $resultset;
  }
  //按美容院编号搜索所有产品，包括我的产品          下拉加载更多
- public function getProductoffset($id,$prodoffset,$prodorder,$prodtitle)
+ public function getProductoffset($id,$prodoffset,$prodorder,$prodtitle,$prodclassify)
  {
      $select = $this->sql->select();
-     $select->where(array('salnumber' => array($id,1),'prodtitle LIKE "%'.$prodtitle.'%"'));
+     $select->where(array('salnumber' => array($id,1),'prodtitle LIKE "%'.$prodtitle.'%"','proddemandclassifyseries LIKE "%'.$prodclassify.'%"'));
      switch ($prodorder)
      {
          case "prodsynthesis":

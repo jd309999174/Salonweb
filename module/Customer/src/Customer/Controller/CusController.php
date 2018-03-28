@@ -812,7 +812,8 @@ class CusController extends AbstractActionController
         $prodorder=$_POST['prodorder'];
         $prodtitle=$_POST['prodtitle'];
         $prodstyle=$_POST['prodstyle'];
-        $products = $this->getProductMapper()->getProductoffset($id,$prodoffset,$prodorder,$prodtitle);
+        $prodclassify=$_POST['prodclassify'];
+        $products = $this->getProductMapper()->getProductoffset($id,$prodoffset,$prodorder,$prodtitle,$prodclassify);
         
         return array('products' => $products,'prodstyle'=>$prodstyle);
         
@@ -843,13 +844,12 @@ class CusController extends AbstractActionController
         $cusname = $container->cusname;
         $cusphone = $container->cusphone;
         
-        $products = $this->getProductMapper()->getProduct($id);
         return array(
             'id' => $id,
             'cusid' => $cusid,
             'cusname' => $cusname,
             'cusphone' => $cusphone,
-            'products' => $products
+            
         );
     }
     // TODO productitem
