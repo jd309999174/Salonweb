@@ -40,7 +40,7 @@ elseif ($prodstyle=="2"):?>
 <?php  //存在则输出， 不存在则为空
 if ($homepage2cars):?>
 <?php foreach ($homepage2cars as $car): ?>
-  <div class="col-xs-6 productdisplay" onclick="location=<?php echo $this->url('customer', array('action'=>'productitem','sub'=>$car["prodid"]));?>';">
+  <div class="col-xs-6 productdisplay" onclick="location='<?php echo $this->url('customer', array('action'=>'productitem','sub'=>$car["prodid"]));?>';">
   <img alt="" src="<?php echo $car["prodpicture1"];?>" style="height:150px;width:100%">
   <div style="padding: 3px;">
   <p class="producttitle"><?php echo $car["prodtitle"];?></p>
