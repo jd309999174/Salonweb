@@ -341,7 +341,7 @@ $(function() {
 <script type="text/javascript">
 //上滑消失，下滑显示
 $(document).ready(function(){
-	$("#fixedstandard").css({"height":$("#headanchor").height()});
+	//$("#fixedstandard").css({"height":$("#headanchor").height()});
 	$x= $("#fixedstandard").offset().top - $(window).scrollTop();//变化中参考div距离屏幕高度
 	$(document).scroll(function(){
 		if($x>$("#fixedstandard").offset().top - $(window).scrollTop()){
@@ -366,7 +366,15 @@ $(document).ready(function(){
 	</span>
     <span class="input-group-btn"> <a href="#feedbacks" class="btn">评价</a></span>
 </div>
-<div id="fixedstandard"></div>
+<div id="fixedstandard" style="visibility:hidden;">
+<span class="input-group-btn"> 
+	<span class="glyphicon glyphicon-chevron-left btn"></span>
+	</span> <span class="input-group-btn"> <a href="#ios" class="btn">基础信息</a>
+	</span> <span class="input-group-btn"> <a href="#prodDetail"
+		class="btn">产品详情</a>
+	</span>
+    <span class="input-group-btn"> <a href="#feedbacks" class="btn">评价</a></span>
+</div>
 
 
 <!-- Swiper -->
