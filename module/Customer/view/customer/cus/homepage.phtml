@@ -339,14 +339,15 @@ $(document).ready(function(){
   $prodoffset=0;
   $prodstyle=1;
   $prodtitle="";
-  $.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:0,prodorder:"prodsynthesis",prodtitle:$prodtitle,prodstyle:$prodstyle},type:"POST",success:function(data,status){
+  $prodclassify="";
+  $.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:0,prodorder:"prodsynthesis",prodtitle:$prodtitle,prodstyle:$prodstyle,prodclassify:$prodclassify},type:"POST",success:function(data,status){
 	   $("#homepagetwocontent").append(data);
 }});
 $("#sortsynthesis").addClass("active");
 $("#sortsynthesis").click(function(){
 	$prodoffset=0;
 	$("#homepagetwocontent").attr("data-order","prodsynthesis");
-	$.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:0,prodorder:"prodsynthesis",prodtitle:$prodtitle,prodstyle:$prodstyle},type:"POST",success:function(data,status){
+	$.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:0,prodorder:"prodsynthesis",prodtitle:$prodtitle,prodstyle:$prodstyle,prodclassify:$prodclassify},type:"POST",success:function(data,status){
 		   $("#homepagetwocontent").html(data);
 		}});
 	});
@@ -354,7 +355,7 @@ $("#sortpriceup").click(function(){
 	$prodoffset=0;
 	$("#sortsynthesis").removeClass("active");
 	$("#homepagetwocontent").attr("data-order","prodpriceup");
-	$.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:0,prodorder:"prodpriceup",prodtitle:$prodtitle,prodstyle:$prodstyle},type:"POST",success:function(data,status){
+	$.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:0,prodorder:"prodpriceup",prodtitle:$prodtitle,prodstyle:$prodstyle,prodclassify:$prodclassify},type:"POST",success:function(data,status){
 		   $("#homepagetwocontent").html(data);
 
 		}});
@@ -363,7 +364,7 @@ $("#sortpricedown").click(function(){
 	$prodoffset=0;
 	$("#sortsynthesis").removeClass("active");
 	$("#homepagetwocontent").attr("data-order","prodpricedown");
-	$.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:0,prodorder:"prodpricedown",prodtitle:$prodtitle,prodstyle:$prodstyle},type:"POST",success:function(data,status){
+	$.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:0,prodorder:"prodpricedown",prodtitle:$prodtitle,prodstyle:$prodstyle,prodclassify:$prodclassify},type:"POST",success:function(data,status){
 		   $("#homepagetwocontent").html(data);
 
 		}});
@@ -372,7 +373,7 @@ $("#sortsales").click(function(){
 	$prodoffset=0;
 	$("#sortsynthesis").removeClass("active");
 	$("#homepagetwocontent").attr("data-order","prodsales");
-	$.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:0,prodorder:"prodsales",prodtitle:$prodtitle,prodstyle:$prodstyle},type:"POST",success:function(data,status){
+	$.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:0,prodorder:"prodsales",prodtitle:$prodtitle,prodstyle:$prodstyle,prodclassify:$prodclassify},type:"POST",success:function(data,status){
 		   $("#homepagetwocontent").html(data);
 
 		}});
@@ -381,7 +382,7 @@ $("#sortregdate").click(function(){
 	$prodoffset=0;
 	$("#sortsynthesis").removeClass("active");
 	$("#homepagetwocontent").attr("data-order","prodregdate");
-	$.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:0,prodorder:"prodregdate",prodtitle:$prodtitle,prodstyle:$prodstyle},type:"POST",success:function(data,status){
+	$.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:0,prodorder:"prodregdate",prodtitle:$prodtitle,prodstyle:$prodstyle,prodclassify:$prodclassify},type:"POST",success:function(data,status){
 		   $("#homepagetwocontent").html(data);
 		}});
   });
@@ -390,7 +391,7 @@ if($(window).scrollTop()+$(window).height()>$("#prodfixedstandard").offset().top
  //判断激活的按钮
  $prodorder=$("#homepagetwocontent").attr("data-order");
  $prodoffset=$prodoffset+1;
- $.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:$prodoffset,prodorder:$prodorder,prodtitle:$prodtitle,prodstyle:$prodstyle},type:"POST",success:function(data,status){
+ $.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:$prodoffset,prodorder:$prodorder,prodtitle:$prodtitle,prodstyle:$prodstyle,prodclassify:$prodclassify},type:"POST",success:function(data,status){
 	   $("#homepagetwocontent").append(data);
 	}});
 }
