@@ -1,4 +1,3 @@
-<script>$('#prodpriceup').hide();$('#prodpricedown').hide();$('#prodsales').hide();$('#prodregdate').hide();</script>
 <?php
 $homepage2cars=array();
 foreach ($products as $product){
@@ -8,6 +7,8 @@ array_push($homepage2cars,array("prodid"=>$product->getProdid(),"prodsales"=>$pr
     "prodregdate"=>$product->getProdregdate(),
     "proddiscount"=>$product->getProddiscount()));
 }?>
+<?php  //存在则输出， 不存在则为空
+if ($homepage2cars):?>
 
 <div id="prodsynthesis" class="prodsort">
  <?php //综合排序
@@ -31,7 +32,7 @@ array_multisort($x, SORT_DESC,$homepage2cars);
 <?php endforeach;?>
 </div>
 
-<div id="prodpriceup" class="prodsort">
+<div id="prodpriceup" style="display: none;" class="prodsort">
  <?php //价格排序
 foreach ($homepage2cars as $key => $row) {
 $x[$key] = $row['prodprice'];}
@@ -52,7 +53,7 @@ array_multisort($x, SORT_ASC,$homepage2cars);
 <?php endforeach;?>
 </div>
 
-<div id="prodpricedown" class="prodsort">
+<div id="prodpricedown" style="display: none;" class="prodsort">
  <?php //价格排序
 foreach ($homepage2cars as $key => $row) {
 $x[$key] = $row['prodprice'];}
@@ -73,7 +74,7 @@ array_multisort($x, SORT_DESC,$homepage2cars);
 <?php endforeach;?>
 </div>
 
-<div id="prodsales" class="prodsort">
+<div id="prodsales" style="display: none;" class="prodsort">
  <?php  //销量排序
 foreach ($homepage2cars as $key => $row) {
 $x[$key] = $row['prodsales'];}
@@ -94,7 +95,8 @@ array_multisort($x, SORT_ASC,$homepage2cars);
 <?php endforeach;?>
 </div>
 
-<div id="prodregdate" class="prodsort">
+
+<div id="prodregdate" style="display: none;" class="prodsort">
  <?php  //新品排序
 foreach ($homepage2cars as $key => $row) {
 $x[$key] = $row['prodregdate'];}
@@ -114,3 +116,5 @@ array_multisort($x, SORT_DESC,$homepage2cars);
 </div>
 <?php endforeach;?>
 </div>
+
+<?php endif;?>

@@ -83,6 +83,27 @@ public function saveProduct(ProductEntity $product)
      $resultset->initialize($results);
      return $resultset;
  }
+ //按美容院编号搜索所有产品，包括我的产品          下拉加载更多
+ public function getProductoffset($id,$prodoffset)
+ {
+     $select = $this->sql->select();
+     $select->where(array('salnumber' => array($id,1)));
+     $select->order(array('prodid ASC', 'salnumber ASC'));
+     $select->limit(10);
+     $select->offset($prodoffset*10);
+     $statement = $this->sql->prepareStatementForSqlObject($select);
+     $results = $statement->execute();
+     if (!$results) {
+         return null;
+     }
+     
+     
+     $entityPrototype = new ProductEntity();
+     $hydrator = new ClassMethods();
+     $resultset = new HydratingResultSet($hydrator, $entityPrototype);
+     $resultset->initialize($results);
+     return $resultset;
+ }
  //按美容院编号搜索所有产品，包括我的产品
  public function getProductedit($id)
  {

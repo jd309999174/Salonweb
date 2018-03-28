@@ -808,8 +808,8 @@ class CusController extends AbstractActionController
     public function homepagetwoAction(){
         $container = new Container('customerlogin');
         $id = $container->salnumber;
-        
-        $products = $this->getProductMapper()->getProduct($id);
+        $prodoffset=$_POST['prodoffset'];
+        $products = $this->getProductMapper()->getProductoffset($id,$prodoffset);
         
         return array('products' => $products);
         
