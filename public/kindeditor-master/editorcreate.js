@@ -2,7 +2,7 @@
 		KindEditor.ready(function(K) {
 			    editor1 = K.create('#textrowtext', {
 			    items:[
-			    	    'emoticons','fontname','formatblock','fontsize','undo', 'redo','preview', 'template', 'cut', 'copy', 'paste',
+			    	    'source','emoticons','fontname','formatblock','fontsize','undo', 'redo','preview', 'cut', 'copy', 'paste',
 				        'justifyleft', 'justifycenter', 'justifyright',
 				        'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
 				        'superscript', 'clearhtml', 'quickformat', 'selectall', 
