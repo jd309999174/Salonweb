@@ -8,7 +8,8 @@ $(function(){
 		    $( "#accordion" ).accordion({
 		      icons: icons,
 		      collapsible: true,
-		      heightStyle: "content"
+		      heightStyle: "content",
+		      active: 100
 		    });
 })
 
