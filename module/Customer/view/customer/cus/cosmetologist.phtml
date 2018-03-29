@@ -75,7 +75,7 @@ array_push($cars1,array(
  </tr>
  <?php foreach ($cars as $car): ?>
  <?php if($car["salbranch"]==$salon->getSalbranch()){?>
- <tr onclick="location='chat/<?php echo $car["cosid"]?>';">
+ <tr onclick="location='<?php echo $this->url('customer', array('action'=>'chat','sub'=>$car["cosid"],'third'=>'cosmetologist'));?>';">
  <!-- <tr onclick="window.chat.startFunction('<?php echo "cos".$this->escapeHtml($car["cosid"]);?>','<?php echo $this->escapeHtml($car["currentState"]);?>','<?php echo $this->escapeHtml($car["ipAddress"]);?>')"> -->
  <td>
  <img src="<?php echo $this->escapeHtml($car["cosphoto"]); ?>" style="height:40px;width:60px">

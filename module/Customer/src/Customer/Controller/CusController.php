@@ -860,6 +860,7 @@ class CusController extends AbstractActionController
         $id = $container->salnumber;
         $cusid = $container->cusid;
         $sub = $this->params('sub'); // 产品id
+        $third = $this->params('third'); // 判断从哪跳转的
         $entity = new TrolleyEntity();
         $product = $this->getProductMapper()->getProduct1($sub); // 产品
         $productcombinations = $this->getProductcombinationMapper()->getProductcombination($sub);
@@ -880,6 +881,7 @@ class CusController extends AbstractActionController
             'id' => $id,
             'cusid' => $cusid,
             'sub' => $sub,
+            'third' => $third,
             'product' => $product,
             'productcombinations' => $productcombinations,
             'page' => $page,
@@ -1265,6 +1267,7 @@ class CusController extends AbstractActionController
         $id = $container->salnumber;
         $cusid = $container->cusid;
         $sub = $this->params('sub');//美容师id
+        $third = $this->params('third');//判断返回页
          // 自己和美容师
         $cosmetologist = $this->getCosmetologistMapper()->getCosmetologist1($sub);
         $customer = $this->getCustomerMapper()->getCustomer1($cusid);
@@ -1303,6 +1306,7 @@ class CusController extends AbstractActionController
             'cusid'=>$cusid,
             'customer' => $customer,
             'sub'=>$sub,
+            'third'=>$third,
             'unread'=>$customer->getUnread(),
             'chatmodule'=>$chatmodule,
             'cosmetologist'=>$cosmetologist
