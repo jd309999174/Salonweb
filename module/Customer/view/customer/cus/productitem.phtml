@@ -497,79 +497,34 @@ include_once 'public/php/templateforui.phtml';?>
 	<div class="panel-body"></div>
 </div>
 
+<script>
+//评论下拉加载更多
+$(document).ready(function(){
+  $commentoffset=0;
+  $prodid=<?php echo $sub;?>;
+  //初始化加载
+  $.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'prodcomment'));?>",dataType:"text",data:{commentoffset:$commentoffset,prodid:$prodid},type:"POST",success:function(data,status){
+	   $("#commentcontainer").append(data);
+}});
+$(document).scroll(function(){
+if($(window).scrollTop()+$(window).height()>$("#commentfixedstandard").offset().top-100){
+ $commentoffset=$commentoffset+1;
+ $.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'prodcomment'));?>",dataType:"text",data:{commentoffset:$commentoffset,prodid:$prodid},type:"POST",success:function(data,status){
+	   $("#commentcontainer").append(data);
+	   $(".commentloading").remove();
+}});
+}
+})
+});
+</script>
 
 <div class="panel panel-default" id="svn">
 	<div class="panel-heading" id="feedbacks"><span class="title">评价</span></div>
 	<div class="panel-body">
-	  <div class="container">
-	  <?php foreach ($feedbacks as $feedback):?>
-         <div class="row">
-           <div class="col-xs-6 col-sm-6">
-           <img alt="" style="width:20px;height:20px;" src="/portrait/<?php echo $feedback->getCusphoto();?>">
-           <span class="thirdtitle"><?php echo $feedback->getCusname();?></span></div>
-           <div class="col-xs-6 col-sm-6"><?php echo $feedback->getFbdate();?></div>      
-          </div>
-          <br>
-          <div class="row">
-           <div class="col-xs-12 col-sm-12"><span class="subtitle"><?php echo ubbReplace($feedback->getFbadvise1());?></span></div>    
-          </div>
-          <br>
-          <div class="row">
-          <?php 
-          preg_match_all("/([^;]+);/u",
-              $feedback->getSmallpicturegroup2(),
-              $original, PREG_PATTERN_ORDER);
-          preg_match_all("/([^;]+);/u",
-              $feedback->getOriginalpicturegroup2(),
-              $zoomed, PREG_PATTERN_ORDER);
-          for ($i=0;$i<count($original[1]);$i++):
-          ?>
-           <div class="col-xs-3 col-sm-3"><img data-zoomed="/fbpicture/<?php echo $zoomed[1][$i];?>" class="fbpicture2" alt=""  data-original="/fbpicture/<?php echo $original[1][$i];?>"></div>
-          <?php endfor;?>
-          </div>
-           <div class="row">
-           <div class="col-xs-12 col-sm-12">
-           评星：
-<?php switch ($feedback->getFbproduct()):?>
-<?php case 1:?>
-<span class="glyphicon glyphicon-star"></span>
-<?php break;?>
-<?php case 2:?>
-<span class="glyphicon glyphicon-star"></span>
-<span class="glyphicon glyphicon-star"></span>
-<?php break;?>
-<?php case 3:?>
-<span class="glyphicon glyphicon-star"></span>
-<span class="glyphicon glyphicon-star"></span>
-<span class="glyphicon glyphicon-star"></span>
-<?php break;?>
-<?php case 4:?>
-<span class="glyphicon glyphicon-star"></span>
-<span class="glyphicon glyphicon-star"></span>
-<span class="glyphicon glyphicon-star"></span>
-<span class="glyphicon glyphicon-star"></span>
-<?php break;?>
-<?php case 5:?>
-<span class="glyphicon glyphicon-star"></span>
-<span class="glyphicon glyphicon-star"></span>
-<span class="glyphicon glyphicon-star"></span>
-<span class="glyphicon glyphicon-star"></span>
-<span class="glyphicon glyphicon-star"></span>
-<?php break;?>
-<?php endswitch;?>
-           </div>    
-          </div>
-          <?php if ($feedback->getSalcomment2()):?>
-          <div class="row">
-           <div class="col-xs-12 col-sm-12" style='background-color: #D3D3D3;border-radius: 8px;'>
-           <span class="subtitle" style="">店家回复：<?php echo ubbReplace($feedback->getSalcomment2());?></span>
-           </div> 
-          </div>
-          <?php endif;?>
-          <hr>
-        <?php endforeach;?>
+	  <div class="container" id="commentcontainer">
+	  
        </div>
-	
+	<div id="commentfixedstandard"></div>
 	</div>
 </div>
 
@@ -832,16 +787,3 @@ $(document).ready(function(){
 </script>
 
 
-<script type="text/javascript">
-//图片点击放大
-	$('.fbpicture2').zoomify();
-</script>
-<script type="text/javascript">
-//图片点击放大
-$(document).ready(function(){
-	$('.fbpicture2').click(function(){
-		setTimeout('$("body").scrollTop($("body").scrollTop()+1)',1)
-		
-		});
-})
-</script>

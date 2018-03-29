@@ -74,10 +74,11 @@ $(document).ready(function(){
 	   $prodoffset=$prodoffset+1;
 	   $.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:$prodoffset,prodorder:$prodorder,prodtitle:$prodtitle,prodstyle:$prodstyle,prodclassify:$prodclassify},type:"POST",success:function(data,status){
 		   $("#homepagetwocontent").append(data);
+		   $(".prodloading").remove();
 		}});
    }
   })
-  setInterval(function(){$(".prodloading").remove();}, 1000*3);
+  //setInterval(function(){$(".prodloading").remove();}, 1000*5);
 });
 </script>
 <script type="text/javascript">

@@ -172,11 +172,29 @@ public function saveTask(FeedbacksEntity $task)
  {
      $select = $this->sql->select();
      $select->where(array('prodid' => $prodid));
-     $select->order(array('fbdate ASC'));
+     $select->order(array('gmtfbdate DESC'));
  
      $statement = $this->sql->prepareStatementForSqlObject($select);
      $results = $statement->execute();
  
+     $entityPrototype = new FeedbacksEntity();
+     $hydrator = new ClassMethods();
+     $resultset = new HydratingResultSet($hydrator, $entityPrototype);
+     $resultset->initialize($results);
+     return $resultset;
+ }
+ //按疗程id，取出所有反馈
+ public function getFeedbacksoffset($prodid,$commentoffset)
+ {
+     $select = $this->sql->select();
+     $select->where(array('prodid' => $prodid));
+     $select->order(array('gmtfbdate DESC'));
+     $select->limit(10);
+     $select->offset($commentoffset*10);
+     
+     $statement = $this->sql->prepareStatementForSqlObject($select);
+     $results = $statement->execute();
+     
      $entityPrototype = new FeedbacksEntity();
      $hydrator = new ClassMethods();
      $resultset = new HydratingResultSet($hydrator, $entityPrototype);

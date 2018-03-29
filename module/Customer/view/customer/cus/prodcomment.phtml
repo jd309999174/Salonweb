@@ -1,0 +1,105 @@
+<?php
+//表情转换方法
+include_once 'public/php/emotionreplace.php';?>
+<?php 
+$feedbackscars=array();
+foreach ($feedbacks as $feedback){
+array_push($feedbackscars,array("cusname"=>$feedback->getCusname(),"cusphoto"=>$feedback->getCusphoto(),
+    "fbdate"=>$feedback->getFbdate(),"fbadvise1"=>$feedback->getFbadvise1(),
+    "smallpicturegroup2"=>$feedback->getSmallpicturegroup2(),
+    "originalpicturegroup2"=>$feedback->getOriginalpicturegroup2(),
+    "fbproduct"=>$feedback->getFbproduct(),
+    "salcomment2"=>$feedback->getSalcomment2()));
+}?>
+<?php  //存在则输出， 不存在则为空
+if ($feedbackscars):?>
+<?php foreach ($feedbackscars as $feedback):?>
+         <div class="row">
+           <div class="col-xs-6 col-sm-6">
+           <img alt="" style="width:20px;height:20px;" src="/portrait/<?php echo $feedback['cusphoto'];?>">
+           <span class="thirdtitle"><?php echo $feedback['cusname'];?></span></div>
+           <div class="col-xs-6 col-sm-6"><?php echo $feedback['fbdate'];?></div>      
+          </div>
+          <br>
+          <div class="row">
+           <div class="col-xs-12 col-sm-12"><span class="subtitle"><?php echo ubbReplace($feedback['fbadvise1']);?></span></div>    
+          </div>
+          <br>
+          <div class="row">
+          <?php 
+          preg_match_all("/([^;]+);/u",
+              $feedback['smallpicturegroup2'],
+              $original, PREG_PATTERN_ORDER);
+          preg_match_all("/([^;]+);/u",
+              $feedback['originalpicturegroup2'],
+              $zoomed, PREG_PATTERN_ORDER);
+          for ($i=0;$i<count($original[1]);$i++):
+          ?>
+           <div class="col-xs-3 col-sm-3"><img src="/fbpicture/<?php echo $zoomed[1][$i];?>" data-zoomed="/fbpicture/<?php echo $zoomed[1][$i];?>" class="fbpicture2" alt=""  data-original="/fbpicture/<?php echo $original[1][$i];?>"></div>
+          <?php endfor;?>
+          </div>
+           <div class="row">
+           <div class="col-xs-12 col-sm-12">
+           评星：
+<?php switch ($feedback['fbproduct']):?>
+<?php case 1:?>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php case 2:?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php case 3:?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php case 4:?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php case 5:?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php endswitch;?>
+           </div>    
+          </div>
+          <?php if ($feedback['salcomment2']):?>
+          <div class="row">
+           <div class="col-xs-12 col-sm-12" style='background-color: #D3D3D3;border-radius: 8px;'>
+           <span class="subtitle" style="">店家回复：<?php echo ubbReplace($feedback['salcomment2']);?></span>
+           </div> 
+          </div>
+          <?php endif;?>
+          <hr>
+        <?php endforeach;?>
+        
+<?php if (count($feedbackscars)<10):?>
+<div  class="row" style="text-align:center;color:#696969;">
+已加载全部。。。
+</div>
+<?php else:?>
+<div  class="commentloading row" style="height:50px;text-align:center;color:#696969;">
+加载中。。。
+</div>
+<?php endif;?>
+<?php endif;?>
+
+<script type="text/javascript">
+//图片点击放大
+	$('.fbpicture2').zoomify();
+</script>
+<script type="text/javascript">
+//图片点击放大
+$(document).ready(function(){
+	$('.fbpicture2').click(function(){
+		setTimeout('$("body").scrollTop($("body").scrollTop()+1)',1)
+		});
+})
+</script>

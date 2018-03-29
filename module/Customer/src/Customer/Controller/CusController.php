@@ -852,6 +852,7 @@ class CusController extends AbstractActionController
             
         );
     }
+    
     // TODO productitem
     public function productitemAction()
     {
@@ -890,7 +891,25 @@ class CusController extends AbstractActionController
             'cuspoints'=>$cuspoints
         );
     }
-    
+    // TODO prodcomment
+    public function prodcommentAction()
+    {
+        $container = new Container('customerlogin');
+        $id = $container->salnumber;
+        $cusid = $container->cusid;
+        $cusname = $container->cusname;
+        $cusphone = $container->cusphone;
+      
+        $prodid=$_POST['prodid'];
+        $commentoffset=$_POST['commentoffset'];
+        //评价
+        $feedbacks=$this->getFeedbacksMapper()->getFeedbacksoffset($prodid,$commentoffset);
+        
+        
+        return array(
+            'feedbacks'=>$feedbacks    
+        );
+    }
     // TODO activitylist
     public function activitylistAction()
     {
