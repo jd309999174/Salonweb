@@ -96,10 +96,11 @@ if ($feedbackscars):?>
 	$('.fbpicture2').zoomify();
 </script>
 <script type="text/javascript">
-//图片点击放大
+//图片点击放大  可能要优化
 $(document).ready(function(){
 	$('.fbpicture2').click(function(){
-		setTimeout('$("body").scrollTop($("body").scrollTop()+1)',1)
+		setTimeout('$("body").scrollTop($("body").scrollTop()+1)',1);
+		setTimeout('$("body").scrollTop($("body").scrollTop()-1)',1);
 		});
 })
 </script>
