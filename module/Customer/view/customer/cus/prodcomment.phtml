@@ -35,7 +35,7 @@ if ($feedbackscars):?>
               $zoomed, PREG_PATTERN_ORDER);
           for ($i=0;$i<count($original[1]);$i++):
           ?>
-           <div class="col-xs-3 col-sm-3"><img src="/fbpicture/<?php echo $zoomed[1][$i];?>" data-zoomed="/fbpicture/<?php echo $zoomed[1][$i];?>" class="fbpicture2" alt=""  data-original="/fbpicture/<?php echo $original[1][$i];?>"></div>
+           <div class="col-xs-3 col-sm-3"><img src="/fbpicture/<?php echo $original[1][$i];?>" data-zoomed="/fbpicture/<?php echo $zoomed[1][$i];?>" class="fbpicture2" alt=""  data-original="/fbpicture/<?php echo $original[1][$i];?>"></div>
           <?php endfor;?>
           </div>
            <div class="row">
