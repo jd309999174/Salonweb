@@ -1,3 +1,6 @@
+<script type="text/javascript" src="/js/js.pickcolor.js"></script>
+
+
 <?php
  $title = '修改页面设置';
  $this->headTitle($title);
@@ -10,7 +13,7 @@
  $form->setAttribute('action', $url);
 $form->get('submit')->setAttribute('value', '提交');
 $form->get('pagetype')->setAttribute('class', 'form-control');
-$form->get('pagetype')->setAttribute('id', 'pagetype');
+$form->get('pagecolor')->setAttribute('onclick', 'initColorPicker();return false');
 $form->get('pageexpiration')->setAttribute('class', 'form-control');
 $form->get('pagename')->setAttribute('class', 'form-control');
 $form->get('pagecolor')->setAttribute('class', 'form-control');
@@ -156,3 +159,9 @@ $(function(){
 </script>
 <?php //TODO图片选择器
 include_once 'public/php/picturechoice.phtml';?>
+
+<script type="text/javascript">
+function initColorPicker(){
+ picker = new colorPicker('pagecolor');
+}
+</script>
