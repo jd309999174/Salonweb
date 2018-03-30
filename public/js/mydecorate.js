@@ -22,6 +22,13 @@ function myheadpage($x){ //首页头
 	$("#pagehead").attr("data-href",$("#headpagerowlink").val());
 	$(".fieldset").hide();
 	};
+function mynewold($x){//新老顾客
+		$(".intro").eq($x).find(".newoldimg1").attr("src",$("#newoldrowimg1").attr("src"));
+		$(".intro").eq($x).find(".newolda1").attr("data-href",$("#newoldrowlink1").val());
+		$(".intro").eq($x).find(".newoldimg2").attr("src",$("#newoldrowimg2").attr("src"));
+		$(".intro").eq($x).find(".newolda2").attr("data-href",$("#newoldrowlink2").val());
+		$(".fieldset").hide();
+		};
 function mysingle($x){ //单列图
 	$(".intro").eq($x).find(".singleimg").attr("src",$("#singlerowimg").attr("src"));
 	$(".intro").eq($x).find(".singlea").attr("data-href",$("#singlerowlink").val());
@@ -115,6 +122,11 @@ $(function() {
     $( "#sortable" ).sortable({
       revert: true
     });
+    $( "#draggable11" ).draggable({
+        connectToSortable: "#sortable",
+        helper: "clone",
+        revert: "invalid"
+      });
     $( "#draggable21" ).draggable({
       connectToSortable: "#sortable",
       helper: "clone",

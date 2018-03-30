@@ -101,6 +101,26 @@ class TreatmentMapper
  
           return $salon;
     }
+    //取得最近订单
+    public function getTreatmentlatest($cusid)
+    {
+        $select = $this->sql->select();
+        $select->where(array('cusid' => $cusid,'trestate'=>'paid'));
+        $select->order(array('gmtclose DESC'));
+        $select->limit(1);
+        $statement = $this->sql->prepareStatementForSqlObject($select);
+        $results = $statement->execute()->current();
+        if (!$results) {
+            return null;
+        }
+        
+        
+        $hydrator = new ClassMethods();
+        $salon = new TreatmentEntity();
+        $hydrator->hydrate($results, $salon);
+        
+        return $salon;
+    }
     
     //按用户id取得所有订单
     public function getTreatment2($id)

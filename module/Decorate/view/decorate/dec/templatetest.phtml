@@ -32,6 +32,12 @@ $(function() {
         	     $pageheaddata4=$("#pagehead").attr("data-href");
         	     $pageheaddata5="";
   	               break;
+    	       case "newoldrow":
+    	    	   var onerow= [li.attr("data-type"),
+    	    	                li.find(".newolda1").attr("data-href"),li.find(".newoldimg1").attr("src"),
+    	    	                li.find(".newolda2").attr("data-href"),li.find(".newoldimg2").attr("src")];
+     	    	  valuearray.push(onerow);
+    	           break;
     	       case "singlerow":
     	    	  var onerow= [li.attr("data-type"),
     	    	               li.find(".singlea").attr("data-href"),li.find(".singleimg").attr("src")];

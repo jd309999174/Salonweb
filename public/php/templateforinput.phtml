@@ -26,6 +26,33 @@
 		<button onclick="myheadpage('100')" id="headpagesubmit">提交</button>
 	</fieldset>
 
+
+<!-- 新老顾客 -->
+	<fieldset class="fieldset" id="newoldrowfield">
+		<legend>新老顾客</legend>
+		新顾客图片<br> <img alt="" src="/img/mylogo.png" id="newoldrowimg1" class="picturechoose1 img1"> 
+		新顾客链接	    <div class="input-group">
+					<input type="text" class="form-control linkinput1" readonly="readonly" id="newoldrowlink1">
+					<span class="input-group-btn">
+						<button class="btn btn-default linkchoose1" type="button" >
+							<span class="ui-icon  ui-icon-link"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+		老顾客图片<br> <img alt="" src="/img/mylogo.png" id="newoldrowimg2" class="picturechoose2 img1">
+		老顾客链接	    <div class="input-group">
+					<input type="text" class="form-control linkinput2" readonly="readonly" id="newoldrowlink2">
+					<span class="input-group-btn">
+						<button class="btn btn-default linkchoose2" type="button" >
+							<span class="ui-icon  ui-icon-link"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+	    <button onclick="mynewold('100')" id="newoldsubmit">提交</button>
+		<button onclick="mydelete('100')" id="newolddelete">删除</button>
+	</fieldset>
+	
+	
 	<!-- 单列图片 -->
 	<fieldset class="fieldset" id="singlerowfield">
 		<legend>单列图片</legend>

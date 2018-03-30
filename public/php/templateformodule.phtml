@@ -1,6 +1,40 @@
 <?php //TODO template?>
 <div class="template" id="template" data-template="template">
 	<div id="accordion">
+	    <h3>新老用户</h3>
+		<div>
+			<ul>
+			   <!-- 新老用户 -->
+				<li id="draggable11" data-type="newoldrow" class="ui-state-highlight intro"
+					onclick='if($(this).parent().attr("id")){
+						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
+                        $(this).css("background","#ccc");
+						$("#newoldsubmit").attr("onclick","mynewold("+$(this).index(".intro")+")");
+						$("#newolddelete").attr("onclick","mydelete("+$(this).index(".intro")+")");
+	       $("#newoldrowimg1").attr("src",$(this).find(".newoldimg1").attr("src"));
+           $("#newoldrowlink1").val($(this).find(".newolda1").attr("data-href"));
+           $("#newoldrowimg2").attr("src",$(this).find(".newoldimg2").attr("src"));
+           $("#newoldrowlink2").val($(this).find(".newolda2").attr("data-href"));
+           $(".fieldset").hide();
+           $("#newoldrowfield").show();}'>
+					<div class="content">
+						<div class="row">
+							<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+									<a  data-href="" class="newolda1"> <img alt=""
+										src="/img/mylogo.png" class="img2 newoldimg1">
+									</a>
+							</div>
+							<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+									<a  data-href="" class="newolda2"> <img alt=""
+										src="/img/mylogo.png" class="img2 newoldimg2">
+									</a>
+								
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
 		<h3>单、双列图片，轮播图</h3>
 		<div>
 			<ul>

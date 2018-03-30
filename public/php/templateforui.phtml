@@ -4,6 +4,37 @@
 
 <?php foreach ($templateitem as $item) :?>
 <?php switch ($item->getTemplatetype()): ?>
+<?php case "newoldrow": ?>
+<li data-type="singlerow" class="ui-state-highlight intro">
+					<div class="content">
+						<div class="row">
+							<div class="col">
+								<div class="col-demo">
+								<?php if ($neworold=="new"):?>
+									<a
+									 <?php if ($item->getTemplatedata1()):?>
+									 href="<?php echo $item->getTemplatedata1()?>"
+									 <?php endif;?>
+										class="singlea"> <img
+										data-original="<?php echo $item->getTemplatedata2()?>"
+										class="img1 singleimg">
+									</a>
+								<?php else:?>
+								<a
+									 <?php if ($item->getTemplatedata3()):?>
+									 href="<?php echo $item->getTemplatedata3()?>"
+									 <?php endif;?>
+										class="singlea"> <img
+										data-original="<?php echo $item->getTemplatedata4()?>"
+										class="img1 singleimg">
+									</a>
+								<?php endif;?>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+<?php break;?>
 <?php case "singlerow": ?>
 <li data-type="singlerow" class="ui-state-highlight intro">
 					<div class="content">

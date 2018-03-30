@@ -781,6 +781,13 @@ class CusController extends AbstractActionController
             // 自定义按钮
             $custombuttons = $this->getCustombuttonMapper()->getCustombuttons($id);
             
+            //最近订单  判断90天内是否消费
+            $neworold="old";
+            $treatmentlatest=$this->getTreatmentMapper()->getTreatmentlatest($cusid);
+            if (!$treatmentlatest||$treatmentlatest->getGmtclose()<date('YmdHis',strtotime('-90 day'))){
+              $neworold="new";
+            }
+            
             //取出抽奖时间
             $lotterydate=$this->getCustomerMapper()->getCustomer1($cusid)->getLotterydate();
             //取出积分
@@ -800,7 +807,8 @@ class CusController extends AbstractActionController
                 'salnumber' => $_COOKIE['salnumber'],
                 'unreadsum'=>$unreadsum,
                 'lotterydate'=>$lotterydate,
-                'cuspoints'=>$cuspoints
+                'cuspoints'=>$cuspoints,
+                'neworold'=>$neworold
             );
     }
     
@@ -877,6 +885,12 @@ class CusController extends AbstractActionController
         $lotterydate=$this->getCustomerMapper()->getCustomer1($cusid)->getLotterydate();
         //取出积分
         $cuspoints=$this->getCusleveltypeMapper()->getTask($cusid)->getCuspoints();
+        //最近订单  判断90天内是否消费
+        $neworold="old";
+        $treatmentlatest=$this->getTreatmentMapper()->getTreatmentlatest($cusid);
+        if (!$treatmentlatest||$treatmentlatest->getGmtclose()<date('YmdHis',strtotime('-90 day'))){
+            $neworold="new";
+        }
         return array(
             'id' => $id,
             'cusid' => $cusid,
@@ -890,7 +904,8 @@ class CusController extends AbstractActionController
             'feedbacks'=>$feedbacks,
             'salonmanager'=>$salonmanager,
             'lotterydate'=>$lotterydate,
-            'cuspoints'=>$cuspoints
+            'cuspoints'=>$cuspoints,
+            'neworold'=>$neworold
         );
     }
     // TODO prodcomment
@@ -973,13 +988,20 @@ class CusController extends AbstractActionController
         $lotterydate=$this->getCustomerMapper()->getCustomer1($cusid)->getLotterydate();
         //取出积分
         $cuspoints=$this->getCusleveltypeMapper()->getTask($cusid)->getCuspoints();
+        //最近订单  判断90天内是否消费
+        $neworold="old";
+        $treatmentlatest=$this->getTreatmentMapper()->getTreatmentlatest($cusid);
+        if (!$treatmentlatest||$treatmentlatest->getGmtclose()<date('YmdHis',strtotime('-90 day'))){
+            $neworold="new";
+        }
         return array(
             'id' => $id,
             'page' => $page,
             'templateitem' => $template,
             'signupstate'=>$signupstate,
             'lotterydate'=>$lotterydate,
-            'cuspoints'=>$cuspoints
+            'cuspoints'=>$cuspoints,
+            'neworold'=>$neworold
         );
     }
     

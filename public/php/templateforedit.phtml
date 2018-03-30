@@ -17,6 +17,42 @@ display:none;
 
 <?php foreach ($templateitem as $item) :?>
 <?php switch ($item->getTemplatetype()): ?>
+<?php case "newoldrow": ?>
+<li  data-type="newoldrow" class="ui-state-highlight intro"
+					onclick='if($(this).parent().attr("id")){
+						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
+                        $(this).css("background","#ccc");
+						$("#newoldsubmit").attr("onclick","mynewold("+$(this).index(".intro")+")");
+						$("#newolddelete").attr("onclick","mydelete("+$(this).index(".intro")+")");
+	       $("#newoldrowimg1").attr("src",$(this).find(".newoldimg1").attr("src"));
+           $("#newoldrowlink1").val($(this).find(".newolda1").attr("data-href"));
+           $("#newoldrowimg2").attr("src",$(this).find(".newoldimg2").attr("src"));
+           $("#newoldrowlink2").val($(this).find(".newolda2").attr("data-href"));
+           $(".fieldset").hide();
+           $("#newoldrowfield").show();}'>
+					<div class="content" style="position:relative;">
+						<div class="row">
+							<div class="col">
+								<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+									<a  data-href="<?php echo  $item->getTemplatedata1()?>" class="newolda1"> <img alt=""
+										src="<?php echo  $item->getTemplatedata2()?>" class="img2 newoldimg1">
+									</a>
+								</div>
+							</div>
+							<div class="col">
+								<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+									<a  data-href="<?php echo  $item->getTemplatedata3()?>" class="newolda2"> <img alt=""
+										src="<?php echo $item->getTemplatedata4()?>" class="img2 newoldimg2">
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="deletebtn" style="position:absolute;z-indent:2;left:2px;top:2px;">
+                          <span style="color: black;" onclick='$(this).parents(".intro").remove();' class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                         </div>
+					</div>
+				</li>
+<?php break;?>
 <?php case "singlerow": ?>
 <li  data-type="singlerow" class="ui-state-highlight intro"
 					onclick='if($(this).parent().attr("id")){
