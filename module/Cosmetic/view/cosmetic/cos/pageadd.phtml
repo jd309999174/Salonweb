@@ -13,6 +13,8 @@ $form->setAttribute('action', $this->url('cosmetic', array(
 $form->get('submit')->setAttribute('value', '提交');
 $form->get('pagetype')->setAttribute('class', 'form-control');
 $form->get('pagetype')->setAttribute('id', 'pagetype');
+$form->get('pagetype')->setAttribute('value', '活动');
+$form->get('pagecondition')->setAttribute('value', '显示');
 $form->get('pageexpiration')->setAttribute('class', 'form-control');
 $form->get('pagename')->setAttribute('class', 'form-control');
 $form->get('pagecolor')->setAttribute('class', 'form-control');
@@ -38,15 +40,29 @@ echo $this->formhidden($form->get('modificationtime'));?></div>
 
 
 <div class="form-group"><label>页面类型</label><?php
-echo $this->formRow($form->get('pagetype'));?>
+echo $this->formhidden($form->get('pagetype'));?>
 <div>
-<button type="button" class="btn btn-default btn-lg pagetypebtn" id="pagetypebtn1">活动页</button>
+<button type="button" class="btn btn-default btn-lg pagetypebtn active" id="pagetypebtn1">活动页</button>
 <button type="button" class="btn btn-default btn-lg pagetypebtn" id="pagetypebtn2">动态页</button>
 </div>
 </div>
-<div class="form-group" id="expiredate"><label>活动截止日期（动态页可不填）</label>
+
+<div class="form-group"><label>页面状态</label><?php
+echo $this->formhidden($form->get('pagecondition'));
+?>
+<div>
+<button type="button" class="btn btn-default btn-lg pageconditionbtn active" id="pageconditionbtn1">显示</button>
+<button type="button" class="btn btn-default btn-lg pageconditionbtn" id="pageconditionbtn2">隐藏</button>
+</div>
+</div>
+
+<div class="form-group" id="expiredate"><label>截止日期</label>
 <?php echo $this->formRow($form->get('pageexpiration'));?></div>
 
+<br>
+<div class="form-group"><label>简介</label><?php
+echo $this->formtextarea($form->get('pageheaddata3'));
+?></div>
 
 
 <div class="form-group"><label>页面展示图（与视频二选一填写即可）</label>
@@ -91,6 +107,16 @@ $(document).ready(function(){
         $(".pagetypebtn").removeClass("active");
         $("#pagetypebtn2").addClass("active");
         $("#expiredate").hide();
+		});
+	$("#pageconditionbtn1").click(function(){
+        $("#pagecondition").val("显示");
+        $(".pageconditionbtn").removeClass("active");
+        $("#pageconditionbtn1").addClass("active");
+		});
+	$("#pageconditionbtn2").click(function(){
+      $("#pagecondition").val("隐藏");
+      $(".pageconditionbtn").removeClass("active");
+      $("#pageconditionbtn2").addClass("active");
 		});
 })
 </script>

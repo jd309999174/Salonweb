@@ -32,6 +32,7 @@ class PageForm extends Form
             'name' => 'pagetype',
             'type' => 'text',
             'attributes' => array(
+                'id'=>'pagetype',
                 'maxlength' => 100,
                 'width'=>'100%'
             )
@@ -42,6 +43,7 @@ class PageForm extends Form
             'type' => 'text',
             
             'attributes' => array(
+                'id'=>'pagename',
                 'maxlength' => 100
             )
         ));
@@ -50,6 +52,7 @@ class PageForm extends Form
             'type' => 'text',
             
             'attributes' => array(
+                'id'=>'pagecolor',
                 'maxlength' => 100
             )
         ));
@@ -57,6 +60,7 @@ class PageForm extends Form
             'name' => 'pagepaddinglr',
             'type' => 'text',
             'attributes' => array(
+                'id'=>'pagepaddinglr',
                 'maxlength' => 100
             )
         ));
@@ -65,6 +69,7 @@ class PageForm extends Form
             'type' => 'text',
         
             'attributes' => array(
+                'id'=>'pagepaddingtop',
                 'maxlength' => 100
             )
         ));
@@ -73,6 +78,7 @@ class PageForm extends Form
             'type' => 'text',
           
             'attributes' => array(
+                'id'=>'pagepaddingbottom',
                 'maxlength' => 100
             )
         ));
@@ -83,6 +89,7 @@ class PageForm extends Form
                 'label' => '页面状态'
             ),
             'attributes' => array(
+                'id'=>'pagecondition',
                 'maxlength' => 100
             )
         ));
@@ -93,6 +100,7 @@ class PageForm extends Form
                 'label' => '页面发布时间'
             ),
             'attributes' => array(
+                'id'=>'releasetime',
                 'maxlength' => 100
             )
         ));

@@ -156,6 +156,26 @@ class PageMapper
         $resultset->initialize($results);
         return $resultset;
     }
+    //取得此美容院所有活动页   只显示显示的
+    public function getActivityshow($id,$pagetype)
+    {
+        $select = $this->sql->select();
+        $select->where(array('salnumber' => $id,'pagetype'=>$pagetype,'pagecondition'=>'显示'));
+        $select->order(array('modificationtime DESC'));
+        $select->limit(50);
+        $statement = $this->sql->prepareStatementForSqlObject($select);
+        $results = $statement->execute();
+        if (!$results) {
+            return null;
+        }
+        
+        
+        $entityPrototype = new PageEntity();
+        $hydrator = new ClassMethods();
+        $resultset = new HydratingResultSet($hydrator, $entityPrototype);
+        $resultset->initialize($results);
+        return $resultset;
+    }
     
     //取得此美容院所有促销活动
     public function getPage2($id)

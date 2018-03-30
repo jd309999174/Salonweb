@@ -822,7 +822,7 @@ class CusController extends AbstractActionController
         $container = new Container('customerlogin');
         $id = $container->salnumber;
         $homepage = $this->getPageMapper()->getHomepage($id);
-        $activitypages = $this->getPageMapper()->getActivitypages($id, "活动");
+        $activitypages = $this->getPageMapper()->getActivityshow($id, "活动");
         
         return array('activitypages' => $activitypages,'page' => $homepage,);
         
@@ -831,7 +831,7 @@ class CusController extends AbstractActionController
         $container = new Container('customerlogin');
         $id = $container->salnumber;
         $homepage = $this->getPageMapper()->getHomepage($id);
-        $dynamicpages = $this->getPageMapper()->getActivitypages($id, "动态");
+        $dynamicpages = $this->getPageMapper()->getActivityshow($id, "动态");
         
         return array('dynamicpages' => $dynamicpages,'page' => $homepage,);
     }

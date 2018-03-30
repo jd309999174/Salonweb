@@ -25,8 +25,6 @@ echo $this->formHidden($form->get('pageid'));
 ?></div><div class="form-group"><?php
 echo $this->formhidden($form->get('salnumber'));
 ?></div><div class="form-group"><?php
-echo $this->formhidden($form->get('pagecondition'));
-?></div><div class="form-group"><?php
 echo $this->formhidden($form->get('releasetime'));
 ?></div><div class="form-group"><?php
 echo $this->formhidden($form->get('modificationtime'));
@@ -41,7 +39,18 @@ echo $this->formhidden($form->get('pagetype'));
 <button type="button" class="btn btn-default btn-lg pagetypebtn" id="pagetypebtn1">活动页</button>
 <button type="button" class="btn btn-default btn-lg pagetypebtn" id="pagetypebtn2">动态页</button>
 </div>
-</div><div class="form-group" id="expiredate"><label>截止日期</label><?php
+</div>
+
+<div class="form-group"><label>页面状态</label><?php
+echo $this->formhidden($form->get('pagecondition'));
+?>
+<div>
+<button type="button" class="btn btn-default btn-lg pageconditionbtn active" id="pageconditionbtn1">显示</button>
+<button type="button" class="btn btn-default btn-lg pageconditionbtn" id="pageconditionbtn2">隐藏</button>
+</div>
+</div>
+
+<div class="form-group" id="expiredate"><label>截止日期</label><?php
 echo $this->formRow($form->get('pageexpiration'));
 ?></div>
 <br>
@@ -80,6 +89,24 @@ echo $this->formRow($form->get('pagepaddingbottom'));
 echo $this->form()->closeTag($form);?>
 <script>
 $(document).ready(function(){
+	if($("#pagetype").val()=="活动"){
+		$(".pagetypebtn").removeClass("active");
+        $("#pagetypebtn1").addClass("active");
+        $("#expiredate").show();
+		}
+	if($("#pagetype").val()=="动态"){
+	    $(".pagetypebtn").removeClass("active");
+	    $("#pagetypebtn2").addClass("active");
+	    $("#expiredate").hide();
+	    }
+    if($("#pagecondition").val()=="显示"){
+        $(".pageconditionbtn").removeClass("active");
+        $("#pageconditionbtn1").addClass("active");
+        }
+    if($("#pagecondition").val()=="隐藏"){
+        $(".pageconditionbtn").removeClass("active");
+        $("#pageconditionbtn1").addClass("active");
+        }
 	$("#pagetypebtn1").click(function(){
           $("#pagetype").val("活动");
           $(".pagetypebtn").removeClass("active");
@@ -91,6 +118,16 @@ $(document).ready(function(){
         $(".pagetypebtn").removeClass("active");
         $("#pagetypebtn2").addClass("active");
         $("#expiredate").hide();
+		});
+	$("#pageconditionbtn1").click(function(){
+        $("#pagecondition").val("显示");
+        $(".pageconditionbtn").removeClass("active");
+        $("#pageconditionbtn1").addClass("active");
+		});
+	$("#pageconditionbtn2").click(function(){
+      $("#pagecondition").val("隐藏");
+      $(".pageconditionbtn").removeClass("active");
+      $("#pageconditionbtn2").addClass("active");
 		});
 	//初始化图片和视频
 	$(".picturechoose1").attr("src",$("#pageheaddata1").val());
