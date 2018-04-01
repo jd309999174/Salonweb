@@ -183,11 +183,47 @@ public function saveTask(FeedbacksEntity $task)
      $resultset->initialize($results);
      return $resultset;
  }
- //按疗程id，取出所有反馈
- public function getFeedbacksoffset($prodid,$commentoffset)
+ //产品评价
+ public function getFeedbacksprod($prodid,$commentoffset)
  {
      $select = $this->sql->select();
      $select->where(array('prodid' => $prodid));
+     $select->order(array('gmtfbdate DESC'));
+     $select->limit(10);
+     $select->offset($commentoffset*10);
+     
+     $statement = $this->sql->prepareStatementForSqlObject($select);
+     $results = $statement->execute();
+     
+     $entityPrototype = new FeedbacksEntity();
+     $hydrator = new ClassMethods();
+     $resultset = new HydratingResultSet($hydrator, $entityPrototype);
+     $resultset->initialize($results);
+     return $resultset;
+ }
+ //美容师评价
+ public function getFeedbackscos($cosid,$commentoffset)
+ {
+     $select = $this->sql->select();
+     $select->where(array('cosid' => $cosid));
+     $select->order(array('gmtfbdate DESC'));
+     $select->limit(10);
+     $select->offset($commentoffset*10);
+     
+     $statement = $this->sql->prepareStatementForSqlObject($select);
+     $results = $statement->execute();
+     
+     $entityPrototype = new FeedbacksEntity();
+     $hydrator = new ClassMethods();
+     $resultset = new HydratingResultSet($hydrator, $entityPrototype);
+     $resultset->initialize($results);
+     return $resultset;
+ }
+ //美容院评价
+ public function getFeedbackssalbranch($salnumber,$salbranch,$commentoffset)
+ {
+     $select = $this->sql->select();
+     $select->where(array('salnumber' => $salnumber,'salbranch'=>$salbranch));
      $select->order(array('gmtfbdate DESC'));
      $select->limit(10);
      $select->offset($commentoffset*10);

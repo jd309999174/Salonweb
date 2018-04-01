@@ -3,7 +3,7 @@
 include_once 'public/php/emotionreplace.php';?>
 
 <link rel="stylesheet" href="/css/zoomify.css">
-<script src="/js/zoomify.js"></script>
+<script src="/js/zoomify.zoomed.js"></script>
 
 <style>
 .fbpicture1 {
@@ -111,22 +111,22 @@ $(document).ready(function(){
 <div style="text-align:center" id="mehead" class="container">
    <div class="row">
       <div class="col-xs-5 col-sm-5">
-      <img src="<?php echo $salonbranch->getSalphoto1();?>" class="img-thumbnail" style="width:150px;height:120px;padding-top:10px;padding-bottom:10px;">
+      <img src="<?php echo $salon->getSalphoto1();?>" class="img-thumbnail" style="width:150px;height:120px;padding-top:10px;padding-bottom:10px;">
       </div>
       <div class="col-xs-7 col-sm-7*">
       <div class="row" style="padding-top:10px;">
-      <span><?php echo $salonbranch->getSalname();?></span>
+      <span><?php echo $salon->getSalname();?></span>
       </div>
       
       <div class="row" style="padding-top:10px;">
       <span>电话:</span>
-      <span><?php echo $salonbranch->getSalphone();?></span>
+      <span><?php echo $salon->getSalphone();?></span>
       </div>
       
       
       <div class="row" style="padding-top:10px;">
        <span>地址:</span>
-      <span><?php echo $salonbranch->getSaladdress();?></span>
+      <span><?php echo $salon->getSaladdress();?></span>
       </div>
       
       </div>
@@ -136,6 +136,7 @@ $(document).ready(function(){
 
 
 <div class="nav_wrap homepagenav" id="homepagenav1" >
+<div class="panel-heading" id="feedbacks"><span class="title">简介</span></div>
    <ul id="sortable" class="nav_ul">
 <?php //TODO 组件输出模块 
 include_once 'public/php/templateforui.phtml';?>
@@ -146,95 +147,36 @@ include_once 'public/php/templateforui.phtml';?>
 
 <div id="feedbacks">
 
+<script>
+//评论下拉加载更多
+$(document).ready(function(){
+  $commentoffset=0;
+  $salbranch=<?php echo $salbranch;?>
+  //初始化加载
+  $.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'commentajax'));?>",dataType:"text",data:{commentoffset:$commentoffset,salbranch:$salbranch},type:"POST",success:function(data,status){
+	   $("#commentcontainer").append(data);
+}});
+$(document).scroll(function(){
+if($(window).scrollTop()+$(window).height()>$("#commentfixedstandard").offset().top-100){
+ $commentoffset=$commentoffset+1;
+ $.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'commentajax'));?>",dataType:"text",data:{commentoffset:$commentoffset,salbranch:$salbranch},type:"POST",success:function(data,status){
+	   $("#commentcontainer").append(data);
+	   $(".commentloading").remove();
+}});
+}
+})
+});
+</script>
+
 <div class="panel panel-default" id="svn">
 	<div class="panel-heading" id="feedbacks"><span class="title">评价</span></div>
 	<div class="panel-body">
-	  <div class="container">
-	  <?php foreach ($feedbacks as $feedback):?>
-         <div class="row">
-           <div class="col-xs-6 col-sm-6">
-           <img alt="" style="width:20px;height:20px;" src="/portrait/<?php echo $feedback->getCusphoto();?>">
-           <span class="thirdtitle"><?php echo $feedback->getCusname();?></span></div>
-           <div class="col-xs-6 col-sm-6"><?php echo $feedback->getFbdate();?></div>      
-          </div>
-          <br>
-          <div class="row">
-           <div class="col-xs-12 col-sm-12"><span class="subtitle"><?php echo ubbReplace($feedback->getFbadvise());?></span></div>    
-          </div>
-          <br>
-          <div class="row">
-          <?php 
-          preg_match_all("/([^;]+);/u",
-              $feedback->getSmallpicturegroup1(),
-              $original, PREG_PATTERN_ORDER);
-          preg_match_all("/([^;]+);/u",
-              $feedback->getOriginalpicturegroup1(),
-              $zoomed, PREG_PATTERN_ORDER);
-          for ($i=0;$i<count($original[1]);$i++):
-          ?>
-           <div class="col-xs-3 col-sm-3"><img data-zoomed="/fbpicture/<?php echo $zoomed[1][$i];?>" class="fbpicture1" alt=""  data-original="/fbpicture/<?php echo $original[1][$i];?>"></div>
-          <?php endfor;?>
-          </div>
-           <div class="row">
-           <div class="col-xs-12 col-sm-12">
-           评星：
-<?php switch ($feedback->getFbsurrounding()):?>
-<?php case 1:?>
-<span class="glyphicon glyphicon-star"></span>
-<?php break;?>
-<?php case 2:?>
-<span class="glyphicon glyphicon-star"></span>
-<span class="glyphicon glyphicon-star"></span>
-<?php break;?>
-<?php case 3:?>
-<span class="glyphicon glyphicon-star"></span>
-<span class="glyphicon glyphicon-star"></span>
-<span class="glyphicon glyphicon-star"></span>
-<?php break;?>
-<?php case 4:?>
-<span class="glyphicon glyphicon-star"></span>
-<span class="glyphicon glyphicon-star"></span>
-<span class="glyphicon glyphicon-star"></span>
-<span class="glyphicon glyphicon-star"></span>
-<?php break;?>
-<?php case 5:?>
-<span class="glyphicon glyphicon-star"></span>
-<span class="glyphicon glyphicon-star"></span>
-<span class="glyphicon glyphicon-star"></span>
-<span class="glyphicon glyphicon-star"></span>
-<span class="glyphicon glyphicon-star"></span>
-<?php break;?>
-<?php endswitch;?>
-           </div>    
-          </div>
-           <?php if ($feedback->getSalcomment2()):?>
-          <div class="row">
-           <div class="col-xs-12 col-sm-12" style='background-color: #D3D3D3;border-radius: 8px;'>
-           <span class="subtitle" style="">店家回复：<?php echo ubbReplace($feedback->getSalcomment1());?></span>
-           </div>    
-          </div>
-          <?php endif;?>
-          <hr>
-        <?php endforeach;?>
+	  <div class="container" id="commentcontainer">
+	  
        </div>
-	
+	<div id="commentfixedstandard"></div>
 	</div>
 </div>
 
 
 </div>
-
-
-<script type="text/javascript">
-//图片点击放大
-	$('.fbpicture1').zoomify();
-</script>
-<script type="text/javascript">
-//图片点击放大
-$(document).ready(function(){
-	$('.fbpicture1').click(function(){
-		setTimeout('$("body").scrollTop($("body").scrollTop()+1)',1)
-		
-		});
-})
-</script>

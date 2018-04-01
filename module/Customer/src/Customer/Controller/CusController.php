@@ -21,9 +21,6 @@ use Cosmetic\Treatment\TreatmentEntity;
 use Cosmetic\Appointment\AppointmentForm;
 use Cosmetic\Appointment\AppointmentEntity;
 use Zend\Session\Container;
-use Zend\Db\Adapter\Adapter as DbAdapter;
-use Zend\Authentication\Adapter\DbTable as AuthAdapter;
-use Zend\Authentication\AuthenticationService;
 use Cosmetic\Saloncouponget\SaloncoupongetEntity;
 use Cosmetic\Trolley\TrolleyEntity;
 use Zend\Http\Header\SetCookie;
@@ -909,7 +906,7 @@ class CusController extends AbstractActionController
         );
     }
     // TODO prodcomment
-    public function prodcommentAction()
+    public function commentajaxAction()
     {
         $container = new Container('customerlogin');
         $id = $container->salnumber;
@@ -918,13 +915,47 @@ class CusController extends AbstractActionController
         $cusphone = $container->cusphone;
       
         $prodid=$_POST['prodid'];
+        $cosid=$_POST['cosid'];
+        $salbranch=$_POST['salbranch'];
         $commentoffset=$_POST['commentoffset'];
+        
+        $feedbackscars=array();
         //评价
-        $feedbacks=$this->getFeedbacksMapper()->getFeedbacksoffset($prodid,$commentoffset);
+        if ($prodid){
+        $feedbacks=$this->getFeedbacksMapper()->getFeedbacksprod($prodid,$commentoffset);
+        foreach ($feedbacks as $feedback){
+            array_push($feedbackscars,array("cusname"=>$feedback->getCusname(),"cusphoto"=>$feedback->getCusphoto(),
+                "fbdate"=>$feedback->getFbdate(),"fbadvise"=>$feedback->getFbadvise1(),
+                "smallpicturegroup"=>$feedback->getSmallpicturegroup2(),
+                "originalpicturegroup"=>$feedback->getOriginalpicturegroup2(),
+                "fb"=>$feedback->getFbproduct(),
+                "salcomment"=>$feedback->getSalcomment2()));
+        }
+        }elseif ($cosid){
+            $feedbacks=$this->getFeedbacksMapper()->getFeedbackscos($cosid,$commentoffset);
+            foreach ($feedbacks as $feedback){
+                array_push($feedbackscars,array("cusname"=>$feedback->getCusname(),"cusphoto"=>$feedback->getCusphoto(),
+                    "fbdate"=>$feedback->getFbdate(),"fbadvise"=>$feedback->getFbadvise2(),
+                    "smallpicturegroup"=>$feedback->getSmallpicturegroup3(),
+                    "originalpicturegroup"=>$feedback->getOriginalpicturegroup3(),
+                    "fb"=>$feedback->getFbcosmetologist(),
+                    "salcomment"=>$feedback->getSalcomment3()));
+            }
+        }elseif ($salbranch){
+            $feedbacks=$this->getFeedbacksMapper()->getFeedbackssalbranch($id,$salbranch,$commentoffset);
+            foreach ($feedbacks as $feedback){
+                array_push($feedbackscars,array("cusname"=>$feedback->getCusname(),"cusphoto"=>$feedback->getCusphoto(),
+                    "fbdate"=>$feedback->getFbdate(),"fbadvise"=>$feedback->getFbadvise(),
+                    "smallpicturegroup"=>$feedback->getSmallpicturegroup1(),
+                    "originalpicturegroup"=>$feedback->getOriginalpicturegroup1(),
+                    "fb"=>$feedback->getFbsurrounding(),
+                    "salcomment"=>$feedback->getSalcomment1()));
+            }
+        }
         
         
         return array(
-            'feedbacks'=>$feedbacks    
+            'feedbackscars'=>$feedbackscars
         );
     }
     // TODO activitylist
@@ -2390,16 +2421,17 @@ public function chatajaxAction()
     public function salonbranchpageAction(){
         $container = new Container('customerlogin');
         $id = $container->salnumber;
+        $cusid=$container->cusid;
         $sub = (string) $this->params('sub');
         
         $page=$this->getPageMapper()->getPage1($sub);//获取页面，提取分院id
-        $salonbranch=$this->getSalonMapper()->getSalon1($page->getPageheaddata1());
+        $salon=$this->getSalonMapper()->getSalon1($page->getPageheaddata1());
         
         $homepage = $this->getPageMapper()->getHomepage($id);//为了获取首页颜色设置
         $template = $this->getTemplateMapper()->getTemplate($sub);
         
         //获取评价
-        $feedbacks=$this->getFeedbacksMapper()->getSalbranch($id,$salonbranch->getSalbranch());
+        $feedbacks=$this->getFeedbacksMapper()->getSalbranch($id,$salon->getSalbranch());
         //取出抽奖时间
         $lotterydate=$this->getCustomerMapper()->getCustomer1($cusid)->getLotterydate();
         //取出积分
@@ -2408,10 +2440,11 @@ public function chatajaxAction()
         return array(
             'homepage'=>$homepage,
             'templateitem'=>$template,
-            'salonbranch'=>$salonbranch,
+            'salon'=>$salon,
             'feedbacks'=>$feedbacks,
             'lotterydate'=>$lotterydate,
-            'cuspoints'=>$cuspoints
+            'cuspoints'=>$cuspoints,
+            'salbranch'=>$salon->getSalbranch()
             
         );
     }
@@ -2419,10 +2452,12 @@ public function chatajaxAction()
     public function cosmetologistpageAction(){
         $container = new Container('customerlogin');
         $id = $container->salnumber;
-        $sub = (string) $this->params('sub');
+        $cusid=$container->cusid;
+        $sub = $this->params('sub');
         
         $page=$this->getPageMapper()->getPage1($sub);//获取页面，提取美容师id
         $cosmetologist=$this->getCosmetologistMapper()->getCosmetologist1($page->getPageheaddata1());
+        
         
         $homepage = $this->getPageMapper()->getHomepage($id);//为了获取首页颜色设置
         $template = $this->getTemplateMapper()->getTemplate($sub);
@@ -2441,7 +2476,9 @@ public function chatajaxAction()
             'cosmetologist'=>$cosmetologist,
             'feedbacks'=>$feedbacks,
             'lotterydate'=>$lotterydate,
-            'cuspoints'=>$cuspoints
+            'cuspoints'=>$cuspoints,
+            'page'=>$page,
+            'cosid'=>$page->getPageheaddata1()
         );
     }
     

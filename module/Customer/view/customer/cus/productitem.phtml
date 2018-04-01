@@ -503,13 +503,13 @@ $(document).ready(function(){
   $commentoffset=0;
   $prodid=<?php echo $sub;?>;
   //初始化加载
-  $.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'prodcomment'));?>",dataType:"text",data:{commentoffset:$commentoffset,prodid:$prodid},type:"POST",success:function(data,status){
+  $.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'commentajax'));?>",dataType:"text",data:{commentoffset:$commentoffset,prodid:$prodid},type:"POST",success:function(data,status){
 	   $("#commentcontainer").append(data);
 }});
 $(document).scroll(function(){
 if($(window).scrollTop()+$(window).height()>$("#commentfixedstandard").offset().top-100){
  $commentoffset=$commentoffset+1;
- $.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'prodcomment'));?>",dataType:"text",data:{commentoffset:$commentoffset,prodid:$prodid},type:"POST",success:function(data,status){
+ $.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'commentajax'));?>",dataType:"text",data:{commentoffset:$commentoffset,prodid:$prodid},type:"POST",success:function(data,status){
 	   $("#commentcontainer").append(data);
 	   $(".commentloading").remove();
 }});

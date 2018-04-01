@@ -246,7 +246,7 @@ class PageMapper
     public function getSalbranch($salid)
     {
         $select = $this->sql->select();
-        $select->where(array('pagetype'=>"salbranch",'pageheaddata1'=>$salid));
+        $select->where(array('pagetype'=>"salonbranch",'pageheaddata1'=>$salid));
         //$select->order(array('salid ASC', 'salnumber ASC'));
         $statement = $this->sql->prepareStatementForSqlObject($select);
         $results = $statement->execute()->current();

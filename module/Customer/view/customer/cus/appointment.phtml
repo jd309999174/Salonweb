@@ -243,7 +243,7 @@ $(document).ready(function(){
    <?php foreach ($salons as $salon):?>
       <tr>
          <td><input checked="checked" type="radio" name="salonBranchName"  data-salbranch="<?php echo $salon->getSalbranch();?>" data-salname="<?php echo $salon->getSalname();?>"></td>
-         <td><?php echo $salon->getSalname();?></td>
+         <td onclick="location='<?php echo $this->url('customer', array('action'=>'salonbranchpage','sub'=>$salon->getPageid()));?>';"><?php echo $salon->getSalname();?></td>
          <td><img alt="" src="<?php echo $salon->getSalphoto1();?>" style="width: 50px;height:30px"></td>
       </tr>
       <?php endforeach;?>

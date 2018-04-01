@@ -10,7 +10,7 @@
    <?php foreach ($cosmetologists as $cosmetologist):?>
       <tr>
          <td><input checked="checked" type="radio" name="cosmetologistName" data-cosid="<?php echo $cosmetologist->getCosid();?>" data-cosname="<?php echo $cosmetologist->getCosname();?>" checked></td>
-         <td><?php echo $cosmetologist->getCosname();?></td>
+         <td onclick="location='<?php echo $this->url('customer', array('action'=>'cosmetologistpage','sub'=>$cosmetologist->getPageid()));?>';"><?php echo $cosmetologist->getCosname();?></td>
          <td><img alt="" src="<?php echo $cosmetologist->getCosphoto();?>" style="width: 50px;height:30px"></td>
       </tr>
       <?php endforeach;?>

@@ -1,16 +1,7 @@
 <?php
 //表情转换方法
 include_once 'public/php/emotionreplace.php';?>
-<?php 
-$feedbackscars=array();
-foreach ($feedbacks as $feedback){
-array_push($feedbackscars,array("cusname"=>$feedback->getCusname(),"cusphoto"=>$feedback->getCusphoto(),
-    "fbdate"=>$feedback->getFbdate(),"fbadvise1"=>$feedback->getFbadvise1(),
-    "smallpicturegroup2"=>$feedback->getSmallpicturegroup2(),
-    "originalpicturegroup2"=>$feedback->getOriginalpicturegroup2(),
-    "fbproduct"=>$feedback->getFbproduct(),
-    "salcomment2"=>$feedback->getSalcomment2()));
-}?>
+
 <?php  //存在则输出， 不存在则为空
 if ($feedbackscars):?>
 <?php foreach ($feedbackscars as $feedback):?>
@@ -22,26 +13,26 @@ if ($feedbackscars):?>
           </div>
           <br>
           <div class="row">
-           <div class="col-xs-12 col-sm-12"><span class="subtitle"><?php echo ubbReplace($feedback['fbadvise1']);?></span></div>    
+           <div class="col-xs-12 col-sm-12"><span class="subtitle"><?php echo ubbReplace($feedback['fbadvise']);?></span></div>    
           </div>
           <br>
           <div class="row">
           <?php 
           preg_match_all("/([^;]+);/u",
-              $feedback['smallpicturegroup2'],
+              $feedback['smallpicturegroup'],
               $original, PREG_PATTERN_ORDER);
           preg_match_all("/([^;]+);/u",
-              $feedback['originalpicturegroup2'],
+              $feedback['originalpicturegroup'],
               $zoomed, PREG_PATTERN_ORDER);
           for ($i=0;$i<count($original[1]);$i++):
           ?>
-           <div class="col-xs-3 col-sm-3"><img src="/fbpicture/<?php echo $original[1][$i];?>" data-zoomed="/fbpicture/<?php echo $zoomed[1][$i];?>" class="fbpicture2" alt=""  data-original="/fbpicture/<?php echo $original[1][$i];?>"></div>
+           <div class="col-xs-3 col-sm-3"><img src="/fbpicture/<?php echo $original[1][$i];?>" data-zoomed="/fbpicture/<?php echo $zoomed[1][$i];?>" class="fbpicture col-xs-12 col-sm-12" alt=""  data-original="/fbpicture/<?php echo $original[1][$i];?>"></div>
           <?php endfor;?>
           </div>
            <div class="row">
            <div class="col-xs-12 col-sm-12">
            评星：
-<?php switch ($feedback['fbproduct']):?>
+<?php switch ($feedback['fb']):?>
 <?php case 1:?>
 <span class="glyphicon glyphicon-star"></span>
 <?php break;?>
@@ -70,10 +61,10 @@ if ($feedbackscars):?>
 <?php endswitch;?>
            </div>    
           </div>
-          <?php if ($feedback['salcomment2']):?>
+          <?php if ($feedback['salcomment']):?>
           <div class="row">
            <div class="col-xs-12 col-sm-12" style='background-color: #D3D3D3;border-radius: 8px;'>
-           <span class="subtitle" style="">店家回复：<?php echo ubbReplace($feedback['salcomment2']);?></span>
+           <span class="subtitle" style="">店家回复：<?php echo ubbReplace($feedback['salcomment']);?></span>
            </div> 
           </div>
           <?php endif;?>
@@ -93,14 +84,14 @@ if ($feedbackscars):?>
 
 <script type="text/javascript">
 //图片点击放大
-	$('.fbpicture2').zoomify();
+	$('.fbpicture').zoomify();
 </script>
 <script type="text/javascript">
 //图片点击放大  可能要优化
 $(document).ready(function(){
-	$('.fbpicture2').click(function(){
-		setTimeout('$("body").scrollTop($("body").scrollTop()+1)',1);
-		setTimeout('$("body").scrollTop($("body").scrollTop()-1)',1);
+	$('.fbpicture').click(function(){
+		setTimeout('$(window).scrollTop($(window).scrollTop()+1)',1);
+		setTimeout('$(window).scrollTop($(window).scrollTop()-1)',1);
 		});
 })
 </script>
