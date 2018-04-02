@@ -10,7 +10,7 @@
  $form = $this->form;
  $url = $this->url('cosmetic', array('action' => 'salonedit','sub'=>$sub));
  $form->setAttribute('action', $url);
- $form->get('submit')->setAttribute('value', 'Edit');
+ $form->get('submit')->setAttribute('value', '提交');
  $form->get('submit')->setAttribute('id', 'submit');
  $form->prepare();echo $this->form()->openTag($form);?>
 

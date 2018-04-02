@@ -4,8 +4,8 @@
  ?>
  <h1><?php echo $this->escapeHtml($title); ?></h1>
 
- <p>Are you sure that you want to delete the
-   '<?php echo $this->escapeHtml($product->getProdtitle()); ?>' task?
+ <p>你确定要删除产品
+   '<?php echo $this->escapeHtml($product->getProdtitle()); ?>' 吗?
  </p>
  <?php
  $url = $this->url('cosmetic', array('action' => 'productdelete','sub'=>$sub)); ?>

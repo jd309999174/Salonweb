@@ -1,11 +1,11 @@
  <?php
- $title = 'Delete task';
+ $title = '删除页面';
  $this->headTitle($title);
  ?>
  <h1><?php echo $this->escapeHtml($title); ?></h1>
 
- <p>Are you sure that you want to delete the
-   '<?php echo $this->escapeHtml($page->getPagename()); ?>' task?
+ <p>你确定要删除页面
+   '<?php echo $this->escapeHtml($page->getPagename()); ?>' 吗?
  </p>
  <?php
  $url = $this->url('cosmetic', array('action' => 'pagedelete','sub'=>$sub)); ?>

@@ -19,6 +19,12 @@ echo $this->formRow($form->get('dcsname'));
 echo $this->formhidden($form->get('dcsbackground'));
  ?>
  <div>
+ <div class="form-group">
+		<div>
+		    <h3>背景图选择</h3>
+			<img alt="" src="" class="picturechoose1 img1" style="wdith:200px;height:150px"> 
+		</div>
+</div>
  <?php echo $this->formInput($form->get('submit')); ?>
  </div>
  <?php
@@ -26,12 +32,11 @@ echo $this->formhidden($form->get('dcsbackground'));
  
  
  
- <div class="form-group">
-		<div>
-		    <h3>背景图选择</h3>
-			<img alt="" src="/img/choose.jpg" class="picturechoose1 img1" style="wdith:200px;height:150px"> 
-		</div>
-	</div>
+ <script type="text/javascript">
+$(document).ready(function(){
+	$(".picturechoose1").attr("src",$("#dcsbackground").val());
+})
+</script>
  <script>
 //提交图片
 $(function(){

@@ -7,7 +7,7 @@
  $form = $this->form;
  $url = $this->url('cosmetic', array('action' => 'cusleveltypeedit', 'sub'=>$sub));
  $form->setAttribute('action', $url);
- $form->get('submit')->setAttribute('value', 'Edit');
+ $form->get('submit')->setAttribute('value', '编辑');
  $form->prepare();
 
 echo $this->form()->openTag($form);
