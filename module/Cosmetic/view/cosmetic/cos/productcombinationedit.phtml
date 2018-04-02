@@ -1,5 +1,5 @@
 <?php
-$title = 'Add new task';
+$title = '编辑分类组合';
 $this->headTitle($title);
 ?>
 <h5><?php echo $this->escapeHtml($title); ?></h5>
@@ -9,7 +9,7 @@ $form = $this->form;
 $form->setAttribute('action', $this->url('cosmetic', array(
     'action' => 'productcombinationedit','sub'=>$sub,'third'=>$third
 )));
-$form->get('submit')->setAttribute('value', 'Add');
+$form->get('submit')->setAttribute('value', '编辑');
 $form->get('prodid')->setAttribute('value', $sub);
 $form->prepare();
 
@@ -23,11 +23,14 @@ echo $this->formRow($form->get('productcombinationname'));
 
 ?>
 <div>
+<img alt="" src="/img/choose.jpg" class="picturechoose1 img1" style="wdith:200px;height:150px"> 
+</div>
+<div>
  <?php echo $this->formInput($form->get('submit')); ?>
  </div>
 <?php
 echo $this->form()->closeTag($form);?>
-<img alt="" src="/img/choose.jpg" class="picturechoose1 img1" style="wdith:200px;height:150px"> 
+
 <script>
 $(function(){
 	

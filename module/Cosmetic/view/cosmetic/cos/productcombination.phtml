@@ -27,7 +27,7 @@ $this->headTitle($title);
      <td><img src="<?php echo $this->escapeHtml($productcombination->getProductcombinationpicture()); ?>" style="width:50px;height:30px"></td>
      <td>
          <a href="<?php echo $this->url('cosmetic',
-             array('action'=>'productcombinationdelete','sub'=>$sub,'third'=>$productcombination->getProductcombinationid()));?>">Delete</a>
+             array('action'=>'productcombinationdelete','sub'=>$sub,'third'=>$productcombination->getProductcombinationid()));?>">删除</a>
      </td>
  </tr>
  <?php endforeach; ?>
