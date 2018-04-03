@@ -132,9 +132,9 @@ $(document).ready(function(){
 	$("#total").html(<?php echo round($_POST['productcombinationprice']*$_POST['productquantity'],2);?>);//总价默认值
 	//默认积分值
 	if(<?php echo $cuspointssingle;?>*$("#productquantity").val() > <?php echo $cusleveltype->getCuspoints();?>){
-        round($("#cuspoints").html(<?php echo $cusleveltype->getCuspoints();?>),2);
+        round($("#cuspoints").html(Math.floor(<?php echo $cusleveltype->getCuspoints();?>*100)/100),2);
 		}else{
-		$("#cuspoints").html(<?php echo $cuspointssingle;?>*$("#productquantity").val());
+		$("#cuspoints").html(Math.floor(<?php echo $cuspointssingle;?>*$("#productquantity").val()*100)/100);
 		}
 	//积分变化
 	  $("#switchdiv2").click(function(){
@@ -181,7 +181,7 @@ $(document).ready(function(){
 			}
 		$("#couponselect option").each(function(){ //遍历全部option  
 			  if($(this).attr("data-scirestriction") > <?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val())  
-				  $(this).hide();
+				  $(this).attr("disabled","disabled");
 			  });  
     	});
 	$("#productquantityr").click(function(){//数量增加
@@ -199,7 +199,7 @@ $(document).ready(function(){
             }
 	    $("#couponselect option").each(function(){ //遍历全部option  
 			  if($(this).attr("data-scirestriction") <= <?php echo $_POST['productcombinationprice'];?>*$("#productquantity").val())  
-				  $(this).show();
+				  $(this).removeAttr("disabled");
 			  });  
 	});
 	//优惠券改变时
@@ -258,7 +258,7 @@ $(document).ready(function(){
 满<?php echo $couponget['scirestriction'];?> &nbsp;减 &nbsp;<?php echo $couponget['scimoney'];?>
 </option>
 <?php else:?>
-<option style="display:none;" data-scirestriction="<?php echo $couponget['scirestriction'];?>" data-id="<?php echo $couponget['scgid'];?>" value="<?php echo $couponget['scimoney'];?>">
+<option disabled="disabled"  data-scirestriction="<?php echo $couponget['scirestriction'];?>" data-id="<?php echo $couponget['scgid'];?>" value="<?php echo $couponget['scimoney'];?>">
 满<?php echo $couponget['scirestriction'];?> &nbsp;减 &nbsp;<?php echo $couponget['scimoney'];?>
 </option>
 <?php endif;?>
@@ -267,6 +267,7 @@ $(document).ready(function(){
 	
 </div>
 </div>
+
 
 
  <div class="row well">
