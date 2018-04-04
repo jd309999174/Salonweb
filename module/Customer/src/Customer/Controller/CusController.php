@@ -788,7 +788,9 @@ class CusController extends AbstractActionController
             //取出抽奖时间
             $lotterydate=$this->getCustomerMapper()->getCustomer1($cusid)->getLotterydate();
             //取出积分
-            $cuspoints=$this->getCusleveltypeMapper()->getTask($cusid)->getCuspoints();
+            $cusleveltype=$this->getCusleveltypeMapper()->getTask($cusid);
+            $cuspoints=$cusleveltype->getCuspoints();
+            $cuslevel=$cusleveltype->getCuslevel();
             return array(
                 'third'=>$third,
                 'id' => $id,
@@ -805,7 +807,8 @@ class CusController extends AbstractActionController
                 'unreadsum'=>$unreadsum,
                 'lotterydate'=>$lotterydate,
                 'cuspoints'=>$cuspoints,
-                'neworold'=>$neworold
+                'neworold'=>$neworold,
+                'cuslevel'=>$cuslevel
             );
     }
     
@@ -1018,7 +1021,9 @@ class CusController extends AbstractActionController
         //取出抽奖时间
         $lotterydate=$this->getCustomerMapper()->getCustomer1($cusid)->getLotterydate();
         //取出积分
-        $cuspoints=$this->getCusleveltypeMapper()->getTask($cusid)->getCuspoints();
+        $cusleveltype=$this->getCusleveltypeMapper()->getTask($cusid);
+        $cuspoints=$cusleveltype->getCuspoints();
+        $cuslevel=$cusleveltype->getCuslevel();
         //最近订单  判断90天内是否消费
         $neworold="old";
         $treatmentlatest=$this->getTreatmentMapper()->getTreatmentlatest($cusid);
@@ -1032,7 +1037,8 @@ class CusController extends AbstractActionController
             'signupstate'=>$signupstate,
             'lotterydate'=>$lotterydate,
             'cuspoints'=>$cuspoints,
-            'neworold'=>$neworold
+            'neworold'=>$neworold,
+            'cuslevel'=>$cuslevel
         );
     }
     
@@ -2435,7 +2441,9 @@ public function chatajaxAction()
         //取出抽奖时间
         $lotterydate=$this->getCustomerMapper()->getCustomer1($cusid)->getLotterydate();
         //取出积分
-        $cuspoints=$this->getCusleveltypeMapper()->getTask($cusid)->getCuspoints();
+        $cusleveltype=$this->getCusleveltypeMapper()->getTask($cusid);
+        $cuspoints=$cusleveltype->getCuspoints();
+        $cuslevel=$cusleveltype->getCuslevel();
         
         return array(
             'homepage'=>$homepage,
@@ -2444,7 +2452,8 @@ public function chatajaxAction()
             'feedbacks'=>$feedbacks,
             'lotterydate'=>$lotterydate,
             'cuspoints'=>$cuspoints,
-            'salbranch'=>$salon->getSalbranch()
+            'salbranch'=>$salon->getSalbranch(),
+            'cuslevel'=>$cuslevel
             
         );
     }
@@ -2468,7 +2477,9 @@ public function chatajaxAction()
         //取出抽奖时间
         $lotterydate=$this->getCustomerMapper()->getCustomer1($cusid)->getLotterydate();
         //取出积分
-        $cuspoints=$this->getCusleveltypeMapper()->getTask($cusid)->getCuspoints();
+        $cusleveltype=$this->getCusleveltypeMapper()->getTask($cusid);
+        $cuspoints=$cusleveltype->getCuspoints();
+        $cuslevel=$cusleveltype->getCuslevel();
         
         return array(
             'homepage'=>$homepage,
@@ -2478,7 +2489,8 @@ public function chatajaxAction()
             'lotterydate'=>$lotterydate,
             'cuspoints'=>$cuspoints,
             'page'=>$page,
-            'cosid'=>$page->getPageheaddata1()
+            'cosid'=>$page->getPageheaddata1(),
+            'cuslevel'=>$cuslevel
         );
     }
     

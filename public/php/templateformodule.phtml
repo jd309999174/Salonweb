@@ -33,6 +33,30 @@
 						</div>
 					</div>
 				</li>
+				<!-- vip模块  -->
+				<li id="draggable12" data-type="viprow" class="ui-state-highlight intro"
+					onclick='if($(this).parent().attr("id")){
+						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
+                        $(this).css("background","#ccc");
+						$("#vipsubmit").attr("onclick","myvip("+$(this).index(".intro")+")");
+						$("#vipdelete").attr("onclick","mydelete("+$(this).index(".intro")+")");
+	       $("#viprowimg").attr("src",$(this).find(".vipimg").attr("src"));
+           $("#viprowlink").val($(this).find(".vipa").attr("data-href"));
+           $("#viprowlevel").val($(this).find(".vipa").attr("data-level"));
+           $(".fieldset").hide();
+           $("#viprowfield").show();}'>
+					<div class="content">
+						<div class="row">
+							<div class="col">
+								<div class="col-demo">
+									<a data-level=""  data-href="" class="vipa"> <img alt=""
+										src="/img/mylogo.png" class="img1 vipimg">
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
 			</ul>
 		</div>
 		<h3>单、双列图片，轮播图</h3>

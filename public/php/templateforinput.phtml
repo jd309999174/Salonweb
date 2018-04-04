@@ -53,6 +53,31 @@
 		<button onclick="mydelete('100')" id="newolddelete">删除</button>
 	</fieldset>
 	
+	<!-- vip -->
+	<fieldset class="fieldset" id="viprowfield">
+		<legend>vip</legend>
+		图片<br> <img alt="" src="/img/mylogo.png" id="viprowimg" class="picturechoose1 img1"> 
+		链接	    <div class="input-group">
+					<input type="text" class="form-control linkinput1" readonly="readonly"  id="viprowlink">
+					<span class="input-group-btn">
+						<button class="btn btn-default linkchoose1" type="button" >
+							<span class="ui-icon  ui-icon-link"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+				<br>
+	 <div class="tooltip-test" data-toggle="tooltip" title="大于设置会员等级才可看见此模块">会员等级</div>
+		        <div class="input-group">
+					<input type="text" class="form-control" id="viprowlevel">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" onclick="$('#viprowlevel').val('');">
+							<span class="ui-icon  ui-icon-document"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+		<button onclick="myvip('100')" id="vipsubmit">提交</button>
+		<button onclick="mydelete('100')" id="vipdelete">删除</button>
+	</fieldset>
 	
 	<!-- 单列图片 -->
 	<fieldset class="fieldset" id="singlerowfield">

@@ -29,6 +29,12 @@ function mynewold($x){//新老顾客
 		$(".intro").eq($x).find(".newolda2").attr("data-href",$("#newoldrowlink2").val());
 		$(".fieldset").hide();
 		};
+function myvip($x){ //单列图
+		$(".intro").eq($x).find(".vipimg").attr("src",$("#viprowimg").attr("src"));
+		$(".intro").eq($x).find(".vipa").attr("data-href",$("#viprowlink").val());
+		$(".intro").eq($x).find(".vipa").attr("data-level",$("#viprowlevel").val());
+		$(".fieldset").hide();
+		};
 function mysingle($x){ //单列图
 	$(".intro").eq($x).find(".singleimg").attr("src",$("#singlerowimg").attr("src"));
 	$(".intro").eq($x).find(".singlea").attr("data-href",$("#singlerowlink").val());
@@ -123,6 +129,11 @@ $(function() {
       revert: true
     });
     $( "#draggable11" ).draggable({
+        connectToSortable: "#sortable",
+        helper: "clone",
+        revert: "invalid"
+      });
+    $( "#draggable12" ).draggable({
         connectToSortable: "#sortable",
         helper: "clone",
         revert: "invalid"
