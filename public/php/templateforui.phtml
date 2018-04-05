@@ -68,7 +68,7 @@
 //疗程下拉加载更多
 $(document).ready(function(){
   $prodoffset=0;
-  $prodstyle=2;
+  $prodstyle=1;
   $prodtitle="";
   $prodclassify="<?php echo $custype;?>";
   $.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:0,prodorder:"prodsynthesis",prodtitle:$prodtitle,prodstyle:$prodstyle,prodclassify:$prodclassify},type:"POST",success:function(data,status){
