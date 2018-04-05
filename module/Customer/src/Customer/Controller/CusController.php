@@ -271,16 +271,21 @@ class CusController extends AbstractActionController
         
         $container = new Container('customerlogin');
         $id = $container->salnumber;
+        $cusid = $container->cusid;
         
-        return array('sub'=>$id);
+        $cusleveltype=$this->getCusleveltypeMapper()->getTask($cusid);
+        return array('sub'=>$id,'cusleveltype'=>$cusleveltype);
     }
     // TODO aftertippaid
     public function aftertippaidAction()
     {
         $container = new Container('customerlogin');
         $id = $container->salnumber;
+        $cusid = $container->cusid;
         
-        return array('sub'=>$id);
+        
+        $cusleveltype=$this->getCusleveltypeMapper()->getTask($cusid);
+        return array('sub'=>$id,'cusleveltype'=>$cusleveltype);
     }
     // TODO mytiplist
     public function mytiplistAction()
@@ -791,6 +796,7 @@ class CusController extends AbstractActionController
             $cusleveltype=$this->getCusleveltypeMapper()->getTask($cusid);
             $cuspoints=$cusleveltype->getCuspoints();
             $cuslevel=$cusleveltype->getCuslevel();
+            $custype=$cusleveltype->getCustype();
             return array(
                 'third'=>$third,
                 'id' => $id,
@@ -808,7 +814,8 @@ class CusController extends AbstractActionController
                 'lotterydate'=>$lotterydate,
                 'cuspoints'=>$cuspoints,
                 'neworold'=>$neworold,
-                'cuslevel'=>$cuslevel
+                'cuslevel'=>$cuslevel,
+                'custype'=>$custype
             );
     }
     
@@ -1024,6 +1031,7 @@ class CusController extends AbstractActionController
         $cusleveltype=$this->getCusleveltypeMapper()->getTask($cusid);
         $cuspoints=$cusleveltype->getCuspoints();
         $cuslevel=$cusleveltype->getCuslevel();
+        $custype=$cusleveltype->getCustype();
         //最近订单  判断90天内是否消费
         $neworold="old";
         $treatmentlatest=$this->getTreatmentMapper()->getTreatmentlatest($cusid);
@@ -1038,7 +1046,8 @@ class CusController extends AbstractActionController
             'lotterydate'=>$lotterydate,
             'cuspoints'=>$cuspoints,
             'neworold'=>$neworold,
-            'cuslevel'=>$cuslevel
+            'cuslevel'=>$cuslevel,
+            'custype'=>$custype
         );
     }
     
@@ -2444,6 +2453,7 @@ public function chatajaxAction()
         $cusleveltype=$this->getCusleveltypeMapper()->getTask($cusid);
         $cuspoints=$cusleveltype->getCuspoints();
         $cuslevel=$cusleveltype->getCuslevel();
+        $custype=$cusleveltype->getCustype();
         
         return array(
             'homepage'=>$homepage,
@@ -2453,7 +2463,8 @@ public function chatajaxAction()
             'lotterydate'=>$lotterydate,
             'cuspoints'=>$cuspoints,
             'salbranch'=>$salon->getSalbranch(),
-            'cuslevel'=>$cuslevel
+            'cuslevel'=>$cuslevel,
+            '$custype'=>$$custype
             
         );
     }
@@ -2480,6 +2491,7 @@ public function chatajaxAction()
         $cusleveltype=$this->getCusleveltypeMapper()->getTask($cusid);
         $cuspoints=$cusleveltype->getCuspoints();
         $cuslevel=$cusleveltype->getCuslevel();
+        $custype=$cusleveltype->getCustype();
         
         return array(
             'homepage'=>$homepage,
@@ -2490,7 +2502,8 @@ public function chatajaxAction()
             'cuspoints'=>$cuspoints,
             'page'=>$page,
             'cosid'=>$page->getPageheaddata1(),
-            'cuslevel'=>$cuslevel
+            'cuslevel'=>$cuslevel,
+            'custype'=>$custype
         );
     }
     

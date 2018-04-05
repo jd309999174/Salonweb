@@ -81,6 +81,28 @@ display:none;
 					</div>
 				</li>
 <?php break;?>
+<?php case "recommendedprodrow": ?>
+<li  data-type="recommendedprodrow" class="ui-state-highlight intro"
+     onclick='if($(this).parent().attr("id")){
+						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
+                        $(this).css("background","#ccc");
+						$("#recommendedproddelete").attr("onclick","mydelete("+$(this).index(".intro")+")");
+           $(".fieldset").hide();
+           $("#recommendedprodrowfield").show();}'>
+					<div class="content" style="position:relative;">
+						<div class="row">
+							<div class="col">
+								<div class="col-demo">
+									<img alt="" src="/img/mylogo.png" class="img1">
+								</div>
+							</div>
+						</div>
+						 <div class="deletebtn" style="position:absolute;z-indent:2;left:2px;top:2px;">
+                          <span style="color: black;" onclick='$(this).parents(".intro").remove();' class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                         </div>
+					</div>
+				</li>
+<?php break;?>
 <?php case "singlerow": ?>
 <li  data-type="singlerow" class="ui-state-highlight intro"
 					onclick='if($(this).parent().attr("id")){

@@ -138,6 +138,11 @@ $(function() {
         helper: "clone",
         revert: "invalid"
       });
+    $( "#draggable13" ).draggable({
+        connectToSortable: "#sortable",
+        helper: "clone",
+        revert: "invalid"
+      });
     $( "#draggable21" ).draggable({
       connectToSortable: "#sortable",
       helper: "clone",

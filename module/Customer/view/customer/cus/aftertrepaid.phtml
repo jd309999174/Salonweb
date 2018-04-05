@@ -30,4 +30,22 @@ input {
  您会获得相应积分，积分可用来抽奖，或在购买产品与服务时抵用现金
    </div>
 </div>
+
+
+ <div class="well">推荐宝贝</div>
+   <div class="recommendedprod">
+
+   </div>
+<script>
+//疗程下拉加载更多
+$(document).ready(function(){
+  $prodoffset=0;
+  $prodstyle=2;
+  $prodtitle="";
+  $prodclassify="<?php echo $cusleveltype->getCustype();?>";
+  $.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",dataType:"text",data:{prodoffset:0,prodorder:"prodsynthesis",prodtitle:$prodtitle,prodstyle:$prodstyle,prodclassify:$prodclassify},type:"POST",success:function(data,status){
+	   $(".recommendedprod").append(data);
+}});
+});
+</script>
    

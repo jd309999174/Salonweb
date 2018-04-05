@@ -44,6 +44,10 @@ $(function() {
         	    	             li.find(".vipa").attr("data-level")];
       	    	  valuearray.push(onerow);
       	           break;
+    	       case "recommendedprodrow":
+        	    	  var onerow= [li.attr("data-type")];
+        	    	  valuearray.push(onerow);
+        	           break;
     	       case "singlerow":
     	    	  var onerow= [li.attr("data-type"),
     	    	               li.find(".singlea").attr("data-href"),li.find(".singleimg").attr("src")];

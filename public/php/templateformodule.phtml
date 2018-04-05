@@ -57,6 +57,24 @@
 						</div>
 					</div>
 				</li>
+				<!-- 宝贝推荐  -->
+				<li id="draggable13" data-type="recommendedprodrow" class="ui-state-highlight intro"
+				onclick='if($(this).parent().attr("id")){
+						$(".intro").css("background","<?php echo $page->getPagecolor();?>");
+                        $(this).css("background","#ccc");
+						$("#recommendedproddelete").attr("onclick","mydelete("+$(this).index(".intro")+")");
+           $(".fieldset").hide();
+           $("#recommendedprodrowfield").show();}'>
+					<div class="content">
+						<div class="row">
+							<div class="col">
+								<div class="col-demo">
+									<img alt="" src="/img/mylogo.png" class="img1">
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
 			</ul>
 		</div>
 		<h3>单、双列图片，轮播图</h3>
