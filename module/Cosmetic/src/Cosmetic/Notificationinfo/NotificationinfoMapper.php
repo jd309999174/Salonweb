@@ -122,8 +122,9 @@ public function saveTask(NotificationinfoEntity $task)
  //获取此美容院的所有通知
  public function getAllnotificationtoday($salnumber)
  {
+     $comparedate=date('Ymd',strtotime("-7 Days"));
      $select = $this->sql->select();
-     $select->where(array('salnumber' => $salnumber,'nodate'=>date('Y-m-d')));
+     $select->where(array('salnumber' => $salnumber,'comparenodate>='.$comparedate));
      $select->order(array('nodate ASC'));
  
      $statement = $this->sql->prepareStatementForSqlObject($select);
