@@ -49,17 +49,18 @@
 
 
 <div class="well">预约美容院</div>
+<?php if ($salonbranch!=="0"):?>
 <div class="container" style="padding: 5px;margin:5px;border:1px dashed pink;">
    <div class="row">
       <div class="col-xs-3 col-sm-3">
-      <img style="width:100%;" alt="" src="<?php echo $salbranch->getSalphoto1();?>">
+      <img style="width:100%;" alt="" src="<?php echo $salonbranch->getSalphoto1();?>">
       </div>
       <div class="col-xs-4 col-sm-4" style="padding: 5px;">
       <div class="row">
-      <?php echo $salbranch->getSalname();?>
+      <?php echo $salonbranch->getSalname();?>
       </div>
       <div class="row">电话：</div>
-      <div class="row"><?php echo $salbranch->getSalphone();?></div>
+      <div class="row"><?php echo $salonbranch->getSalphone();?></div>
       </div> 
       <div class="col-xs-5 col-sm-5" style="padding: 5px;">
        <div class="row">最近平均环境评星：</div>
@@ -67,10 +68,26 @@
        </div> 
    </div>
 </div>
+<?php else :?>
+<div class="container" style="padding: 5px;margin:5px;border:1px dashed pink;">
+   <div class="row">
+      <div class="col-xs-3 col-sm-3">
+      <img style="width:100%;" alt="" src="/img/ipaddress.jpg">
+      </div>
+      <div class="col-xs-9 col-sm-9" style="padding: 5px;">
+      <div class="row">
+      <?php echo $myappointment->getSalname();?>
+      </div>
+      </div> 
+   </div>
+</div>
+<?php endif;?>
+
  
  
  
 <div class="well">预约美容师</div>
+<?php if ($cosmetologist!=="0"):?>
 <div class="container" style="padding: 5px;margin:5px;border:1px dashed pink;">
    <div class="row">
       <div class="col-xs-3 col-sm-3">
@@ -89,14 +106,31 @@
        </div> 
    </div>
 </div>
-
+<?php else :?>
+<div class="container" style="padding: 5px;margin:5px;border:1px dashed pink;">
+   <div class="row">
+      <div class="col-xs-3 col-sm-3">
+      <img style="width:100%;" alt="" src="/img/arbitrarycos.jpg">
+      </div>
+      <div class="col-xs-9 col-sm-9" style="padding: 5px;">
+      <div class="row">
+            任意
+      </div>
+      </div> 
+   </div>
+</div>
+<?php endif;?>
 <script>
+<?php if ($salaveragestar):?>
 $('#salrating').raty({
 	   readOnly: true, score: <?php echo $salaveragestar;?>
 	});
+<?php endif;?>
+<?php if ($cosaveragestar):?>
 $('#cosrating').raty({
 	   readOnly: true, score: <?php echo $cosaveragestar;?>
 	});
+<?php endif;?>
 </script>
  
 

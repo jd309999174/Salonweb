@@ -435,6 +435,20 @@ class CosController extends AbstractActionController
     
     public function fooAction()
     {
+        
+        return new ViewModel();
+    }
+    
+    //curaddress
+    public function curaddressAction()
+    {
+        $sub=$this->params('sub');//用户id
+        $third=urldecode($this->params('third'));//地址
+        
+        $customer = $this->getCustomerMapper()->getCustomer1($sub);
+        $customer->setCuraddress($third);
+        $this->getCustomerMapper()->saveCustomer($customer);
+        
         return new ViewModel();
     }
 

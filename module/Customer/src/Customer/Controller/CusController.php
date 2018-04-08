@@ -1104,7 +1104,8 @@ class CusController extends AbstractActionController
             'cusname' => $cusname,
             'recentdate' => $this->getAppointmentMapper()->getAppointmentRecentDate1($id, $cusid),
             'unreadsum'=>$unreadsum,
-            'homepage'=>$homepage
+            'homepage'=>$homepage,
+            'customer'=>$customer
         )
         );
     }
@@ -1118,7 +1119,16 @@ class CusController extends AbstractActionController
         $request = $this->getRequest();
         if ($request->isPost()) {
             $post = $request->getPost()->toArray();
+            if ($post['salonBranchValue']!=="0"){
             $cosmetologists = $this->getCosmetologistMapper()->getCosmetologistBranch($id, $post['salonBranchValue']);
+            }else {
+                $cosmetologists="all";
+                return new ViewModel(array(
+                    'container' => $container,
+                    'cosmetologists' => $cosmetologists,
+                    'id' => $id
+                ));
+            }
         }
         return new ViewModel(array(
             'container' => $container,
@@ -1692,9 +1702,8 @@ public function chatajaxAction()
         //预约
         $myappointment = $this->getAppointmentMapper()->getAppointment1($sub);
         
-        //美容师
-        $cosmetologist=$this->getCosmetologistMapper()->getCosmetologist1($myappointment->getCosid());
-    
+        
+        if ($myappointment->getSalbranch()!=="0"){
         //美容院分院,获取最近30次评星，并计算平均值
         $salonbranch=$this->getSalonMapper()->getSalonpicute($id,$myappointment->getSalbranch());
         $salfeedbacks=$this->getFeedbacksMapper()->getTask111($id,$myappointment->getSalbranch());
@@ -1710,7 +1719,11 @@ public function chatajaxAction()
         if(count($salcars)!=0){
         $salaveragestar=$saltotal/count($salcars);
         }else{$salaveragestar=4;}
+        }else {$salonbranch="0";}
         
+        if ($myappointment->getCosid()!=="0"){
+        //美容师
+        $cosmetologist=$this->getCosmetologistMapper()->getCosmetologist1($myappointment->getCosid());
         //获取美容师最近30次评星,并计算平均值
         $cosfeedbacks=$this->getFeedbacksMapper()->getTask11($myappointment->getCosid());
         //转为数组
@@ -1726,13 +1739,13 @@ public function chatajaxAction()
         if(count($coscars)!=0){
             $cosaveragestar=$costotal/count($coscars);
         }else{$cosaveragestar=4;}
-       
+        }else{$cosmetologist="0";}
         
         return array(
             'sub' => $sub,
             'myappointment'=>$myappointment,
             'cosmetologist'=>$cosmetologist,
-            'salbranch'=>$salonbranch,
+            'salonbranch'=>$salonbranch,
             'cosaveragestar'=>$cosaveragestar,
             'salaveragestar'=>$salaveragestar
         );

@@ -17,6 +17,7 @@ class CustomerEntity
     protected $cusregdatestamp;
     protected $currentstate;
     protected $currentip;
+    protected $curaddress;
     protected $unread;
     protected $lotterydate;
     protected $tipsum;
@@ -31,6 +32,22 @@ class CustomerEntity
     }
     
     
+    /**
+     * @return the $curaddress
+     */
+    public function getCuraddress()
+    {
+        return $this->curaddress;
+    }
+
+    /**
+     * @param field_type $curaddress
+     */
+    public function setCuraddress($curaddress)
+    {
+        $this->curaddress = $curaddress;
+    }
+
     /**
      * @return the $tipsum
      */

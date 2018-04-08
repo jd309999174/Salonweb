@@ -15,9 +15,9 @@
 // TODO 美容师转化为二维数组，方便重复输出
 $cars=array();
 foreach ($appointments as $appointment):
-array_push($cars,array("appointmentid"=>$appointment->getAppointmentid(),"salbranch"=>$appointment->getSalbranch(),
+array_push($cars,array("appointmentid"=>$appointment->getAppointmentid(),
     "cusid"=>$appointment->getCusid(),"cusname"=>$appointment->getCusname(),"cusphone"=>$appointment->getCusphone(),
-    "salnumber"=>$appointment->getSalnumber(),"salbranch"=>$appointment->getSalbranch(),
+    "salnumber"=>$appointment->getSalnumber(),"salbranch"=>$appointment->getSalbranch(),"salname"=>$appointment->getSalname(),
     "cosid"=>$appointment->getCosid(),"cosname"=>$appointment->getCosname(),
     "appointmentregdate"=>$appointment->getAppointmentregdate(),
     "appointmentdate"=>$appointment->getAppointmentdate(),
@@ -27,6 +27,44 @@ array_push($cars,array("appointmentid"=>$appointment->getAppointmentid(),"salbra
 <?php endforeach;?>
 
 <div id="accordion">
+
+<h3>上门服务</h3>
+  <div>
+    <table class="table table-hover">
+ <tr>
+     <th>顾客姓名</th>
+     <th>顾客电话</th>
+     <th>美容师名</th>
+     <th>预约日期</th>
+     <th>预约时间</th>
+     <th>审核</th>
+     <th>&nbsp;</th>
+     <th>地址</th>
+ </tr>
+ <?php foreach ($cars as $car): ?>
+ <?php if($car["salbranch"]=="0"){?>
+ <tr>
+     <td>
+     <a target="_blank" href="/cosmetic/treatment?cusname=<?php echo $this->escapeHtml($car["cusname"]); ?>"><?php echo $this->escapeHtml($car["cusname"]); ?></a>
+     </td>
+     <td><?php echo $this->escapeHtml($car["cusphone"]); ?></td>
+     <td>任意</td>
+     <td><?php echo $this->escapeHtml($car["appointmentdate"]); ?></td>
+     <td><?php echo $this->escapeHtml($car["appointmenttime"]); ?></td>
+      <td>
+     <button onclick='$.ajax({url:"<?php echo $this->url('cosmeticajax', array('action'=>'appointmentpass'));?>",dataType:"text",
+     data:"appointmentid=<?php echo $this->escapeHtml($car["appointmentid"]); ?>",type:"POST",
+     success:function(result){alert("已通过");}});
+     $(this).parent().next().html("已通过")'>通过</button></td>
+     <td><?php echo $this->escapeHtml($car["appointmentstate"]); ?></td>
+     <td><?php echo $this->escapeHtml($car["salname"]); ?></td>
+    
+ </tr>
+  <?php } endforeach; ?>
+    </table>
+   </div>
+
+
  <?php foreach ($salons as $salon): ?>
   <h3><?php echo $salon->getSalbranch();?>:<?php echo $salon->getSalname();?></h3>
   <div>

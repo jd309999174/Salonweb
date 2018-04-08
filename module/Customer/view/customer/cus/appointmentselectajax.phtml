@@ -7,6 +7,12 @@
       </tr>
    </thead>
    <tbody>
+   <?php if ($cosmetologists!=="all"):?>
+      <tr>
+         <td><input checked="checked" type="radio" name="cosmetologistName" data-cosid="0" data-cosname="任意" checked></td>
+         <td>任意</td>
+         <td><img alt="" src="/img/arbitrarycos.jpg" style="width: 50px;height:30px"></td>
+      </tr>
    <?php foreach ($cosmetologists as $cosmetologist):?>
       <tr>
          <td><input checked="checked" type="radio" name="cosmetologistName" data-cosid="<?php echo $cosmetologist->getCosid();?>" data-cosname="<?php echo $cosmetologist->getCosname();?>" checked></td>
@@ -14,6 +20,13 @@
          <td><img alt="" src="<?php echo $cosmetologist->getCosphoto();?>" style="width: 50px;height:30px"></td>
       </tr>
       <?php endforeach;?>
+    <?php else :?>
+    <tr>
+         <td><input checked="checked" type="radio" name="cosmetologistName" data-cosid="0" data-cosname="任意" checked></td>
+         <td>任意</td>
+         <td><img alt="" src="/img/arbitrarycos.jpg" style="width: 50px;height:30px"></td>
+      </tr>
+      <?php endif;?>
    </tbody>
 </table>
 
