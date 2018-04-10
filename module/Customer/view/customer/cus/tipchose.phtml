@@ -91,7 +91,7 @@ $(document).ready(function(){
 </div>
    <div class="row">
      <div class="col-xs-6 col-sm-6">
-     <button class="btn btn-default" type="button">返回首页</button>
+     <button class="btn btn-default" type="button" onclick="location='<?php echo $this->url('customer', array('action'=>'homepage','sub'=>$sub));?>';">返回首页</button>
      </div>
      <div class="col-xs-6 col-sm-6">
      <button class="btn btn-danger" type="button" id="ordersubmit">打赏<span id="tipmoney">2</span>元</button>
