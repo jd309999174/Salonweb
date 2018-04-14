@@ -1,0 +1,252 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Typography</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Beautyou  Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+<script type="applisalonion/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- Custom Theme files -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />	
+<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
+<script src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>
+<!--/web-font-->
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,600,600italic,800' rel='stylesheet' type='text/css'>
+<!--/script-->
+<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$(".scroll").click(function(event){		
+					event.preventDefault();
+					$('html,body').animate({scrollTop:$(this.hash).offset().top},900);
+				});
+			});
+</script>
+<script src="js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<!--start-home-->
+		<div class="banner" id="home">
+			<div class="container">
+			  <div class="head-top">
+			   <!--logo-->
+			       <div class="logo">
+                      <a href="index.html"><h1>欧奢伦美院管理</h1></a>
+				   </div>
+				    <div class="phone"><i class="glyphicon glyphicon-phone"></i><p> 18951740829</p>
+				      <h5>联系我们</h5>
+					</div>
+	               <div class="clearfix"></div>
+					<!--//logo-->
+              </div>
+			   <div class="banner-inner">
+			   <div class="callbacks_container">
+						<ul class="rslides callbacks callbacks1" id="slider4">
+							<li class="callbacks1_on" style="display: block; float: left; position: relative; opacity: 1; z-index: 2; transition: opacity 500ms ease-in-out;">
+								<div class="banner-info">
+								<h3>美院自己的App</h3>
+								</div>
+							</li>
+							<li class="" style="display: block; float: none; position: absolute; opacity: 0; z-index: 1; transition: opacity 500ms ease-in-out;">
+								<div class="banner-info">
+								   <h3>提高效率</h3>
+								</div>
+							</li>
+							<li class="" style="display: block; float: none; position: absolute; opacity: 0; z-index: 1; transition: opacity 500ms ease-in-out;">
+								<div class="banner-info">
+								  <h3>增加业绩</h3>
+								</div>	
+							</li>
+						</ul>
+						</div>
+						<!--banner-Slider-->
+						<script src="js/Responsiveslides.min.js"></script>
+						 <script>
+						// You can also use "$(window).load(function() {"
+						$(function () {
+						  // Slideshow 4
+						  $("#slider4").ResponsiveSlides({
+						auto: true,
+						pager: true,
+						nav:false,
+						speed: 500,
+						namespace: "callbacks",
+						before: function () {
+						  $('.events').append("<li>before event fired.</li>");
+						},
+						after: function () {
+						  $('.events').append("<li>after event fired.</li>");
+						}
+						  });
+
+						});
+						  </script>
+
+			   </div>
+		    </div>
+		</div>
+	   <div class="header-bottom">
+			  <div class="fixed-header">
+			     <div class="menu">菜单</div>
+					<span class="menu"> </span>
+					<div class="top-menu">
+					<nav>
+						<ul class="cl-effect-16">
+						<li><a href="index.html" data-hover="主页">主页</a></li> 
+						<li><a href="background.html" data-hover="后台系统简介">后台系统简介</a></li>
+						<li><a class="active"  href="cusapp.html" data-hover="顾客APP简介">顾客APP简介</a></li>
+						<li><a href="salonapp.html" data-hover="院长APP简介">院长APP简介</a></li>
+						<li><a href="cosapp.html" data-hover="美容师APP简介">美容师APP简介</a></li>
+						<li><a href="fbprocedure.html" data-hover="评价流程">评价流程</a></li>
+						<li><a href="templatemodule.html" data-hover="顾客APP装修说明">顾客APP装修说明</a></li>
+					</ul>
+
+					</nav>		
+					</div>
+
+				 <div class="clearfix"></div>
+				<!-- script for menu -->
+						<script>
+						$( "span.menu" ).click(function() {
+						  $( ".top-menu" ).slideToggle( "slow", function() {
+							// Animation complete.
+						  });
+						});
+					</script>
+					<!-- script for menu -->
+					<script>
+				$(document).ready(function() {
+					 var navoffeset=$(".header-bottom").offset().top;
+					 $(window).scroll(function(){
+						var scrollpos=$(window).scrollTop(); 
+						if(scrollpos >=navoffeset){
+							$(".header-bottom").addClass("fixed");
+						}else{
+							$(".header-bottom").removeClass("fixed");
+						}
+					 });
+					 
+				});
+				</script>
+			 </div>
+		</div>
+<!--start-typography-->
+<style>
+h1{color:red;}
+h3{color:blue;}
+.bgguide{color:green;}
+</style>
+<div class="blog-section">
+		<div class="container">
+		   <div class="blog-top">
+			   <div class="blog-part">
+					<div class="col-md-4 blog-img">
+					 <a href="#">
+					  <img src="appimg/cusapp1.jpg" style="width:350px;height:350px;">
+					</a>
+
+				    </div>
+					<div class="col-md-8 blog_data">
+                       <a class="blog-text" href="#">1.购买</a>
+					   <p class="post">产品可通过后台系统上传</p>
+					   <p>顾客在线购买美容院的产品和服务，支持支付宝和微信付款。</p>
+					   <p style="color:red;">注：后台系统和美容院院长APP都支持订单实时查询，款项会在24小时内转入美容院账户。</p>
+				       </div>
+					  <div class="clearfix"></div>
+				</div>
+				 <div class="blog-part">
+					<div class="col-md-4 blog-img">
+					 <a href="#">
+					   <img src="appimg/cusapp2.jpg" style="width:350px;height:350px;">
+					</a>
+
+				    </div>
+					<div class="col-md-8 blog_data">
+                       <a class="blog-text" href="#">2.预约</a>
+					   <p class="post">预约可在后台查看并通过</p>
+					   <p>顾客可以选择美容院分院，美容师，和美容时间进行预约。未通过的预约，美容院不做安排。</p>
+                     </div>
+					  <div class="clearfix"></div>
+				</div>
+				 <div class="blog-part">
+					<div class="col-md-4 blog-img">
+					 <a href="#">
+					  <img src="appimg/cusapp3.jpg" style="width:350px;height:350px;">
+					</a>
+				    </div>
+					<div class="col-md-8 blog_data">
+                       <a class="blog-text" href="#">3.咨询</a>
+					   <p class="post">咨询是顾客APP与美容师APP的聊天功能</p>
+					   <p>顾客可在美容师页面选择咨询对象。</p>
+				       </div>
+					  <div class="clearfix"></div>
+				</div>
+				 <div class="blog-part">
+					<div class="col-md-4 blog-img">
+					 <a href="#">
+					  <img src="appimg/cusapp4.jpg" style="width:350px;height:350px;">
+					</a>
+				    </div>
+					<div class="col-md-8 blog_data">
+                       <a class="blog-text" href="#">4.活动报名</a>
+					   <p class="post">活动页面可在后台自行添加</p>
+					   <p>顾客通过点击活动页面的报名按钮进行活动报名</p>
+					   <p>活动报名情况可在后台系统和美容院院长APP实时查看</p>
+				       </div>
+					  <div class="clearfix"></div>
+				</div>
+				
+			   </div>
+		   </div>
+
+		</div>
+
+
+
+
+<!--footer-->
+		<div class="footer text-center">
+				<div class="container">
+					<div class="footer-grids">
+						<div class="col-md-6 footer-text">  
+							<h3>关于我们</h3>
+							<p>欧奢伦美容为顾客提供美容院一条龙线上服务。顾客可先咨询，再购买，然后预约，最后到店享受我们为您提供的优质美容服务。</p>
+							
+						</div>
+						<div class="col-md-6 footer-info">
+							<h3>联系我们</h3>
+							<p>电话：18951740829</p>
+							
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+					<div class="copy">
+		              <p>Copyright &copy; 2017.Company name All rights<a href="https://www.oushelun.cn" target="_blank" title="欧奢伦">欧奢伦</a> - Collect from <a href="https://www.oushelun.cn" title="" target="_blank">官方网站</a></p>
+		            </div>
+				</div>
+			</div>
+		<!--start-smooth-scrolling-->
+						<script type="text/javascript">
+									$(document).ready(function() {
+										/*
+										var defaults = {
+								  			containerID: 'toTop', // fading element id
+											containerHoverID: 'toTopHover', // fading element hover id
+											scrollSpeed: 1200,
+											easingType: 'linear' 
+								 		};
+										*/
+										
+										$().UItoTop({ easingType: 'easeOutQuart' });
+										
+									});
+								</script>
+								<!--end-smooth-scrolling-->
+		<a href="#home" id="toTop" class="scroll" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+
+</body>
+</html>

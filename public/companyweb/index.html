@@ -1,0 +1,317 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Home</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Beautyou Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+<script type="applisalonion/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- Custom Theme files -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />	
+<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
+<script src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>
+<!--/web-font-->
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,600,600italic,800' rel='stylesheet' type='text/css'>
+<!--/script-->
+<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$(".scroll").click(function(event){		
+					event.preventDefault();
+					$('html,body').animate({scrollTop:$(this.hash).offset().top},900);
+				});
+			});
+</script>
+
+</head>
+<body>
+<!--start-home-->
+		<div class="banner" id="home">
+			<div class="container">
+			  <div class="head-top">
+			   <!--logo-->
+			       <div class="logo">
+                      <a href="index.html"><h1>欧奢伦美院管理</h1></a>
+				   </div>
+				    <div class="phone"><i class="glyphicon glyphicon-phone"></i><p> 18951740829</p>
+				      <h5>联系我们</h5>
+					</div>
+	               <div class="clearfix"></div>
+					<!--//logo-->
+              </div>
+			   <div class="banner-inner">
+			   <div class="callbacks_container">
+						<ul class="rslides callbacks callbacks1" id="slider4">
+							<li class="callbacks1_on" style="display: block; float: left; position: relative; opacity: 1; z-index: 2; transition: opacity 500ms ease-in-out;">
+								<div class="banner-info">
+								<h3>美院自己的App</h3>
+								</div>
+							</li>
+							<li class="" style="display: block; float: none; position: absolute; opacity: 0; z-index: 1; transition: opacity 500ms ease-in-out;">
+								<div class="banner-info">
+								   <h3>提高效率</h3>
+								</div>
+							</li>
+							<li class="" style="display: block; float: none; position: absolute; opacity: 0; z-index: 1; transition: opacity 500ms ease-in-out;">
+								<div class="banner-info">
+								  <h3>增加业绩</h3>
+								</div>	
+							</li>
+						</ul>
+						</div>
+						<!--banner-Slider-->
+						<script src="js/Responsiveslides.min.js"></script>
+						 <script>
+						// You can also use "$(window).load(function() {"
+						$(function () {
+						  // Slideshow 4
+						  $("#slider4").ResponsiveSlides({
+						auto: true,
+						pager: true,
+						nav:false,
+						speed: 500,
+						namespace: "callbacks",
+						before: function () {
+						  $('.events').append("<li>before event fired.</li>");
+						},
+						after: function () {
+						  $('.events').append("<li>after event fired.</li>");
+						}
+						  });
+
+						});
+						  </script>
+
+			   </div>
+		    </div>
+		</div>
+	   <div class="header-bottom">
+			  <div class="fixed-header">
+			     <div class="menu">菜单</div>
+					<span class="menu"> </span>
+					<div class="top-menu">
+					<nav>
+						<ul class="cl-effect-16">
+						<li><a class="active"  href="index.html" data-hover="主页">主页</a></li> 
+						<li><a href="background.html" data-hover="后台系统简介">后台系统简介</a></li>
+						<li><a href="cusapp.html" data-hover="顾客APP简介">顾客APP简介</a></li>
+						<li><a href="salonapp.html" data-hover="院长APP简介">院长APP简介</a></li>
+						<li><a href="cosapp.html" data-hover="美容师APP简介">美容师APP简介</a></li>
+						<li><a href="fbprocedure.html" data-hover="评价流程">评价流程</a></li>
+						<li><a href="templatemodule.html" data-hover="顾客APP装修说明">顾客APP装修说明</a></li>
+					</ul>
+
+					</nav>		
+					</div>
+
+				 <div class="clearfix"></div>
+				<!-- script for menu -->
+						<script>
+						$( "span.menu" ).click(function() {
+						  $( ".top-menu" ).slideToggle( "slow", function() {
+							// Animation complete.
+						  });
+						});
+					</script>
+					<!-- script for menu -->
+					<script>
+				$(document).ready(function() {
+					 var navoffeset=$(".header-bottom").offset().top;
+					 $(window).scroll(function(){
+						var scrollpos=$(window).scrollTop(); 
+						if(scrollpos >=navoffeset){
+							$(".header-bottom").addClass("fixed");
+						}else{
+							$(".header-bottom").removeClass("fixed");
+						}
+					 });
+					 
+				});
+				</script>
+			 </div>
+		</div>
+<!-- service-type-grid -->
+	   <div class="blog-section">
+		<div class="container">
+		   <div class="blog-top">
+			   <div class="blog-single">
+					<div class="single-img">
+					<a href="#">
+					  <img src="appimg/applicationpresent.jpg" alt="">
+					</a>
+                       <a class="blog-text" href="single.html">产品简介</a>
+                       <p class="post">为开拓美容院渠道，现免费为美容院制作APP，需提供应用图标。欢迎来电：18951740829</p>
+					   <p>本系列美容院管理产品分为：顾客APP，美容院院长APP，美容师APP，后台系统，共4项。</p>
+					   <p>1.顾客APP包含咨询，预约，在线购买（支持支付宝微信支付），活动报名等功能。</p>
+					   <p>2.美容院院长APP包含订单查询，评价查询，活动报名查询等功能。</p>
+					   <p>3.美容师APP包含顾客疗程查看，顾客咨询回复，本人预约查看等功能。
+					   <p>4.后台系统用于产品上传，顾客APP页面设计。美容院，美容师，订单，顾客评价，活动通知等的管理与查询。</p>
+					   </div>
+				
+		   </div>
+		  
+
+		</div>
+	  </div>
+	</div>
+<!--/products-->
+<div class="copyrights"><a href="http://www.cssmoban.com/"  title="oushelun">欧奢伦</a></div>
+		  <div class="products">
+		     <div class="container">
+			     <h3 class="tittle">应用后台</h3>
+			    <div class="tip-main">
+			      <div class="col-md-6 top-grid">
+					 <img src="images/background1.png" alt="image"/>
+					 <h4>windows后台管理</h4>
+					 <p>支持分院管理，美容师管理，页面自定义，产品添加，订单查询...</p>
+					  <div class="top-desc">
+					      <h5>适用于windows平台</h5>
+					        <a href="https://www.oushelun.cn/appdownload/1/BackgroundConsole.exe" class="con">下载</a>
+						 <div class="clearfix"> </div>		
+					  </div>
+				  </div>		
+				    <div class="col-md-6 top-grid">
+					     <img src="images/background2.png" alt="image"/>
+					 	 <h4>Mac后台管理</h4>
+						  <p>支持分院管理，美容师管理，页面自定义，产品添加，订单查询...</p>
+						  <div class="top-desc">
+					      <h5>适用于苹果Mac平台</h5>
+					       <a href="https://www.oushelun.cn/appdownload/1/BackgroundConsoleMac.app.zip" class="con">下载</a>
+						 <div class="clearfix"> </div>		
+					  </div>
+				     </div>	
+					<div class="clearfix"> </div>				
+				</div>
+			</div>
+	     </div>
+<!--//products-->
+<!-- //service-type-grid -->
+<!--start-banner-bottom-->
+     <div class="hair-section">
+	     <div class="container">
+		<h3 class="tittle">APP示例（ios版暂不可用）</h3>
+	           <div class="grid">
+			      <div class="col-md-4 h-f">
+					<figure class="effect-jazz">
+					<img src="qrcode/ioscustomer.png" alt="img25"/>
+						<figcaption>
+						    <h4><span></span></h4>
+							<p>账号：18951740829</p>
+							<p>密码：123456</p>
+							<a href="https://www.oushelun.cn/cosmeticlogin/appdownload/123/ioscustomer">View more</a>
+						</figcaption>
+					</figure>
+					 <div class="hf-text"><h5>顾客APP</h5><p>ios</p></div>
+				 </div>
+				 <div class="col-md-4 h-f">
+					<figure class="effect-jazz">
+						<img src="qrcode/iossalonboss.png" alt="img25"/>
+						<figcaption>
+							<h4><span></span></h4>
+							<p>账号：15195770746</p>
+							<p>密码：123456</p>
+							<a href="https://www.oushelun.cn/cosmeticlogin/appdownload/123/iossalonboss">View more</a>
+						</figcaption>
+					</figure>
+					 <div class="hf-text"><h5>院长APP</h5><p>ios</p></div>
+				 </div>
+					<div class="col-md-4 h-f">
+					 <figure class="effect-jazz">
+							<img src="qrcode/ioscosmetologist.png" alt="img25"/>
+						<figcaption>
+								<h4><span></span></h4>
+							<p>账号：15951613754</p>
+							<p>密码：123456</p>
+							<a href="https://www.oushelun.cn/cosmeticlogin/appdownload/123/ioscosmetologist">View more</a>
+						</figcaption>
+					 </figure>
+					 <div class="hf-text"><h5>美容师APP</h5><p>ios</p></div>
+				 </div>
+				 <div class="col-md-4 h-f one">
+					<figure class="effect-jazz">
+					<img src="qrcode/androidcustomer.png" alt="img25"/>
+						<figcaption>
+						    <h4><span></span></h4>
+							<p>账号：18951740829</p>
+							<p>密码：123456</p>
+							<a href="https://www.oushelun.cn/cosmeticlogin/appdownload/123/androidcustomer">View more</a>
+						</figcaption>			
+					</figure>
+					 <div class="hf-text"><h5>顾客APP</h5><p>android</p></div>
+				 </div>
+				<div class="col-md-4 h-f">
+					<figure class="effect-jazz">
+						<img src="qrcode/androidsalonboss.png" alt="img25"/>
+						<figcaption>
+							<h4><span></span></h4>
+							<p>账号：15195770746</p>
+							<p>密码：123456</p>
+							<a href="https://www.oushelun.cn/cosmeticlogin/appdownload/123/androidsalonboss">View more</a>
+						</figcaption>			
+					</figure>
+					 <div class="hf-text"><h5>院长APP</h5><p>android</p></div>
+				 </div>
+					<div class="col-md-4 h-f one">
+					 <figure class="effect-jazz">
+						<img  src="qrcode/androidcosmetologist.png" alt=""/></a>
+						<figcaption>
+								<h4><span></span></h4>
+							<p>账号：15951613754</p>
+							<p>密码：123456</p>
+							<a href="https://www.oushelun.cn/cosmeticlogin/appdownload/123/androidcosmetologist">View more</a>
+						</figcaption>			
+					 </figure>
+					 <div class="hf-text"><h5>美容师APP</h5><p>android</p></div>
+				 </div>
+				 <div class="clearfix"></div>
+				</div>
+		   </div>
+		</div>
+
+
+
+<!--footer-->
+		<div class="footer text-center">
+				<div class="container">
+					<div class="footer-grids">
+						<div class="col-md-6 footer-text">  
+							<h3>关于我们</h3>
+							<p>欧奢伦美容为顾客提供美容院一条龙线上服务。顾客可先咨询，再购买，然后预约，最后到店享受我们为您提供的优质美容服务。</p>
+							
+						</div>
+						<div class="col-md-6 footer-info">
+							<h3>联系我们</h3>
+							<p>电话：18951740829</p>
+							
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+					<div class="copy">
+		              <p>Copyright &copy; 2018.Company name All rights<a href="https://www.oushelun.cn" target="_blank" title="欧奢伦">欧奢伦</a> - Collect from <a href="https://www.oushelun.cn" title="" target="_blank">官方网站</a></p>
+		            </div>
+				</div>
+			</div>
+		<!--start-smooth-scrolling-->
+						<script type="text/javascript">
+									$(document).ready(function() {
+										/*
+										var defaults = {
+								  			containerID: 'toTop', // fading element id
+											containerHoverID: 'toTopHover', // fading element hover id
+											scrollSpeed: 1200,
+											easingType: 'linear' 
+								 		};
+										*/
+										
+										$().UItoTop({ easingType: 'easeOutQuart' });
+										
+									});
+								</script>
+								<!--end-smooth-scrolling-->
+		<a href="#home" id="toTop" class="scroll" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+
+</body>
+</html>
