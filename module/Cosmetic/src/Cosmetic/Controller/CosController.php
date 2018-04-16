@@ -300,6 +300,18 @@ class CosController extends AbstractActionController
             'salons' => $mapper->fetchAll()
         ));
     }
+    //appqrcode
+    public function appqrcodeAction()
+    {
+        $container = new Container('salonlogin');
+        $id = $container->salnumber;
+        $homepage = $homepage = $this->getPageMapper()->getHomepage($id); // 美容院标识
+        
+        return new ViewModel(array(
+            'id' => $id,
+            'homepage'=>$homepage
+        ));
+    }
     public function appdownloadAction()
     {
         $salonnumber=$this->params('sub');
