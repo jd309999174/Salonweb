@@ -100,6 +100,25 @@ class AccountMapper
  
           return $salon;
     }
+    //按ID取得单个活动
+    public function getSalbossphoneexist($sub)
+    {
+        $select = $this->sql->select();
+        $select->where(array('salbossphone' => $sub));
+        //$select->order(array('salid ASC', 'salnumber ASC'));
+        $statement = $this->sql->prepareStatementForSqlObject($select);
+        $results = $statement->execute()->current();
+        if (!$results) {
+            return null;
+        }
+        
+        
+        $hydrator = new ClassMethods();
+        $salon = new AccountEntity();
+        $hydrator->hydrate($results, $salon);
+        
+        return $salon;
+    }
     //login
     public function getAccountlogin($salaccount,$salpassword)
     {

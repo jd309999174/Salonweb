@@ -1,3 +1,9 @@
+<?php //文件上传插件?>
+<link href="/css/fileinput.min.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/js/fileinput.min.js"></script>
+<script src="/js/fileinput.zh.js"></script>
+
+
 <style>
 .fontred{
 	color:red;
@@ -21,12 +27,68 @@ var obj2 = document.getElementById(text);
 obj2.value=randomname;
 }
 </script>
-<div class="well" style="text-align:center">oushelun</div>
-
+<div class="well" style="text-align:center;color:#FFB90F;">欧&nbsp;&nbsp;奢&nbsp;&nbsp;伦</div>
+<br>
 <div style="text-align:center">
-<img src="/meicon/corporatelogo.png" style="height:100px;width:120px;">
+<img src="/img/mylogo.png" style="height:100px;width:120px;">
 </div>
 
+<script>
+$("document").ready(function(){
+	//密码确认
+	$("#repeatwrong").hide();
+	$("#repeatpassword").change(function(){
+	    if($("#repeatpassword").val()!==$("#salpassword").val()){
+	    	$("#repeatwrong").show();
+		    }
+	});
+	//密码不同点击提交无效
+	$("#submitbtn").click(function(){
+		 if($("#repeatpassword").val()!==$("#salpassword").val()){
+		    	$("#repeatwrong").show();
+			    }else{$("#submit").click();}
+		})
+	$("#repeatpassword").focus(function(){
+		$("#repeatwrong").hide();
+	});
+	$("#salbossphone").focus(function(){
+		$("#phonewrong").hide();
+	});
+	$("#verificationinput").focus(function(){
+		$("#verificationwrong").hide();
+	});
+})
+</script>
+<script>
+$("document").ready(function(){
+	$("#countdown").hide();
+	$("#loadingimg").hide();
+	$("#registerverification").click(function(){
+		$num=59;
+		//发短信
+		$.post("<?php echo $this->url('customerajax', array('action'=>'registerverification'));?>",
+			      {
+			  	        cusregisterphone:$("#salbossphone").val(),
+				  	      TemplateCode:"SMS_126585304"
+			  	    },
+			  	        function(data,status){
+			  	        //alert("数据: \n" + data + "\n状态: " + status);
+			  	    });
+  	    
+  	    //显示倒计时
+  	    $("#verification").hide();
+    	$("#countdown").show();
+    	$interval=setInterval(function(){
+    	    if($num==0){
+    	    $("#countdown").hide();
+    	    $("#verification").show();
+    	    clearInterval($interval);
+    		};
+    		$("#numDiv").html($num--);
+    		},1000);
+		})
+})
+</script>
 
 <?php
 $form = $this->form;
@@ -35,45 +97,102 @@ $form->setAttribute('action', $this->url('salonboss', array(
 )));
 $form->get('submit')->setAttribute('value', '注册');
 $form->get('submit')->setAttribute('class', 'button blue bigrounded');
+$form->get('submit')->setAttribute('style', 'visibility: hidden');
+$form->get('salbossphone')->setAttribute('onblur', 'checkout()');
+$form->get('salbossphone')->setAttribute('onfocus', 'getfocus()');
+$form->get('salbossphone')->setAttribute('required', 'required');
+$form->get('salpassword')->setAttribute('required', 'required');
+$form->get('salbossname')->setAttribute('required', 'required');
+$form->get('salbossphotof')->setAttribute('required', 'required');
 $form->prepare();
 echo $this->form()->openTag($form);?>
 <fieldset>
-    <legend>账号登陆</legend>
+    <legend>美容院注册</legend>
     <?php if ($existaccount):?>
     <p style="color:red;">账号已存在</p>
     <?php endif;?>
     <label for="name" style="color:red;"><?php echo $result;?></label>
-    <div class="form-group">
-    <label for="name">编号<span class="fontred">*</span></label>
-    <?php echo $this->formRow($form->get('salnumber'));?>
-    </div>
 	<div class="form-group">
-    <label for="name">账号<span class="fontred">*</span></label>
+    <label for="name"><span class="fontred">*</span>&nbsp;账号</label>
     <?php echo $this->formRow($form->get('salaccount'));?>
     </div>
     <div class="form-group">
-    <label for="name">密码<span class="fontred">*</span></label>
+    <label for="name"><span class="fontred">*</span>&nbsp;密码</label>
     <?php echo $this->formRow($form->get('salpassword'));?>
     </div>
     <div class="form-group">
-    <label for="name">姓名</label>
+    <label for="name"><span class="fontred">*</span>&nbsp;密码确认</label>
+    <div style="color:red;display:none;" id="repeatwrong">
+     两次输入密码不匹配
+    </div>
+    <input type="password" name="repeatpassword" class="form-control" required="required" placeholder="请再次输入密码" id="repeatpassword">
+    </div>
+    <div class="form-group">
+    <label for="name"><span class="fontred">*</span>&nbsp;院长姓名</label>
     <?php echo $this->formRow($form->get('salbossname'));?>
     </div>
     <div class="form-group">
-    <label for="name">手机号</label>
+    <label for="name"><span class="fontred">*</span>&nbsp;手机号</label>
+    <div  style="color:red;" id="phonewrong">
+    <?php if ($existsalbossphone):?>
+        此号码已注册
+    <?php endif;?>
+    </div>
     <?php echo $this->formRow($form->get('salbossphone'));?>
     </div>
-    <div class="form-group">
-    <label for="name">身份证号</label>
-    <?php echo $this->formRow($form->get('salbossidentity'));?>
+    <div style="color:red;" id="verificationwrong">
+    <?php if ($verificationwrong):?>
+      验证码输入错误
+    <?php endif;?>
+    </div>
+    <?php //注册验证码?>
+    <div class="container">
+      <div class="row">
+      <div class="col-xs-8 col-sm-8"><input type="text" required="required" class="form-control"  placeholder="请输入短信验证码" id="verificationinput" name="registerverification"></div>
+      <div class="col-xs-4 col-sm-4" id="verification"><a class="btn" id="registerverification">获取短息验证码</a></div> 
+  	  <div class="col-xs-4 col-sm-4" id="countdown"><div id='numDiv' style="text-align:center;padding:5px;">60</div></div>
+      </div>
     </div>
     <div class="form-group">
-    <label for="name">照片</label>
+    <label for="name"><span class="fontred">*</span>&nbsp;商标（作为APP图标）</label>
     <?php echo $this->formhidden($form->get('salbossphoto'));?>
     <?php echo $this->formRow($form->get('salbossphotof'));?>
     </div>
+    <hr>
+    <div class="form-group">
+    <label for="name">&nbsp;美容院名称（有分院的只填写一个即可）</label>
+    <?php echo $this->formRow($form->get('salname'));?>
+    </div>
+    <div class="form-group">
+    <label for="name">&nbsp;美容院地址</label>
+    <?php echo $this->formRow($form->get('saladdress'));?>
+    </div>
+    <div class="form-group">
+    <label for="name">&nbsp;营业执照号</label>
+    <?php echo $this->formRow($form->get('saladdress'));?>
+    </div>
+    <div class="form-group">
+    <label for="name">&nbsp;身份证号</label>
+    <?php echo $this->formRow($form->get('salbossidentity'));?>
+    </div>
     <div class="form-group" style="text-align:center">
+    <button type="button" id="submitbtn" class="button blue bigrounded btn-block">提交</button>
     <?php echo $this->formInput($form->get('submit')); ?>
     </div>
 </fieldset>
 <?php echo $this->form()->closeTag($form);?>
+
+
+
+<script>
+$(document).on('ready', function() {
+    $("#salbossphotof").fileinput({
+    	language: 'zh', //设置语言
+   	 browseClass: "btn btn-default btn-block",
+     allowedFileExtensions: ['jpg', 'gif', 'png','jpeg'],
+     showCaption: false,
+     showRemove: false,
+     showUpload: false
+    });
+});
+</script>

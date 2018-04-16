@@ -16,13 +16,65 @@ class AccountEntity
     protected $prodtimes;
     protected $tipsum;
     protected $tiptimes;
+    protected $salname;
+    protected $saladdress;
+    protected $sallicense;
     
     public function __construct()
     {
         $this->accountregdate = date('Y-m-d H:i:s');
+        $this->salnumber =date('YmdHis').random_int(100,999);
     }
     
     
+    /**
+     * @return the $sallicense
+     */
+    public function getSallicense()
+    {
+        return $this->sallicense;
+    }
+
+    /**
+     * @param field_type $sallicense
+     */
+    public function setSallicense($sallicense)
+    {
+        $this->sallicense = $sallicense;
+    }
+
+    /**
+     * @return the $salname
+     */
+    public function getSalname()
+    {
+        return $this->salname;
+    }
+
+    /**
+     * @return the $saladdress
+     */
+    public function getSaladdress()
+    {
+        return $this->saladdress;
+    }
+
+    /**
+     * @param field_type $salname
+     */
+    public function setSalname($salname)
+    {
+        $this->salname = $salname;
+    }
+
+    /**
+     * @param field_type $saladdress
+     */
+    public function setSaladdress($saladdress)
+    {
+        $this->saladdress = $saladdress;
+    }
+
     /**
      * @return the $prodsum
      */

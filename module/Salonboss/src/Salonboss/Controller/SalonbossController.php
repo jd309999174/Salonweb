@@ -54,6 +54,10 @@ class SalonbossController extends AbstractActionController
     //TODO register
     public function salonbossregisterAction()
         {
+            //直接用的顾客短信验证部分
+            $container = new Container('customerregister');
+            $cusverification = $container->cusverification;
+            $cusregisterphone = $container->cusregisterphone;
         
             $form = new AccountForm();
             $account = new AccountEntity();
@@ -61,6 +65,8 @@ class SalonbossController extends AbstractActionController
         
             $request = $this->getRequest();
             if ($request->isPost()) {
+              if ($cusverification){
+               if ($_POST['registerverification']==$cusverification&&$_POST['salbossphone']==$cusregisterphone){
                 $x = $request->getPost()->toArray();
                 $y = $request->getFiles()->toArray();
                 $post = array_merge_recursive($request->getPost()->toArray(), $request->getFiles()->toArray());
@@ -71,7 +77,14 @@ class SalonbossController extends AbstractActionController
                     return array('form' => $form,
                      'existaccount'=>"已存在");
                 }
-                
+                //判断手机号是否已存在
+                $existsalbossphone=$this->getAccountMapper()->getSalbossphoneexist($post['salbossphone']);
+                if ($existsalbossphone){
+                    return array(
+                        'form' => $form,
+                        'existsalbossphone'=>$existsalbossphone
+                    );
+                }
                 $form->setData($post);
                 if ($form->isValid()) {
                     $data = $form->getData();
@@ -144,9 +157,11 @@ class SalonbossController extends AbstractActionController
                     }
                 }
         
+                $regaccount=$this->getAccountMapper()->getAccountlogin($post['salaccount'],$post['salpassword']);
+                
                 $page = new PageEntity();
                 $page->setPagetype("首页");
-                $page->setSalnumber($post['salnumber']);
+                $page->setSalnumber($regaccount->getSalnumber());
                 $page->setPagename("首页");
                 $this->getPageMapper()->savePage($page);
                 if (! file_exists('public/salon/'.$post['salnumber'])) {
@@ -156,7 +171,19 @@ class SalonbossController extends AbstractActionController
                 return $this->redirect()->toRoute('salonboss', array(
                     'action' => 'registerok','sub'=>$post['salaccount'],'third'=>$post['salpassword']
                 ));
+               }else{
+                   return array(
+                       'form' => $form,
+                       'verificationwrong'=>"验证码错误"
+                   );
+               }}else{
+                   return array(
+                       'form' => $form,
+                       'verificationwrong'=>"验证码错误"
+                   );
+               };
             }
+            
             return array(
                 'form' => $form
             );

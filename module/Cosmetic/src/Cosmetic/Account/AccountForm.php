@@ -25,7 +25,8 @@ class AccountForm extends Form
             'type' => 'text',
             'attributes' => array(
                 'class'=>'form-control',
-                'maxlength' => 100
+                'maxlength' => 100,
+                'id'=>'salnumber'
             )
         ));
         $this->add(array(
@@ -33,7 +34,8 @@ class AccountForm extends Form
             'type' => 'text',
             'attributes' => array(
                 'class'=>'form-control',
-                'maxlength' => 100
+                'maxlength' => 100,
+                'id'=>'salaccount'
             )
         ));
         $this->add(array(
@@ -41,7 +43,8 @@ class AccountForm extends Form
             'type' => 'password',
             'attributes' => array(
                 'class'=>'form-control',
-                'maxlength' => 100
+                'maxlength' => 100,
+                'id'=>'salpassword'
             )
         ));
         $this->add(array(
@@ -49,7 +52,8 @@ class AccountForm extends Form
             'type' => 'text',
             'attributes' => array(
                 'class'=>'form-control',
-                'maxlength' => 100
+                'maxlength' => 100,
+                'id'=>'salbossname'
             )
         ));
         $this->add(array(
@@ -88,6 +92,30 @@ class AccountForm extends Form
                 'maxlength' => 100
             )
         ));
+        $this->add(array(
+            'name' => 'salname',
+            'type' => 'text',
+            'attributes' => array(
+                'class'=>'form-control',
+                'maxlength' => 100
+            )
+        ));
+        $this->add(array(
+            'name' => 'saladdress',
+            'type' => 'text',
+            'attributes' => array(
+                'class'=>'form-control',
+                'maxlength' => 100
+            )
+        ));
+        $this->add(array(
+            'name' => 'sallicense',
+            'type' => 'text',
+            'attributes' => array(
+                'class'=>'form-control',
+                'maxlength' => 100
+            )
+        ));
         
         
       
@@ -96,7 +124,8 @@ class AccountForm extends Form
             'attributes' => array(
                 'type' => 'submit',
                 'value' => '提交',
-                'class' => 'btn btn-primary'
+                'class' => 'btn btn-primary',
+                'id' => 'submit'
             )
         ));
     }
