@@ -34,6 +34,7 @@ class AccountForm extends Form
             'type' => 'text',
             'attributes' => array(
                 'class'=>'form-control',
+                'placeholder'=>'请输入账号',
                 'maxlength' => 100,
                 'id'=>'salaccount'
             )
@@ -43,6 +44,7 @@ class AccountForm extends Form
             'type' => 'password',
             'attributes' => array(
                 'class'=>'form-control',
+                'placeholder'=>'请输入密码',
                 'maxlength' => 100,
                 'id'=>'salpassword'
             )
@@ -52,6 +54,7 @@ class AccountForm extends Form
             'type' => 'text',
             'attributes' => array(
                 'class'=>'form-control',
+                'placeholder'=>'请输入院长姓名',
                 'maxlength' => 100,
                 'id'=>'salbossname'
             )
@@ -62,6 +65,7 @@ class AccountForm extends Form
             'attributes' => array(
                 'maxlength' => 100,
                 'class'=>'form-control',
+                'placeholder'=>'请输入手机号',
                 'id'=>'salbossphone'
             )
         ));
@@ -89,6 +93,7 @@ class AccountForm extends Form
             'type' => 'text',
             'attributes' => array(
                 'class'=>'form-control',
+                'placeholder'=>'请输入身份证号',
                 'maxlength' => 100
             )
         ));
@@ -97,6 +102,7 @@ class AccountForm extends Form
             'type' => 'text',
             'attributes' => array(
                 'class'=>'form-control',
+                'placeholder'=>'请输入美容院名称',
                 'maxlength' => 100
             )
         ));
@@ -105,6 +111,7 @@ class AccountForm extends Form
             'type' => 'text',
             'attributes' => array(
                 'class'=>'form-control',
+                'placeholder'=>'请输入美容院地址',
                 'maxlength' => 100
             )
         ));
@@ -113,6 +120,7 @@ class AccountForm extends Form
             'type' => 'text',
             'attributes' => array(
                 'class'=>'form-control',
+                'placeholder'=>'请输入营业执照统一社会信用代码',
                 'maxlength' => 100
             )
         ));
