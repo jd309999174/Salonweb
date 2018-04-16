@@ -23,7 +23,7 @@ class AccountEntity
     public function __construct()
     {
         $this->accountregdate = date('Y-m-d H:i:s');
-        $this->salnumber =date('YmdHis').random_int(100,999);
+        $this->salnumber =date('YmdHis').rand(100,999);
     }
     
     
