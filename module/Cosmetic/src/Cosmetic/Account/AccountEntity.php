@@ -19,8 +19,6 @@ class AccountEntity
     protected $salname;
     protected $saladdress;
     protected $sallicense;
-    protected $alipayaccount;
-    protected $wechataccount;
     
     public function __construct()
     {
@@ -29,38 +27,6 @@ class AccountEntity
     }
     
     
-    /**
-     * @return the $alipayaccount
-     */
-    public function getAlipayaccount()
-    {
-        return $this->alipayaccount;
-    }
-
-    /**
-     * @return the $wechataccount
-     */
-    public function getWechataccount()
-    {
-        return $this->wechataccount;
-    }
-
-    /**
-     * @param field_type $alipayaccount
-     */
-    public function setAlipayaccount($alipayaccount)
-    {
-        $this->alipayaccount = $alipayaccount;
-    }
-
-    /**
-     * @param field_type $wechataccount
-     */
-    public function setWechataccount($wechataccount)
-    {
-        $this->wechataccount = $wechataccount;
-    }
-
     /**
      * @return the $sallicense
      */

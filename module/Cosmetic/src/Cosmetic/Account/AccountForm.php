@@ -125,27 +125,6 @@ class AccountForm extends Form
             )
         ));
         
-        $this->add(array(
-            'name' => 'alipayaccount',
-            'type' => 'text',
-            'attributes' => array(
-                'class'=>'form-control',
-                'placeholder'=>'请输入支付宝账号',
-                'maxlength' => 100,
-                'id'=>'alipayaccount'
-            )
-        ));
-        $this->add(array(
-            'name' => 'wechataccount',
-            'type' => 'text',
-            'attributes' => array(
-                'class'=>'form-control',
-                'placeholder'=>'请输入微信号',
-                'maxlength' => 100,
-                'id'=>'wechataccount'
-            )
-        ));
-        
         
       
         $this->add(array(
