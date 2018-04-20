@@ -1602,7 +1602,7 @@ public function chatajaxAction()
             'homepage'=>$homepage
         );
     }
-    //订单
+    //TODO 订单
     public function myordersAction()
     {
         $treview=$this->params("sub");
@@ -1621,7 +1621,7 @@ public function chatajaxAction()
             'treview'=>$treview
         );
     }
-    //订单详情
+    //TODO 订单详情
     public function myorderdetailAction()
     { 
         //订单id
@@ -1645,7 +1645,7 @@ public function chatajaxAction()
             'feedbacks'=>$feedbacks
         );
     }
-    //反馈详情
+    //TODO 反馈详情
     public function myfeedbackAction()
     {
         //订单id
@@ -1668,7 +1668,7 @@ public function chatajaxAction()
             'homepage'=>$homepage
         );
     }
-    //预约
+    //TODO 我的预约
     public function myappointmentsAction()
     {
         $sub=$this->params('sub');
@@ -1688,7 +1688,7 @@ public function chatajaxAction()
             'sub'=>$sub
         );
     }
-    //预约详情
+    //TODO 预约详情
     public function myappointmentdetailAction()
     {
         //预约id
@@ -1750,7 +1750,7 @@ public function chatajaxAction()
             'salaveragestar'=>$salaveragestar
         );
     }
-    //美容师评星
+    //TODO 美容师评星
     public function CosaveragestarAction(){
         //美容师id
         $sub=$this->params('sub');
@@ -1778,7 +1778,7 @@ public function chatajaxAction()
         );
         
     }
-    //活动
+    //TODO 我的活动
     public function myactivitiesAction()
     {
     
