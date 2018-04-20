@@ -104,6 +104,8 @@ $form->get('salbossphone')->setAttribute('required', 'required');
 $form->get('salpassword')->setAttribute('required', 'required');
 $form->get('salbossname')->setAttribute('required', 'required');
 $form->get('salbossphotof')->setAttribute('required', 'required');
+$form->get('alipayaccount')->setAttribute('required', 'required');
+$form->get('wechataccount')->setAttribute('required', 'required');
 $form->prepare();
 echo $this->form()->openTag($form);?>
 <fieldset>
@@ -113,7 +115,7 @@ echo $this->form()->openTag($form);?>
     <?php endif;?>
     <label for="name" style="color:red;"><?php echo $result;?></label>
 	<div class="form-group">
-    <label for="name"><span class="fontred">*</span>&nbsp;账号</label>
+    <label for="name"><span class="fontred">*</span>&nbsp;账号（用于登陆后台和院长APP）</label>
     <?php echo $this->formRow($form->get('salaccount'));?>
     </div>
     <div class="form-group">
@@ -154,11 +156,20 @@ echo $this->form()->openTag($form);?>
       </div>
     </div>
     <div class="form-group">
-    <label for="name"><span class="fontred">*</span>&nbsp;商标（作为APP图标）</label>
+    <label for="name"><span class="fontred">*</span>&nbsp;商标图（作为您的APP图标）</label>
     <?php echo $this->formhidden($form->get('salbossphoto'));?>
     <?php echo $this->formRow($form->get('salbossphotof'));?>
     </div>
+    <div class="form-group">
+    <label for="name"><span class="fontred">*</span>&nbsp;支付宝账号（用于接收营业款）</label>
+    <?php echo $this->formRow($form->get('alipayaccount'));?>
+    </div>
+    <div class="form-group">
+    <label for="name"><span class="fontred">*</span>&nbsp;微信号（用于接收营业款，需开通微信钱包）</label>
+    <?php echo $this->formRow($form->get('wechataccount'));?>
+    </div>
     <hr>
+    <legend>选填：</legend>
     <div class="form-group">
     <label for="name">&nbsp;美容院名称（有分院的只填写一个即可）</label>
     <?php echo $this->formRow($form->get('salname'));?>
