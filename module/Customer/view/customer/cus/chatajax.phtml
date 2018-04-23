@@ -1,3 +1,32 @@
+<style>
+body{background-color:#EBEBEB;}
+.sendborder{border-radius: 15px;padding:5px;font-weight: bold;
+    background: -webkit-gradient(linear, left top, left bottom, from(#F5FFFF), to(#fff));
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(245, 255, 255)), to(rgb(255, 255, 255)));
+    background-position-x: initial;
+    background-position-y: initial;
+    background-size: initial;
+    background-repeat-x: initial;
+    background-repeat-y: initial;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: initial;
+}
+.receiveborder{border-radius: 15px;padding:5px;font-weight: bold;
+	background: -webkit-gradient(linear, left top, left bottom, from(#9CD852), to(#92D852));
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(156, 216, 82)), to(rgb(146, 216, 82)));
+    background-position-x: initial;
+    background-position-y: initial;
+    background-size: initial;
+    background-repeat-x: initial;
+    background-repeat-y: initial;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: initial;
+}
+</style>
 <?php
 //表情转换方法
 include_once 'public/php/emotionreplace.php';?>
@@ -32,7 +61,7 @@ array_multisort($x, SORT_ASC, $cars);}
       <div class="col-xs-2 col-sm-2" style="padding: 5px">
         <img alt="" src="<?php echo $cosmetologist->getCosphoto();?>" style="width:100%">
       </div>
-      <div class="col-xs-8 col-sm-8" style="border:1px solid black;padding:2px;background-image: url(.gif);">
+      <div class="col-xs-8 col-sm-8 sendborder">
       <p><?php echo $car['chatdate'];?></p>
       <?php echo ubbReplace($car['chatword']);?>
       <?php if($car['chatpicture']!==null){?>
@@ -46,7 +75,7 @@ array_multisort($x, SORT_ASC, $cars);}
 <div class="row" style="margin:10px">
       <div class="col-xs-2 col-sm-2" style="padding: 5px">
       </div>
-      <div class="col-xs-8 col-sm-8" style="border:1px solid black;padding:2px;background-color:rgb(150,220,70);">
+      <div class="col-xs-8 col-sm-8 receiveborder">
       <p><?php echo $car['chatdate'];?></p>
       <?php echo ubbReplace($car['chatword']);?>
       <?php if($car['chatpicture']!==null){?>

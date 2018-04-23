@@ -7,7 +7,6 @@ class Customer2Entity
 {
     protected $cusid;
     protected $salnumber;
-    protected $cusnumber;
     protected $cusphone;
     protected $cuspassword;
     protected $cusname;
@@ -124,13 +123,7 @@ class Customer2Entity
         return $this->salnumber;
     }
 
-    /**
-     * @return the $cusnumber
-     */
-    public function getCusnumber()
-    {
-        return $this->cusnumber;
-    }
+
 
     /**
      * @return the $cusphone
@@ -244,13 +237,7 @@ class Customer2Entity
         $this->salnumber = $salnumber;
     }
 
-    /**
-     * @param field_type $cusnumber
-     */
-    public function setCusnumber($cusnumber)
-    {
-        $this->cusnumber = $cusnumber;
-    }
+
 
     /**
      * @param field_type $cusphone

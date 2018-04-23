@@ -19,10 +19,7 @@ class CosmetologistForm extends Form
             'name' => 'cosid',
             'type' => 'hidden'
         ));
-        $this->add(array(
-            'name' => 'cosnumber',
-            'type' => 'hidden'
-        ));
+        
         $this->add(array(
             'name' => 'salnumber',
             'type' => 'hidden'

@@ -23,17 +23,7 @@ class CustomerForm extends Form
             'name' => 'salnumber',
             'type' => 'hidden'
         ));
-       $this->add(array(
-            'name' => 'cusnumber',
-            'type' => 'text',
-            
-           'attributes' => array(
-               'value'=>0,
-               'class'=>'form-control',
-               'id'=>'cusnumber',
-               'maxlength' => 100
-           )
-        ));
+       
        $this->add(array(
            'name' => 'cusphone',
            'type' => 'text',

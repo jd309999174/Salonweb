@@ -3,7 +3,6 @@ namespace Cosmetic\Cosmetologist;
 
 class CosmetologistEntity {
    protected $cosid;
-   protected $cosnumber;
    protected $salnumber;
    protected $salbranch;
    protected $cosname;
@@ -167,13 +166,7 @@ public function __construct()
         return $this->cosid;
     }
 
-/**
-     * @return the $cosnumber
-     */
-    public function getCosnumber()
-    {
-        return $this->cosnumber;
-    }
+
 
 /**
      * @return the $salnumber
@@ -279,13 +272,7 @@ public function __construct()
         $this->cosid = $cosid;
     }
 
-/**
-     * @param field_type $cosnumber
-     */
-    public function setCosnumber($cosnumber)
-    {
-        $this->cosnumber = $cosnumber;
-    }
+
 
 /**
      * @param field_type $salnumber
