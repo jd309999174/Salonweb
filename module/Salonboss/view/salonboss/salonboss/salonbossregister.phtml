@@ -52,15 +52,23 @@ $("document").ready(function(){
 						 }else{$("#unconfirmedagreement").show();}
 				     } 
 		})
+    //同意协议后隐藏
     $("#checkagreement").click(function(){
     	$("#unconfirmedagreement").hide();
     })
+    //点击密码框后隐藏
 	$("#repeatpassword").focus(function(){
 		$("#repeatwrong").hide();
 	});
+	//点击账号框后隐藏
+	$("#salaccount").focus(function(){
+        $("#accountwrong").hide();
+		})
+    //点击电话框后隐藏
 	$("#salbossphone").focus(function(){
 		$("#phonewrong").hide();
 	});
+	//点击验证码框后隐藏
 	$("#verificationinput").focus(function(){
 		$("#verificationwrong").hide();
 	});
@@ -118,9 +126,11 @@ echo $this->form()->openTag($form);?>
 <fieldset>
     <legend>美容院注册</legend>
     <p>我们会在24小时内完成您的APP制作</p>
+    <div  style="color:red;" id="accountwrong">
     <?php if ($existaccount):?>
-    <p style="color:red;">账号已存在</p>
+        账号已存在
     <?php endif;?>
+    </div>
     <label for="name" style="color:red;"><?php echo $result;?></label>
 	<div class="form-group">
     <label for="name"><span class="fontred">*</span>&nbsp;账号（用于登陆后台和院长APP）</label>
