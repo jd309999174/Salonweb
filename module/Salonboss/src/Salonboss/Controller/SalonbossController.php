@@ -193,6 +193,10 @@ class SalonbossController extends AbstractActionController
         $third = $this->params('third');//密码
         return array('sub'=>$sub,'third'=>$third);
     }
+    public function salonagreementAction(){
+        
+        return array();
+    }
 // TODO login
     public function salonbossloginAction()
     {
