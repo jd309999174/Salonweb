@@ -42,12 +42,19 @@ $("document").ready(function(){
 	    	$("#repeatwrong").show();
 		    }
 	});
-	//密码不同点击提交无效
+	//密码不同点击提交无效，未确认协议点击无效
 	$("#submitbtn").click(function(){
 		 if($("#repeatpassword").val()!==$("#salpassword").val()){
 		    	$("#repeatwrong").show();
-			    }else{$("#submit").click();}
+			    }else{
+			    	if($("#checkagreement").is(":checked")){
+						 $("#submit").click();
+						 }else{$("#unconfirmedagreement").show();}
+				     } 
 		})
+    $("#checkagreement").click(function(){
+    	$("#unconfirmedagreement").hide();
+    })
 	$("#repeatpassword").focus(function(){
 		$("#repeatwrong").hide();
 	});
@@ -187,17 +194,18 @@ echo $this->form()->openTag($form);?>
     <label for="name">&nbsp;身份证号</label>
     <?php echo $this->formRow($form->get('salbossidentity'));?>
     </div>
+    <?php echo $this->formInput($form->get('submit')); ?>
+</fieldset>
+<?php echo $this->form()->closeTag($form);?>
+    <div style="color:red;display:none;" id="unconfirmedagreement">
+        未同意协议
+    </div>
     <div class="form-group" style="text-align: center;">
-    <input type="checkbox">已阅读并同意遵守<a href="/salonboss/salonagreement">《欧奢伦服务协议》</a>
+    <input type="checkbox" id="checkagreement">已阅读并同意遵守<a href="/salonboss/salonagreement">《欧奢伦服务协议》</a>
     </div>
     <div class="form-group" style="text-align:center">
     <button type="button" id="submitbtn" class="button blue bigrounded btn-block">提交</button>
-    <?php echo $this->formInput($form->get('submit')); ?>
     </div>
-</fieldset>
-<?php echo $this->form()->closeTag($form);?>
-
-
 
 <script>
 $(document).on('ready', function() {
