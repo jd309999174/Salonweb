@@ -23,7 +23,10 @@ class CustomerForm extends Form
             'name' => 'salnumber',
             'type' => 'hidden'
         ));
-       
+        $this->add(array(
+            'name' => 'cusnumber',
+            'type' => 'hidden'
+        ));
        $this->add(array(
            'name' => 'cusphone',
            'type' => 'text',

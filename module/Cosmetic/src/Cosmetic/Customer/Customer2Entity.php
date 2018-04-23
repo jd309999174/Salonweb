@@ -20,6 +20,7 @@ class Customer2Entity
     protected $currentip;
     protected $unread;
     protected $lotterydate;
+    protected $cusnumber;
     
     protected $custype;
     protected $cuslevel;
@@ -27,6 +28,22 @@ class Customer2Entity
     protected $cuspoints;
     
     
+    /**
+     * @return the $cusnumber
+     */
+    public function getCusnumber()
+    {
+        return $this->cusnumber;
+    }
+
+    /**
+     * @param field_type $cusnumber
+     */
+    public function setCusnumber($cusnumber)
+    {
+        $this->cusnumber = $cusnumber;
+    }
+
     /**
      * @return the $lotterydate
      */

@@ -21,6 +21,7 @@ class CustomerEntity
     protected $lotterydate;
     protected $tipsum;
     protected $tiptimes;
+    protected $cusnumber;
     
 
     
@@ -31,6 +32,22 @@ class CustomerEntity
     }
     
     
+    /**
+     * @return the $cusnumber
+     */
+    public function getCusnumber()
+    {
+        return $this->cusnumber;
+    }
+
+    /**
+     * @param field_type $cusnumber
+     */
+    public function setCusnumber($cusnumber)
+    {
+        $this->cusnumber = $cusnumber;
+    }
+
     /**
      * @return the $curaddress
      */
