@@ -22,6 +22,17 @@ return array(
                         
 //                     )
                 )
+            ),
+            'decorateajax' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/decorateajax[/:action[/:sub[/:third]]]',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Decorate\Controller',
+                        'controller' => 'Dec',
+                        
+                    ),
+                )
             )
         )
     ),

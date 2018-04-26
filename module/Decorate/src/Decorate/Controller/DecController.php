@@ -13,10 +13,61 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\Container;
 use Decorate\Template\TemplateEntity;
 use Cosmetic\Page\PageForm;
+use Cosmetic\Customer\CustomerMapper;
+use Zend\Db\Adapter\Adapter as DbAdapter;
+use Zend\Authentication\Adapter\DbTable as AuthAdapter;
+use Zend\Authentication\AuthenticationService;
+use Zend\View\Model\ViewModel;
+use Cosmetic\Salon\SalonForm;
+use Cosmetic\Salon\SalonEntity;
+use Cosmetic\Promotion\PromotionEntity;
+use Cosmetic\Promotion\PromotionForm;
+use Cosmetic\Cosmetologist\CosmetologistForm;
+use Cosmetic\Cosmetologist\CosmetologistEntity;
+use Cosmetic\Salonlayout\SalonlayoutForm;
+use Cosmetic\Salonlayout\SalonlayoutEntity;
+use Cosmetic\Customer\CustomerForm;
+use Cosmetic\Customer\CustomerEntity;
+use Cosmetic\Product\ProductEntity;
+use Cosmetic\Product\ProductForm;
+use Cosmetic\Treatment\TreatmentForm;
+use Cosmetic\Treatment\TreatmentEntity;
+use Cosmetic\Appointment\AppointmentForm;
+use Cosmetic\Appointment\AppointmentEntity;
+use Cosmetic\Generallayout\GenerallayoutForm;
+use Cosmetic\Generallayout\GenerallayoutEntity;
+use Cosmetic\Prize\PrizeForm;
+use Cosmetic\Prize\PrizeEntity;
+use Cosmetic\Salonslide\SalonslideEntity;
+use Cosmetic\Salonslide\SalonslideForm;
+use Cosmetic\Salonbutton\SalonbuttonEntity;
+use Cosmetic\Salonbutton\SalonbuttonForm;
+use Cosmetic\Saloncouponissue\SaloncouponissueEntity;
+use Cosmetic\Saloncouponissue\SaloncouponissueForm;
+use Cosmetic\Picture\PictureForm;
 use Cosmetic\Page\PageEntity;
+use Cosmetic\Demandclassifyseries\DemandclassifyseriesEntity;
+use Cosmetic\Demandclassifyseries\DemandclassifyseriesForm;
+use Cosmetic\Account\AccountEntity;
+use Cosmetic\Account\AccountForm;
+use Cosmetic\Productcombination\ProductcombinationForm;
+use Cosmetic\Productcombination\ProductcombinationEntity;
+use Cosmetic\Custombutton\CustombuttonForm;
+use Cosmetic\Custombutton\CustombuttonEntity;
+use Cosmetic\Notificationinfo\NotificationinfoEntity;
+use Cosmetic\Notificationinfo\NotificationinfoForm;
+use Cosmetic\Cusleveltype\CusleveltypeEntity;
+use Cosmetic\Cusleveltype\CusleveltypeForm;
+use Cosmetic\Cusbrowsinghistory\CusbrowsinghistoryEntity;
+use Cosmetic\Feedbacks\FeedbacksForm;
 date_default_timezone_set('Asia/Shanghai');//时区
 class DecController extends AbstractActionController
 {
+    public function getCustomerMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('CustomerMapper');
+    }
     public function getTemplateMapper()
     {
         $sm = $this->getServiceLocator();
@@ -37,6 +88,179 @@ class DecController extends AbstractActionController
         $sm = $this->getServiceLocator();
         return $sm->get('DemandclassifyseriesMapper');
     }
+    public function getTipMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('TipMapper');
+    }
+
+    public function getCusbrowsinghistoryMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('CusbrowsinghistoryMapper');
+    }
+    public function getFeedbacksMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('FeedbacksMapper');
+    }
+    public function getNotificationinfoMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('NotificationinfoMapper');
+    }
+    public function getProductcombinationMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('ProductcombinationMapper');
+    }
+    public function getAccountMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('AccountMapper');
+    }
+    public function getCustombuttonMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('CustombuttonMapper');
+    }
+    public function getPictureMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('PictureMapper');
+    }
+
+    
+    public function getSaloncouponissueMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('SaloncouponissueMapper');
+    }
+    
+    public function getSaloncoupongetMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('SaloncoupongetMapper');
+    }
+    
+    public function getSalonMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('SalonMapper');
+    }
+    
+    public function getSalonbuttonMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('SalonbuttonMapper');
+    }
+    
+    public function getSalonslideMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('SalonslideMapper');
+    }
+    
+    public function getGenerallayoutMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('GenerallayoutMapper');
+    }
+    
+    public function getAppointmentMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('AppointmentMapper');
+    }
+    
+    public function getSalonlayoutMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('SalonlayoutMapper');
+    }
+    
+    public function getPromotionMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('PromotionMapper');
+    }
+    
+    public function getCosmetologistMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('CosmetologistMapper');
+    }
+    
+
+    public function getCusleveltypeMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('CusleveltypeMapper');
+    }
+    public function getDetailMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('DetailMapper');
+    }
+    
+    public function getNotificationMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('NotificationMapper');
+    }
+    
+ 
+    
+    public function getRaffleMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('RaffleMapper');
+    }
+    
+    public function getStageMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('StageMapper');
+    }
+    
+    public function getSubbranchMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('SubbranchMapper');
+    }
+    
+    public function getTreatmentMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('TreatmentMapper');
+    }
+    
+    public function getPrizeMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('PrizeMapper');
+    }
+    
+    public function getNameMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('NameMapper');
+    }
+
+    public function getSignupMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('SignupMapper');
+    }
+    public function getLotteryMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('LotteryMapper');
+    }
+    
+    
+    
+    
     public function indexAction()
     {
         return array();
@@ -54,6 +278,21 @@ class DecController extends AbstractActionController
         // are working when you browse to /dec/dec/foo
         return array();
     }
+    
+    //TODO 
+    public function customertokenAction()
+    {   
+        $sub=$this->params('sub');//用户id
+        $third=urldecode($this->params('third'));//ios设备号
+        
+        $customer = $this->getCustomerMapper()->getCustomer1($sub);
+        $customer->setCustoken($third);
+        $this->getCustomerMapper()->saveCustomer($customer);
+        
+        return array();
+    }
+    
+    
     //TODO templatetest
  public function templatetestAction()
     {

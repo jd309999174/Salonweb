@@ -300,7 +300,10 @@ class Module implements AutoloaderProviderInterface
                         if ($route == 'decorate') // 装修
                             $e->getViewModel()->setTemplate("layout/decorate");
                         else 
-                            if ($route == 'cosmetologist') // 装修
+                           if ($route == 'decorateajax') // 装修ajax
+                           $e->getViewModel()->setTemplate("layout/ajaxsource");
+                           else
+                            if ($route == 'cosmetologist') // 美容师
                                 $e->getViewModel()->setTemplate("layout/cosmetologist");
                             else 
                                 if ($route == 'cosmetologistajax') //

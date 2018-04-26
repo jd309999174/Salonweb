@@ -21,6 +21,7 @@ class Customer2Entity
     protected $unread;
     protected $lotterydate;
     protected $cusnumber;
+    protected $custoken;
     
     protected $custype;
     protected $cuslevel;
@@ -28,6 +29,22 @@ class Customer2Entity
     protected $cuspoints;
     
     
+    /**
+     * @return the $custoken
+     */
+    public function getCustoken()
+    {
+        return $this->custoken;
+    }
+
+    /**
+     * @param field_type $custoken
+     */
+    public function setCustoken($custoken)
+    {
+        $this->custoken = $custoken;
+    }
+
     /**
      * @return the $cusnumber
      */

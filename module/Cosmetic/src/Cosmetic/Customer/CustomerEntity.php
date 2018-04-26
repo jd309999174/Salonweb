@@ -22,6 +22,7 @@ class CustomerEntity
     protected $tipsum;
     protected $tiptimes;
     protected $cusnumber;
+    protected $custoken;
     
 
     
@@ -32,6 +33,22 @@ class CustomerEntity
     }
     
     
+    /**
+     * @return the $custoken
+     */
+    public function getCustoken()
+    {
+        return $this->custoken;
+    }
+
+    /**
+     * @param field_type $custoken
+     */
+    public function setCustoken($custoken)
+    {
+        $this->custoken = $custoken;
+    }
+
     /**
      * @return the $cusnumber
      */

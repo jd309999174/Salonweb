@@ -1,69 +1,54 @@
-<script type="text/JavaScript">
-var colorPicker = function(idStr){
- this.colorPool = ["#000000","#993300","#333300","#003300","#003366","#000080","#333399","#333333","#800000","#FF6600","#808000","#008000","#008080","#0000FF","#666699","#808080","#FF0000","#FF9900","#99CC00","#339966","#33CCCC","#3366FF","#800080","#999999","#FF00FF","#FFCC00","#FFFF00","#00FF00","#00FFFF","#00CCFF","#993366","#CCCCCC","#FF99CC","#FFCC99","#FFFF99","#CCFFCC","#CCFFFF","#99CCFF","#CC99FF","#FFFFFF"];
- this.initialize(idStr);
-}
-colorPicker.prototype = {
- initialize: function(idStr){
-  var count=0;
-  var html = '';
-  var self = this;
-  html+= '<table cellspacing="5" cellpadding="0" border="2" bordercolor="#000000" style="cursor:pointer;background:#ECE9D8" mce_style="cursor:pointer;background:#ECE9D8" >';
-  // html+= '<tr><td align="center" colspan="8" width="160" height="20" id="currentColor" bgcolor="#ffffff">当前颜色</td></tr>';
-  for(i=0;i<5;i++)
-  {
-   html+= "<tr>";
-   for(j=0;j<8;j++)
-   {
-    html+= '<td align="center" width="20" height="20" style="background:'+ this.colorPool[count]+'" mce_style="background:'+ this.colorPool[count]+'" unselectable="on"> </td>';
-    count++;
-   }
-   html+= "</tr>";
-  }
-  html+= '</table>';
-  this.trigger = document.getElementById(idStr);
-  this.div = document.createElement('div');
-  this.div.innerHTML = html;
-  var tds = this.div.getElementsByTagName('td');
-  for(var i=0,l=tds.length;i<l;i++){
-   tds[i].onclick = function(){
-    self.setValue(this.style.backgroundColor);
-   }
-  }
-  this.div.id = 'myColorPicker';
-  this.trigger.parentNode.appendChild(this.div);
-  this.div.style.position = 'absolute';
-  this.div.style.left = this.trigger.offsetLeft + 'px'
-  this.div.style.top = (this.trigger.clientHeight + this.trigger.offsetTop)+ 'px';
-  //this.hide();
-  this.trigger.onclick = function(){
-   if(self.div.style.display == 'none'){
-    self.show();
-    return false;
-   }else{
-    self.hide();
-    return false;
-   }
-  }
- },
- setValue : function(c){
-  this.hide();
-  document.getElementById('pagecolor').value = c //proEditor.setColor(c); //自己定义函数决定setColor的功能
- },
- hide : function(){
-  this.div.style.display = 'none'
- },
- show : function(){
-  this.div.style.display = 'block'
- }
-}
-</script>
-<div >
+<?php
+set_time_limit(0);
+sleep(5);
+// 这里是我们上面得到的deviceToken，直接复制过来（记得去掉空格）
+$deviceToken = '05d965841b81b69857dd2fe8872b6761ab6a86641f3d6a1ea1d3c08fbbe59ded';
 
-<input type="text" value="" onclick="initColorPicker();return false" id="demo" >
-</div>
-<script type="text/javascript">
-function initColorPicker(){
- picker = new colorPicker('demo');
-}
-</script>
+// Put your private key's passphrase here:
+$passphrase = 'j12321456';
+
+// Put your alert message here:
+$message = '江睿6123!';
+
+////////////////////////////////////////////////////////////////////////////////
+
+$ctx = stream_context_create();
+stream_context_set_option($ctx, 'ssl', 'allow_self_signed', true);
+stream_context_set_option($ctx, 'ssl', 'verify_peer', false);
+stream_context_set_option($ctx, 'ssl', 'local_cert', 'public/lib/customerios.pem');
+stream_context_set_option($ctx, 'ssl', 'passphrase', $passphrase);
+
+// Open a connection to the APNS server
+//这个为正是的发布地址
+// $fp = stream_socket_client('ssl://gateway.push.apple.com:2195', $err, $errstr, 60, STREAM_CLIENT_CONNECT, $ctx);
+//这个是沙盒测试地址，发布到appstore后记得修改哦
+$fp = stream_socket_client('ssl://gateway.sandbox.push.apple.com:2195', $err,$errstr, 60, STREAM_CLIENT_CONNECT|STREAM_CLIENT_PERSISTENT, $ctx);
+//$fp=stream_socket_client("udp://127.0.0.1:1113", $err, $errstr, 60, STREAM_CLIENT_CONNECT, $ctx);
+if (!$fp)
+    exit("Failed to connect: $err $errstr" . PHP_EOL);
+    
+    echo 'Connected to APNS' . PHP_EOL;
+    
+    // Create the payload body
+    $body['aps'] = array(
+        'alert' => $message,
+        'sound' => 'default'
+    );
+    
+    // Encode the payload as JSON
+    $payload = json_encode($body);
+    
+    // Build the binary notification
+    $msg = chr(0) . pack('n', 32) . pack('H*', $deviceToken) . pack('n', strlen($payload)) . $payload;
+    
+    // Send it to the server
+    $result = fwrite($fp, $msg, strlen($msg));
+    
+    if (!$result)
+        echo 'Message not delivered' . PHP_EOL;
+        else
+            echo 'Message successfully delivered' . PHP_EOL;
+            
+            // Close the connection to the server
+            fclose($fp);
+?>
