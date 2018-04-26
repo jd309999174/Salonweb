@@ -279,7 +279,7 @@ class DecController extends AbstractActionController
         return array();
     }
     
-    //TODO 
+    //TODO customertoken
     public function customertokenAction()
     {   
         $sub=$this->params('sub');//用户id
@@ -288,6 +288,19 @@ class DecController extends AbstractActionController
         $customer = $this->getCustomerMapper()->getCustomer1($sub);
         $customer->setCustoken($third);
         $this->getCustomerMapper()->saveCustomer($customer);
+        
+        return array();
+    }
+    
+    //TODO customertoken
+    public function cosmetologisttokenAction()
+    {
+        $sub=$this->params('sub');//美容师id
+        $third=urldecode($this->params('third'));//ios设备号
+        
+        $cosmetologist = $this->getCosmetologistMapper()->getCosmetologist1($sub);
+        $cosmetologist->setCostoken($third);
+        $this->getCosmetologistMapper()->saveCosmetologist($cosmetologist);
         
         return array();
     }

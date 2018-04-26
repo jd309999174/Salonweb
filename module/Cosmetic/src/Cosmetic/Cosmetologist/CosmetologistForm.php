@@ -29,6 +29,12 @@ class CosmetologistForm extends Form
             'name' => 'cosregdate',
             'type' => 'hidden'
         ));
+        
+        $this->add(array(
+            'name' => 'costoken',
+            'type' => 'hidden'
+        ));
+        
         $this->add(array(
             'name' => 'cosname',
             'type' => 'text',

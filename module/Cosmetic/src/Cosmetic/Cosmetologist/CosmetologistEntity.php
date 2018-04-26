@@ -23,9 +23,26 @@ class CosmetologistEntity {
    protected $pageid;
    protected $tipsum;
    protected $tiptimes;
+   protected $costoken;
    
    
    /**
+     * @return the $costoken
+     */
+    public function getCostoken()
+    {
+        return $this->costoken;
+    }
+
+/**
+     * @param field_type $costoken
+     */
+    public function setCostoken($costoken)
+    {
+        $this->costoken = $costoken;
+    }
+
+    /**
      * @return the $tipsum
      */
     public function getTipsum()

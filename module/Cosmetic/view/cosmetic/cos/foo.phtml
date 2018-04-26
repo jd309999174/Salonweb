@@ -1,21 +1,21 @@
 <?php
 set_time_limit(0);
-sleep(5);
+
 // 这里是我们上面得到的deviceToken，直接复制过来（记得去掉空格）
-$deviceToken = '05d965841b81b69857dd2fe8872b6761ab6a86641f3d6a1ea1d3c08fbbe59ded';
+$deviceToken='920003fca6747bc59c4fdbcce44caae93f4fc1504e05b88309ab8ea6d70998e8';
 
 // Put your private key's passphrase here:
-$passphrase = 'j12321456';
+$passphrase='j12321456';
 
 // Put your alert message here:
-$message = '江睿6123!';
+$message='江睿6123!';
 
 ////////////////////////////////////////////////////////////////////////////////
 
 $ctx = stream_context_create();
 stream_context_set_option($ctx, 'ssl', 'allow_self_signed', true);
 stream_context_set_option($ctx, 'ssl', 'verify_peer', false);
-stream_context_set_option($ctx, 'ssl', 'local_cert', 'public/lib/customerios.pem');
+stream_context_set_option($ctx, 'ssl', 'local_cert', 'public/lib/cosmetologistios.pem');
 stream_context_set_option($ctx, 'ssl', 'passphrase', $passphrase);
 
 // Open a connection to the APNS server
