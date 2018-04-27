@@ -623,7 +623,8 @@ class Cos2Controller extends AbstractActionController
             'sub' => $sub,
             'cosmetologist' => $cosmetologist,
             'customer' => $customer,
-            'receiveunread'=>$receiveunread
+            'receiveunread'=>$receiveunread,
+            'request'=>$request
         );
     }
     //聊天历史

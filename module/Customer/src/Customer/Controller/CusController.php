@@ -1571,7 +1571,8 @@ public function chatajaxAction()
             'sub' => $sub,
             'cosmetologist' => $cosmetologist,
             'customer' => $customer,
-            'receiveunread'=>$receiveunread
+            'receiveunread'=>$receiveunread,
+            'request'=>$request
         );
     }
     // TODO me
