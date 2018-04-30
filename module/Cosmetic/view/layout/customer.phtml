@@ -57,16 +57,16 @@ label{
 }
 </style>
 <script>
-//获取浏览记录暂时去除
-// $(document).ready(function(){
-//	$.post("<?php //echo $this->url('customerajax', array('action'=>'cusbrowsingajax'));?>",{
-//		requesturl:"<?php //echo $_SERVER['REQUEST_URI'];?>",
-// 		cusaddress:""
-// 	},
-// 	function(data,status){
-// 		//alert("数据: \n" + data + "\n状态: " + status);
-// 	});
-// });
+//获取浏览记录暂时去除   恢复记录
+$(document).ready(function(){
+	$.post("<?php echo $this->url('customerajax', array('action'=>'cusbrowsingajax'));?>",{
+		requesturl:"<?php echo $_SERVER['REQUEST_URI'];?>",
+		cusaddress:""
+	},
+	function(data,status){
+		//alert("数据: \n" + data + "\n状态: " + status);
+	});
+});
 </script>
 <script>
 function change(file,text) {
