@@ -21,6 +21,7 @@ class AccountEntity
     protected $sallicense;
     protected $alipayaccount;
     protected $wechataccount;
+    protected $saltoken;
     
     public function __construct()
     {
@@ -29,6 +30,22 @@ class AccountEntity
     }
     
     
+    /**
+     * @return the $saltoken
+     */
+    public function getSaltoken()
+    {
+        return $this->saltoken;
+    }
+
+    /**
+     * @param field_type $saltoken
+     */
+    public function setSaltoken($saltoken)
+    {
+        $this->saltoken = $saltoken;
+    }
+
     /**
      * @return the $alipayaccount
      */

@@ -68,17 +68,17 @@ class AccountMapper
         $select->where(array('salnumber' => $id));
         //$select->order(array('salid ASC', 'salnumber ASC'));
         $statement = $this->sql->prepareStatementForSqlObject($select);
-        $results = $statement->execute();
+        $results = $statement->execute()->current();;
         if (!$results) {
             return null;
         }
     
     
-        $entityPrototype = new AccountEntity();
         $hydrator = new ClassMethods();
-        $resultset = new HydratingResultSet($hydrator, $entityPrototype);
-        $resultset->initialize($results);
-        return $resultset;
+        $salon = new AccountEntity();
+        $hydrator->hydrate($results, $salon);
+        
+        return $salon;
     }
     
     //按ID取得单个活动

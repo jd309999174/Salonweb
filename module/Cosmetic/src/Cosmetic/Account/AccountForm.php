@@ -19,6 +19,10 @@ class AccountForm extends Form
             'name' => 'accountid',
             'type' => 'hidden'
         ));
+        $this->add(array(
+            'name' => 'saltoken',
+            'type' => 'hidden'
+        ));
      
         $this->add(array(
             'name' => 'salnumber',

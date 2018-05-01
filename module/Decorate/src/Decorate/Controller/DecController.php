@@ -305,6 +305,19 @@ class DecController extends AbstractActionController
         return array();
     }
     
+    //TODO salonbosstoken
+    public function salonbosstokenAction()
+    {
+        $sub=$this->params('sub');//美容院编号salnumber
+        $third=urldecode($this->params('third'));//ios设备号
+        
+        $account = $this->getAccountMapper()->getAccount($sub);
+        $account->setSaltoken($third);
+        $this->getAccountMapper()->saveAccount($account);
+        
+        return array();
+    }
+    
     
     //TODO templatetest
  public function templatetestAction()

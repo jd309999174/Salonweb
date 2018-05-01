@@ -138,3 +138,19 @@ $(document).ready(function(){
   <div>我</div>
   </div>
 </div>
+
+<?php //TODO 登陆后，在ios app中调用方法执行保存devicetoken,android不需要?>
+<script>
+$(document).ready(function(){
+	var u = navigator.userAgent;
+	var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+	var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+    if(isAndroid){
+        //加引号就是字符串
+    	//window.android.cusidsave();
+        }
+    if(isiOS){
+        window.webkit.messageHandlers.salonbosstoken.postMessage("1");//方法必须要有参数才会调用
+            }
+})
+</script>
