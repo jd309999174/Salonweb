@@ -148,7 +148,7 @@ $fp = stream_socket_client('ssl://gateway.sandbox.push.apple.com:2195', $err,$er
     $body['aps'] = array(
     'alert' => $message,
     'sound' => 'default',
-    "badge" => $sendunread->getNumber()+1
+    "badge" => $sendunread->getNumber()
     );
     
     // Encode the payload as JSON
