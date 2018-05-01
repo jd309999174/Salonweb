@@ -200,8 +200,6 @@ if ($receivedsign==$resultsign){
         $dbh->query($oushelunprodupdate);
         
         
-        $dbh = null;
-        
         //ios给院长的通知
         //取出devicetoken
         $salonbosstoken='SELECT saltoken
@@ -253,6 +251,8 @@ if ($receivedsign==$resultsign){
             
             fclose($fp);
         }
+        
+        $dbh = null;
         
     } catch (PDOException $e) {
         //die ("Error!: " . $e->getMessage() . "<br/>");

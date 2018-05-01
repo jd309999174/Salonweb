@@ -2,7 +2,7 @@
 set_time_limit(0);
 
 // 这里是我们上面得到的deviceToken，直接复制过来（记得去掉空格）
-$deviceToken='d7786f1dcbfd4b5c5b32a1c0ee45ab565964248ec7e8d40576ec89bb85163826';
+$deviceToken='48393b1cf0b456751922844199fdfc602e7d29aaa70b36f8712951b9c92473f8';
 
 // Put your private key's passphrase here:
 $passphrase='j12321456';
@@ -15,7 +15,7 @@ $message='萨达萨达!';
 $ctx = stream_context_create();
 stream_context_set_option($ctx, 'ssl', 'allow_self_signed', true);
 stream_context_set_option($ctx, 'ssl', 'verify_peer', false);
-stream_context_set_option($ctx, 'ssl', 'local_cert', 'public/pushcertificate/oushelun/customerios.pem');
+stream_context_set_option($ctx, 'ssl', 'local_cert', 'public/pushcertificate/oushelun/salonbossios.pem');
 stream_context_set_option($ctx, 'ssl', 'passphrase', $passphrase);
 
 // Open a connection to the APNS server
