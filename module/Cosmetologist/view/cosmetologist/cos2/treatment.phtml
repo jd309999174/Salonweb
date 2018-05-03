@@ -55,7 +55,10 @@ array_multisort($x, SORT_DESC, $y, SORT_DESC, $cars);
         	width: $(window).width(),
        	    height:$(window).height()*0.7,
             });
-        $("#qrcode").attr("src","<?php echo "http://qr.topscan.com/api.php?text=https://www.oushelun.cn/customer/homepage/".$id."/feedbacks?treid=".$car['treid']."%26cosid=".$cosid;?>")
+        $("#dialogphoto").attr("src","<?php echo $car['productcombinationpicture'];?>");
+        $("#dialogname").html("<?php echo $car['productcombinationname'];?>");
+        $("#dialogdate").html("<?php echo $car['treregdate'];?>");
+        $("#qrcode").attr("src","<?php echo "https://api.qrserver.com/v1/create-qr-code/?data=https://www.oushelun.cn/customer/homepage/".$id."/feedbacks?treid=".$car['treid']."%26cosid=".$cosid;?>")
         '>
       <td><img alt="" style="height:23px;width:23px;" src="<?php echo $car['productcombinationpicture'];?>"></td>
       <td><?php echo $car['productcombinationname'];?></td>
@@ -67,6 +70,12 @@ array_multisort($x, SORT_DESC, $y, SORT_DESC, $cars);
 
 <?php //TODO 二维码?>
 
-<div id="dialog" title="客户反馈二维码" align="center">
+<div id="dialog" title="客户反馈二维码" align="center" style="display:none;">
+  <h3>扫码评价</h3>
+  <div class="row">
+      <div class="col-xs-4 col-sm-4"><img id="dialogphoto" alt="" style="height:23px;width:23px;" src=""></div>
+      <div class="col-xs-4 col-sm-4"><span id="dialogname"></span></div>     
+      <div class="col-xs-4 col-sm-4"><span id="dialogdate"></span></div>  
+  </div>
   <img id="qrcode" src=""/>
 </div>
