@@ -26,7 +26,7 @@ array_multisort($x, SORT_DESC, $cars);
     <tr>
       <th>&nbsp;</th>
       <th>顾客</th>
-      <th>登陆ip与时间</th>
+      <th>登陆地址与时间</th>
     </tr>
   </thead>
   <tbody style="font-size:120%;">
@@ -35,7 +35,7 @@ array_multisort($x, SORT_DESC, $cars);
       <td><img class="img-circle" alt="" style="height:50px;width:50px;" src="/portrait/<?php echo $car['cusphoto'];?>"></td>
       <td><?php echo $car['cusname'];?></td>
       <td>
-      <p><?php echo $car['cusip'];?></p>
+      <p><?php echo $car['cusaddress'];?></p>
       <p style="font-size: 80%;"><?php echo date("Y-m-d H:i:s",strtotime($car['gmtcusdate']));?></p></td>
     </tr>
   <?php endforeach;?>  
