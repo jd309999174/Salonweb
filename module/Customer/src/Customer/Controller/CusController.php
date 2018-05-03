@@ -535,10 +535,11 @@ class CusController extends AbstractActionController
             $form->setData($post);
             if (1) {
                 
-                
+                $expire=time()+60*60*24*30;
                 if ($sub=="cusname"){
                     $entity->setCusname($post['cusname']);
                     $container->cusname = $post['cusname'];
+                    setcookie("cusname", $post['cusname'], $expire);
                 }elseif ($sub=="cusphone"){
                     //判断手机号是否已存在
                     $existcustomer=$this->getCustomerMapper()->getCustomerexist($post['cusphone']);
@@ -562,6 +563,7 @@ class CusController extends AbstractActionController
                   }
                     $entity->setCusphone($post['cusphone']);
                     $container->cusphone = $post['cusphone'];
+                    setcookie("cusphone", $post['cusphone'], $expire);
                 }elseif ($sub=="cuspassword"){
                     $entity->setCuspassword($post['cuspassword']);
                 }elseif ($sub=="cusaddress"){
@@ -571,6 +573,7 @@ class CusController extends AbstractActionController
                 }elseif ($sub=="cusphoto"){
                     $entity->setCusphoto($post['cusphoto']);
                     $container->cusphoto = $post['cusphoto'];
+                    setcookie("cusphoto",$post['cusphoto'],$expire);
                 if (! file_exists('public/portrait')) {
                     mkdir('public/portrait');
                 }
@@ -1197,7 +1200,26 @@ class CusController extends AbstractActionController
     
     //TODO 浏览记录的ajax
     public function cusbrowsingajaxAction(){
-        return array();
+        //获取用户信息
+        
+        $container = new Container('customerlogin');
+        $id = $container->salnumber;
+        $cusid = $container->cusid;
+        $cusname = $container->cusname;
+        $cusphoto = $container->cusphoto;
+        $cusaddress = $container->cusaddress;
+        if ($cusaddress==null){
+        $curaddress=$this->getCustomerMapper()->getCustomer1($cusid)->getCuraddress();
+        $container->cusaddress = $cusaddress;
+        }
+        
+        return array(
+            'id'=>$id,
+            'cusid'=>$cusid,
+            'cusname'=>$cusname,
+            'cusphoto'=>$cusphoto,
+            'curaddress'=>$curaddress
+        );
     }
     
     

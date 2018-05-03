@@ -25,18 +25,12 @@ preg_match_all("/\/([^\/]+)/u",
     $_POST['requesturl'],
     $out, PREG_PATTERN_ORDER);
 
-//获取用户信息
-use Zend\Session\Container;
-$container = new Container('customerlogin');
-$id = $container->salnumber;
-$cusid = $container->cusid;
-$cusname = $container->cusname;
-$cusphoto = $container->cusphoto;
+
 
 //浏览记录存入数据库
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "j12321456";
 $dbname = "company";
 
 // 创建连接
@@ -48,7 +42,7 @@ if ($conn->connect_error) {
 } 
 
 $sql = "INSERT INTO cusbrowsinghistory (salnumber, cusid, cusname, cusphoto,cusip,cusaddress,cusaction, cussub, custhird,cusdate,gmtcusdate)
-VALUES ('".$id."','".$cusid."', '".$cusname."','".$cusphoto."','".$cip."', '".$_POST['cusaddress']."', '".$out[1][0]."','".$out[1][1]."','".$out[1][2]."','".time()."','".date("YmdHis",time())."')";
+VALUES ('".$id."','".$cusid."', '".$cusname."','".$cusphoto."','".$cip."', '".$curaddress."', '".$out[1][0]."','".$out[1][1]."','".$out[1][2]."','".time()."','".date("YmdHis",time())."')";
 
 if ($conn->query($sql) === TRUE) {
     //echo "新记录插入成功";
