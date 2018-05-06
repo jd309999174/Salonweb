@@ -134,7 +134,7 @@ if($_POST['chatword']!==""){
 $ctx = stream_context_create();
 stream_context_set_option($ctx, 'ssl', 'allow_self_signed', true);
 stream_context_set_option($ctx, 'ssl', 'verify_peer', false);
-stream_context_set_option($ctx, 'ssl', 'local_cert', 'public/pushcertificate/oushelun/customerios.pem');
+stream_context_set_option($ctx, 'ssl', 'local_cert', 'public/pushcertificate/'.$id.'/customerios.pem');
 stream_context_set_option($ctx, 'ssl', 'passphrase', $passphrase);
 
 // Open a connection to the APNS server

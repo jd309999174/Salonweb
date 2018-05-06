@@ -73,9 +73,7 @@ class CosmetologistForm extends Form
         $this->add(array(
             'name' => 'cosphone',
             'type' => 'text',
-            'options' => array(
-                'label' => '手机号'
-            ),
+          
             'attributes' => array(
                 'class'=>"form-control",
                 'maxlength' => 100
@@ -84,9 +82,7 @@ class CosmetologistForm extends Form
         $this->add(array(
             'name' => 'cospassword',
             'type' => 'password',
-            'options' => array(
-                'label' => '密码'
-            ),
+          
             'attributes' => array(
                 'class'=>"form-control",
                 'maxlength' => 100

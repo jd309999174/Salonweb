@@ -617,6 +617,7 @@ class Cos2Controller extends AbstractActionController
         }
         
         return array(
+            'id'=>$id,
             'sendunread'=>$sendunread,
             'chatmodule' => $chatmodule,
             'cosid' => $cosid,

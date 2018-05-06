@@ -1588,6 +1588,7 @@ public function chatajaxAction()
        
     
         return array(
+            'id'=>$id,
             'sendunread'=>$sendunread,
             'chatmodule' => $chatmodule,
             'cusid' => $cusid,
