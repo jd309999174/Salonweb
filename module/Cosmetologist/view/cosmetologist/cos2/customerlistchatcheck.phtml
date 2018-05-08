@@ -1,0 +1,95 @@
+<style>
+.menubottom{
+	z-index:100;
+	position:fixed;
+	bottom:0px;
+	background-color:<?php echo $homepage->getPagecolor();?>;
+	}
+.bottom-btn{
+	border-right:0.1px solid rgba(0, 0, 0, 0.0980392);
+	border-top:0.1px solid rgba(0, 0, 0, 0.0980392);
+}
+.bottom-btn-me{
+	border-top:0.1px solid rgba(0, 0, 0, 0.0980392);
+}
+</style>
+
+<div class="well"><span class="glyphicon glyphicon-comment" style="color:red;" aria-hidden="true"></span>&nbsp;&nbsp;欧奢伦用户</div>
+
+<form action="<?php echo $this->url('cosmetologist', array('action'=>'customerlistchatcheck'));?>" method="get">
+ <div class="input-group input-group-sm" style="padding: 5px;" id="searchcolumn">
+      <input type="text" name="searching" class="form-control pageheadbtn"  placeholder="Search for...">
+      <span class="input-group-btn">
+     <input type="submit" value="搜" class="btn btn-default pageheadbtn">
+      </span>
+ </div>
+ </form>
+ 
+<?php
+// TODO 顾客转化为二维数组，方便重复输出
+$cars=array();
+foreach ($customers as $customer):
+if(preg_match("^".$_GET['searching']."^", $customer->getCusname())){
+array_push($cars,array(
+    "cusid"=>$customer->getCusid(),
+    "cusname"=>$customer->getCusname(),
+    "cusphone"=>$customer->getCusphone(),
+    "cusphoto"=>$customer->getCusphoto()
+));?>
+<?php } endforeach;?>
+ <?php
+foreach ($cars as $key => $row) {
+$x[$key] = $row['cusid'];
+$y[$key] = $row['cusphone'];}
+array_multisort($x, SORT_ASC, $y, SORT_ASC, $cars);
+?>
+<?php
+// TODO 未读转化为二维数组，方便对比
+$cars1=array();
+if($receiveunread){
+foreach ($receiveunread as $unread){
+array_push($cars1,array(
+    "sendid"=>$unread->getSendid(),"receiveid"=>$unread->getReceiveid(),
+    "number"=>$unread->getNumber()
+));}}?>
+
+
+<table class="table">
+	<caption>客户</caption>
+   <thead>
+      <tr>
+         <th>&nbsp;</th>
+         <th>姓名</th>
+         <th>电话</th>
+         <th>&nbsp;</th>
+      </tr>
+   </thead>
+   <tbody>
+   <?php //输出两次  第一次输出有未读的?>
+<?php foreach ($cars as $car): if ($car['cusid']!==null){?>
+<?php foreach ($cars1 as $car1){if($car1['sendid']=='cus'.$car['cusid']){if($car1['number']>0){?>
+      <tr onclick="location='<?php echo $this->url('cosmetologist', array('action'=>'chat','sub'=>$car['cusid'],'third'=>'check'));?>'">
+         <td><img alt="" style="height:23px;width:23px;" src="/portrait/<?php echo $car['cusphoto'];?>"></td>
+         <td><?php echo $car['cusname'];?></td>
+         <td><?php echo $car['cusphone'];?></td>
+         <td><span class="badge" style="background-color:red;"><?php echo $car1['number'];?></span></td>
+      </tr>
+<?php };};}?>
+<?php } endforeach;?>
+
+<?php //第二次输出无未读的?>
+<?php foreach ($cars as $car): if ($car['cusid']!==null){?>
+<?php foreach ($cars1 as $car1){if($car1['sendid']=='cus'.$car['cusid']){if($car1['number']<=0){?>
+      <tr onclick="location='<?php echo $this->url('cosmetologist', array('action'=>'chat','sub'=>$car['cusid'],'third'=>'check'));?>'">
+         <td><img alt="" style="height:23px;width:23px;" src="/portrait/<?php echo $car['cusphoto'];?>"></td>
+         <td><?php echo $car['cusname'];?></td>
+         <td><?php echo $car['cusphone'];?></td>
+         <td></td>
+      </tr>
+<?php };};}?>
+<?php } endforeach;?>
+</tbody>
+</table>
+
+
+

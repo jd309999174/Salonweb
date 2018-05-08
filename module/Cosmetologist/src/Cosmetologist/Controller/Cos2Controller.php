@@ -36,6 +36,11 @@ class Cos2Controller extends AbstractActionController
         $newfilename = $hash . '.' . $extension;
         return $newfilename;
     }
+    public function getAccountMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('AccountMapper');
+    }
     public function getTipMapper()
     {
         $sm = $this->getServiceLocator();
@@ -322,7 +327,11 @@ class Cos2Controller extends AbstractActionController
         
         $homepage = $homepage = $this->getPageMapper()->getHomepage($sub); // 美容院标识
         
+        //取出美容院,判断是否审核中
+        $account=$this->getAccountMapper()->getAccount($id);
+        
         return array(
+            'account'=>$account,
             'cosid'=>$cosid,
             'customers'=>$customers,
             'id'=>$sub,
@@ -425,6 +434,33 @@ class Cos2Controller extends AbstractActionController
             'homepage'=>$homepage
         );
     }
+    //聊天的顾客列表
+    public function customerlistchatcheckAction()
+    {
+        //显示客户列表，带搜索，然后聊天
+        $container = new Container('cosmetologistlogin');
+        $id = $container->salnumber;
+        $cosid = $container->cosid;
+        
+        $customers=$this->getCustomerMapper()->getCustomer($id);
+        //获取此美容师为接收方的所有未读            发送方为某美容师，则显示未读数  每个未读只能循环一次，所有分别取
+        $receiveunread=$this->getUnreadMapper()->getTask1('cos'.$cosid);
+        //未读信息
+        $unread=$this->getUnreadMapper()->getTask1("cos".$cosid);
+        $unreadsum=0;
+        foreach ($unread as $unreadone){
+            $unreadsum=$unreadsum+$unreadone->getNumber();
+        }
+        $homepage = $homepage = $this->getPageMapper()->getHomepage($id); // 美容院标识
+        return array(
+            'id'=>$id,
+            'customers'=>$customers,
+            'unreadsum'=>$unreadsum,
+            'receiveunread'=>$receiveunread,
+            'homepage'=>$homepage
+        );
+    }
+    
     // TODO 聊天
     public function chatAction()
     {
@@ -432,6 +468,7 @@ class Cos2Controller extends AbstractActionController
         $id = $container->salnumber;
         $cosid = $container->cosid;
         $sub = $this->params('sub');//顾客id
+        $third = $this->params('third');//判断是否是ios审核页
          // 自己和顾客
         $cosmetologist = $this->getCosmetologistMapper()->getCosmetologist1($cosid);
         $customer = $this->getCustomerMapper()->getCustomer1($sub);
@@ -465,6 +502,7 @@ class Cos2Controller extends AbstractActionController
         
         return array(
             'id'=>$id,
+            'third'=>$third,
             'form' => $form,
             'cosid'=>$cosid,
             'customer' => $customer,

@@ -68,6 +68,11 @@ class CusController extends AbstractActionController
         $newfilename = $hash . '.' . $extension;
         return $newfilename;
     }
+    public function getAccountMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('AccountMapper');
+    }
     public function getTipMapper()
     {
         $sm = $this->getServiceLocator();
@@ -800,7 +805,11 @@ class CusController extends AbstractActionController
             $cuspoints=$cusleveltype->getCuspoints();
             $cuslevel=$cusleveltype->getCuslevel();
             $custype=$cusleveltype->getCustype();
+            
+            //取出美容院,判断是否审核中
+            $account=$this->getAccountMapper()->getAccount($id);
             return array(
+                'account'=>$account,
                 'third'=>$third,
                 'id' => $id,
                 'cusid' => $cusid,
@@ -1170,6 +1179,35 @@ class CusController extends AbstractActionController
     
     // TODO 美容师
     public function cosmetologistAction()
+    {
+        $container = new Container('customerlogin');
+        $id = $container->salnumber;
+        $cusid = $container->cusid;
+        
+        
+        $homepage = $this->getPageMapper()->getHomepage($id);//为了获取首页颜色设置
+        //获取此顾客为接收方的所有未读            发送方为某美容师，则显示未读数  每个未读只能循环一次，所有分别取
+        $receiveunread=$this->getUnreadMapper()->getTask1('cus'.$cusid);
+        
+        $mapper1 = $this->getCosmetologistMapper();
+        $mapper2 = $this->getSalonMapper();
+        //未读信息
+        $unread=$this->getUnreadMapper()->getTask1("cus".$cusid);
+        $unreadsum=0;
+        foreach ($unread as $unreadone){
+            $unreadsum=$unreadsum+$unreadone->getNumber();
+        }
+        return new ViewModel(array(
+            'cosmetologists' => $mapper1->getCosmetologist($id),
+            'salons' => $mapper2->getSalon($id),
+            'id' => $id,
+            'receiveunread'=>$receiveunread,
+            'unreadsum'=>$unreadsum,
+            'homepage'=>$homepage
+        ));
+    }
+    // TODO 美容师
+    public function cosmetologistcheckAction()
     {
         $container = new Container('customerlogin');
         $id = $container->salnumber;

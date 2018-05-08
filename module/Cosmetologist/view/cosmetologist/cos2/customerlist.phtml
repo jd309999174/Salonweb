@@ -1,3 +1,21 @@
+<?php //TODO 判断是否正在苹果审核?>
+<?php if ($account->getIoscheck()=="yes"):?>
+<script>
+	var u = navigator.userAgent;
+	var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+	var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+    if(isAndroid){
+        //审核中android不变
+    	
+        }
+    if(isiOS){
+        //审核中ios跳转
+    	window.location.href="/cosmetologist/customerlistchatcheck";
+            }
+</script>
+<?php endif;?>
+
+
 <style>
 .menubottom{
 	z-index:100;

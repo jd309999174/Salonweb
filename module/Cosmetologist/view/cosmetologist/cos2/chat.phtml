@@ -61,13 +61,13 @@ vertical-align: baseline; margin: 0 2px; outline: none; cursor: pointer; text-al
 //加载ajax上传文件插件
 </script>
 <div class="input-group input-group-sm" style="background-color:white;padding: 5px;z-index:10;position:fixed;text-align:center;" id="searchcolumn">
-      <span class="input-group-btn" onclick="location='<?php echo $this->url('cosmetologist', array('action'=>'customerlistchat'));?>';">
+      <span class="input-group-btn" onclick="<?php if($third=='check'){ echo "location='".$this->url('cosmetologist', array('action'=>'customerlistchatcheck'))."';";}else{echo "location='".$this->url('cosmetologist', array('action'=>'customerlistchat'))."';";}?>">
         <button class="btn btn-default" type="button">
         <span class="glyphicon glyphicon-chevron-left"></span>
         </button>
       </span>
       <span>
-      <?php echo $customer->getCusname();?>
+      <?php echo $customer->getCusname();?>(<?php echo $customer->getCuraddress();?>)
       </span>
       <span>
       <button style="float: right;" type="button" class="btn btn-info" onclick="location='<?php echo $this->url('cosmetologist', array('action'=>'chathistory','sub'=>$sub));?>';"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span></button>

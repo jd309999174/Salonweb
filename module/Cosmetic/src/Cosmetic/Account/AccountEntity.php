@@ -22,6 +22,7 @@ class AccountEntity
     protected $alipayaccount;
     protected $wechataccount;
     protected $saltoken;
+    protected $ioscheck;
     
     public function __construct()
     {
@@ -30,6 +31,22 @@ class AccountEntity
     }
     
     
+    /**
+     * @return the $ioscheck
+     */
+    public function getIoscheck()
+    {
+        return $this->ioscheck;
+    }
+
+    /**
+     * @param field_type $ioscheck
+     */
+    public function setIoscheck($ioscheck)
+    {
+        $this->ioscheck = $ioscheck;
+    }
+
     /**
      * @return the $saltoken
      */

@@ -1,0 +1,152 @@
+<style>
+.menubottom{
+	z-index:100;
+	position:fixed;
+	bottom:0px;
+	background-color:<?php echo $homepage->getPagecolor();?>;
+	}
+.bottom-btn{
+	border-right:0.1px solid rgba(0, 0, 0, 0.0980392);
+	border-top:0.1px solid rgba(0, 0, 0, 0.0980392);
+}
+.bottom-btn-me{
+	border-top:0.1px solid rgba(0, 0, 0, 0.0980392);
+}
+.ui-state-active{
+	background-color:<?php echo $homepage->getPagecolor();?>;
+	}
+.glyphicon-star{
+color:#FFD700;
+}
+</style>
+
+<script>
+  $(function() {
+    $( "#accordion" ).accordion({
+    	active: 100,
+      collapsible: true,
+      heightStyle: "content"
+    });
+  });
+</script>
+
+
+
+
+
+<?php
+// TODO 美容师转化为二维数组，方便重复输出
+$cars=array();
+foreach ($cosmetologists as $cosmetologist){
+array_push($cars,array("cosid"=>$cosmetologist->getCosid(),"salbranch"=>$cosmetologist->getSalbranch(),
+    "cosname"=>$cosmetologist->getCosname(),"cosphoto"=>$cosmetologist->getCosphoto(),
+    "cosyears"=>$cosmetologist->getCosyears(),"cosspeciality"=>$cosmetologist->getCosspeciality(),
+    "currentstate"=>$cosmetologist->getCurrentstate(),"recentstar"=>$cosmetologist->getRecentstar()
+));}?>
+
+<?php
+// TODO 未读转化为二维数组，方便对比
+$cars1=array();
+if($receiveunread){
+foreach ($receiveunread as $unread){
+array_push($cars1,array(
+    "sendid"=>$unread->getSendid(),"receiveid"=>$unread->getReceiveid(),
+    "number"=>$unread->getNumber()
+));}}?>
+
+<div class="panel panel-default">
+    <div class="panel-heading"  style="background-color:<?php echo $homepage->getPagecolor();?>;text-align: center;border-radius:16px;">
+        <div class="panel-title" style="font-size: large;"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;欧奢伦团队</div>
+    </div>
+    <div class="panel-body">
+       
+
+<div id="accordion">
+ <?php foreach ($salons as $salon): ?>
+  <h3><?php echo $salon->getSalbranch();?>:<?php echo $salon->getSalname();?><span id="salbranch<?php echo $salon->getSalbranch();?>" class="badge" style="float:right;background-color:red;"></span></h3>
+  <div class="h3after">
+    <table class="table table-hover" style="background-color:#FFFAFA;">
+ <tr>
+     <th>头像</th>
+     <th>姓名</th>
+     <th>年限</th>
+     <th>星级</th>
+     <th>&nbsp;</th>
+ </tr>
+ <?php foreach ($cars as $car): ?>
+ <?php if($car["salbranch"]==$salon->getSalbranch()){?>
+ <tr onclick="location='<?php echo $this->url('customer', array('action'=>'chat','sub'=>$car["cosid"],'third'=>'check'));?>';">
+ <!-- <tr onclick="window.chat.startFunction('<?php echo "cos".$this->escapeHtml($car["cosid"]);?>','<?php echo $this->escapeHtml($car["currentState"]);?>','<?php echo $this->escapeHtml($car["ipAddress"]);?>')"> -->
+ <td>
+ <img src="<?php echo $this->escapeHtml($car["cosphoto"]); ?>" style="height:40px;width:60px">
+ <?php echo $this->escapeHtml($car["currentstate"]);?>
+ </td>
+ <td><?php echo $this->escapeHtml($car["cosname"]); ?></td>
+ 
+ <td><?php echo $this->escapeHtml($car["cosyears"]);?>年</td>
+<td>
+<?php if($car["recentstar"]==""):?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php endif;?>
+<?php switch ($car["recentstar"]):?>
+<?php case 1:?>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php case 2:?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php case 3:?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php case 4:?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php case 5:?>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<span class="glyphicon glyphicon-star"></span>
+<?php break;?>
+<?php endswitch;?> 
+</td>
+<td>
+<?php foreach ($cars1 as $car1){
+    if ($car1['sendid']=="cos".$car['cosid']&&$car1['number']>0){?>
+<span class="badge" id="<?php echo "cos".$car['cosid'];?>" style="background-color:red;"><?php echo $car1['number'];?></span>
+<script>
+//分院未读
+$(document).ready(function(){
+  $branchbadge=$("#<?php echo "cos".$car['cosid'];?>").parents(".h3after").siblings("h3").children("#salbranch<?php echo $salon->getSalbranch();?>");
+  $branchbadge.html($branchbadge.html()+<?php echo $car1['number'];?>);
+});
+</script>
+<?php };} ?>
+</td>
+</tr>
+  <?php } endforeach; ?>
+    </table>
+   </div>
+ <?php endforeach; ?>
+   </div>
+  </div>
+</div> 
+  
+
+<script>
+//定时刷新
+function myrefresh() 
+{ 
+window.location.reload(); 
+} 
+setTimeout('myrefresh()',5*60*1000); //指定1秒刷新一次 
+</script> 

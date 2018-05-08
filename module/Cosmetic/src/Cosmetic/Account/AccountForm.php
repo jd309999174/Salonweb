@@ -23,6 +23,10 @@ class AccountForm extends Form
             'name' => 'saltoken',
             'type' => 'hidden'
         ));
+        $this->add(array(
+            'name' => 'ioscheck',
+            'type' => 'hidden'
+        ));
      
         $this->add(array(
             'name' => 'salnumber',
