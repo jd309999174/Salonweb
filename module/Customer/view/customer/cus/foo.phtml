@@ -1,14 +1,27 @@
-<?php echo phpinfo();?>
-<?php 
-$dbms1='mysql';     //数据库类型
-$host1='47.96.173.116:3306'; //数据库主机名
-$dbName1='company';    //使用的数据库
-$user1='root';      //数据库连接用户名
-$pass1='j12321456';          //对应的密码
-$dsn1="$dbms1:host=$host1;dbname=$dbName1";
-$dbh1 = new PDO($dsn1, $user1, $pass1); //初始化一个PDO对象
-//打赏改为已支付
-$sql1 = "INSERT INTO `wodetest` (`id`, `test`) VALUES (NULL, '1')";
-$dbh1->query($sql1);
-$dbh1 = null;
-?>
+<?php
+use Apple\ApnPush\Certificate\Certificate;
+use Apple\ApnPush\Protocol\Http\Authenticator\CertificateAuthenticator;
+use Apple\ApnPush\Sender\Builder\Http20Builder;
+use Apple\ApnPush\Sender\Sender;
+use Apple\ApnPush\Model\Notification;
+use Apple\ApnPush\Model\DeviceToken;
+use Apple\ApnPush\Model\Receiver;
+
+// Create certificate and authenticator
+$certificate = new Certificate('public/pushcertificate/123/customerios.pem', 'j12321456');
+$authenticator = new CertificateAuthenticator($certificate);
+
+// Build sender
+$builder = new Http20Builder($authenticator);
+
+$sender = $builder->build();
+
+// some actions/send push notifications
+$notification = Notification::createWithBody('Hello ;)');
+$receiver = new Receiver(new DeviceToken('8eda91a44c7347096b59096dd9f09ce64c7afb0ad95612001df83f93271f83c4'), 'oushelun.Cosmetologistios');
+
+$sender->send($receiver, $notification);
+
+
+
+// some actions

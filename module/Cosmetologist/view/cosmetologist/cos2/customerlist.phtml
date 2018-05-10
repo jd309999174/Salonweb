@@ -1,3 +1,16 @@
+<?php //TODO 登陆后，在app中存入用户id?>
+<script>
+	var u = navigator.userAgent;
+	var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+	var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+    if(isAndroid){
+        //加引号就是字符串
+    	window.android.cosidsave(<?php echo $cosid;?>);
+        }else{
+        webkit.messageHandlers.ioscosidsave.postMessage(<?php echo $cosid;?>);
+            }
+</script>
+
 <?php //TODO 判断是否正在苹果审核?>
 <?php if ($account->getIoscheck()=="yes"):?>
 <script>
@@ -6,7 +19,7 @@
 	var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
     if(isAndroid){
         //审核中android不变
-    	
+    	window.location.href="/cosmetologist/customerlistchatcheck";
         }
     if(isiOS){
         //审核中ios跳转
@@ -129,17 +142,3 @@ array_multisort($x, SORT_ASC, $y, SORT_ASC, $cars);
   </div>
 </div>
 
-<?php //TODO 登陆后，在app中存入用户id?>
-<script>
-$(document).ready(function(){
-	var u = navigator.userAgent;
-	var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-	var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-    if(isAndroid){
-        //加引号就是字符串
-    	window.android.cosidsave(<?php echo $cosid;?>);
-        }else{
-        webkit.messageHandlers.ioscosidsave.postMessage(<?php echo $cosid;?>);
-            }
-})
-</script>
