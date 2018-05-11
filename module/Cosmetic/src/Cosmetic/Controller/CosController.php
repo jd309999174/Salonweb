@@ -77,6 +77,7 @@ class CosController extends AbstractActionController
     //删除目录下所有文件
     function delAllDir($dir)
     {
+        
         $dh = opendir($dir);
         closedir(opendir($dir));
         while ( false  !== ( $file  =  readdir ( $dh)))
@@ -86,7 +87,7 @@ class CosController extends AbstractActionController
                 $fullpath = $dir.'/'.$file;
                 if(is_dir($fullpath))
                 {
-                    delAllDir($fullpath);
+                    $this->delAllDir($fullpath);
                 }else
                 {
                     unlink($fullpath);
@@ -97,6 +98,8 @@ class CosController extends AbstractActionController
         }
         return true;
     }
+    
+    
     public function getTipMapper()
     {
         $sm = $this->getServiceLocator();
@@ -1837,7 +1840,8 @@ class CosController extends AbstractActionController
         return new ViewModel(array(
             
             'id' => $id,
-            'sub' => $this->params('sub')
+            'sub' => $this->params('sub'),
+            'third' => $this->params('third'),
         ));
     }
 
@@ -1846,14 +1850,16 @@ class CosController extends AbstractActionController
         $container = new Container('salonlogin');
         $id = $container->salnumber;
         $sub = $this->params('sub');
+        $third = $this->params('third');
         
-        return array('id'=>$id,'sub'=>$sub);
+        return array('id'=>$id,'sub'=>$sub,'third'=>$third);
     }
     
     //由于dropzone的原因，已采用
     public function pictureaddajaxAction(){
         $sub = $this->params('sub');
         $third = $this->params('third');
+        $fourth = $this->params('fourth');
         
         if($third==null){
         $file=$_FILES['file'];
@@ -1861,10 +1867,16 @@ class CosController extends AbstractActionController
         $pname1=iconv('utf-8', 'gbk', 'public/salon/'.$sub.'/');//文件路径
         $pname2=iconv('utf-8', 'gbk', $_FILES['file']['tmp_name']);
         move_uploaded_file($pname2, $pname1.$pname);
-        }else{
+        }elseif ($fourth==null&&$third!=null){
             $file=$_FILES['file'];
             $pname = iconv('utf-8', 'gbk', $_FILES['file']['name']);
             $pname1=iconv('utf-8', 'gbk', 'public/salon/'.$sub.'/'.$third.'/');//文件路径
+            $pname2=iconv('utf-8', 'gbk', $_FILES['file']['tmp_name']);
+            move_uploaded_file($pname2, $pname1.$pname);
+        }elseif ($fourth!=null) {
+            $file=$_FILES['file'];
+            $pname = iconv('utf-8', 'gbk', $_FILES['file']['name']);
+            $pname1=iconv('utf-8', 'gbk', 'public/salon/'.$sub.'/'.$third.'/'.$fourth.'/');//文件路径
             $pname2=iconv('utf-8', 'gbk', $_FILES['file']['tmp_name']);
             move_uploaded_file($pname2, $pname1.$pname);
         }
@@ -2047,16 +2059,27 @@ class CosController extends AbstractActionController
         
         $container = new Container('salonlogin');
         $id = $container->salnumber;
+        $sub = $this->params('sub');
         
         $request = $this->getRequest();
         if ($request->isPost()) {
             $post = $request->getPost()->toArray();
             $path = iconv('utf-8', 'gbk', $post["dirname"]);
+            if ($sub==null){
             mkdir('public/salon/'.$id.'/'.$path);
             return $this->redirect()->toRoute('cosmetic', array(
                 'action' => 'picture'
             ));
+            }else {
+            mkdir('public/salon/'.$id.'/'.$sub.'/'.$path);
+            return $this->redirect()->toRoute('cosmetic', array(
+                'action' => 'picture','sub'=>$sub
+            ));
+            }
+            
         }
+        return array('sub'=>$sub);
+        
     }
     public function picturedeleteAction()
     {
@@ -2064,6 +2087,8 @@ class CosController extends AbstractActionController
         $id = $container->salnumber;
         $sub = $this->params('sub');
         $third=$this->params('third');
+        $fourth=$this->params('fourth');
+        
         if($third==null){
         $filename='public/salon/'.$id.'/'.$sub;
         $path = iconv('utf-8', 'gbk', $filename);
@@ -2075,13 +2100,23 @@ class CosController extends AbstractActionController
         return $this->redirect()->toRoute('cosmetic', array(
             'action' => 'picture'
         ));
-        }else 
-        {
+        }elseif ($third!=null&&$fourth==null){
             $filename='public/salon/'.$id.'/'.$sub.'/'.$third;
+            $path = iconv('utf-8', 'gbk', $filename);
+            if (substr(strrchr($sub, '.'), 1)==null){ 
+             $this->delAllDir($path);
+                rmdir($path);
+            }else{
+            unlink($path);}
+            return $this->redirect()->toRoute('cosmetic', array(
+                    'action' => 'picture','sub'=>$sub
+            ));
+        }elseif ($fourth!=null){
+            $filename='public/salon/'.$id.'/'.$sub.'/'.$third.'/'.$fourth;
             $path = iconv('utf-8', 'gbk', $filename);
             unlink($path);
             return $this->redirect()->toRoute('cosmetic', array(
-                    'action' => 'picture','sub'=>$sub
+                'action' => 'picture','sub'=>$sub,'third'=>$third
             ));
         }
        

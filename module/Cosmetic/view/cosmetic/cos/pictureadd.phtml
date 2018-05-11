@@ -26,7 +26,7 @@ $this->headTitle($title);
 <div class="dropzone"></div>
 <script>
 $("div.dropzone").dropzone({
-    url: "<?php echo $this->url('cosmeticajax',array('action'=>'pictureaddajax','sub'=>$id,'third'=>$sub));?>",//上传文件的地址，
+    url: "<?php echo $this->url('cosmeticajax',array('action'=>'pictureaddajax','sub'=>$id,'third'=>$sub,'fourth'=>$third));?>",//上传文件的地址，
     maxFiles: 20,//最多上传几个图片
     maxFilesize: 5,//图片的大小，单位是M
     addRemoveLinks:true,//是否有删除图片的功能

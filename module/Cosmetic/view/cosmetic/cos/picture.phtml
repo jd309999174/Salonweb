@@ -1,22 +1,34 @@
 <?php
+if ($third==null){
 $dirname="public/salon/".$id."/".$sub;
+}else {
+$dirname="public/salon/".$id."/".$sub."/".$third;
+}
 $dir = iconv('utf-8', 'gbk', $dirname);
 $file=scandir($dir);?>
 <ol class="breadcrumb">
   <li><a href="<?php echo $this->url('cosmetic', array('action'=>'picture'));?>">根目录</a></li>
   <?php if($sub==!null):?>
-  <li class="active"><?php echo $sub?></li>
+  <li class="active"><a href="<?php echo $this->url('cosmetic', array('action'=>'picture','sub'=>$sub));?>"><?php echo $sub?></a></li>
+  <?php endif;?>
+  <?php if($third==!null):?>
+  <li class="active"><?php echo $third?></li>
   <?php endif;?>
 </ol>
 
-<?php if($sub==null):?>
+<?php if($sub==null&&$third==null):?>
 <p><a href="<?php echo $this->url('cosmetic', array(
          'action'=>'picturediradd'));?>">添加文件夹</a></p>
 <p><a href="<?php echo $this->url('cosmetic', array(
          'action'=>'pictureadd'));?>">添加图片</a></p>
-<?php else :?>
+<?php elseif ($sub!=null&&$third==null) :?>
+<p><a href="<?php echo $this->url('cosmetic', array(
+         'action'=>'picturediradd','sub'=>$sub));?>">添加文件夹</a></p>
 <p><a href="<?php echo $this->url('cosmetic', array(
          'action'=>'pictureadd','sub'=>$sub));?>">添加图片</a></p>
+<?php else :?>
+<p><a href="<?php echo $this->url('cosmetic', array(
+    'action'=>'pictureadd','sub'=>$sub,'third'=>$third));?>">添加图片</a></p>
 <?php endif;?>
     
  <?php 
@@ -30,7 +42,11 @@ $file=scandir($dir);?>
  ?>
   <?php endforeach; ?>  
 
-<?php if($sub==null):?>
+
+
+
+
+<?php if($third==null):?>
  <table class="table table-hover">
  <tr>
      <th>文件夹名</th>
@@ -41,18 +57,25 @@ if($directory[$i]!="."&&$directory[$i]!=".."){
 ?>
  <tr>
      <td>
-     <a href="<?php echo $this->url('cosmetic',
-             array('action'=>'picture','sub'=>$directory[$i]));?>"><img src="<?php echo '/img/dir.jpg'; ?>" alt="Smiley face" width="32" height="32" >
+     <a href="<?php if ($sub==null){
+         echo $this->url('cosmetic',array('action'=>'picture','sub'=>$directory[$i]));
+     }else {
+         echo $this->url('cosmetic',array('action'=>'picture','sub'=>$sub,'third'=>$directory[$i]));
+     }?>">
+     <img src="<?php echo '/img/dir.jpg'; ?>" alt="Smiley face" width="32" height="32" >
      <span><?php echo $directory[$i]; ?></span></a>
              
      </td>
      <td>
-         <a href="<?php echo $this->url('cosmetic',
-             array('action'=>'picturedelete','sub'=>$directory[$i]));?>">删除</a>
+         <a href="<?php if ($sub==null){
+             echo $this->url('cosmetic',array('action'=>'picturedelete','sub'=>$directory[$i]));
+             }else {
+             echo $this->url('cosmetic',array('action'=>'picturedelete','sub'=>$sub,'third'=>$directory[$i]));
+             }?>">删除</a>
      </td>
  </tr>
  <?php }endfor;?>
- </table>  
+ </table>
   <?php endif;?>
   
   
@@ -69,7 +92,7 @@ if(end($imgend)=="jpg"||end($imgend)=="jpeg"||end($imgend)=="png"||end($imgend)=
 ?>
  <tr>
      <td>
-     <img src="<?php echo '/salon/'.$id.'/'.$photo[$i]; ?>" alt="Smiley face" width="80" height="60" onclick="copyfilesrc('<?php echo 'localhost/salon/'.$id.'/'.$photo[$i]; ?>')">
+     <img src="<?php echo '/salon/'.$id.'/'.$photo[$i]; ?>" alt="Smiley face" width="80" height="60">
              
      </td>
      <td>
@@ -93,10 +116,11 @@ if(end($imgend)=="jpg"||end($imgend)=="jpeg"||end($imgend)=="png"||end($imgend)=
  </tr>
  <?php endif;?>
  
- <?php elseif(substr(strrchr($photo[$i], '.'), 1)=="jpg"||end($imgend)=="png"||end($imgend)=="jpeg"||end($imgend)=="gif"):?>
+ <?php elseif($third==null&&$sub!=null):
+ if (substr(strrchr($photo[$i], '.'), 1)=="jpg"||end($imgend)=="png"||end($imgend)=="jpeg"||end($imgend)=="gif"):?>
   <tr>
      <td>
-     <img src="<?php echo '/salon/'.$id.'/'.$sub.'/'.$photo[$i]; ?>" alt="Smiley face" width="80" height="60" onclick="copyfilesrc('<?php echo 'localhost/salon/'.$id.'/'.$sub.'/'.$photo[$i]; ?>')">
+     <img src="<?php echo '/salon/'.$id.'/'.$sub.'/'.$photo[$i]; ?>" alt="Smiley face" width="80" height="60">
      
              
      </td>
@@ -121,12 +145,39 @@ if(end($imgend)=="jpg"||end($imgend)=="jpeg"||end($imgend)=="png"||end($imgend)=
     
  </tr>
  <?php endif;?>
+ 
+ <?php elseif ($third!=null):
+  if (substr(strrchr($photo[$i], '.'), 1)=="jpg"||end($imgend)=="png"||end($imgend)=="jpeg"||end($imgend)=="gif"):?>
+  <tr>
+     <td>
+     <img src="<?php echo '/salon/'.$id.'/'.$sub.'/'.$third.'/'.$photo[$i]; ?>" alt="Smiley face" width="80" height="60">
+     
+             
+     </td>
+     <td>
+         <a href="<?php echo $this->url('cosmetic',
+             array('action'=>'picturedelete','sub'=>$sub,'third'=>$third,'fourth'=>$photo[$i]));?>">删除</a>
+     </td>
+    
+ </tr>
+ <?php elseif(substr(strrchr($photo[$i], '.'), 1)=="mp4"):?>
+   <tr>
+     <td>
+     
+<video width="160" height="120" controls>
+  <source src="<?php echo '/salon/'.$id.'/'.$sub.'/'.$third.'/'.$photo[$i]; ?>#t=0.1" type="video/mp4">
+</video>  
+     </td>
+     <td>
+         <a href="<?php echo $this->url('cosmetic',
+             array('action'=>'picturedelete','sub'=>$sub,'third'=>$third,'fourth'=>$photo[$i]));?>">删除</a>
+     </td>
+    
+ </tr>
+ <?php endif;?>
+ <?php endif;?>
  <?php endfor;?>
  </table>
-<script type="text/javascript">
-function copyfilesrc(id){
-	$("#filesrc").val(id);
-}
-</script>
+
 
 

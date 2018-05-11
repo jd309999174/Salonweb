@@ -690,7 +690,7 @@ class CusController extends AbstractActionController
                     
                     // 设置session
                     $container = new Container('customerlogin');
-                    $container->salnumber = $sub;
+                    $container->salnumber = $customer->getSalnumber();
                     $container->cusid = $customer->getCusid();
                     $container->cusname = $customer->getCusname();
                     $container->cusphone = $customer->getCusphone();

@@ -20,7 +20,8 @@ return array(
             'cosmetic' => array(
              'type'    => 'Segment',
              'options' => array(
-                 'route'    => '/cosmetic[/:action[/:sub[/:third]]]', 
+                 //为了图片上传，添加fourth
+                 'route'    => '/cosmetic[/:action[/:sub[/:third[/:fourth]]]]', 
                  //salon中，id是salnumber,sub是salbranch
                  'defaults' => array(
                      '__NAMESPACE__' => 'Cosmetic\Controller',
@@ -33,7 +34,7 @@ return array(
             'cosmeticajax' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/cosmeticajax[/:action[/:sub[/:third]]]',
+                    'route' => '/cosmeticajax[/:action[/:sub[/:third[/:fourth]]]]',
                     'defaults' => array(
                         '__NAMESPACE__' => 'Cosmetic\Controller',
                         'controller' => 'Cos'
@@ -43,7 +44,7 @@ return array(
             'cosmeticlogin' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/cosmeticlogin[/:action[/:sub[/:third]]]',
+                    'route' => '/cosmeticlogin[/:action[/:sub[/:third[/:fourth]]]]',
                     'defaults' => array(
                         '__NAMESPACE__' => 'Cosmetic\Controller',
                         'controller' => 'Cos'

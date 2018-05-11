@@ -1,4 +1,4 @@
-<form name="input" action="picturediradd" method="post">
+<form name="input" action="<?php echo $this->url('cosmetic', array('action' => 'picturediradd','sub'=>$sub));?>" method="post">
 目录名: <input type="text" name="dirname">
 <input type="submit" value="提交">
 </form>
