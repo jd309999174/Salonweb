@@ -278,6 +278,12 @@ class DecController extends AbstractActionController
         // are working when you browse to /dec/dec/foo
         return array();
     }
+    public function picturechoiceajaxAction()
+    {
+        // This shows the :controller and :action parameters in default route
+        // are working when you browse to /dec/dec/foo
+        return array('id'=>"123");
+    }
     
     //TODO customertoken
     public function customertokenAction()

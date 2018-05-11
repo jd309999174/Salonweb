@@ -1,3 +1,6 @@
+<style>
+#side_nav ul{display:none}
+</style>
 <script type="text/javascript">
 <!--
 
@@ -54,7 +57,7 @@ function copyfilesrc1(src){
 };
 //打开图片选择器
 $(function() {
-    $( "#picturemanager1" ).dialog({modal: true,autoOpen: false,width:800,height: 500,});
+    $( "#picturemanager1" ).dialog({modal: true,autoOpen: false,width:1000,height: 500,});
     $( ".picturechoose1" ).click(function() {
     	$( "#picturemanager1" ).attr("data-imgnumber","picturechoose1");
         $( "#picturemanager1" ).dialog( "open" );
@@ -94,8 +97,7 @@ $(function() {
 $dir2 = "public/salon/".$id;
 $dir3 = iconv('utf-8', 'gbk', $dir2);
 $file = scandir($dir3);
-?>
- <?php 
+
  $photo=array();
  $directory=array();
  foreach ($file as $filegb): 
@@ -103,30 +105,50 @@ $file = scandir($dir3);
  if(substr(strrchr($filesrc, '.'), 1)==null){
      array_push($directory,$filesrc);
  }else{array_push($photo,$filesrc);}
- ?>
-<?php endforeach; ?> 
-<div id="picturemanager1" title="图片选择器" class="picturemanager" data-imgnumber="">
-<div class="dropdown" style="float: left">
-	<button type="button" class="btn dropdown-toggle" id="dropdownMenu1" 
-			data-toggle="dropdown">
-		图片根目录
-		<span class="caret"></span>
-	</button>
-	<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-		<li role="presentation" onclick="rootdir1()">
-			<a role="menuitem" tabindex="-1">图片根目录</a>
-		</li>
-		<li role="presentation" class="divider"></li>
-		<?php for($i=0;$i<count($directory);$i++):
-		if($directory[$i]!="."&&$directory[$i]!=".."){?>
-		<li role="presentation" onclick="dirchoose1('<?php echo $directory[$i];?>')">
-			<a role="menuitem" tabindex="-1"><?php echo $directory[$i];?></a>
-		</li>
-		<?php }endfor;?>
-	</ul>
-</div>
-
-	<table class="table">
+ endforeach; ?> 
+ 
+ 
+<div id="picturemanager1"  style="overflow-x: hidden;" title="图片选择器" class="picturemanager" data-imgnumber="">
+<div class="container">
+   <div class="row">
+      <div class="col-md-2 col-lg-2" style="border-right:1px solid #BEBEBE;">
+      <ul id="side_nav">
+ <?php for($i=0;$i<count($directory);$i++):
+		if($directory[$i]!="."&&$directory[$i]!=".."){
+		    $dir4 = "public/salon/".$id.'/'.$directory[$i];
+		    $dir5 = iconv('utf-8', 'gbk', $dir4);
+		    $file1 = scandir($dir5);
+		    
+		    $photo1=array();
+		    $directory1=array();
+		    foreach ($file1 as $filegb):
+		    $filesrc=iconv("GB2312","UTF-8",$filegb);
+		    if(substr(strrchr($filesrc, '.'), 1)==null){
+		        array_push($directory1,$filesrc);
+		    }else{array_push($photo1,$filesrc);}
+		    endforeach;
+		    ?>
+ <li><span><img onclick='$.post("<?php echo $this->url('decorateajax', array('action'=>'picturechoiceajax'));?>",{sub:"<?php echo $directory[$i];?>",third:""},function(data,status){
+	   $("#picturelist").html(data);
+});'  src="<?php echo '/img/dir.jpg'; ?>" alt="Smiley face" width="32" height="32" ><?php echo $directory[$i];?></span>
+  <ul>
+  <?php for($j=0;$j<count($directory1);$j++):
+       	if($directory1[$j]!="."&&$directory1[$j]!=".."){
+        if(1):?>
+   <li onclick='$.post("<?php echo $this->url('decorateajax', array('action'=>'picturechoiceajax'));?>",{sub:"<?php echo $directory[$i];?>",third:"<?php echo $directory1[$j];?>"},function(data,status){
+	   $("#picturelist").html(data);
+});'>&nbsp;&nbsp;&nbsp;&nbsp;<img src="<?php echo '/img/dir.jpg'; ?>" alt="Smiley face" width="32" height="32" ><?php echo $directory1[$j]; ?></li>
+   <?php endif;?>
+       <?php }endfor; ?>
+  </ul>
+ </li>
+ <?php }endfor;?>
+</ul> 
+      </div>
+      
+      <div class="col-md-10 col-lg-10" >
+      <div id="picturelist">
+        <table class="table">
 		<caption>点击图片进行选择</caption>
 		<thead>
 			<tr>
@@ -159,35 +181,30 @@ $file = scandir($dir3);
 			<?php endif;?>
        <?php endfor; ?>
        </tbody>
-       <?php for($i=0;$i<count($directory);$i++):
-		if($directory[$i]!="."&&$directory[$i]!=".."){
-		    $dir4 = "public/salon/".$id.'/'.$directory[$i];
-		    $dir5 = iconv('utf-8', 'gbk', $dir4);
-		    $photo1 = scandir($dir5);
-		    ?>
-       	<tbody class="subdir1 <?php echo $directory[$i]?>1">
-        <?php for($j=0;$j<count($photo1);$j++):
-        if($photo1[$j]!="."&&$photo1[$j]!=".."){
-        if(1):?>
-            <tr>
-				<td><img src="<?php echo '/salon/'.$id.'/'.$directory[$i].'/'.$photo1[$j]; ?>"
-					onclick="copyfilesrc1('<?php echo '/salon/'.$id.'/'.$directory[$i].'/'.$photo1[$j]; ?>')"
-					alt="Smiley face" width="60" height="30" class="imgchoose" data-imgnumber=""></td>
-				<td><?php echo $photo1[$j]; ?></td>
-			</tr>
-			<?php elseif (end(explode('.', $photo[$i]))=="mp4"):?>
-						<tr>
-				
-			    <td>
-                     <video width="160" height="120" controls class="imgchoose" data-imgnumber="" onclick="copyfilesrc1('<?php echo '/salon/'.$id.'/'.$directory[$i].'/'.$photo[$i]; ?>')">
-                     <source src="<?php echo '/salon/'.$id.'/'.$directory[$i].'/'.$photo[$i]; ?>" type="video/mp4">
-                    </video>
-               </td>
-				<td><?php echo $photo[$i]; ?></td>
-			</tr>
-			<?php endif;?>
-       <?php }endfor; ?>
-       </tbody>
-       <?php }endfor;?>
-	</table>
+     </table>
+    </div>
+      </div>      
+   </div>
 </div>
+
+
+</div>
+
+
+ <script type="text/javascript">
+ (function(){
+  var navWrap=document.getElementById("side_nav");
+  var nav1s=navWrap.getElementsByTagName("span");
+  var nav2s=navWrap.getElementsByTagName("ul");
+  for(var i=0,len=nav1s.length;i<len;i++){
+   nav1s[i].onclick=(function(i){
+    return function(){
+     for(var j=0;j<len;j++){
+      nav2s[j].style.display="none";
+     }
+     nav2s[i].style.display="block";
+    }
+   })(i)
+  }
+ })()
+</script>
