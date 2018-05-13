@@ -34,6 +34,8 @@ use Cosmetic\Lottery\LotteryEntity;
 use Cosmetic\Cusleveltype\CusleveltypeEntity;
 use Cosmetic\Tip\TipForm;
 use Cosmetic\Tip\TipEntity;
+use Cosmetic\Suggestioncus\SuggestioncusForm;
+use Cosmetic\Suggestioncus\SuggestioncusEntity;
 date_default_timezone_set('Asia/Shanghai');//时区
 class CusController extends AbstractActionController
 {
@@ -67,6 +69,11 @@ class CusController extends AbstractActionController
         }
         $newfilename = $hash . '.' . $extension;
         return $newfilename;
+    }
+    public function getSuggestioncusMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('SuggestioncusMapper');
     }
     public function getAccountMapper()
     {
@@ -317,6 +324,73 @@ class CusController extends AbstractActionController
         
         return new ViewModel();
     }
+    // TODO suggestioncus 意见与建议
+    public function suggestioncusAction()
+    {
+        $container = new Container('customerlogin');
+        $id = $container->salnumber;
+        $cusid = $container->cusid;
+
+        
+        
+        $form=new SuggestioncusForm();
+        $task = new SuggestioncusEntity();
+        $form->bind($task);
+        
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            if ($form->isValid()) {
+                $x = $request->getPost()->toArray();
+                $y = $request->getFiles()->toArray();
+                
+                $post = array_merge_recursive($request->getPost()->toArray(), $request->getFiles()->toArray());
+                
+                //取出美容院
+                $salon=$this->getAccountMapper()->getAccount($id);
+                //取出顾客
+                $customer=$this->getCustomerMapper()->getCustomer1($cusid);
+                
+                
+                $task->setSalnumber($id);
+                $task->setSalname($salon->getSalname());
+                $task->setSalbossname($salon->getSalbossname());
+                $task->setSalbossphone($salon->getSalbossphone());
+                $task->setSalbossphoto($salon->getSalbossphoto());
+                $task->setCusid($cusid);
+                $task->setCusname($customer->getCusname());
+                $task->setCusphone($customer->getCusphone());
+                $task->setCusphoto($customer->getCusphoto());
+                $task->setCuscomment($x['cuscomment']);
+                $task->setCuspicture($x['cuspicture']);
+                
+                $this->getSuggestioncusMapper()->saveTask($task);
+                
+                
+                if (! file_exists('public/suggestion')) {
+                    mkdir('public/suggestion');
+                }
+                //图片缩放
+                $pname = iconv('utf-8', 'gbk', $x['cuspicture']);//文件名
+                $pname1=iconv('utf-8', 'gbk', 'public/suggestion/');//文件路径
+                $pname2=iconv('utf-8', 'gbk', $y['cuspicturef']['tmp_name']);//临时文件名
+                //move_uploaded_file($y['cusphotof']['tmp_name'], 'public/portrait/' . $x['cusphoto']);
+                move_uploaded_file($pname2, $pname1.$pname);
+                
+                // Redirect to list of tasks
+                return $this->redirect()->toRoute('customer', array(
+                    'action' => 'me',
+
+                ));
+            }
+        }
+        
+        return array(
+            'form' => $form
+        );
+        
+    }
+    
+    
     // TODO cusdetail
     public function cusdetailAction()
     {

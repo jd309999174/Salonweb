@@ -48,6 +48,7 @@ use Cosmetic\Cusleveltype\CusleveltypeMapper;
 use Cosmetic\Cusbrowsinghistory\CusbrowsinghistoryMapper;
 use Cosmetic\Lottery\LotteryMapper;
 use Cosmetic\Tip\TipMapper;
+use Cosmetic\Suggestioncus\SuggestioncusMapper;
 
 class Module implements AutoloaderProviderInterface
 {
@@ -56,6 +57,11 @@ class Module implements AutoloaderProviderInterface
     {
         return array(
             'factories' => array(
+                'SuggestioncusMapper' => function ($sm) {
+                $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                $Suggestioncusmapper = new SuggestioncusMapper($dbAdapter);
+                return $Suggestioncusmapper;
+                },
                 'TipMapper' => function ($sm) {
                 $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                 $Tipmapper = new TipMapper($dbAdapter);

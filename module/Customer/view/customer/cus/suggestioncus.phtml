@@ -1,0 +1,67 @@
+ <?php //文件上传插件?>
+<link href="/css/fileinput.min.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/js/fileinput.min.js"></script>
+<script src="/js/fileinput.zh.js"></script>
+ 
+ <div class="input-group input-group-sm" style="opacity:0.9;background-color:white;padding: 5px;z-index:10;position:fixed;text-align:center;" id="searchcolumn">
+      <span class="input-group-btn" onclick="window.history.back();">
+        <button  class="btn btn-default btn-lg" type="button" style="color:	#00E5EE;">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <span style="font-weight: bold;">
+              意见与建议
+      </span>
+      <span>
+      
+      </span>
+ </div>
+<!-- 没有作用，只为平衡高度 -->
+<div class="input-group input-group-sm" style="visibility:hidden;padding: 5px;" >
+      <span class="input-group-btn" >
+        <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <span>
+      <button type="button" class="btn btn-info" onclick="">聊天历史</button>
+      </span>
+ </div>
+ 
+<hr>
+
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('customer', array(
+    'action' => 'suggestioncus'
+)));
+$form->get('submit')->setAttribute('value', '提交');
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formRow($form->get('cuscomment'));
+?>
+<br>
+<div class="form-group">
+     <?php echo $this->formhidden($form->get('cuspicture'));?>
+     <?php echo $this->formRow($form->get('cuspicturef'));?>
+</div>
+<div>
+ <?php echo $this->formInput($form->get('submit')); ?>
+ </div>
+<?php
+echo $this->form()->closeTag($form);?>
+
+
+<script>
+$(document).on('ready', function() {
+    $("#cuspicturef").fileinput({
+    	language: 'zh', //设置语言
+   	 browseClass: "btn btn-default btn-block",
+     allowedFileExtensions: ['jpg', 'gif', 'png','jpeg'],
+     showCaption: false,
+     showRemove: false,
+     showUpload: false
+    });
+});
+</script>
