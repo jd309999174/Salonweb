@@ -717,7 +717,8 @@ class CusController extends AbstractActionController
         return array(
             'form' => $form,
             'sub' => $sub,
-            'homepage' => $homepage
+            'homepage' => $homepage,
+            'result'=>""
         );
     }
     
