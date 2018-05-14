@@ -22,6 +22,7 @@ $this->headTitle($title);
     <input type="text" class="form-control" name="cussalonbranch" placeholder="请输入分院名称" value="<?php echo $_GET['cussalonbranch'];?>">
   </div>
   <button type="submit" class="btn btn-default">提交</button>
+  <a href="<?php echo $this->url('cosmetic', array('action'=>'cusregister','sub'=>$id));?>">新用户注册</a>
 </form>
 
 <div id="sequencetime" class="sequence">

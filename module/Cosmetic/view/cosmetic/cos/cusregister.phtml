@@ -1,0 +1,168 @@
+<?php //文件上传插件?>
+<link href="/css/fileinput.min.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/js/fileinput.min.js"></script>
+<script src="/js/fileinput.zh.js"></script>
+
+<div class="well btnshadow radius-circle" style="text-align:center"><?php echo $homepage->getPageheaddata2();?></div>
+
+<br>
+
+<div style="text-align:center">
+<img class="btnshadow img-rounded" src="<?php echo $homepage->getPageheaddata1();?>" style="height:100px;width:120px;">
+</div>
+
+
+
+
+
+<script>
+$("document").ready(function(){
+	//密码确认
+	$("#repeatwrong").hide();
+	$("#repeatpassword").change(function(){
+	    if($("#repeatpassword").val()!==$("#cuspassword").val()){
+	    	$("#repeatwrong").show();
+		    }
+	});
+	//密码不同点击提交无效
+	$("#submitbtn").click(function(){
+		 if($("#repeatpassword").val()!==$("#cuspassword").val()){
+		    	$("#repeatwrong").show();
+			    }else{$("#submit").click();}
+		})
+	$("#repeatpassword").focus(function(){
+		$("#repeatwrong").hide();
+	});
+	$("#cusphone").focus(function(){
+		$("#phonewrong").hide();
+	});
+	$("#verificationinput").focus(function(){
+		$("#verificationwrong").hide();
+	});
+})
+</script>
+<script>
+$("document").ready(function(){
+	$("#countdown").hide();
+	$("#loadingimg").hide();
+	$("#registerverification").click(function(){
+		$num=59;
+		//发短信
+		$.post("<?php echo $this->url('customerajax', array('action'=>'registerverification'));?>",
+			      {
+			  	        cusregisterphone:$("#cusphone").val(),
+				  	      TemplateCode:"SMS_126585304"
+			  	    },
+			  	        function(data,status){
+			  	        //alert("数据: \n" + data + "\n状态: " + status);
+			  	    });
+  	    
+  	    //显示倒计时
+  	    $("#verification").hide();
+    	$("#countdown").show();
+    	$interval=setInterval(function(){
+    	    if($num==0){
+    	    $("#countdown").hide();
+    	    $("#verification").show();
+    	    clearInterval($interval);
+    		};
+    		$("#numDiv").html($num--);
+    		},1000);
+		})
+})
+</script>
+
+<?php //加载图 <img id="loadingimg" src="/img/loading.gif" style="width:100%;position:fixed;z-index:10;">?>
+
+
+<?php
+$form = $this->form;
+$form->setAttribute('action',$this->url('cosmetic', array(
+    'action' => 'cusregister','sub'=>$sub
+)));
+$form->get('submit')->setAttribute('style', 'visibility: hidden');
+$form->get('cusphone')->setAttribute('onblur', 'checkout()');
+$form->get('cusphone')->setAttribute('onfocus', 'getfocus()');
+$form->get('cusphone')->setAttribute('required', 'required');
+$form->get('cuspassword')->setAttribute('required', 'required');
+$form->get('cusname')->setAttribute('required', 'required');
+$form->prepare();echo $this->form()->openTag($form);?>
+<fieldset>
+    <legend>注册账号</legend>
+    <?php echo $this->formhidden($form->get('salnumber'));?>
+	<div class="form-group" id="cusphonediv">
+    <label for="name"><span class="glyphicon glyphicon-phone" aria-hidden="true"></span>&nbsp;手机号</label>
+    <div  style="color:red;" id="phonewrong">
+    <?php if ($existcustomer):?>
+        此号码已注册
+    <?php endif;?>
+    </div>
+    <?php echo $this->formRow($form->get('cusphone'));?>
+    </div>
+    <div style="color:red;" id="verificationwrong">
+    <?php if ($verificationwrong):?>
+      验证码输入错误
+    <?php endif;?>
+    </div>
+    <?php //注册验证码?>
+    <div class="container">
+      <div class="row">
+      <div class="col-xs-8 col-sm-8"><input type="text" required="required" class="form-control"  placeholder="请输入短信验证码" id="verificationinput" name="registerverification"></div>
+      <div class="col-xs-4 col-sm-4" id="verification"><a class="btn" id="registerverification">获取短息验证码</a></div> 
+  	  <div class="col-xs-4 col-sm-4" id="countdown"><div id='numDiv' style="text-align:center;padding:5px;">60</div></div>
+      </div>
+    </div>
+
+
+  <div class="form-group">
+    <label for="name"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>&nbsp;密码</label>
+    <?php echo $this->formRow($form->get('cuspassword'));?>
+  </div>
+  <div class="form-group">
+    <label for="name"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>&nbsp;密码确认</label>
+    <div style="color:red;display:none;" id="repeatwrong">
+     两次输入密码不匹配
+    </div>
+    <input type="password" name="repeatpassword" class="form-control" required="required" placeholder="请再次输入密码" id="repeatpassword">
+  </div>
+   <div class="form-group">
+    <label for="name"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;姓名</label>
+    <?php echo $this->formRow($form->get('cusname'));?>
+  </div>
+  <div class="form-group">
+    <label for="name"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span>&nbsp;头像</label>
+    <?php echo $this->formhidden($form->get('cusphoto'));?>
+     <?php echo $this->formRow($form->get('cusphotof'));?>
+  </div>
+  <div class="form-group" style="text-align:center">
+  <button type="button" id="submitbtn" class="button blue bigrounded btn-block">提交</button>
+  <br>
+  <button type="button" class="button white bigrounded btn-block" onclick="location='../login/<?php echo $sub;?>'">登陆</button>
+  <?php echo $this->formInput($form->get('submit')); //已隐藏?>
+  </div>
+</fieldset>
+<?php echo $this->form()->closeTag($form);?>
+
+
+
+<script>
+$(document).on('ready', function() {
+    $("#cusphotof").fileinput({
+    	language: 'zh', //设置语言
+   	 browseClass: "btn btn-default btn-block",
+     allowedFileExtensions: ['jpg', 'gif', 'png','jpeg'],
+     showCaption: false,
+     showRemove: false,
+     showUpload: false
+    });
+});
+</script>
+
+<script>
+$(document).ready(function() {
+	//注册时显示加载图
+	$("#submit").click(function(){
+        $("#loadingimg").show();
+		})
+});
+</script>

@@ -2848,4 +2848,170 @@ class CosController extends AbstractActionController
                     'tipmoney'=>$y
                 ));
     }
+    
+    //TODO cusregister客户注册
+    // TODO register
+    public function cusregisterAction()
+    {
+        $container = new Container('customerregister');
+        $cusverification = $container->cusverification;
+        $cusregisterphone = $container->cusregisterphone;
+        
+        
+        $sub = $this->params('sub'); // 美容院id
+        
+        $homepage = $homepage = $this->getPageMapper()->getHomepage($sub); // 美容院标识
+        
+        $form = new CustomerForm();
+        $entity = new CustomerEntity();
+        $form->bind($entity);
+        
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            if ($cusverification){
+                if ($_POST['registerverification']==$cusverification&&$_POST['cusphone']==$cusregisterphone){
+                    $x = $request->getPost()->toArray();
+                    $y = $request->getFiles()->toArray();
+                    $post = array_merge_recursive($request->getPost()->toArray(), $request->getFiles()->toArray());
+                    $post['salnumber'] = $sub;
+                    //默认头像
+                    if(!$post['cusphoto']){
+                        $post['cusphoto']="genderfemale.png";
+                    }
+                    //判断手机号是否已存在
+                    $existcustomer=$this->getCustomerMapper()->getCustomerexist($post['cusphone']);
+                    if ($existcustomer){
+                        return array(
+                            'form' => $form,
+                            'homepage' => $homepage,
+                            'existcustomer'=>$existcustomer,
+                            'sub' => $sub);
+                    }
+                    
+                    $form->setData($post);
+                    if ($form->isValid()) {
+                        $data = $form->getData();
+                        $this->getCustomerMapper()->saveCustomer($entity);
+                        //取出此顾客，并将unread改为cus+cusid形式
+                        $cusunread=$this->getCustomerMapper()->getCustomerlogin($_POST['cusphone'],$_POST['cuspassword']);
+                        $cusunread->setUnread("cus".$cusunread->getCusid());
+                        
+                        $this->getCustomerMapper()->saveCustomer($cusunread);
+                        
+                        if (! file_exists('public/portrait')) {
+                            mkdir('public/portrait');
+                        }
+                        //图片缩放
+                        $pname = iconv('utf-8', 'gbk', $x['cusphoto']);//文件名
+                        $pname1=iconv('utf-8', 'gbk', 'public/portrait/');//文件路径
+                        $pname2=iconv('utf-8', 'gbk', $y['cusphotof']['tmp_name']);//临时文件名
+                        //move_uploaded_file($y['cusphotof']['tmp_name'], 'public/portrait/' . $x['cusphoto']);
+                        //缩放
+                        $temp = explode(".", $pname);
+                        $extension = end($temp);
+                        
+                        //视频文件直接保存,图片按后缀缩放
+                        if ($extension=="mp4"){
+                            move_uploaded_file($pname2, $pname1.$pname);
+                        }elseif($extension=="jpg"||$extension=="jpeg"||$extension=="gif"||$extension=="png"){
+                            $filename=$pname2;
+                            list($width, $height)=getimagesize($filename);
+                            if ($width>500||$height>500){//长或宽大于500则缩放
+                                //缩放比例
+                                $per=round(100/$width,3);
+                                
+                                $n_w=$width*$per;
+                                $n_h=$height*$per;
+                                $new=imagecreatetruecolor($n_w, $n_h);
+                                
+                                switch ($extension){
+                                    case "jpg":
+                                        $img=imagecreatefromjpeg($filename);
+                                        //copy部分图像并调整
+                                        imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
+                                        //图像输出新图片、另存为
+                                        imagejpeg($new, $pname1.$pname);
+                                        break;
+                                    case "jpeg":
+                                        $img=imagecreatefromjpeg($filename);
+                                        //copy部分图像并调整
+                                        imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
+                                        //图像输出新图片、另存为
+                                        imagejpeg($new, $pname1.$pname);
+                                        break;
+                                    case "gif":
+                                        $img=imagecreatefromgif($filename);
+                                        //copy部分图像并调整
+                                        imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
+                                        //图像输出新图片、另存为
+                                        imagegif($new, $pname1.$pname);
+                                        break;
+                                    case "png":
+                                        $img=imagecreatefrompng($filename);
+                                        //copy部分图像并调整
+                                        imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
+                                        //图像输出新图片、另存为
+                                        imagepng($new, $pname1.$pname);
+                                        break;
+                                }
+                                imagedestroy($new);
+                                imagedestroy($img);
+                                
+                            }else{
+                                move_uploaded_file($pname2, $pname1.$pname);
+                            }
+                            
+                        }
+                        
+                        
+                        //取出cus
+                        $customer = $this->getCustomerMapper()->getCustomerexist($post['cusphone']);
+                        //存入等级类型
+                        $cusleveltype=new CusleveltypeEntity();
+                        $cusleveltype->setCusid($customer->getCusid());
+                        $cusleveltype->setCuspoints(0);
+                        $cusleveltype->setCuslevel(0);
+                        $this->getCusleveltypeMapper()->saveTask($cusleveltype);
+                        
+                        
+                        
+                        // 设置session
+                        $container = new Container('customerlogin');
+                        $container->salnumber = $sub;
+                        $container->cusid = $customer->getCusid();
+                        $container->cusname = $customer->getCusname();
+                        $container->cusphone = $customer->getCusphone();
+                        $container->cusphoto = $customer->getCusphoto();
+                        
+                        // Redirect to list of tasks
+                        return $this->redirect()->toRoute('cosmetic', array(
+                            'action' => 'customer'
+                        ));
+                    }
+                }else{
+                    return array(
+                        'form' => $form,
+                        'homepage' => $homepage,
+                        'verificationwrong'=>"验证码错误",
+                        'sub' => $sub
+                    );
+                }}else{
+                    return array(
+                        'form' => $form,
+                        'homepage' => $homepage,
+                        'verificationwrong'=>"验证码错误",
+                        'sub' => $sub
+                    );
+                };
+        }
+        
+        // 返回已有的账号  作废
+        //$customers = $this->getCustomerMapper()->fetchAll();
+        return array(
+            'form' => $form,
+            'homepage' => $homepage,
+            //'customers' => $customers,
+            'sub' => $sub
+        );
+    }
 }
