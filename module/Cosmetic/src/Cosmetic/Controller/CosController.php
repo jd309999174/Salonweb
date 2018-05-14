@@ -321,7 +321,7 @@ class CosController extends AbstractActionController
         $appname=$this->params('third');
         
         $homepage = $homepage = $this->getPageMapper()->getHomepage($salonnumber); // 美容院标识
-        $account = $this->getAccountMapper()->getAccount1($salonnumber);
+        $account = $this->getAccountMapper()->getAccount($salonnumber);
         
         return new ViewModel(array(
             'salonnumber' => $salonnumber,
