@@ -39,7 +39,7 @@
 </div>
 <br>
 <div style="text-align:center">
-<a class="button blue bigrounded" href="https://itunes.apple.com/cn/app/id1366546695?mt=8">顾客App下载</a>
+<a class="button blue bigrounded" href="https://itunes.apple.com/cn/app/id<?php echo $account->getCustomerappid();?>?mt=8">顾客App下载</a>
 <a style="display: none;" class="button blue bigrounded" href="itms-services://?action=download-manifest&url=https://www.oushelun.cn/appdownload/<?php echo $salonnumber;?>/Customerios.plist">顾客App下载</a>
 </div>
 <?php elseif($appname=='ioscosmetologist'): ?>
@@ -48,7 +48,7 @@
 </div>
 <br>
 <div style="text-align:center">
-<a class="button blue bigrounded" href="https://itunes.apple.com/cn/app/id1380011236?mt=8">美容师App下载</a>
+<a class="button blue bigrounded" href="https://itunes.apple.com/cn/app/id<?php echo $account->getCosmetologistappid();?>?mt=8">美容师App下载</a>
 <a style="display: none;" class="button blue bigrounded" href="itms-services://?action=download-manifest&url=https://www.oushelun.cn/appdownload/<?php echo $salonnumber;?>/Cosmetologistios.plist">美容师App下载</a>
 </div>
 <?php elseif($appname=='iossalonboss'): ?>
@@ -57,7 +57,7 @@
 </div>
 <br>
 <div style="text-align:center">
-<a class="button blue bigrounded" href="https://itunes.apple.com/cn/app/id1380141522?mt=8">院长App下载</a>
+<a class="button blue bigrounded" href="https://itunes.apple.com/cn/app/id<?php echo $account->getSalonbossappid();?>?mt=8">院长App下载</a>
 <a style="display: none;" class="button blue bigrounded" href="itms-services://?action=download-manifest&url=https://www.oushelun.cn/appdownload/<?php echo $salonnumber;?>/Salonbossios.plist">院长App下载</a>
 </div>
 <?php endif;?>

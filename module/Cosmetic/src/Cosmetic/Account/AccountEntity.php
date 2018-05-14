@@ -23,6 +23,9 @@ class AccountEntity
     protected $wechataccount;
     protected $saltoken;
     protected $ioscheck;
+    protected $customerappid;
+    protected $cosmetologistappid;
+    protected $salonbossappid;
     
     public function __construct()
     {
@@ -31,6 +34,54 @@ class AccountEntity
     }
     
     
+    /**
+     * @return the $customerappid
+     */
+    public function getCustomerappid()
+    {
+        return $this->customerappid;
+    }
+
+    /**
+     * @return the $cosmetologistappid
+     */
+    public function getCosmetologistappid()
+    {
+        return $this->cosmetologistappid;
+    }
+
+    /**
+     * @return the $salonbossappid
+     */
+    public function getSalonbossappid()
+    {
+        return $this->salonbossappid;
+    }
+
+    /**
+     * @param field_type $customerappid
+     */
+    public function setCustomerappid($customerappid)
+    {
+        $this->customerappid = $customerappid;
+    }
+
+    /**
+     * @param field_type $cosmetologistappid
+     */
+    public function setCosmetologistappid($cosmetologistappid)
+    {
+        $this->cosmetologistappid = $cosmetologistappid;
+    }
+
+    /**
+     * @param field_type $salonbossappid
+     */
+    public function setSalonbossappid($salonbossappid)
+    {
+        $this->salonbossappid = $salonbossappid;
+    }
+
     /**
      * @return the $ioscheck
      */
