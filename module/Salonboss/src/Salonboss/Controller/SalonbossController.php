@@ -163,6 +163,9 @@ class SalonbossController extends AbstractActionController
                 $page->setPagetype("首页");
                 $page->setSalnumber($regaccount->getSalnumber());
                 $page->setPagename("首页");
+                //默认首页标识使用salbossphoto
+                $salbossphoto = '/salbossphoto/'.$x['salbossphoto'];
+                $page->setPageheaddata1($salbossphoto);
                 $this->getPageMapper()->savePage($page);
                 if (! file_exists('public/salon/'.$post['salnumber'])) {
                     mkdir('public/salon/'.$post['salnumber']);
