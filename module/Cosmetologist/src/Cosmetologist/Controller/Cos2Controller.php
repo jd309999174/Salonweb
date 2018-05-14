@@ -240,7 +240,7 @@ class Cos2Controller extends AbstractActionController
             
                 // 设置session
                 $container = new Container('cosmetologistlogin');
-                $container->salnumber = $sub;
+                $container->salnumber = $cosmetologist->getSalnumber();
                 $container->cosid = $cosmetologist->getCosid();
                 $container->cosname = $cosmetologist->getCosname();
                 $container->cosphone = $cosmetologist->getCosphone();
