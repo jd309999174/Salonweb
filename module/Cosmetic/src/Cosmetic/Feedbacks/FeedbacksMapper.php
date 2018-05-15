@@ -261,7 +261,7 @@ public function saveTask(FeedbacksEntity $task)
      $select->where(array('salnumber' => $id));
      //$select->order(array('salid ASC', 'salnumber ASC'));
      $where=new Where();
-     $where->between('gmtfbdate', $minValue, date("YmdHis",time()));
+     $where->between('gmtfbdate', $minValue, $maxValue);
      $select->where($where);
      $statement = $this->sql->prepareStatementForSqlObject($select);
      $results = $statement->execute();

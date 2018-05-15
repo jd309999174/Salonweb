@@ -185,10 +185,10 @@ class TreatmentMapper
     public function getTreatmentongmtclose($id,$minValue,$maxValue)
     {
         $select = $this->sql->select();
-        $select->where(array('salnumber' => $id));
+        $select->where(array('salnumber' => $id,'trestate'=>'paid'));
         //$select->order(array('salid ASC', 'salnumber ASC'));
         $where=new Where();
-        $where->between('gmtclose', $minValue, date("YmdHis",time()));
+        $where->between('gmtclose', $minValue, $maxValue);
         $select->where($where);
         $statement = $this->sql->prepareStatementForSqlObject($select);
         $results = $statement->execute();
