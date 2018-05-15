@@ -26,6 +26,8 @@ class AccountEntity
     protected $customerappid;
     protected $cosmetologistappid;
     protected $salonbossappid;
+    protected $recommendsal;
+    protected $recommendnum;
     
     public function __construct()
     {
@@ -34,6 +36,38 @@ class AccountEntity
     }
     
     
+    /**
+     * @return the $recommendsal
+     */
+    public function getRecommendsal()
+    {
+        return $this->recommendsal;
+    }
+
+    /**
+     * @return the $recommendnum
+     */
+    public function getRecommendnum()
+    {
+        return $this->recommendnum;
+    }
+
+    /**
+     * @param field_type $recommendsal
+     */
+    public function setRecommendsal($recommendsal)
+    {
+        $this->recommendsal = $recommendsal;
+    }
+
+    /**
+     * @param field_type $recommendnum
+     */
+    public function setRecommendnum($recommendnum)
+    {
+        $this->recommendnum = $recommendnum;
+    }
+
     /**
      * @return the $customerappid
      */

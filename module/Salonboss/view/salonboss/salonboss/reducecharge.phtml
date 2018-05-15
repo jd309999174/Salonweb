@@ -1,0 +1,60 @@
+<link rel="stylesheet" href="/css/zoomify.css">
+<script src="/js/zoomify.js"></script>
+
+<h1 style="border-bottom-color:#cccccc;border-bottom-width:2px;border-bottom-style:solid;padding:0px 4px 0px 0px;margin:0px 0px 10px;">
+    <span style="color:#e36c09;">[如何减免手续费]</span>
+</h1>
+<p>
+    <span style="color:#e36c09;"><br/></span>
+</p>
+<p>
+    <span style="font-family: &quot;STHeiti Light&quot;, &quot;Microsoft YaHei&quot;, SimSun, sans-serif; color: rgb(36, 64, 97);">顾客使用应用购买产品会产生<span style="font-family: &quot;STHeiti Light&quot;, &quot;Microsoft YaHei&quot;, SimSun, sans-serif; color: rgb(255, 0, 0);">3%</span>的手续费，来自支付宝微信手续费和税费。</span>
+</p>
+<p>
+    <span style="font-family: &quot;STHeiti Light&quot;, &quot;Microsoft YaHei&quot;, SimSun, sans-serif; color: rgb(36, 64, 97);"><span style="color: rgb(51, 51, 51); font-family: &quot;STHeiti Light&quot;, &quot;Microsoft YaHei&quot;, SimSun, sans-serif;">（即：顾客花费100元购买产品，您实收款是97元。）</span></span>
+</p>
+<p>
+    <br/>
+</p>
+<p>
+    <span style="font-family: &quot;STHeiti Light&quot;, &quot;Microsoft YaHei&quot;, SimSun, sans-serif; color: rgb(227, 108, 9); font-size: 18px;">可采用以下方法减免手续费：</span>
+</p>
+<p>
+    <span style="background-color: rgb(255, 255, 255); font-family: &quot;STHeiti Light&quot;, &quot;Microsoft YaHei&quot;, SimSun, sans-serif; font-size: 16px; color: rgb(0, 32, 96);">1.顾客通过app选中产品 后，到店支付。</span>
+</p>
+<p>
+    <span style="font-family: &quot;STHeiti Light&quot;, &quot;Microsoft YaHei&quot;, SimSun, sans-serif; color: rgb(227, 108, 9); font-size: 18px;"><span style="color: rgb(0, 32, 96); font-family: &quot;STHeiti Light&quot;, &quot;Microsoft YaHei&quot;, SimSun, sans-serif; background-color: rgb(255, 255, 255);"></span></span>
+</p>
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; white-space: normal;">
+    优点：减免3%手续费<br/>
+</p>
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; white-space: normal;">
+    缺点：无法生成交易记录，评价记录
+</p>
+<p>
+    <span style="font-family: &quot;STHeiti Light&quot;, &quot;Microsoft YaHei&quot;, SimSun, sans-serif; color: rgb(227, 108, 9); font-size: 18px;"><span style="color: rgb(0, 32, 96); font-family: &quot;STHeiti Light&quot;, &quot;Microsoft YaHei&quot;, SimSun, sans-serif; background-color: rgb(255, 255, 255);"><br/></span></span><span style="color: rgb(0, 32, 96); font-family: &quot;STHeiti Light&quot;, &quot;Microsoft YaHei&quot;, SimSun, sans-serif;">2.介绍新店：介绍其他美容院通过二维码注册欧奢伦，每介绍一家新店减免1%手续费。</span>
+</p>
+<p>
+    <span style="color: rgb(0, 32, 96); font-family: &quot;STHeiti Light&quot;, &quot;Microsoft YaHei&quot;, SimSun, sans-serif;"></span>
+</p>
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; white-space: normal;">
+    优点：减免手续费<br/>
+</p>
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; white-space: normal;">
+    缺点：需要介绍3家新店才可全免手续费
+</p><br/>
+<p></p>
+<p>
+    <span style="color: rgb(247, 150, 70);">已介绍&nbsp;<?php if ($account->getRecommendnum()){echo $$account->getRecommendnum();}else{echo 0;}?>&nbsp;家新店</span>
+</p>
+<p>
+    <span style="color: rgb(247, 150, 70);">介绍注册新店请扫描此二维码：</span>
+</p>
+<div style="text-align: center;">
+<img id="recommendqr"  alt="" style="height:300px;width:300px;" src="<?php echo "https://api.qrserver.com/v1/create-qr-code/?data=https://www.oushelun.cn/salonboss/salonbossregister/".id;?>">
+</div>
+
+<script type="text/javascript">
+//图片点击放大
+	$('#recommendqr').zoomify();
+</script>

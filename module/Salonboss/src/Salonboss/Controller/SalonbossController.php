@@ -54,6 +54,8 @@ class SalonbossController extends AbstractActionController
     //TODO register
     public function salonbossregisterAction()
         {
+            $recommend = $this->params('sub');//推荐的美容院编号
+            
             //直接用的顾客短信验证部分
             $container = new Container('customerregister');
             $cusverification = $container->cusverification;
@@ -171,6 +173,11 @@ class SalonbossController extends AbstractActionController
                 if (! file_exists('public/salon/'.$post['salnumber'])) {
                     mkdir('public/salon/'.$post['salnumber']);
                 }
+                
+                //推荐美容院的保存
+                $account=$this->getAccountMapper()->getAccount($recommend);
+                $account->setRecommendnum($account->getRecommendnum()+1);
+                $account->setRecommendsal($account->getRecommendsal().",".$regaccount->getSalnumber().",");
                 // Redirect to list of tasks
                 return $this->redirect()->toRoute('salonboss', array(
                     'action' => 'registerok','sub'=>$post['salaccount'],'third'=>$post['salpassword']
@@ -178,18 +185,21 @@ class SalonbossController extends AbstractActionController
                }else{
                    return array(
                        'form' => $form,
-                       'verificationwrong'=>"验证码错误"
+                       'verificationwrong'=>"验证码错误",
+                       'recommend'=>$recommend
                    );
                }}else{
                    return array(
                        'form' => $form,
-                       'verificationwrong'=>"验证码错误"
+                       'verificationwrong'=>"验证码错误",
+                       'recommend'=>$recommend
                    );
                };
             }
             
             return array(
-                'form' => $form
+                'form' => $form,
+                'recommend'=>$recommend
             );
     }
     public function registerokAction(){
@@ -438,6 +448,19 @@ class SalonbossController extends AbstractActionController
         $signups=$this->getSignupMapper()->getActivityregister($sub);
         
         return array("signups"=>$signups);
+    }
+    //TODO 手续费减免
+    public function reducechargeAction()
+    {
+
+        //取出session
+        $container = new Container('salonbosslogin');
+        $id = $container->salnumber;
+        $salaccount = $container->salaccount;
+        
+        $account = $this->getAccountMapper()->getAccount($id);
+        
+        return array("id"=>$id,'account'=>$account);
     }
     public function cusloginAction()
     {

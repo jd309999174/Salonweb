@@ -108,7 +108,7 @@ $("document").ready(function(){
 <?php
 $form = $this->form;
 $form->setAttribute('action', $this->url('salonboss', array(
-    'action' => 'salonbossregister'
+    'action' => 'salonbossregister','sub'=>$recommend
 )));
 $form->get('submit')->setAttribute('value', '注册');
 $form->get('submit')->setAttribute('class', 'button blue bigrounded');
@@ -175,7 +175,7 @@ echo $this->form()->openTag($form);?>
       </div>
     </div>
      <div class="form-group">
-    <label for="name">&nbsp;美容院名称（作为您的app名称）</label>
+    <label for="name"><span class="fontred">*</span>&nbsp;美容院名称（作为您的app名称）</label>
     <?php echo $this->formRow($form->get('salname'));?>
     </div>
     <div class="form-group">
