@@ -3,18 +3,21 @@ include 'public/php/wechatAppPay.class.php';
 //1.统一下单方法
 $appid="wxc7ff179d403b7a51";
 $mch_id="1500212872";
-$notify_url="https://www.oushelun.cn/customerajax/wechatcheckout";
+$notify_url="www.oushelun.cn/customerajax/wechatcheckout";
 $key="94cef0925df4693e6f5e89ddf3084ce3";
 $wechatAppPay = new wechatAppPay($appid, $mch_id, $notify_url, $key);
 $result = $wechatAppPay->getNotifyData();
 $receivedsign=$result['sign'];
 unset($result['sign']);
 $resultsign=$wechatAppPay->MakeSign($result);
+
+
 if ($receivedsign==$resultsign){
-    
+   
+  
     
     $dbms='mysql';     //数据库类型
-    $host='39.105.36.168:3306'; //数据库主机名
+    $host='localhost'; //数据库主机名
     $dbName='company';    //使用的数据库
     $user='root';      //数据库连接用户名
     $pass='j12321456';          //对应的密码

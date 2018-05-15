@@ -1,6 +1,30 @@
 <link rel="stylesheet" href="/css/zoomify.css">
 <script src="/js/zoomify.js"></script>
 
+
+ <div class="input-group input-group-sm" style="opacity:0.9;background-color:white;padding: 5px;z-index:10;position:fixed;text-align:center;" id="searchcolumn">
+      <span class="input-group-btn" onclick="window.history.back();">
+        <button class="btn btn-default" type="button" style="color:	#00E5EE;">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <span style="font-weight: bold;">
+      
+      </span>
+ </div>
+<!-- 没有作用，只为平衡高度 -->
+<div class="input-group input-group-sm" style="visibility:hidden;padding: 5px;" >
+      <span class="input-group-btn" >
+        <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>
+      <span onclick="window.history.back();">
+      </span>
+ </div>
+ 
+ 
+
 <h1 style="border-bottom-color:#cccccc;border-bottom-width:2px;border-bottom-style:solid;padding:0px 4px 0px 0px;margin:0px 0px 10px;">
     <span style="color:#e36c09;">[如何减免手续费]</span>
 </h1>
@@ -45,13 +69,13 @@
 </p><br/>
 <p></p>
 <p>
-    <span style="color: rgb(247, 150, 70);">已介绍&nbsp;<?php if ($account->getRecommendnum()){echo $$account->getRecommendnum();}else{echo 0;}?>&nbsp;家新店</span>
+    <span style="color: rgb(247, 150, 70);">已介绍&nbsp;<?php if ($account->getRecommendnum()){echo $account->getRecommendnum();}else{echo 0;}?>&nbsp;家新店</span>
 </p>
 <p>
     <span style="color: rgb(247, 150, 70);">介绍注册新店请扫描此二维码：</span>
 </p>
 <div style="text-align: center;">
-<img id="recommendqr"  alt="" style="height:300px;width:300px;" src="<?php echo "https://api.qrserver.com/v1/create-qr-code/?data=https://www.oushelun.cn/salonboss/salonbossregister/".id;?>">
+<img id="recommendqr"  alt="" style="height:300px;width:300px;" src="<?php echo "https://api.qrserver.com/v1/create-qr-code/?data=https://www.oushelun.cn/salonboss/salonbossregister/".$id;?>">
 </div>
 
 <script type="text/javascript">

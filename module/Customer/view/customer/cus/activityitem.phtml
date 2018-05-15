@@ -105,7 +105,7 @@ $(document).ready(function(){
 </script>
 <?php //占位
 if($page->getPagetype()=="活动"):?>
-<button type="button" class="btn btn-danger btn-lg btn-block" style="display:none;">报名</button>
+<button type="button" class="btn btn-danger btn-lg btn-block" style="visibility:hidden;">报名</button>
 <?php if($page->getPageexpiration()<date("Y-m-d")):?>
 <button type="button" id="signupsubmit" class="btn btn-warning btn-lg btn-block" style="position: fixed;bottom:0px;" disabled>活动已结束</button>
 <?php elseif ($signupstate=="no"):?>

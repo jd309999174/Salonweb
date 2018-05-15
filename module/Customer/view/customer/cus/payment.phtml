@@ -20,7 +20,7 @@ $bizcontent = "{'body':'".$id."，".$cusid."，".$_POST['prodid']."，".$_POST['
                 . "'total_amount': '".$treprice."',"
                 . "'product_code':'QUICK_MSECURITY_PAY'"
                 . "}";
-$request->setNotifyUrl("39.105.36.168/customerajax/alipaycheckout");
+$request->setNotifyUrl("www.oushelun.cn/customerajax/alipaycheckout");
 $request->setBizContent($bizcontent);
 //这里和普通的接口调用不同，使用的是sdkExecute
 $response = $aop->sdkExecute($request);
@@ -47,7 +47,7 @@ include 'public/php/wechatAppPay.class.php';
  //1.统一下单方法
 $appid="wxc7ff179d403b7a51";
 $mch_id="1500212872";
-$notify_url="39.105.36.168/customerajax/wechatcheckout";
+$notify_url="www.oushelun.cn/customerajax/wechatcheckout";
 $key="94cef0925df4693e6f5e89ddf3084ce3";
 $wechatAppPay = new wechatAppPay($appid, $mch_id, $notify_url, $key);
 $params['body'] = $_POST['prodtitle']; //商品描述
@@ -105,7 +105,7 @@ $bizcontent = "{'body':'".$id."，".$cusid."，".$cosid."，tippay，"."',"
                 . "'total_amount': '".$tipmoney."',"
                 . "'product_code':'QUICK_MSECURITY_PAY'"
                 . "}";
-$request->setNotifyUrl("39.105.36.168/customerajax/alipaycheckout");
+$request->setNotifyUrl("www.oushelun.cn/customerajax/alipaycheckout");
 $request->setBizContent($bizcontent);
 //这里和普通的接口调用不同，使用的是sdkExecute
 $response = $aop->sdkExecute($request);
@@ -132,7 +132,7 @@ include 'public/php/wechatAppPay.class.php';
  //1.统一下单方法
 $appid="wxc7ff179d403b7a51";
 $mch_id="1500212872";
-$notify_url="39.105.36.168/customerajax/wechatcheckout";
+$notify_url="www.oushelun.cn/customerajax/wechatcheckout";
 $key="94cef0925df4693e6f5e89ddf3084ce3";
 $wechatAppPay = new wechatAppPay($appid, $mch_id, $notify_url, $key);
 $params['body'] = "打赏"; //商品描述
