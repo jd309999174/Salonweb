@@ -15,7 +15,7 @@ return array(
         'Zend\InputFilter',
         'Zend\Filter',
         'Zend\Validator',
-        'Application','Checklist','Cosmetic','Customer','Decorate','Cosmetologist','Salonboss','Seller'
+        'Application','Checklist','Cosmetic','Customer','Decorate','Cosmetologist','Salonboss'
     ),
     // These are various options for the listeners attached to the ModuleManager
     'module_listener_options' => array(
@@ -25,7 +25,7 @@ return array(
         // Module class.
         'module_paths' => array(
             './module',
-            './vendor','./module','./module','./module','./module','./module','./module','./module','./module','./module',
+            './vendor','./module','./module','./module','./module','./module','./module','./module','./module'
         ),
         // An array of paths from which to glob configuration files after
         // modules are loaded. These effectively override configuration
