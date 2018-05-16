@@ -15,7 +15,7 @@ return array(
         'Zend\InputFilter',
         'Zend\Filter',
         'Zend\Validator',
-        'Application','Checklist','Cosmetic','Customer','Decorate','Cosmetologist','Salonboss'
+        'Application','Checklist','Cosmetic','Customer','Decorate','Cosmetologist','Salonboss','Seller'
     ),
     // These are various options for the listeners attached to the ModuleManager
     'module_listener_options' => array(
@@ -61,8 +61,8 @@ return array(
     //         'method'          => $stringRequiredMethodName,
     //     ),
     // )
-
-   // Initial configuration with which to seed the ServiceManager.
-   // Should be compatible with Zend\ServiceManager\Config.
-   // 'service_manager' => array(),
+    
+    // Initial configuration with which to seed the ServiceManager.
+    // Should be compatible with Zend\ServiceManager\Config.
+    // 'service_manager' => array(),
 );
