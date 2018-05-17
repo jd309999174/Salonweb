@@ -175,10 +175,12 @@ class SalonbossController extends AbstractActionController
                 }
                 
                 //推荐美容院的保存
+                if ($recommend){
                 $account=$this->getAccountMapper()->getAccount($recommend);
                 $account->setRecommendnum($account->getRecommendnum()+1);
                 $account->setRecommendsal($account->getRecommendsal().",".$regaccount->getSalnumber().",");
                 $this->getAccountMapper()->saveAccount($account);
+                }
                 // Redirect to list of tasks
                 return $this->redirect()->toRoute('salonboss', array(
                     'action' => 'registerok','sub'=>$post['salaccount'],'third'=>$post['salpassword']
