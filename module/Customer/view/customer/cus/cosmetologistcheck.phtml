@@ -57,6 +57,8 @@ array_push($cars1,array(
 <div class="panel panel-default">
     <div class="panel-heading"  style="background-color:<?php echo $homepage->getPagecolor();?>;text-align: center;border-radius:16px;">
         <div class="panel-title" style="font-size: large;"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;欧奢伦团队</div>
+        <a href="#" onclick="shareapp()">
+             <span class="glyphicon glyphicon-share" aria-hidden="true"></span>&nbsp;分享应用</a>
     </div>
     <div class="panel-body">
        
@@ -149,4 +151,19 @@ function myrefresh()
 window.location.reload(); 
 } 
 setTimeout('myrefresh()',5*60*1000); //指定1秒刷新一次 
+</script> 
+
+<script>
+function shareapp(){
+	var u = navigator.userAgent;
+	var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+	var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+    if(isAndroid){
+        //加引号就是字符串
+    	window.android.shareapp("<?php echo $account->getSalname();?>线上app下载地址：https://www.oushelun.cn/cosmeticlogin/appdownload/<?php echo $id;?>/androidcustomer");
+        }
+    if(isiOS){
+        window.webkit.messageHandlers.iosshareapp.postMessage("<?php echo $account->getSalname();?>线上app下载地址：https://www.oushelun.cn/cosmeticlogin/appdownload/<?php echo $id;?>/ioscustomer");
+            }
+}
 </script> 

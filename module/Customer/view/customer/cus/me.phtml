@@ -96,12 +96,30 @@
 
 <hr>
 <div class="row" style="text-align: center;">
-Copyright @2018-2022&nbsp;&nbsp;&nbsp;<a href="<?php echo $this->url('customer',
+<a href="#" onclick="shareapp()">
+             <span class="glyphicon glyphicon-share" aria-hidden="true"></span>&nbsp;分享应用</a>
+             &nbsp;&nbsp;&nbsp;<a href="<?php echo $this->url('customer',
              array('action'=>'suggestioncus'));?>">
-             <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>意见与建议</a>
+             <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;意见与建议</a>
+</div>
+<div class="row" style="text-align: center;">
+Copyright @2018-2022
 </div>
 
-              
+<script>
+function shareapp(){
+	var u = navigator.userAgent;
+	var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+	var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+    if(isAndroid){
+        //加引号就是字符串
+    	window.android.shareapp("<?php echo $account->getSalname();?>线上app下载地址：https://www.oushelun.cn/cosmeticlogin/appdownload/<?php echo $id;?>/androidcustomer");
+        }
+    if(isiOS){
+        window.webkit.messageHandlers.iosshareapp.postMessage("<?php echo $account->getSalname();?>线上app下载地址：https://www.oushelun.cn/cosmeticlogin/appdownload/<?php echo $id;?>/ioscustomer");
+            }
+}
+</script>              
 <?php //TODO 底部菜单栏  用于站位?>
 <div class="btn-group btn-group-justified" role="group" style="visibility:hidden">
   <div class="btn-group" role="group" style="text-align:center;" >

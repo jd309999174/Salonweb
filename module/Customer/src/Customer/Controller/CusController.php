@@ -1301,13 +1301,16 @@ class CusController extends AbstractActionController
         foreach ($unread as $unreadone){
             $unreadsum=$unreadsum+$unreadone->getNumber();
         }
+        
+        $account=$this->getAccountMapper()->getAccount($id);
         return new ViewModel(array(
             'cosmetologists' => $mapper1->getCosmetologist($id),
             'salons' => $mapper2->getSalon($id),
             'id' => $id,
             'receiveunread'=>$receiveunread,
             'unreadsum'=>$unreadsum,
-            'homepage'=>$homepage
+            'homepage'=>$homepage,
+            'account'=>$account
         ));
     }
     
@@ -1721,6 +1724,8 @@ public function chatajaxAction()
         $cusname = $container->cusname;
         $cusphone = $container->cusphone;
         
+        $account=$this->getAccountMapper()->getAccount($id);
+        
         $customer=$this->getCustomerMapper()->getCustomer1($cusid);
         //未读信息
         $unread=$this->getUnreadMapper()->getTask1("cus".$cusid);
@@ -1737,7 +1742,8 @@ public function chatajaxAction()
             'cusphone' => $cusphone,
             'customer'=>$customer,
             'unreadsum'=>$unreadsum,
-            'homepage'=>$homepage
+            'homepage'=>$homepage,
+            'account'=>$account
         );
     }
     //TODO 订单
