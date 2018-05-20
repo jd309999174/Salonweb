@@ -10,6 +10,10 @@
  $form = $this->form;
  $url = $this->url('cosmetic', array('action' => 'salonedit','sub'=>$sub));
  $form->setAttribute('action', $url);
+ $form->get('salbranch')->setAttribute('required', 'required');
+ $form->get('salname')->setAttribute('required', 'required');
+ $form->get('salphone')->setAttribute('required', 'required');
+ $form->get('saladdress')->setAttribute('required', 'required');
  $form->get('submit')->setAttribute('value', '提交');
  $form->get('submit')->setAttribute('id', 'submit');
  $form->prepare();echo $this->form()->openTag($form);?>

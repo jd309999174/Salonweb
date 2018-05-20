@@ -3,6 +3,9 @@ $form = $this->form;
 $form->setAttribute('action', $this->url('cosmetic', array(
     'action' => 'cosmetologistadd'
 )));
+$form->get('cosphone')->setAttribute('required', 'required');
+$form->get('cospassword')->setAttribute('required', 'required');
+$form->get('cosyears')->setAttribute('required', 'required');
 $form->get('submit')->setAttribute('value', '提交');
 $form->prepare();echo $this->form()->openTag($form);?>
 
