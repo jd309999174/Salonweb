@@ -1951,21 +1951,8 @@ public function chatajaxAction()
     // TODO foo
     public function fooAction()
     {
-        $cars=array("Volvo","BMW","Toyota","Volvo","BMW","Toyota","Volvo","BMW","Toyota","Volvo","BMW","Toyota","Volvo","BMW","Toyota","Volvo","BMW","Toyota","Volvo","BMW","Toyota","Volvo","BMW","Toyota","Volvo","BMW","Toyota");
-        $paginator = new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\ArrayAdapter($cars));
-        $paginator->setCurrentPageNumber($this->params()->fromRoute('sub'));
         
-        $request = $this->getRequest();
-        $y = $request->getFiles()->toArray();
-        
-        move_uploaded_file($y['input-b3']['tmp_name'], 'public/' . "123.jpg");
-        
-        $vm = new ViewModel();
-        $vm->setVariable('paginator', $paginator);
-        
-        $lotteryentity=new LotteryEntity();
-        $this->getLotteryMapper()->saveLottery($lotteryentity);
-        return $vm;
+        return array();
     }
     
     // TODO tip

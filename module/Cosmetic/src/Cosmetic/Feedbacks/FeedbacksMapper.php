@@ -258,9 +258,10 @@ public function saveTask(FeedbacksEntity $task)
  public function getFeedbacksongmtfbdate($id,$minValue,$maxValue)
  {
      $select = $this->sql->select();
-     $select->where(array('salnumber' => $id));
+     //$select->where(array('salnumber' => $id));
      //$select->order(array('salid ASC', 'salnumber ASC'));
      $where=new Where();
+     $where->equalTo('salnumber', $id);
      $where->between('gmtfbdate', $minValue, $maxValue);
      $select->where($where);
      $statement = $this->sql->prepareStatementForSqlObject($select);
