@@ -772,7 +772,7 @@ class CusController extends AbstractActionController
 
                     return $this->redirect()->toRoute('customer', array(
                         'action' => 'homepage',
-                        'sub' => $sub,
+                        'sub' => $customer->getCusid(),
                         'third'=>"login"
                     ));
                 } else {
