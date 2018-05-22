@@ -28,7 +28,7 @@ class ProductEntity
     protected $prodtreatment;
     protected $prodsales;
     protected $prodregdate;
-    protected $sharedstate = 0;
+    protected $sharedstate;
     
     public function __construct()
     {

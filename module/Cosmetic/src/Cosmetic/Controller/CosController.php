@@ -1148,6 +1148,9 @@ class CosController extends AbstractActionController
             $form->setData($post);
             if ($form->isValid()) {
                 $data = $form->getData();
+                if ($post['sharedstate']==0){
+                    $product->setSharedstate($id);
+                }
                 $this->getProductMapper()->saveProduct($product);
                 
                 //创建此产品的详情页
@@ -1202,7 +1205,9 @@ class CosController extends AbstractActionController
             $form->setData($post);
             if ($form->isValid()) {
                 $data = $form->getData();
-                
+                if ($post['sharedstate']==0){
+                    $product->setSharedstate($id);
+                }
                 $this->getProductMapper()->saveProduct($product);
                         // Redirect to list of tasks
                 return $this->redirect()->toRoute('cosmetic', array(
@@ -1399,9 +1404,14 @@ class CosController extends AbstractActionController
                 &&preg_match("^".$_GET['orderid']."^", $treatment->getOrderid())
                 &&preg_match("^".$_GET['cusname']."^", $treatment->getCusname())
                 &&$gmtclosebegin=="19700101080000"&&$gmtclosefinish=="19700101080000"){
+                    switch ($_GET['ordertype']){
+                    case 1:
+                        if ($id==$treatment->getSalnumber()&&$id==$treatment->getProdsalnumber()){
                     array_push($cars,array(
                         "orderid"=>$treatment->getOrderid(),
                         "treid"=>$treatment->getTreid(),
+                        "salnumber"=>$treatment->getSalnumber(),
+                        "prodsalnumber"=>$treatment->getProdsalnumber(),
                         "productcombinationpicture"=>$treatment->getProductcombinationpicture(),
                         "prodtitle"=>$treatment->getProdtitle(),
                         "productcombinationname"=>$treatment->getProductcombinationname(),
@@ -1412,26 +1422,143 @@ class CosController extends AbstractActionController
                         "treregdate"=>$treatment->getTreregdate(),
                         "treremark"=>$treatment->getTreremark(),
                         "gmtclose"=>$gmtclose
-                    ));
+                    ));}
+                break;
+                    case 2:
+                        if ($id!=$treatment->getSalnumber()&&$id==$treatment->getProdsalnumber()){
+                            array_push($cars,array(
+                                "orderid"=>$treatment->getOrderid(),
+                                "treid"=>$treatment->getTreid(),
+                                "salnumber"=>$treatment->getSalnumber(),
+                                "prodsalnumber"=>$treatment->getProdsalnumber(),
+                                "productcombinationpicture"=>$treatment->getProductcombinationpicture(),
+                                "prodtitle"=>$treatment->getProdtitle(),
+                                "productcombinationname"=>$treatment->getProductcombinationname(),
+                                "treprice"=>$treatment->getTreprice(),
+                                "productquantity"=>$treatment->getProductquantity(),
+                                "cusname"=>$treatment->getCusname(),
+                                "trestate"=>$treatment->getTrestate(),
+                                "treregdate"=>$treatment->getTreregdate(),
+                                "treremark"=>$treatment->getTreremark(),
+                                "gmtclose"=>$gmtclose
+                            ));}
+                break;
+                    case 3:
+                        if ($id==$treatment->getSalnumber()&&$id!=$treatment->getProdsalnumber()){
+                            array_push($cars,array(
+                                "orderid"=>$treatment->getOrderid(),
+                                "treid"=>$treatment->getTreid(),
+                                "salnumber"=>$treatment->getSalnumber(),
+                                "prodsalnumber"=>$treatment->getProdsalnumber(),
+                                "productcombinationpicture"=>$treatment->getProductcombinationpicture(),
+                                "prodtitle"=>$treatment->getProdtitle(),
+                                "productcombinationname"=>$treatment->getProductcombinationname(),
+                                "treprice"=>$treatment->getTreprice(),
+                                "productquantity"=>$treatment->getProductquantity(),
+                                "cusname"=>$treatment->getCusname(),
+                                "trestate"=>$treatment->getTrestate(),
+                                "treregdate"=>$treatment->getTreregdate(),
+                                "treremark"=>$treatment->getTreremark(),
+                                "gmtclose"=>$gmtclose
+                            ));}
+                break;
+                    default:
+                        array_push($cars,array(
+                        "orderid"=>$treatment->getOrderid(),
+                        "treid"=>$treatment->getTreid(),
+                        "salnumber"=>$treatment->getSalnumber(),
+                        "prodsalnumber"=>$treatment->getProdsalnumber(),
+                        "productcombinationpicture"=>$treatment->getProductcombinationpicture(),
+                        "prodtitle"=>$treatment->getProdtitle(),
+                        "productcombinationname"=>$treatment->getProductcombinationname(),
+                        "treprice"=>$treatment->getTreprice(),
+                        "productquantity"=>$treatment->getProductquantity(),
+                        "cusname"=>$treatment->getCusname(),
+                        "trestate"=>$treatment->getTrestate(),
+                        "treregdate"=>$treatment->getTreregdate(),
+                        "treremark"=>$treatment->getTreremark(),
+                        "gmtclose"=>$gmtclose
+                        ));}
             }elseif(preg_match("^".$_GET['trestate']."^", $treatment->getTrestate())&&
                 preg_match("^".$_GET['prodtitle']."^", $treatment->getProdtitle())
                 &&preg_match("^".$_GET['orderid']."^", $treatment->getOrderid())
                 &&preg_match("^".$_GET['cusname']."^", $treatment->getCusname())
                 &&$gmtclosebegin<=$treatment->getGmtclose()&&$treatment->getGmtclose()<=$gmtclosefinish){
-                    array_push($cars,array(
-                        "orderid"=>$treatment->getOrderid(),
-                        "treid"=>$treatment->getTreid(),
-                        "productcombinationpicture"=>$treatment->getProductcombinationpicture(),
-                        "prodtitle"=>$treatment->getProdtitle(),
-                        "productcombinationname"=>$treatment->getProductcombinationname(),
-                        "treprice"=>$treatment->getTreprice(),
-                        "productquantity"=>$treatment->getProductquantity(),
-                        "cusname"=>$treatment->getCusname(),
-                        "trestate"=>$treatment->getTrestate(),
-                        "treregdate"=>$treatment->getTreregdate(),
-                        "treremark"=>$treatment->getTreremark(),
-                        "gmtclose"=>$gmtclose
-                    ));
+                    switch ($_GET['ordertype']){
+                        case 1:
+                            if ($id==$treatment->getSalnumber()&&$id==$treatment->getProdsalnumber()){
+                                array_push($cars,array(
+                                    "orderid"=>$treatment->getOrderid(),
+                                    "treid"=>$treatment->getTreid(),
+                                    "salnumber"=>$treatment->getSalnumber(),
+                                    "prodsalnumber"=>$treatment->getProdsalnumber(),
+                                    "productcombinationpicture"=>$treatment->getProductcombinationpicture(),
+                                    "prodtitle"=>$treatment->getProdtitle(),
+                                    "productcombinationname"=>$treatment->getProductcombinationname(),
+                                    "treprice"=>$treatment->getTreprice(),
+                                    "productquantity"=>$treatment->getProductquantity(),
+                                    "cusname"=>$treatment->getCusname(),
+                                    "trestate"=>$treatment->getTrestate(),
+                                    "treregdate"=>$treatment->getTreregdate(),
+                                    "treremark"=>$treatment->getTreremark(),
+                                    "gmtclose"=>$gmtclose
+                                ));}
+                                break;
+                        case 2:
+                            if ($id!=$treatment->getSalnumber()&&$id==$treatment->getProdsalnumber()){
+                                array_push($cars,array(
+                                    "orderid"=>$treatment->getOrderid(),
+                                    "treid"=>$treatment->getTreid(),
+                                    "salnumber"=>$treatment->getSalnumber(),
+                                    "prodsalnumber"=>$treatment->getProdsalnumber(),
+                                    "productcombinationpicture"=>$treatment->getProductcombinationpicture(),
+                                    "prodtitle"=>$treatment->getProdtitle(),
+                                    "productcombinationname"=>$treatment->getProductcombinationname(),
+                                    "treprice"=>$treatment->getTreprice(),
+                                    "productquantity"=>$treatment->getProductquantity(),
+                                    "cusname"=>$treatment->getCusname(),
+                                    "trestate"=>$treatment->getTrestate(),
+                                    "treregdate"=>$treatment->getTreregdate(),
+                                    "treremark"=>$treatment->getTreremark(),
+                                    "gmtclose"=>$gmtclose
+                                ));}
+                                break;
+                        case 3:
+                            if ($id==$treatment->getSalnumber()&&$id!=$treatment->getProdsalnumber()){
+                                array_push($cars,array(
+                                    "orderid"=>$treatment->getOrderid(),
+                                    "treid"=>$treatment->getTreid(),
+                                    "salnumber"=>$treatment->getSalnumber(),
+                                    "prodsalnumber"=>$treatment->getProdsalnumber(),
+                                    "productcombinationpicture"=>$treatment->getProductcombinationpicture(),
+                                    "prodtitle"=>$treatment->getProdtitle(),
+                                    "productcombinationname"=>$treatment->getProductcombinationname(),
+                                    "treprice"=>$treatment->getTreprice(),
+                                    "productquantity"=>$treatment->getProductquantity(),
+                                    "cusname"=>$treatment->getCusname(),
+                                    "trestate"=>$treatment->getTrestate(),
+                                    "treregdate"=>$treatment->getTreregdate(),
+                                    "treremark"=>$treatment->getTreremark(),
+                                    "gmtclose"=>$gmtclose
+                                ));}
+                                break;
+                        default:
+                            array_push($cars,array(
+                            "orderid"=>$treatment->getOrderid(),
+                            "treid"=>$treatment->getTreid(),
+                            "salnumber"=>$treatment->getSalnumber(),
+                            "prodsalnumber"=>$treatment->getProdsalnumber(),
+                            "productcombinationpicture"=>$treatment->getProductcombinationpicture(),
+                            "prodtitle"=>$treatment->getProdtitle(),
+                            "productcombinationname"=>$treatment->getProductcombinationname(),
+                            "treprice"=>$treatment->getTreprice(),
+                            "productquantity"=>$treatment->getProductquantity(),
+                            "cusname"=>$treatment->getCusname(),
+                            "trestate"=>$treatment->getTrestate(),
+                            "treregdate"=>$treatment->getTreregdate(),
+                            "treremark"=>$treatment->getTreremark(),
+                            "gmtclose"=>$gmtclose
+                            ));}
             } }
             foreach ($cars as $key => $row) {
                 $x[$key] = $row['treid'];}
