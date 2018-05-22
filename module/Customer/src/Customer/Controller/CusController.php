@@ -2054,7 +2054,7 @@ public function chatajaxAction()
             if ($third=='product'){
             $entity = new TreatmentEntity();
             $entity->setSalnumber($id);
-            $orderid=$id.$cusid.$_POST['prodid'].date('YmdHis');
+            $orderid=date('YmdHis').$cusid;
             $entity->setOrderid($orderid);
             $entity->setCusid($cusid);
             $entity->setCusname($cusname);
@@ -2102,7 +2102,7 @@ public function chatajaxAction()
             $entity->setCosphoto($_POST['cosphoto']);
             $entity->setSalnumber($id);
             $entity->setTipstate("nonpayment");
-            $orderid=$id.$cusid.$_POST['cosid'].date('YmdHis');
+            $orderid=date('YmdHis').$cusid;
             $entity->setOrderid($orderid);
             $entity->setTipmoney($_POST['tipmoney']);
             
