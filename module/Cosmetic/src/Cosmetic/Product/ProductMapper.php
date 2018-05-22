@@ -87,7 +87,9 @@ public function saveProduct(ProductEntity $product)
  public function getProductoffset($id,$prodoffset,$prodorder,$prodtitle,$prodclassify)
  {
      $select = $this->sql->select();
-     $select->where(array('salnumber' => array($id,1),'prodtitle LIKE "%'.$prodtitle.'%"','proddemandclassifyseries LIKE "%'.$prodclassify.'%"'));
+     //产品共享，不再按美容院id，而是按产品共享状态
+     //$select->where(array('salnumber' => array($id,1),'prodtitle LIKE "%'.$prodtitle.'%"','proddemandclassifyseries LIKE "%'.$prodclassify.'%"'));
+     $select->where(array('sharedstate' => 1,'prodtitle LIKE "%'.$prodtitle.'%"','proddemandclassifyseries LIKE "%'.$prodclassify.'%"'));
      switch ($prodorder)
      {
          case "prodsynthesis":

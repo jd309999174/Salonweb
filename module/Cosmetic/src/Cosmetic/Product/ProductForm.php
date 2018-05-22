@@ -75,19 +75,7 @@ class ProductForm extends Form
                 'required'=>'required'
             )
         ));
-        $this->add(array(
-            'name' => 'proddiscount',
-            'type' => 'text',
-            'options' => array(
-               
-            ),
-            'attributes' => array(
-                'class'=>'form-control',
-                'placeholder'=>"请输入折扣",
-                'maxlength' => 100,
-                'required'=>'required'
-            )
-        ));
+        
         $this->add(array(
             'name' => 'prodpicture1',
             'type' => 'text',
@@ -148,28 +136,7 @@ class ProductForm extends Form
                 'maxlength' => 100
             )
         ));
-        $this->add(array(
-            'name' => 'proddescription',
-            'type' => 'text',
-            'options' => array(
-                'label' => '产品描述'
-            ),
-            'attributes' => array(
-               
-                'maxlength' => 100
-            )
-        ));
-        $this->add(array(
-            'name' => 'prodservice',
-            'type' => 'text',
-            'options' => array(
-                'label' => '服务流程'
-            ),
-            'attributes' => array(
-              
-                'maxlength' => 100
-            )
-        ));
+        
         $this->add(array(
             'name' => 'proddemandclassifyseries',
             'type' => 'text',
@@ -299,6 +266,10 @@ class ProductForm extends Form
                 'maxlength' => 100,
                 'required'=>'required'
             )
+        ));
+        $this->add(array(
+            'name' => 'sharedstate',
+            'type' => 'checkbox',
         ));
         $this->add(array(
             'name' => 'prodsales',

@@ -4,8 +4,7 @@ foreach ($products as $product){
 array_push($homepage2cars,array("prodid"=>$product->getProdid(),"prodsales"=>$product->getProdsales(),
     "prodtitle"=>$product->getProdtitle(),"prodpicture1"=>$product->getProdpicture1(),
     "prodprice"=>$product->getProdprice(),"prodoriginal"=>$product->getProdoriginal(),
-    "prodregdate"=>$product->getProdregdate(),
-    "proddiscount"=>$product->getProddiscount()));
+    "prodregdate"=>$product->getProdregdate()));
 }?>
 <?php  //风格1
 if ($prodstyle=="1"):?>

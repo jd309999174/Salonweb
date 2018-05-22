@@ -8,14 +8,14 @@ class ProductEntity
     protected $prodtitle;
     protected $prodprice;
     protected $prodoriginal;
-    protected $proddiscount;
+    //protected $proddiscount; 折扣废除
     protected $prodpicture1;
     protected $prodpicture2;
     protected $prodpicture3;
     protected $prodpicture4;
     protected $prodpicture5;
-    protected $proddescription;
-    protected $prodservice;
+    //protected $proddescription; 描述废除
+    //protected $prodservice; 服务流程废除
     protected $proddemandclassifyseries;
     protected $prodbrand;
     protected $prodspecification;
@@ -28,59 +28,12 @@ class ProductEntity
     protected $prodtreatment;
     protected $prodsales;
     protected $prodregdate;
+    protected $sharedstate = 0;
     
     public function __construct()
     {
         $this->prodregdate = date('Y-m-d H:i:s');
     }
-    /**
-     * @return the $prodoriginal
-     */
-    public function getProdoriginal()
-    {
-        return $this->prodoriginal;
-    }
-
-    /**
-     * @param field_type $prodoriginal
-     */
-    public function setProdoriginal($prodoriginal)
-    {
-        $this->prodoriginal = $prodoriginal;
-    }
-
-    /**
-     * @return the $prodsales
-     */
-    public function getProdsales()
-    {
-        return $this->prodsales;
-    }
-
-    /**
-     * @return the $prodregdate
-     */
-    public function getProdregdate()
-    {
-        return $this->prodregdate;
-    }
-
-    /**
-     * @param field_type $prodsales
-     */
-    public function setProdsales($prodsales)
-    {
-        $this->prodsales = $prodsales;
-    }
-
-    /**
-     * @param field_type $prodregdate
-     */
-    public function setProdregdate($prodregdate)
-    {
-        $this->prodregdate = $prodregdate;
-    }
-
     /**
      * @return the $prodid
      */
@@ -114,11 +67,11 @@ class ProductEntity
     }
 
     /**
-     * @return the $proddiscount
+     * @return the $prodoriginal
      */
-    public function getProddiscount()
+    public function getProdoriginal()
     {
-        return $this->proddiscount;
+        return $this->prodoriginal;
     }
 
     /**
@@ -159,22 +112,6 @@ class ProductEntity
     public function getProdpicture5()
     {
         return $this->prodpicture5;
-    }
-
-    /**
-     * @return the $proddescription
-     */
-    public function getProddescription()
-    {
-        return $this->proddescription;
-    }
-
-    /**
-     * @return the $prodservice
-     */
-    public function getProdservice()
-    {
-        return $this->prodservice;
     }
 
     /**
@@ -258,6 +195,30 @@ class ProductEntity
     }
 
     /**
+     * @return the $prodsales
+     */
+    public function getProdsales()
+    {
+        return $this->prodsales;
+    }
+
+    /**
+     * @return the $prodregdate
+     */
+    public function getProdregdate()
+    {
+        return $this->prodregdate;
+    }
+
+    /**
+     * @return the $sharedstate
+     */
+    public function getSharedstate()
+    {
+        return $this->sharedstate;
+    }
+
+    /**
      * @param field_type $prodid
      */
     public function setProdid($prodid)
@@ -290,11 +251,11 @@ class ProductEntity
     }
 
     /**
-     * @param field_type $proddiscount
+     * @param field_type $prodoriginal
      */
-    public function setProddiscount($proddiscount)
+    public function setProdoriginal($prodoriginal)
     {
-        $this->proddiscount = $proddiscount;
+        $this->prodoriginal = $prodoriginal;
     }
 
     /**
@@ -335,22 +296,6 @@ class ProductEntity
     public function setProdpicture5($prodpicture5)
     {
         $this->prodpicture5 = $prodpicture5;
-    }
-
-    /**
-     * @param field_type $proddescription
-     */
-    public function setProddescription($proddescription)
-    {
-        $this->proddescription = $proddescription;
-    }
-
-    /**
-     * @param field_type $prodservice
-     */
-    public function setProdservice($prodservice)
-    {
-        $this->prodservice = $prodservice;
     }
 
     /**
@@ -433,4 +378,29 @@ class ProductEntity
         $this->prodtreatment = $prodtreatment;
     }
 
+    /**
+     * @param field_type $prodsales
+     */
+    public function setProdsales($prodsales)
+    {
+        $this->prodsales = $prodsales;
+    }
+
+    /**
+     * @param string $prodregdate
+     */
+    public function setProdregdate($prodregdate)
+    {
+        $this->prodregdate = $prodregdate;
+    }
+
+    /**
+     * @param field_type $sharedstate
+     */
+    public function setSharedstate($sharedstate)
+    {
+        $this->sharedstate = $sharedstate;
+    }
+
+    
 }
