@@ -170,6 +170,8 @@ echo $this->formRow($form->get('cusid'));
 echo $this->formRow($form->get('salnumber'));
 echo $this->formRow($form->get('prodid'));
 echo $this->formRow($form->get('productcombinationid'));
+echo $this->formhidden($form->get('expresscompany'));
+echo $this->formhidden($form->get('expressid'));
 echo $this->formhidden($form->get('expressstate'));
 echo $this->formInput($form->get('submit'));
 echo $this->form()->closeTag($form);
