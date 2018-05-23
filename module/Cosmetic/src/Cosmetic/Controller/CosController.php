@@ -455,6 +455,11 @@ class CosController extends AbstractActionController
         
         return new ViewModel();
     }
+    public function treatmentexpressAction()
+    {
+        
+        return new ViewModel();
+    }
     
     //curaddress
     public function curaddressAction()

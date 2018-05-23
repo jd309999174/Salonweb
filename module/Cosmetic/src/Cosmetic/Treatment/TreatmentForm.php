@@ -98,9 +98,16 @@ class TreatmentForm extends Form
         ));
         $this->add(array(
             'name' => 'expresscompany',
-            'type' => 'text',
+            'type' => 'select',
             'options' => array(
-                'label' => '快递公司'
+                'label' => '快递公司',
+                'value_options' => array(
+                    'shunfeng' => '顺丰',
+                    'yuantong' => '圆通',
+                    'zhongtong' => '中通',
+                    'shentong' => '申通',
+                    'yunda' => '韵达'
+                ),
             ),
             'attributes' => array(
                 'maxlength' => 100

@@ -134,11 +134,25 @@ echo $this->form()->closeTag($form);?>
 <div class="well">备注：
 <?php echo $treatment->getTreremark();?>
 </div>
-<div class="well">快递名称：
-<?php echo $treatment->getExpresscompany();?>
-</div>
-<div class="well">快递单号：
-<?php echo $treatment->getExpressid();?>
+<div class="well">
+快递名称：<?php switch ($treatment->getExpresscompany()){
+    case "shunfeng":
+        echo "顺丰";
+        break;
+    case "yuantong":
+        echo "圆通";
+        break;
+    case "zhongtong":
+        echo "中通";
+        break;
+    case "shentong":
+        echo "申通";
+        break;
+    case "yunda":
+        echo "韵达";
+        break;
+}?>
+&nbsp;&nbsp;&nbsp;快递单号：<?php echo $treatment->getExpressid();?>&nbsp;&nbsp;&nbsp;<?php if ($treatment->getExpressid()){?><a href='/cosmetic/treatmentexpress?com=<?php echo $treatment->getExpresscompany();?>&nu=<?php echo $treatment->getExpressid();?>'>查询</a ><?php }?>
 </div>
 <div class="well">确认收货：
 <?php
