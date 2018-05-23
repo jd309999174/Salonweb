@@ -1,8 +1,25 @@
-<?php if ($treatment->getTrestate()!=="paid"){
- $title = '订单修改';
- $this->headTitle($title);
- ?>
- <h5><?php echo $this->escapeHtml($title); ?></h5>
+<?php /*
+未付款{
+如果是1：修改价格，查看备注
+如果是2：查看地址，查看备注
+如果是3：查看备注，顾客电话
+}已付款{
+如果1：查看备注，查看评价
+如果2：修改快递名称，快递单号，查看地址，查看备注
+如果3：查看快递名称，查看快递单号，确认收货，查看备注，查看评价
+} */?>
+<?php if ($treatment->getTrestate()!="paid"){?>
+<?php if ($id==$treatment->getSalnumber()&&$id==$treatment->getProdsalnumber()){?>
+ <h5>顾客：</h5>
+ <div class="container">
+   <div class="row">
+      <div class="col-md-4 col-lg-4"><img src="/portrait/<?php echo $customer->getCusphoto();?>" class="img-circle" style="height:30px;"></div>
+      <div class="col-md-4 col-lg-4"><?php echo $customer->getCusname();?></div>  
+      <div class="col-md-4 col-lg-4"><?php echo $customer->getCusphone();?></div> 
+   </div>
+</div>
+<hr>
+ <h5>价格与备注修改：</h5>
 
  <?php
  $form = $this->form;
@@ -20,12 +37,43 @@ echo $this->formRow($form->get('productcombinationid'));
 echo $this->formRow($form->get('treprice'));
 echo $this->formRow($form->get('treremark'));
 echo $this->formInput($form->get('submit'));
-echo $this->form()->closeTag($form);
-}else{
- ?>
- 
+echo $this->form()->closeTag($form);?>
+
+<?php }elseif ($id!=$treatment->getSalnumber()&&$id==$treatment->getProdsalnumber()){?>
+<div class="well">地址：
+<?php echo $account->getSaladdress();?>
+</div>
+<div class="well">备注：
+<?php echo $treatment->getTreremark();?>
+</div>
+
+<?php }elseif ($id==$treatment->getSalnumber()&&$id!=$treatment->getProdsalnumber()){?>
+ <h5>顾客：</h5>
+ <div class="container">
+   <div class="row">
+      <div class="col-md-4 col-lg-4"><img src="/portrait/<?php echo $customer->getCusphoto();?>" class="img-circle" style="height:30px;"></div>
+      <div class="col-md-4 col-lg-4"><?php echo $customer->getCusname();?></div>  
+      <div class="col-md-4 col-lg-4"><?php echo $customer->getCusphone();?></div> 
+   </div>
+</div>
+<hr>
+<div class="well">备注：
+<?php echo $treatment->getTreremark();?>
+</div>
+<?php };?>
+<?php }else{?>
+<?php if ($id==$treatment->getSalnumber()&&$id==$treatment->getProdsalnumber()){?>
+ <h5>顾客：</h5>
+ <div class="container">
+   <div class="row">
+      <div class="col-md-4 col-lg-4"><img src="/portrait/<?php echo $customer->getCusphoto();?>" class="img-circle" style="height:30px;"></div>
+      <div class="col-md-4 col-lg-4"><?php echo $customer->getCusname();?></div>  
+      <div class="col-md-4 col-lg-4"><?php echo $customer->getCusphone();?></div> 
+   </div>
+</div>
+
 <div class="well"><?php if ($treatment->getPaymethod()=='alipay'){echo "支付宝订单号：".$treatment->getPayid();}elseif($treatment->getPaymethod()=='wechat'){echo "微信订单号：".$treatment->getPayid();}?></div>
-<?php if($feedbacks):?>
+<?php if($feedbacks){?>
 <table class="table" style="padding: 5px;border:1px dashed pink;">
   <thead>
     <tr>
@@ -42,4 +90,96 @@ echo $this->form()->closeTag($form);
     <?php endforeach;?>
   </tbody>
 </table>
-<?php endif;}?>
+<?php };?>
+
+<?php }elseif ($id!=$treatment->getSalnumber()&&$id==$treatment->getProdsalnumber()){?>
+<h5>快递填写：</h5>
+<?php
+ $form = $this->form;
+ $url = $this->url('cosmetic', array('action' => 'treatmentedit','sub'=>$sub));
+ $form->setAttribute('action', $url);
+ $form->get('submit')->setAttribute('value', '提交');
+ $form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('treid'));
+echo $this->formRow($form->get('cusid'));
+echo $this->formRow($form->get('salnumber'));
+echo $this->formRow($form->get('prodid'));
+echo $this->formRow($form->get('productcombinationid'));
+echo $this->formRow($form->get('expresscompany'));
+echo $this->formRow($form->get('expressid'));
+echo $this->formInput($form->get('submit'));
+echo $this->form()->closeTag($form);?>
+<div class="well">地址：
+<?php echo $account->getSaladdress();?>
+</div>
+<div class="well">备注：
+<?php echo $treatment->getTreremark();?>
+</div>
+<div class="well">收货状态：
+<?php if ($treatment->getExpressstate()){echo "已签收";}else{echo "还未签收";}?>
+</div>
+
+<?php }elseif ($id==$treatment->getSalnumber()&&$id!=$treatment->getProdsalnumber()){?>
+ <h5>顾客：</h5>
+ <div class="container">
+   <div class="row">
+      <div class="col-md-4 col-lg-4"><img src="/portrait/<?php echo $customer->getCusphoto();?>" class="img-circle" style="height:30px;"></div>
+      <div class="col-md-4 col-lg-4"><?php echo $customer->getCusname();?></div>  
+      <div class="col-md-4 col-lg-4"><?php echo $customer->getCusphone();?></div> 
+   </div>
+</div>
+<hr>
+<div class="well">备注：
+<?php echo $treatment->getTreremark();?>
+</div>
+<div class="well">快递名称：
+<?php echo $treatment->getExpresscompany();?>
+</div>
+<div class="well">快递单号：
+<?php echo $treatment->getExpressid();?>
+</div>
+<div class="well">确认收货：
+<?php
+if ($treatment->getExpressstate()){echo "已确认收货";}else {
+ $form = $this->form;
+ $url = $this->url('cosmetic', array('action' => 'treatmentedit','sub'=>$sub));
+ $form->setAttribute('action', $url);
+ $form->get('expressstate')->setAttribute('value', time());
+ $form->get('submit')->setAttribute('value', '确认收货');
+ $form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('treid'));
+echo $this->formRow($form->get('cusid'));
+echo $this->formRow($form->get('salnumber'));
+echo $this->formRow($form->get('prodid'));
+echo $this->formRow($form->get('productcombinationid'));
+echo $this->formhidden($form->get('expressstate'));
+echo $this->formInput($form->get('submit'));
+echo $this->form()->closeTag($form);
+}?>
+</div>
+
+<div class="well"><?php if ($treatment->getPaymethod()=='alipay'){echo "支付宝订单号：".$treatment->getPayid();}elseif($treatment->getPaymethod()=='wechat'){echo "微信订单号：".$treatment->getPayid();}?></div>
+<?php if($feedbacks){?>
+<table class="table" style="padding: 5px;border:1px dashed pink;">
+  <thead>
+    <tr>
+      <th>日期</th>
+      <th>评价</th>
+    </tr>
+  </thead>
+  <tbody>
+  <?php foreach ($feedbacks as $feedback):?>
+    <tr>
+      <td><?php echo $feedback->getFbdate();?></td>
+      <td><button class="btn btn-default" onclick="location='<?php echo $this->url('cosmetic', array('action'=>'feedback','sub'=>$feedback->getId()));?>';">详情</button></td>
+    </tr>
+    <?php endforeach;?>
+  </tbody>
+</table>
+<?php };?>
+<?php }?>
+<?php };?>

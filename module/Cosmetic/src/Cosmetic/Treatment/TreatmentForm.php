@@ -96,6 +96,36 @@ class TreatmentForm extends Form
                 'maxlength' => 100
             )
         ));
+        $this->add(array(
+            'name' => 'expresscompany',
+            'type' => 'text',
+            'options' => array(
+                'label' => '快递公司'
+            ),
+            'attributes' => array(
+                'maxlength' => 100
+            )
+        ));
+        $this->add(array(
+            'name' => 'expressid',
+            'type' => 'text',
+            'options' => array(
+                'label' => '快递单号'
+            ),
+            'attributes' => array(
+                'maxlength' => 100
+            )
+        ));
+        $this->add(array(
+            'name' => 'expressstate',
+            'type' => 'text',
+            'options' => array(
+                'label' => '快递状态'
+            ),
+            'attributes' => array(
+                'maxlength' => 100
+            )
+        ));
         
         $this->add(array(
             'name' => 'submit',

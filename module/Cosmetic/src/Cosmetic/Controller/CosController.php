@@ -1634,7 +1634,6 @@ class CosController extends AbstractActionController
             $x = $request->getPost()->toArray();
             $y = $request->getFiles()->toArray();
             $post = array_merge_recursive($request->getPost()->toArray(), $request->getFiles()->toArray());
-            $post['salnumber'] = $id;
             $form->setData($post);
             if ($form->isValid()) {
                 $data = $form->getData();
@@ -1649,12 +1648,16 @@ class CosController extends AbstractActionController
         }
         
         $feedbacks=$this->getFeedbacksMapper()->getTask2($sub);
+        $account=$this->getAccountMapper()->getAccount($treatment->getSalnumber());
+        $customer=$this->getCustomerMapper()->getCustomer1($treatment->getCusid());
         return array(
             'id' => $id,
             'sub' => $sub,
             'form' => $form,
             'treatment'=>$treatment,
-            'feedbacks'=>$feedbacks
+            'feedbacks'=>$feedbacks,
+            'account'=>$account,
+            'customer'=>$customer
         );
     }
 

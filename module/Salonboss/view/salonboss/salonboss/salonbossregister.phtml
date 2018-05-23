@@ -122,6 +122,7 @@ $form->get('salbossphotof')->setAttribute('required', 'required');
 $form->get('alipayaccount')->setAttribute('required', 'required');
 $form->get('wechataccount')->setAttribute('required', 'required');
 $form->get('salname')->setAttribute('required', 'required');
+$form->get('saladdress')->setAttribute('required', 'required');
 $form->prepare();
 echo $this->form()->openTag($form);?>
 <fieldset>
@@ -191,12 +192,12 @@ echo $this->form()->openTag($form);?>
     <label for="name"><span class="fontred">*</span>&nbsp;微信号（用于接收营业款，需开通微信钱包）</label>
     <?php echo $this->formRow($form->get('wechataccount'));?>
     </div>
-        <hr>
-    <legend>选填：</legend>
     <div class="form-group">
-    <label for="name">&nbsp;美容院地址</label>
+    <label for="name"><span class="fontred">*</span>&nbsp;美容院地址(可能会用于接收快递，请填写详细地址)</label>
     <?php echo $this->formRow($form->get('saladdress'));?>
     </div>
+        <hr>
+    <legend>选填：</legend>
     <div class="form-group">
     <label for="name">&nbsp;营业执照社会统一信用代码</label>
     <?php echo $this->formRow($form->get('saladdress'));?>

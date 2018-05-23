@@ -23,8 +23,60 @@ class TreatmentEntity
     protected $gmtclose;
     protected $paymethod;
     protected $payid;
+    protected $expresscompany;
+    protected $expressid;
+    protected $expressstate;
    
+    
    
+    /**
+     * @return the $expresscompany
+     */
+    public function getExpresscompany()
+    {
+        return $this->expresscompany;
+    }
+
+    /**
+     * @return the $expressid
+     */
+    public function getExpressid()
+    {
+        return $this->expressid;
+    }
+
+    /**
+     * @return the $expressstate
+     */
+    public function getExpressstate()
+    {
+        return $this->expressstate;
+    }
+
+    /**
+     * @param field_type $expresscompany
+     */
+    public function setExpresscompany($expresscompany)
+    {
+        $this->expresscompany = $expresscompany;
+    }
+
+    /**
+     * @param field_type $expressid
+     */
+    public function setExpressid($expressid)
+    {
+        $this->expressid = $expressid;
+    }
+
+    /**
+     * @param field_type $expressstate
+     */
+    public function setExpressstate($expressstate)
+    {
+        $this->expressstate = $expressstate;
+    }
+
     /**
      * @return the $paymethod
      */

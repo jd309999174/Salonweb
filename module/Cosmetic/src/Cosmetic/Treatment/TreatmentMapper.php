@@ -66,8 +66,17 @@ class TreatmentMapper
     public function getTreatment($id)
     {
         $select = $this->sql->select();
-        $select->where(array('salnumber' => $id));
+        //$select->where(array('salnumber' => $id));
         //$select->order(array('salid ASC', 'salnumber ASC'));
+        
+        $where=new Where();
+        $where->equalTo('salnumber', $id);
+        $where->OR;
+        $where->equalTo('prodsalnumber', $id);
+        $select->where($where);
+        $statement = $this->sql->prepareStatementForSqlObject($select);
+        $results = $statement->execute();
+      
         $statement = $this->sql->prepareStatementForSqlObject($select);
         $results = $statement->execute();
         if (!$results) {
