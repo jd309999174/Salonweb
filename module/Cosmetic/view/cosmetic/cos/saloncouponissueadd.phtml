@@ -31,6 +31,10 @@ $form->setAttribute('action', $this->url('cosmetic', array(
 $form->get('submit')->setAttribute('value', '添加');
 $form->get('cusid')->setAttribute('value', '0');
 $form->get('sciavailable')->setAttribute('readonly', 'readonly');
+$form->get('scirestriction')->setAttribute('required', 'required');
+$form->get('scimoney')->setAttribute('required', 'required');
+$form->get('sciavailable')->setAttribute('required', 'required');
+$form->get('scitimes')->setAttribute('required', 'required');
 $form->prepare();
 
 echo $this->form()->openTag($form);
