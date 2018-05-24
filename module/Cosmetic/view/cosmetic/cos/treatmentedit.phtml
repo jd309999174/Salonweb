@@ -10,7 +10,7 @@
 } */?>
 <?php if ($treatment->getTrestate()!="paid"){?>
 <?php if ($id==$treatment->getSalnumber()&&$id==$treatment->getProdsalnumber()){?>
- <h5>顾客：</h5>
+<div class="well">
  <div class="container">
    <div class="row">
       <div class="col-md-4 col-lg-4"><img src="/portrait/<?php echo $customer->getCusphoto();?>" class="img-circle" style="height:30px;"></div>
@@ -18,7 +18,7 @@
       <div class="col-md-4 col-lg-4"><?php echo $customer->getCusphone();?></div> 
    </div>
 </div>
-<hr>
+</div>
  <h5>价格与备注修改：</h5>
 
  <?php
@@ -48,7 +48,7 @@ echo $this->form()->closeTag($form);?>
 </div>
 
 <?php }elseif ($id==$treatment->getSalnumber()&&$id!=$treatment->getProdsalnumber()){?>
- <h5>顾客：</h5>
+<div class="well">
  <div class="container">
    <div class="row">
       <div class="col-md-4 col-lg-4"><img src="/portrait/<?php echo $customer->getCusphoto();?>" class="img-circle" style="height:30px;"></div>
@@ -56,14 +56,14 @@ echo $this->form()->closeTag($form);?>
       <div class="col-md-4 col-lg-4"><?php echo $customer->getCusphone();?></div> 
    </div>
 </div>
-<hr>
+</div>
 <div class="well">备注：
 <?php echo $treatment->getTreremark();?>
 </div>
 <?php };?>
 <?php }else{?>
 <?php if ($id==$treatment->getSalnumber()&&$id==$treatment->getProdsalnumber()){?>
- <h5>顾客：</h5>
+<div class="well">
  <div class="container">
    <div class="row">
       <div class="col-md-4 col-lg-4"><img src="/portrait/<?php echo $customer->getCusphoto();?>" class="img-circle" style="height:30px;"></div>
@@ -71,7 +71,7 @@ echo $this->form()->closeTag($form);?>
       <div class="col-md-4 col-lg-4"><?php echo $customer->getCusphone();?></div> 
    </div>
 </div>
-
+</div>
 <div class="well"><?php if ($treatment->getPaymethod()=='alipay'){echo "支付宝订单号：".$treatment->getPayid();}elseif($treatment->getPaymethod()=='wechat'){echo "微信订单号：".$treatment->getPayid();}?></div>
 <?php if($feedbacks){?>
 <table class="table" style="padding: 5px;border:1px dashed pink;">
@@ -122,7 +122,7 @@ echo $this->form()->closeTag($form);?>
 </div>
 
 <?php }elseif ($id==$treatment->getSalnumber()&&$id!=$treatment->getProdsalnumber()){?>
- <h5>顾客：</h5>
+<div class="well">
  <div class="container">
    <div class="row">
       <div class="col-md-4 col-lg-4"><img src="/portrait/<?php echo $customer->getCusphoto();?>" class="img-circle" style="height:30px;"></div>
@@ -130,7 +130,7 @@ echo $this->form()->closeTag($form);?>
       <div class="col-md-4 col-lg-4"><?php echo $customer->getCusphone();?></div> 
    </div>
 </div>
-<hr>
+</div>
 <div class="well">备注：
 <?php echo $treatment->getTreremark();?>
 </div>
