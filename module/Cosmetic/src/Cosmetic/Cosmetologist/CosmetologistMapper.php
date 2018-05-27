@@ -126,10 +126,10 @@ class CosmetologistMapper
         return $cosmetologist;
     }
     //登陆
-    public function getCosmetologistlogin($cosphone,$cospassword)
+    public function getCosmetologistlogin($sub,$cosphone,$cospassword)
     {
         $select = $this->sql->select();
-        $select->where(array('cosphone' => $cosphone,'cospassword'=>$cospassword));
+        $select->where(array('salnumber'=>$sub,'cosphone' => $cosphone,'cospassword'=>$cospassword));
     
         $statement = $this->sql->prepareStatementForSqlObject($select);
         $result = $statement->execute()->current();

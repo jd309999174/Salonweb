@@ -234,7 +234,7 @@ class Cos2Controller extends AbstractActionController
         $request = $this->getRequest();
         if ($request->isPost()) {
             $post = $request->getPost()->toArray();
-            $cosmetologist=$this->getCosmetologistMapper()->getCosmetologistlogin($post['cosphone'],$post['cospassword']);
+            $cosmetologist=$this->getCosmetologistMapper()->getCosmetologistlogin($sub,$post['cosphone'],$post['cospassword']);
             if ($cosmetologist) {
                  
             

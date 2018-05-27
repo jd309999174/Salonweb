@@ -88,8 +88,8 @@ public function saveProduct(ProductEntity $product)
  {
      $select = $this->sql->select();
      //产品共享，不再按美容院id，而是按产品共享状态
-     //$select->where(array('salnumber' => array($id,1),'prodtitle LIKE "%'.$prodtitle.'%"','proddemandclassifyseries LIKE "%'.$prodclassify.'%"'));
-     $select->where(array('sharedstate' => array($id,1),'prodtitle LIKE "%'.$prodtitle.'%"','proddemandclassifyseries LIKE "%'.$prodclassify.'%"'));
+     $select->where(array('salnumber' => array($id,1),'prodtitle LIKE "%'.$prodtitle.'%"','proddemandclassifyseries LIKE "%'.$prodclassify.'%"'));
+     //$select->where(array('sharedstate' => array($id,1),'prodtitle LIKE "%'.$prodtitle.'%"','proddemandclassifyseries LIKE "%'.$prodclassify.'%"'));
      switch ($prodorder)
      {
          case "prodsynthesis":

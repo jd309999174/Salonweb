@@ -113,10 +113,10 @@ function shareapp(){
 	var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
     if(isAndroid){
         //加引号就是字符串
-    	window.android.shareapp("<?php echo $account->getSalname();?>线上app下载地址：https://www.oushelun.cn/cosmeticlogin/appdownload/<?php echo $id;?>/androidcustomer");
+    	window.android.shareapp("<?php echo $account->getSalname();?>安卓app下载地址：https://www.oushelun.cn/cosmeticlogin/appdownload/<?php echo $id;?>/androidcustomer；苹果app下载地址：https://www.oushelun.cn/cosmeticlogin/appdownload/<?php echo $id;?>/ioscustomer");
         }
     if(isiOS){
-        window.webkit.messageHandlers.iosshareapp.postMessage("<?php echo $account->getSalname();?>线上app下载地址：https://www.oushelun.cn/cosmeticlogin/appdownload/<?php echo $id;?>/ioscustomer");
+        window.webkit.messageHandlers.iosshareapp.postMessage("<?php echo $account->getSalname();?>安卓app下载地址：https://www.oushelun.cn/cosmeticlogin/appdownload/<?php echo $id;?>/androidcustomer；苹果app下载地址：https://www.oushelun.cn/cosmeticlogin/appdownload/<?php echo $id;?>/ioscustomer");
             }
 }
 </script>              
