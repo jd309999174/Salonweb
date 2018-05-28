@@ -747,7 +747,7 @@ class CosController extends AbstractActionController
                 $cosmetologist->setSalbranch($post['salbranch']);
                 $this->getCosmetologistMapper()->saveCosmetologist($cosmetologist);
                 //取出此美容师，并将unread改为cos+cosid形式
-                $cosunread=$this->getCosmetologistMapper()->getCosmetologistlogin($post['cosphone'],$post['cospassword']);
+                $cosunread=$this->getCosmetologistMapper()->getCosmetologistlogin($id,$post['cosphone'],$post['cospassword']);
                 $cosunread->setUnread("cos".$cosunread->getCosid());
                 //$this->getCosmetologistMapper()->saveCosmetologist($cosunread);
                 // Redirect to list of tasks
