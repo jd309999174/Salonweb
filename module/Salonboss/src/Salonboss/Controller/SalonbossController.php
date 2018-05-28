@@ -295,9 +295,13 @@ class SalonbossController extends AbstractActionController
             ));
         }
         
+        //取出7天的订单数
+        $sevendayscount=$this->getTreatmentMapper()->getSevendayscount($sub);
+        
         return array(
             'id'=>$id,
-            'homepage'=>$homepage
+            'homepage'=>$homepage,
+            'sevendayscount'=>$sevendayscount
         );
     }
     public function cusorderajaxAction(){
