@@ -14,15 +14,13 @@ $form->get('submit')->setAttribute('value', '登陆');
 $form->get('submit')->setAttribute('class', 'button blue bigrounded');
 $form->prepare();
 echo $this->form()->openTag($form);?>
-<fieldset>
+<fieldset style="text-align: center;">
     <legend>账号登陆</legend>
      <label for="name" style="color:red;"><?php echo $result;?></label>
 	<div class="form-group">
-	 <label for="name">账号（试用账号：15951613754）</label>
     <?php echo $this->formRow($form->get('cosphone'));?>
     </div>
     <div class="form-group">
-    <label for="name">密码（试用密码：123456）</label>
     <?php echo $this->formRow($form->get('cospassword'));?>
     </div>
     <div class="form-group" style="text-align:center">

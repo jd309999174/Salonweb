@@ -263,8 +263,7 @@ class ProductForm extends Form
             'attributes' => array(
                 'class'=>'form-control',
                 'placeholder'=>"请输入疗程次数",
-                'maxlength' => 100,
-                'required'=>'required'
+                'maxlength' => 100
             )
         ));
         $this->add(array(

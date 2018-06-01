@@ -735,7 +735,7 @@ type:"POST",success:function(result){$("#successAlert").show();$("#successAlert"
   <div class="container">
    <div class="row">
 	  <div class="col-xs-4 col-sm-3"><button type="button" style="width: 100%;" class="btn btn-success btn-lg"
-			onclick="location='<?php echo $this->url('customer', array('action'=>'chat','sub'=>$salonmanager->getCosid()));?>';"><span class="glyphicon glyphicon-comment" style="color: white;"></span>&nbsp;&nbsp;店长</button></div>
+			onclick="location='<?php if ($salonmanager)echo $this->url('customer', array('action'=>'chat','sub'=>$salonmanager->getCosid()));?>';"><span class="glyphicon glyphicon-comment" style="color: white;"></span>&nbsp;&nbsp;店长</button></div>
       <div class="col-xs-4 col-sm-4"><button type="button" style="width: 100%;" class="btn btn-warning btn-lg"
 			id="trolley">加入购物车</button></div> 
       <div class="col-xs-4 col-sm-4"><button type="button" style="width: 100%;" class="btn btn-danger btn-lg"
@@ -752,7 +752,7 @@ type:"POST",success:function(result){$("#successAlert").show();$("#successAlert"
   <div class="container">
    <div class="row">
 	  <div class="col-xs-4 col-sm-3"><button type="button" style="width: 100%;" class="btn btn-success btn-lg btnbottom"
-			onclick="location='<?php echo $this->url('customer', array('action'=>'chat','sub'=>$salonmanager->getCosid()));?>';"><span class="glyphicon glyphicon-comment" style="color: white;"></span>&nbsp;&nbsp;店长</button></div>
+			onclick="location='<?php if ($salonmanager)echo $this->url('customer', array('action'=>'chat','sub'=>$salonmanager->getCosid()));?>';"><span class="glyphicon glyphicon-comment" style="color: white;"></span>&nbsp;&nbsp;店长</button></div>
       <div class="col-xs-4 col-sm-4"><button type="button" style="width: 100%;" class="btn btn-warning btn-lg btnbottom"
 			id="trolleybottom">加入购物车</button></div> 
       <div class="col-xs-4 col-sm-4"><button type="button" style="width: 100%;" class="btn btn-danger btn-lg btnbottom"

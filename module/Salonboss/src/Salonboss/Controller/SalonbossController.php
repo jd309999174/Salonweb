@@ -343,9 +343,12 @@ class SalonbossController extends AbstractActionController
         
         $homepage=$homepage=$this->getPageMapper()->getHomepage($id);//美容院标识
         
+        //取出7天的评价数
+        $sevendayscount=$this->getFeedbacksMapper()->getSevendayscount($id);
         return array(
             'id'=>$id,
-            'homepage'=>$homepage
+            'homepage'=>$homepage,
+            'sevendayscount'=>$sevendayscount
         );
     }
     public function cusreviewajaxAction(){
@@ -386,9 +389,13 @@ class SalonbossController extends AbstractActionController
         $salaccount = $container->salaccount;
         
         $homepage=$homepage=$this->getPageMapper()->getHomepage($id);//美容院标识
+        
+        //取出7天的人数
+        $sevendayscount=$this->getCusbrowsinghistoryMapper()->getSevendayscount($id);
         return array(
             'id'=>$id,
-            'homepage'=>$homepage
+            'homepage'=>$homepage,
+            'sevendayscount'=>$sevendayscount
         );
     }
     public function cusbrowsingajaxAction(){

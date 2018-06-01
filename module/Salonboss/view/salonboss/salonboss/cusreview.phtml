@@ -15,6 +15,33 @@
 </style>
 
 <div class="well"><span class="glyphicon glyphicon-star" style="color:red;" aria-hidden="true"></span>&nbsp;&nbsp;顾客对美容师评星</div>
+
+
+<script src="/js/Chart.min.js"></script>
+<canvas id="myChart"></canvas>
+<script>
+var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'bar',
+
+    // The data for our dataset
+    data: {
+        labels: ["1", "2", "3", "4", "5", "6", "今"],
+        datasets: [{
+            label: "近七日评价图",
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: [<?php echo $sevendayscount[6];?>, <?php echo $sevendayscount[5];?>, <?php echo $sevendayscount[4];?>, <?php echo $sevendayscount[3];?>, <?php echo $sevendayscount[2];?>, <?php echo $sevendayscount[1];?>, <?php echo $sevendayscount[0];?>],
+        }]
+    },
+
+    // Configuration options go here
+    options: {}
+});
+</script>
+
+
 <div class="container" style="padding: 5px;">
    <div class="row" align="center">
       <div class="col-xs-3 col-sm-3"><button type="button" class="btn btn-default datepick" id="today">今日</button></div>
