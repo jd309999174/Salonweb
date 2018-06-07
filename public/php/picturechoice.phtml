@@ -128,14 +128,14 @@ $file = scandir($dir3);
 		    }else{array_push($photo1,$filesrc);}
 		    endforeach;
 		    ?>
- <li><span><img onclick='$.post("<?php echo $this->url('decorateajax', array('action'=>'picturechoiceajax'));?>",{sub:"<?php echo $directory[$i];?>",third:""},function(data,status){
+ <li><span><img onclick='$.post("<?php echo $this->url('decorateajax', array('action'=>'picturechoiceajax'));?>",{id:"<?php echo $id;?>",sub:"<?php echo $directory[$i];?>",third:""},function(data,status){
 	   $("#picturelist").html(data);
 });'  src="<?php echo '/img/dir.jpg'; ?>" alt="Smiley face" width="32" height="32" ><?php echo $directory[$i];?></span>
   <ul>
   <?php for($j=0;$j<count($directory1);$j++):
        	if($directory1[$j]!="."&&$directory1[$j]!=".."){
         if(1):?>
-   <li onclick='$.post("<?php echo $this->url('decorateajax', array('action'=>'picturechoiceajax'));?>",{sub:"<?php echo $directory[$i];?>",third:"<?php echo $directory1[$j];?>"},function(data,status){
+   <li onclick='$.post("<?php echo $this->url('decorateajax', array('action'=>'picturechoiceajax'));?>",{id:"<?php echo $id;?>",sub:"<?php echo $directory[$i];?>",third:"<?php echo $directory1[$j];?>"},function(data,status){
 	   $("#picturelist").html(data);
 });'>&nbsp;&nbsp;&nbsp;&nbsp;<img src="<?php echo '/img/dir.jpg'; ?>" alt="Smiley face" width="32" height="32" ><?php echo $directory1[$j]; ?></li>
    <?php endif;?>

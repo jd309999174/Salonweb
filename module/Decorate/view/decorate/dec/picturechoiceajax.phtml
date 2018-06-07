@@ -1,6 +1,6 @@
 <?php
 if ($_POST['third']==null):
-$dir2 = "public/salon/".$id."/".$_POST['sub'];
+$dir2 = "public/salon/".$_POST['id']."/".$_POST['sub'];
 $dir3 = iconv('utf-8', 'gbk', $dir2);
 $file = scandir($dir3);
  $photo=array();
@@ -28,8 +28,8 @@ $file = scandir($dir3);
         $endimg=explode('.', $photo[$i]);
         if(end($endimg)=="jpg"||end($endimg)=="png"||end($endimg)=="gif"):?>
             <tr>
-				<td><img src="<?php echo '/salon/'.$id."/".$_POST['sub'].'/'.$photo[$i]; ?>"
-					onclick="copyfilesrc1('<?php echo '/salon/'.$id."/".$_POST['sub'].'/'.$photo[$i]; ?>')"
+				<td><img src="<?php echo '/salon/'.$_POST['id']."/".$_POST['sub'].'/'.$photo[$i]; ?>"
+					onclick="copyfilesrc1('<?php echo '/salon/'.$_POST['id']."/".$_POST['sub'].'/'.$photo[$i]; ?>')"
 					alt="Smiley face" width="60" height="30" class="imgchoose" data-imgnumber=""></td>
 				<td><?php echo $photo[$i]; ?></td>
 			</tr>
@@ -37,8 +37,8 @@ $file = scandir($dir3);
 			<tr>
 				
 			    <td>
-                     <video width="160" height="120" controls class="imgchoose" data-imgnumber="" onclick="copyfilesrc1('<?php echo '/salon/'.$id."/".$_POST['sub'].'/'.$photo[$i]; ?>')">
-                     <source src="<?php echo '/salon/'.$id."/".$_POST['sub'].'/'.$photo[$i]; ?>" type="video/mp4">
+                     <video width="160" height="120" controls class="imgchoose" data-imgnumber="" onclick="copyfilesrc1('<?php echo '/salon/'.$_POST['id']."/".$_POST['sub'].'/'.$photo[$i]; ?>')">
+                     <source src="<?php echo '/salon/'.$_POST['id']."/".$_POST['sub'].'/'.$photo[$i]; ?>" type="video/mp4">
                     </video>
                </td>
 				<td><?php echo $photo[$i]; ?></td>
@@ -48,7 +48,7 @@ $file = scandir($dir3);
        </tbody>
      </table>
 <?php else:
-$dir2 = "public/salon/".$id."/".$_POST['sub']."/".$_POST['third'];
+$dir2 = "public/salon/".$_POST['id']."/".$_POST['sub']."/".$_POST['third'];
 $dir3 = iconv('utf-8', 'gbk', $dir2);
 $file = scandir($dir3);
  $photo=array();
@@ -76,8 +76,8 @@ $file = scandir($dir3);
         $endimg=explode('.', $photo[$i]);
         if(end($endimg)=="jpg"||end($endimg)=="png"||end($endimg)=="gif"):?>
             <tr>
-				<td><img src="<?php echo '/salon/'.$id."/".$_POST['sub']."/".$_POST['third'].'/'.$photo[$i]; ?>"
-					onclick="copyfilesrc1('<?php echo '/salon/'.$id."/".$_POST['sub']."/".$_POST['third'].'/'.$photo[$i]; ?>')"
+				<td><img src="<?php echo '/salon/'.$_POST['id']."/".$_POST['sub']."/".$_POST['third'].'/'.$photo[$i]; ?>"
+					onclick="copyfilesrc1('<?php echo '/salon/'.$_POST['id']."/".$_POST['sub']."/".$_POST['third'].'/'.$photo[$i]; ?>')"
 					alt="Smiley face" width="60" height="30" class="imgchoose" data-imgnumber=""></td>
 				<td><?php echo $photo[$i]; ?></td>
 			</tr>
@@ -85,8 +85,8 @@ $file = scandir($dir3);
 			<tr>
 				
 			    <td>
-                     <video width="160" height="120" controls class="imgchoose" data-imgnumber="" onclick="copyfilesrc1('<?php echo '/salon/'.$id."/".$_POST['sub']."/".$_POST['third'].'/'.$photo[$i]; ?>')">
-                     <source src="<?php echo '/salon/'.$id."/".$_POST['sub']."/".$_POST['third'].'/'.$photo[$i]; ?>" type="video/mp4">
+                     <video width="160" height="120" controls class="imgchoose" data-imgnumber="" onclick="copyfilesrc1('<?php echo '/salon/'.$_POST['id']."/".$_POST['sub']."/".$_POST['third'].'/'.$photo[$i]; ?>')">
+                     <source src="<?php echo '/salon/'.$_POST['id']."/".$_POST['sub']."/".$_POST['third'].'/'.$photo[$i]; ?>" type="video/mp4">
                     </video>
                </td>
 				<td><?php echo $photo[$i]; ?></td>
