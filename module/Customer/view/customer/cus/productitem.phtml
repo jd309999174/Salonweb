@@ -378,24 +378,33 @@ $(document).ready(function(){
 
 
 <!-- Swiper -->
-<div class="swiper-container swiperswiper" id="ios"
-	onclick="window.history.back(-1);">
+<div class="swiper-container swiperswiper" id="ios">
 	<div class="swiper-wrapper">
+	<?php if ($product->getProdpicture1()!="/img/choose.jpg"):?>
 		<div class="swiper-slide">
 			<img alt="" src="<?php echo $product->getProdpicture1();?>">
 		</div>
+	<?php endif;?>
+	<?php if ($product->getProdpicture2()!="/img/choose.jpg"):?>
 		<div class="swiper-slide">
 			<img alt="" src="<?php echo $product->getProdpicture2();?>">
 		</div>
+	<?php endif;?>
+	<?php if ($product->getProdpicture3()!="/img/choose.jpg"):?>
 		<div class="swiper-slide">
 			<img alt="" src="<?php echo $product->getProdpicture3();?>">
 		</div>
+	<?php endif;?>
+	<?php if ($product->getProdpicture4()!="/img/choose.jpg"):?>
 		<div class="swiper-slide">
 			<img alt="" src="<?php echo $product->getProdpicture4();?>">
 		</div>
+	<?php endif;?>
+	<?php if ($product->getProdpicture5()!="/img/choose.jpg"):?>
 		<div class="swiper-slide">
 			<img alt="" src="<?php echo $product->getProdpicture5();?>">
 		</div>
+	<?php endif;?>
 	</div>
 	<!-- Add Pagination -->
 	<div class="swiper-pagination swiperpagination"></div>
