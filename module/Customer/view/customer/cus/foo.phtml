@@ -1,23 +1,35 @@
-<script src="/js/Chart.min.js"></script>
-<canvas id="myChart"></canvas>
-<script>
-var ctx = document.getElementById('myChart').getContext('2d');
-var chart = new Chart(ctx, {
-    // The type of chart we want to create
-    type: 'line',
+<?php
 
-    // The data for our dataset
-    data: {
-        labels: ["1", "2", "3", "4", "5", "6", "今"],
-        datasets: [{
-            label: "近七日评价图",
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
-            data: [0, 0, 0, 0, 0, 0, 0],
-        }]
-    },
+function newaccount($length)
+{
+    $chars = '123456789abcdefghijklmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ';
+    $hash = '';
+    $max = strlen($chars) - 1;
+    for ($i = 0; $i < $length; $i ++) {
+        $hash .= $chars[mt_rand(0, $max)];
+    }
+    
+    return $hash;
+}
 
-    // Configuration options go here
-    options: {}
-});
-</script>
+echo newaccount(10);
+
+use Zend\Cache\StorageFactory;
+
+$redis=new Redis();
+// Via factory:
+$cache = StorageFactory::factory(array(
+    'adapter' => array(
+        'name'    => 'redis',
+        'options' => array('server' => array("127.0.0.1",6379,3600),'ttl' => 10),
+    ),
+    'plugins' => array(
+        'exception_handler' => array('throw_exceptions' => true),
+    ),
+));
+
+if ($cache->getItem("po")){
+echo $cache->getItem("po");
+}else {echo "重设";$cache->setItem("po", "4321");}
+
+?>

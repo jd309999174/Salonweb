@@ -2,3 +2,23 @@ Hello World. Testing!
 1.恢复用户浏览记录功能
 2.支付宝微信回调地址用https无效，改为直接用ip地址
 3.ios订单远程通知
+
+
+//redis
+use Zend\Cache\StorageFactory;
+
+$redis=new Redis();
+// Via factory:
+$cache = StorageFactory::factory(array(
+    'adapter' => array(
+        'name'    => 'redis',
+        'options' => array('server' => array("127.0.0.1",6379,3600),'ttl' => 10),
+    ),
+    'plugins' => array(
+        'exception_handler' => array('throw_exceptions' => true),
+    ),
+));
+
+if ($cache->getItem("po")){
+echo $cache->getItem("po");
+}else {echo "重设";$cache->setItem("po", "4321");}
