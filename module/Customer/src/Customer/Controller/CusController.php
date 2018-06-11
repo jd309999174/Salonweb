@@ -434,6 +434,10 @@ class CusController extends AbstractActionController
             if(!$post['cusphoto']){
                 $post['cusphoto']="genderfemale.png";
             }
+            //默认名称
+            if (!$post['cusname']){
+                $post['cusname']=$post['cusphone'];
+            }
             //判断手机号是否已存在
             $existcustomer=$this->getCustomerMapper()->getCustomerexist($post['cusphone']);
             if ($existcustomer){

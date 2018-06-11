@@ -20,6 +20,18 @@ use Cosmetic\Page\PageEntity;
 date_default_timezone_set('Asia/Shanghai');//时区
 class SalonbossController extends AbstractActionController
 {
+    // 生成随机账号
+    public function newaccount($length)
+    {
+        $chars = '123456789abcdefghijklmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ';
+        $hash = '';
+        $max = strlen($chars) - 1;
+        for ($i = 0; $i < $length; $i ++) {
+            $hash .= $chars[mt_rand(0, $max)];
+        }
+        
+        return $hash;
+    }
     public function getSignupMapper()
     {
         $sm = $this->getServiceLocator();
@@ -68,17 +80,19 @@ class SalonbossController extends AbstractActionController
             $request = $this->getRequest();
             if ($request->isPost()) {
               if ($cusverification){
-               if ($_POST['registerverification']==$cusverification&&$_POST['salbossphone']==$cusregisterphone){
+                  if ($_POST['registerverification']==$cusverification&&$_POST['salbossphone']==$cusregisterphone){
                 $x = $request->getPost()->toArray();
                 $y = $request->getFiles()->toArray();
                 $post = array_merge_recursive($request->getPost()->toArray(), $request->getFiles()->toArray());
-        
-                //判断账号是否已存在
-                $existaccount=$this->getAccountMapper()->getAccountexist($post['salaccount']);
-                if ($existaccount){
-                    return array('form' => $form,
-                     'existaccount'=>"已存在");
+                
+                //生成账号 判断账号是否已存在
+                $newaccount = $this->newaccount(10);
+                $existaccount=$this->getAccountMapper()->getAccountexist($newaccount);
+                while ($existaccount){
+                    $newaccount = newaccount(10);
+                    $existaccount=$this->getAccountMapper()->getAccountexist($newaccount);
                 }
+                
                 //判断手机号是否已存在
                 $existsalbossphone=$this->getAccountMapper()->getSalbossphoneexist($post['salbossphone']);
                 if ($existsalbossphone){
@@ -88,8 +102,10 @@ class SalonbossController extends AbstractActionController
                     );
                 }
                 $form->setData($post);
+               
                 if ($form->isValid()) {
                     $data = $form->getData();
+                    $account->setSalaccount($newaccount);
                     $this->getAccountMapper()->saveAccount($account);
                     if (! file_exists('public/salbossphoto')) {
                         mkdir('public/salbossphoto');
@@ -97,6 +113,7 @@ class SalonbossController extends AbstractActionController
                     if (! file_exists('public/salon/'.$post['salnumber'])) {
                         mkdir('public/salon/'.$post['salnumber']);
                     }
+                    if ($x['salbossphoto']){
                     //图片缩放
                     $pname = iconv('utf-8', 'gbk', $x['salbossphoto']);//文件名
                     $pname1=iconv('utf-8', 'gbk', 'public/salbossphoto/');//文件路径
@@ -156,19 +173,24 @@ class SalonbossController extends AbstractActionController
                         }else{
                             move_uploaded_file($pname2, $pname1.$pname);
                         }
-                    }
+                    }}
                 }
+                
         
-                $regaccount=$this->getAccountMapper()->getAccountlogin($post['salaccount'],$post['salpassword']);
+                $regaccount=$this->getAccountMapper()->getAccountlogin($newaccount,$post['salpassword']);
                 
                 $page = new PageEntity();
                 $page->setPagetype("首页");
                 $page->setSalnumber($regaccount->getSalnumber());
                 $page->setPagename("首页");
                 //默认首页标识使用salbossphoto,名称使用salname
+                if ($x['salbossphoto']){
                 $salbossphoto = '/salbossphoto/'.$x['salbossphoto'];
                 $page->setPageheaddata1($salbossphoto);
-                $page->setPageheaddata2($post['salname']);
+                }
+                if ($post['salname']){
+                    $page->setPageheaddata2($post['salname']);
+                }
                 $this->getPageMapper()->savePage($page);
                 if (! file_exists('public/salon/'.$post['salnumber'])) {
                     mkdir('public/salon/'.$post['salnumber']);

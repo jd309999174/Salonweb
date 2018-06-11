@@ -10,7 +10,7 @@ class AccountFilter extends InputFilter
     {
        
         $this->add(array(
-            'name' => 'salaccount',
+            'name' => 'salbossphone',
             'required' => true,
         ));
         $this->add(array(

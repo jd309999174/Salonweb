@@ -36,14 +36,14 @@ obj2.value=randomname;
 <script>
 $("document").ready(function(){
 	//密码确认
-	$("#repeatwrong").hide();
+	/*$("#repeatwrong").hide();
 	$("#repeatpassword").change(function(){
 	    if($("#repeatpassword").val()!==$("#salpassword").val()){
 	    	$("#repeatwrong").show();
 		    }
-	});
+	});*/
 	//密码不同点击提交无效，未确认协议点击无效
-	$("#submitbtn").click(function(){
+	/*$("#submitbtn").click(function(){
 		 if($("#repeatpassword").val()!==$("#salpassword").val()){
 		    	$("#repeatwrong").show();
 			    }else{
@@ -51,6 +51,11 @@ $("document").ready(function(){
 						 $("#submit").click();
 						 }else{$("#unconfirmedagreement").show();}
 				     } 
+		})*/
+	$("#submitbtn").click(function(){
+			    	if($("#checkagreement").is(":checked")){
+						 $("#submit").click();
+						 }else{$("#unconfirmedagreement").show();}		     
 		})
     //同意协议后隐藏
     $("#checkagreement").click(function(){
@@ -117,42 +122,10 @@ $form->get('salbossphone')->setAttribute('onblur', 'checkout()');
 $form->get('salbossphone')->setAttribute('onfocus', 'getfocus()');
 $form->get('salbossphone')->setAttribute('required', 'required');
 $form->get('salpassword')->setAttribute('required', 'required');
-$form->get('salbossname')->setAttribute('required', 'required');
-$form->get('salbossphotof')->setAttribute('required', 'required');
-$form->get('alipayaccount')->setAttribute('required', 'required');
-$form->get('wechataccount')->setAttribute('required', 'required');
-$form->get('salname')->setAttribute('required', 'required');
-$form->get('saladdress')->setAttribute('required', 'required');
 $form->prepare();
 echo $this->form()->openTag($form);?>
 <fieldset>
     <legend>美容院注册</legend>
-    <p>我们会在24小时内完成您的APP制作</p>
-    <div  style="color:red;" id="accountwrong">
-    <?php if ($existaccount):?>
-        账号已存在
-    <?php endif;?>
-    </div>
-    <label for="name" style="color:red;"><?php echo $result;?></label>
-	<div class="form-group">
-    <label for="name"><span class="fontred">*</span>&nbsp;账号（用于登陆后台和院长APP）</label>
-    <?php echo $this->formRow($form->get('salaccount'));?>
-    </div>
-    <div class="form-group">
-    <label for="name"><span class="fontred">*</span>&nbsp;密码</label>
-    <?php echo $this->formRow($form->get('salpassword'));?>
-    </div>
-    <div class="form-group">
-    <label for="name"><span class="fontred">*</span>&nbsp;密码确认</label>
-    <div style="color:red;display:none;" id="repeatwrong">
-     两次输入密码不匹配
-    </div>
-    <input type="password" name="repeatpassword" class="form-control" required="required" placeholder="请再次输入密码" id="repeatpassword">
-    </div>
-    <div class="form-group">
-    <label for="name"><span class="fontred">*</span>&nbsp;院长姓名</label>
-    <?php echo $this->formRow($form->get('salbossname'));?>
-    </div>
     <div class="form-group">
     <label for="name"><span class="fontred">*</span>&nbsp;手机号</label>
     <div  style="color:red;" id="phonewrong">
@@ -162,6 +135,19 @@ echo $this->form()->openTag($form);?>
     </div>
     <?php echo $this->formRow($form->get('salbossphone'));?>
     </div>
+    <div class="form-group">
+    <label for="name"><span class="fontred">*</span>&nbsp;密码</label>
+    <?php echo $this->formRow($form->get('salpassword'));?>
+    </div>
+    <!--
+    <div class="form-group">
+    <label for="name"><span class="fontred">*</span>&nbsp;密码确认</label>
+    <div style="color:red;display:none;" id="repeatwrong">
+     两次输入密码不匹配
+    </div>
+    <input type="password" name="repeatpassword" class="form-control" required="required" placeholder="请再次输入密码" id="repeatpassword">
+    </div>
+    -->
     <div style="color:red;" id="verificationwrong">
     <?php if ($verificationwrong):?>
       验证码输入错误
@@ -176,35 +162,13 @@ echo $this->form()->openTag($form);?>
       </div>
     </div>
      <div class="form-group">
-    <label for="name"><span class="fontred">*</span>&nbsp;美容院名称（作为您的app名称）</label>
+    <label for="name">&nbsp;美容院名称（选填）</label>
     <?php echo $this->formRow($form->get('salname'));?>
     </div>
     <div class="form-group">
-    <label for="name"><span class="fontred">*</span>&nbsp;商标图（作为您的APP图标）</label>
+    <label for="name">&nbsp;商标图（选填）</label>
     <?php echo $this->formhidden($form->get('salbossphoto'));?>
     <?php echo $this->formRow($form->get('salbossphotof'));?>
-    </div>
-    <div class="form-group">
-    <label for="name"><span class="fontred">*</span>&nbsp;支付宝账号（用于接收营业款，与微信号可选填其一）</label>
-    <?php echo $this->formRow($form->get('alipayaccount'));?>
-    </div>
-    <div class="form-group">
-    <label for="name"><span class="fontred">*</span>&nbsp;微信号（用于接收营业款，需开通微信钱包）</label>
-    <?php echo $this->formRow($form->get('wechataccount'));?>
-    </div>
-    <div class="form-group">
-    <label for="name"><span class="fontred">*</span>&nbsp;美容院地址(可能会用于接收快递，请填写详细地址)</label>
-    <?php echo $this->formRow($form->get('saladdress'));?>
-    </div>
-        <hr>
-    <legend>选填：</legend>
-    <div class="form-group">
-    <label for="name">&nbsp;营业执照社会统一信用代码</label>
-    <?php echo $this->formRow($form->get('saladdress'));?>
-    </div>
-    <div class="form-group">
-    <label for="name">&nbsp;身份证号</label>
-    <?php echo $this->formRow($form->get('salbossidentity'));?>
     </div>
     <?php echo $this->formInput($form->get('submit')); ?>
 </fieldset>
