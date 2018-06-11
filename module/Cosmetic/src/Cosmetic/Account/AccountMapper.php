@@ -120,10 +120,10 @@ class AccountMapper
         return $salon;
     }
     //login
-    public function getAccountlogin($salaccount,$salpassword)
+    public function getAccountlogin($salbossphone,$salpassword)
     {
         $select = $this->sql->select();
-        $select->where(array('salaccount' => $salaccount,'salpassword'=>$salpassword));
+        $select->where(array('salbossphone' => $salbossphone,'salpassword'=>$salpassword));
         //$select->order(array('salid ASC', 'salnumber ASC'));
         $statement = $this->sql->prepareStatementForSqlObject($select);
         $results = $statement->execute()->current();

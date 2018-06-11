@@ -537,7 +537,7 @@ class CosController extends AbstractActionController
             if ($form->isValid()) {
                 $data = $form->getData();
                 
-                $accountlogin=$this->getAccountMapper()->getAccountlogin($_POST['salaccount'],$_POST['salpassword']);
+                $accountlogin=$this->getAccountMapper()->getAccountlogin($_POST['salbossphone'],$_POST['salpassword']);
                 
                 if ($accountlogin!=null) {
                     

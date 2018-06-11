@@ -177,7 +177,7 @@ class SalonbossController extends AbstractActionController
                 }
                 
         
-                $regaccount=$this->getAccountMapper()->getAccountlogin($newaccount,$post['salpassword']);
+                $regaccount=$this->getAccountMapper()->getAccountlogin($post['salbossphone'],$post['salpassword']);
                 
                 $page = new PageEntity();
                 $page->setPagetype("首页");
@@ -251,7 +251,7 @@ class SalonbossController extends AbstractActionController
             if ($form->isValid()) {
                 $data = $form->getData();
                 
-                $accountlogin=$this->getAccountMapper()->getAccountlogin($_POST['salaccount'],$_POST['salpassword']);
+                $accountlogin=$this->getAccountMapper()->getAccountlogin($_POST['salbossphone'],$_POST['salpassword']);
                 
                 if ($accountlogin!=null) {
                     
