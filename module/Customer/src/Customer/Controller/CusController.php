@@ -36,6 +36,7 @@ use Cosmetic\Tip\TipForm;
 use Cosmetic\Tip\TipEntity;
 use Cosmetic\Suggestioncus\SuggestioncusForm;
 use Cosmetic\Suggestioncus\SuggestioncusEntity;
+use Zend\Cache\StorageFactory;
 date_default_timezone_set('Asia/Shanghai');//时区
 class CusController extends AbstractActionController
 {
@@ -803,6 +804,16 @@ class CusController extends AbstractActionController
     // TODO homepage
     public function homepageAction()
     {
+        $cache = StorageFactory::factory(array(
+            'adapter' => array(
+                'name'    => 'redis',
+                'options' => array('server' => array("127.0.0.1",6379,3600),'ttl' => 10),
+            ),
+            'plugins' => array(
+                'exception_handler' => array('throw_exceptions' => true),
+            ),
+        ));
+        
         $sub = $this->params('sub'); // 美容院id，或者活动和动态页面的跳转
         $third=$this->params('third');//判断是否是登录页的跳转
                                      
@@ -857,8 +868,26 @@ class CusController extends AbstractActionController
        
             //$activitypages = $this->getPageMapper()->getActivitypages($id, "活动");
             //$dynamicpages = $this->getPageMapper()->getActivitypages($id, "动态");
-            $homepage = $this->getPageMapper()->getHomepage($id);
-            $template = $this->getTemplateMapper()->getTemplate($homepage->getPageid());
+            //缓存
+           $cacheitems=array($id."homepage",$id."template",$id."custombuttons");
+           if ($cache->hasItems($cacheitems)){
+               $homepage=unserialize($cache->getItem($id."homepage"));
+               $template=unserialize($cache->getItem($id."template"));
+               $custombuttons=unserialize($cache->getItem($id."custombuttons"));
+           }else {
+               $homepage = $this->getPageMapper()->getHomepage($id);
+               $template = array();
+               foreach ($this->getTemplateMapper()->getTemplate($homepage->getPageid()) as $x){
+                   array_push($template, $x);
+               }
+               $custombuttons = array();
+               foreach ($this->getCustombuttonMapper()->getCustombuttons($id) as $x){
+                   array_push($custombuttons, $x);
+               }
+               $cache->setItem($id."homepage",serialize($homepage));
+               $cache->setItem($id."template",serialize($template));
+               $cache->setItem($id."custombuttons",serialize($custombuttons));
+           }
             
             //$products = $this->getProductMapper()->getProduct($id);
             //未读信息
@@ -867,8 +896,7 @@ class CusController extends AbstractActionController
             foreach ($unread as $unreadone){
                 $unreadsum=$unreadsum+$unreadone->getNumber();
             }
-            // 自定义按钮
-            $custombuttons = $this->getCustombuttonMapper()->getCustombuttons($id);
+            
             
             //最近订单  判断90天内是否消费
             $neworold="old";
@@ -894,12 +922,12 @@ class CusController extends AbstractActionController
                 'cusid' => $cusid,
                 'cusname' => $cusname,
                 'cusphone' => $cusphone,
-                'page' => $homepage,
-                'templateitem' => $template,
+                'page' => $homepage,//cache
+                'templateitem' => $template,//cache
                 //'products' => $products,
                 //'activitypages' => $activitypages,
                 //'dynamicpages' => $dynamicpages,
-                'custombuttons' => $custombuttons,
+                'custombuttons' => $custombuttons,//cache
                 'salnumber' => $_COOKIE['salnumber'],
                 'unreadsum'=>$unreadsum,
                 'lotterydate'=>$lotterydate,
@@ -912,6 +940,16 @@ class CusController extends AbstractActionController
     
     //homepage的产品，活动，动态 ajax页
     public function homepagetwoAction(){
+        $cache = StorageFactory::factory(array(
+            'adapter' => array(
+                'name'    => 'redis',
+                'options' => array('server' => array("127.0.0.1",6379,3600),'ttl' => 10),
+            ),
+            'plugins' => array(
+                'exception_handler' => array('throw_exceptions' => true),
+            ),
+        ));
+        
         $container = new Container('customerlogin');
         $id = $container->salnumber;
         $prodoffset=$_POST['prodoffset'];
@@ -919,8 +957,21 @@ class CusController extends AbstractActionController
         $prodtitle=$_POST['prodtitle'];
         $prodstyle=$_POST['prodstyle'];
         $prodclassify=$_POST['prodclassify'];
-        $products = $this->getProductMapper()->getProductoffset($id,$prodoffset,$prodorder,$prodtitle,$prodclassify);
         
+        
+        if ($cache->hasItem($id."products").$_POST['prodoffset']){
+            //ajax会反复请求此页面，所以$key需要变化，不变则反复执行下面的code
+            $products=unserialize($cache->getItem($id."products").$_POST['prodoffset']);
+        }else{
+            //请求会反复执行下面的代码，但是因为是空，所以没有高度，ajax之后将不再触发
+            $products=array();
+            foreach ($this->getProductMapper()->getProductoffset($id,$prodoffset,$prodorder,$prodtitle,$prodclassify) as $x){
+                array_push($products, $x);
+            }
+            $cache->setItem($id."products".$_POST['prodoffset'],serialize($products));
+        }
+        
+        //$products=$this->getProductMapper()->getProductoffset($id,$prodoffset,$prodorder,$prodtitle,$prodclassify);
         return array('products' => $products,'prodstyle'=>$prodstyle);
         
     }
@@ -1955,8 +2006,13 @@ public function chatajaxAction()
     // TODO foo
     public function fooAction()
     {
-        
-        return array();
+        $account=array();
+        foreach ($this->getTemplateMapper()->getTemplate(9) as $x){
+            array_push($account, $x);
+        }
+        $y=serialize($account);
+        $z=unserialize($y);
+        return array('z'=>$z);
     }
     
     // TODO tip
