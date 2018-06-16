@@ -2240,7 +2240,7 @@ class CosController extends AbstractActionController
         }elseif ($third!=null&&$fourth==null){
             $filename='public/salon/'.$id.'/'.$sub.'/'.$third;
             $path = iconv('utf-8', 'gbk', $filename);
-            if (substr(strrchr($sub, '.'), 1)==null){ 
+            if (substr(strrchr($third, '.'), 1)==null){ 
              $this->delAllDir($path);
                 rmdir($path);
             }else{
