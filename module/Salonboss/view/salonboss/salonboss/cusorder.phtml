@@ -1,3 +1,17 @@
+<?php //TODO 登陆后，在app中存入美容院id,用于订单通知?>
+<script>
+	var u = navigator.userAgent;
+	var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+	var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+    if(isAndroid){
+        //加引号就是字符串
+    	window.android.salidsave(<?php echo $id;?>);
+        }
+    if(isiOS){
+        window.webkit.messageHandlers.iossalidsave.postMessage(<?php echo $id;?>);
+            }
+</script>
+
 <style>
 .menubottom{
 	z-index:100;
