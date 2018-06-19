@@ -1,23 +1,5 @@
 <?php
-
-function newaccount($length)
-{
-    $chars = '123456789abcdefghijklmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ';
-    $hash = '';
-    $max = strlen($chars) - 1;
-    for ($i = 0; $i < $length; $i ++) {
-        $hash .= $chars[mt_rand(0, $max)];
-    }
-    
-    return $hash;
-}
-
-echo newaccount(10);
-
 use Zend\Cache\StorageFactory;
-
-$redis=new Redis();
-// Via factory:
 $cache = StorageFactory::factory(array(
     'adapter' => array(
         'name'    => 'redis',
@@ -28,8 +10,8 @@ $cache = StorageFactory::factory(array(
     ),
 ));
 
-if ($cache->getItem("po")){
-echo $cache->getItem("po");
-}else {echo "重设";$cache->setItem("po", "4321");}
+foreach ($z as $x){
+    var_dump($x);
+}
 
 ?>

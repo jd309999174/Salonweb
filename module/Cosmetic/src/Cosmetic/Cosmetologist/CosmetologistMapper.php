@@ -126,11 +126,11 @@ class CosmetologistMapper
         return $cosmetologist;
     }
     //登陆
-    public function getCosmetologistlogin($sub,$cosphone,$cospassword)
+    public function getCosmetologistlogin($cosphone,$cospassword)
     {
         $select = $this->sql->select();
-        $select->where(array('salnumber'=>$sub,'cosphone' => $cosphone,'cospassword'=>$cospassword));
-    
+        $select->where(array('cosphone' => $cosphone,'cospassword'=>$cospassword));
+        $select->limit(1);
         $statement = $this->sql->prepareStatementForSqlObject($select);
         $result = $statement->execute()->current();
         if (!$result) {
@@ -160,6 +160,25 @@ class CosmetologistMapper
         $cosmetologist = new CosmetologistEntity();
         $hydrator->hydrate($result, $cosmetologist);
     
+        return $cosmetologist;
+    }
+    
+    //总店长
+    public function getCosexist($cosphone)
+    {
+        $select = $this->sql->select();
+        $select->where(array('cosphone' => $cosphone));
+        $select->limit(1);
+        $statement = $this->sql->prepareStatementForSqlObject($select);
+        $result = $statement->execute()->current();
+        if (!$result) {
+            return null;
+        }
+        
+        $hydrator = new ClassMethods();
+        $cosmetologist = new CosmetologistEntity();
+        $hydrator->hydrate($result, $cosmetologist);
+        
         return $cosmetologist;
     }
    

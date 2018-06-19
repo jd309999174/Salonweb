@@ -729,6 +729,8 @@ class CosController extends AbstractActionController
     {
         $container = new Container('salonlogin');
         $id = $container->salnumber;
+        //分院选择
+        $salbranches=$this->getSalonMapper()->getSalon($id);
         
         $form = new CosmetologistForm();
         $cosmetologist = new CosmetologistEntity();
@@ -739,6 +741,21 @@ class CosController extends AbstractActionController
             $x = $request->getPost()->toArray();
             $y = $request->getFiles()->toArray();
             $post = array_merge_recursive($request->getPost()->toArray(), $request->getFiles()->toArray());
+            //判断账号是否已存在
+            $cosexist=$this->getCosmetologistMapper()->getCosexist($post['cosphone']);
+            if ($cosexist){
+                return array(
+                    'form' => $form,
+                    'id' => $id,
+                    'data' => $data,
+                    'post' => $post,
+                    'salbranches'=>$salbranches,
+                    'cosexist'=>$cosexist
+                    
+                );
+            }
+            
+            
             $post['salnumber'] = $id;
             $form->setData($post);
             if ($form->isValid()) {
@@ -747,7 +764,7 @@ class CosController extends AbstractActionController
                 $cosmetologist->setSalbranch($post['salbranch']);
                 $this->getCosmetologistMapper()->saveCosmetologist($cosmetologist);
                 //取出此美容师，并将unread改为cos+cosid形式
-                $cosunread=$this->getCosmetologistMapper()->getCosmetologistlogin($id,$post['cosphone'],$post['cospassword']);
+                $cosunread=$this->getCosmetologistMapper()->getCosmetologistlogin($post['cosphone'],$post['cospassword']);
                 $cosunread->setUnread("cos".$cosunread->getCosid());
                 //$this->getCosmetologistMapper()->saveCosmetologist($cosunread);
                 // Redirect to list of tasks
@@ -773,8 +790,7 @@ class CosController extends AbstractActionController
                 ));
             }
         }
-        //分院选择
-        $salbranches=$this->getSalonMapper()->getSalon($id);
+        
         return array(
             'form' => $form,
             'id' => $id,
@@ -790,7 +806,8 @@ class CosController extends AbstractActionController
         $container = new Container('salonlogin');
         $id = $container->salnumber;
         $sub = (int) $this->params('sub');
-        
+        //分院选择
+        $salbranches=$this->getSalonMapper()->getSalon($id);
         if (! $id) {
             return $this->redirect()->toRoute('cosmeticlogin', array(
                 'action' => 'login'
@@ -807,6 +824,21 @@ class CosController extends AbstractActionController
             $x = $request->getPost()->toArray();
             $y = $request->getFiles()->toArray();
             $post = array_merge_recursive($request->getPost()->toArray(), $request->getFiles()->toArray());
+            //电话不同，则判断账号是否已存在
+            if ($post['cosphone']!=$cosmetologist->getCosphone()){
+            $cosexist=$this->getCosmetologistMapper()->getCosexist($post['cosphone']);
+            if ($cosexist){
+                return array(
+                    'id' => $id,
+                    'sub' => $sub,
+                    'form' => $form,
+                    'salbranches'=>$salbranches,
+                    'cosexist'=>$cosexist
+                    
+                );
+            }
+            }
+            
             $post['salnumber'] = $id;
             $form->setData($post);
             if ($form->isValid()) {
@@ -826,8 +858,7 @@ class CosController extends AbstractActionController
                 ));
             }
         }
-        //分院选择
-        $salbranches=$this->getSalonMapper()->getSalon($id);
+       
         return array(
             'id' => $id,
             'sub' => $sub,
