@@ -239,9 +239,6 @@ class SalonbossController extends AbstractActionController
 // TODO login
     public function salonbossloginAction()
     {
-        $sub = $this->params('sub'); // 美容院id
-        
-        $homepage = $homepage = $this->getPageMapper()->getHomepage($sub); // 美容院标识
         
         $form = new AccountForm();
         $salon = new AccountEntity();
@@ -261,35 +258,28 @@ class SalonbossController extends AbstractActionController
                     
                     return $this->redirect()->toRoute('salonboss', array(
                         'action' => 'cusorder',
-                        'sub'=>$sub,
-                        'third'=>"login"
+                        'sub'=>"login"
                     ));
                 } else {
                     return array(
                          'form' => $form,
-                         'sub' => $sub,
-                         'homepage' => $homepage,
                          'result'=>"账号或密码错误"
                         );
                 }
             }
         }
         return array(
-            'homepage'=>$homepage,
-            'form' => $form,
-            'sub'=>$sub
+            'form' => $form
         );
     }
     
     //TODO cusorder
     public function cusorderAction()
     {
-        $sub = $this->params('sub'); // 美容院id
-        $third=$this->params('third');//判断是否是登录页的跳转
+        $sub = $this->params('sub'); //判断是否是登录页的跳转
+       
         
-        $homepage=$homepage=$this->getPageMapper()->getHomepage($sub);//美容院标识
-        
-        if($third=="login"){
+        if($sub=="login"){
             //取出session
             $container = new Container('salonbosslogin');
             $id = $container->salnumber;
@@ -312,14 +302,14 @@ class SalonbossController extends AbstractActionController
         
         if(!$salaccount){
             return $this->redirect()->toRoute('salonboss', array(
-                'action' => 'salonbosslogin',
-                'sub' => $sub
+                'action' => 'salonbosslogin'
             ));
         }
         
         //取出7天的订单数
-        $sevendayscount=$this->getTreatmentMapper()->getSevendayscount($sub);
+        $sevendayscount=$this->getTreatmentMapper()->getSevendayscount($id);
         
+        $homepage=$homepage=$this->getPageMapper()->getHomepage($id);//美容院标识
         return array(
             'id'=>$id,
             'homepage'=>$homepage,
