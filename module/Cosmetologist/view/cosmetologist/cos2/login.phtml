@@ -1,14 +1,14 @@
-<div class="well" style="text-align:center"><?php echo $homepage->getPageheaddata2();?></div>
+<div class="well" style="text-align:center">oushelun</div>
 
 <div style="text-align:center">
-<img src="<?php echo $homepage->getPageheaddata1();?>" style="height:100px;width:120px;">
+<img src="/img/mylogo.png" style="height:100px;width:120px;">
 </div>
 
 
 <?php
 $form = $this->form;
 $form->setAttribute('action', $this->url('cosmetologist', array(
-    'action' => 'login','sub'=>$sub
+    'action' => 'login'
 )));
 $form->get('submit')->setAttribute('value', '登陆');
 $form->get('submit')->setAttribute('class', 'button blue bigrounded');

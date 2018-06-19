@@ -226,9 +226,9 @@ class Cos2Controller extends AbstractActionController
     //TODO login
     public function loginAction()
     {
-        $sub = $this->params('sub');
         
-        $homepage=$homepage=$this->getPageMapper()->getHomepage($sub);//美容院标识
+        //美容院标识固定化$homepage=$homepage=$this->getPageMapper()->getHomepage($sub);//美容院标识
+
         $form = new CosmetologistForm();
         $customer = new CosmetologistEntity();
         $request = $this->getRequest();
@@ -236,8 +236,6 @@ class Cos2Controller extends AbstractActionController
             $post = $request->getPost()->toArray();
             $cosmetologist=$this->getCosmetologistMapper()->getCosmetologistlogin($post['cosphone'],$post['cospassword']);
             if ($cosmetologist) {
-                 
-            
                 // 设置session
                 $container = new Container('cosmetologistlogin');
                 $container->salnumber = $cosmetologist->getSalnumber();
@@ -247,33 +245,27 @@ class Cos2Controller extends AbstractActionController
             
                 return $this->redirect()->toRoute('cosmetologist', array(
                     'action' => 'customerlist',
-                    'sub' => $sub,
-                    'third'=>"login"
+                    'sub'=>"login"
                 ));
             } else {
                 return array(
                          'form' => $form,
-                         'sub' => $sub,
-                         'homepage' => $homepage,
                          'result'=>"账号或密码错误"
                         );
             }
         }
         
         return array(
-            'form'=>$form,
-            'sub'=>$sub,
-            'homepage'=>$homepage,
+            'form'=>$form
         );
     }
     
     //customerlist
     public function customerlistAction()
     {
-        $sub = $this->params('sub'); // 美容院id
-        $third=$this->params('third');//判断是否是登录页的跳转
+        $sub = $this->params('sub'); //判断是否是登录页的跳转
         
-        if($third=="login"){
+        if($sub=="login"){
             //取出session
             $container = new Container('cosmetologistlogin');
             $id = $container->salnumber;
@@ -302,8 +294,7 @@ class Cos2Controller extends AbstractActionController
         }
         if(!$cosid){
             return $this->redirect()->toRoute('cosmetologist', array(
-                'action' => 'login',
-                'sub' => $sub
+                'action' => 'login'
             ));
         }
         
@@ -325,7 +316,7 @@ class Cos2Controller extends AbstractActionController
             $unreadsum=$unreadsum+$unreadone->getNumber();
         }
         
-        $homepage = $homepage = $this->getPageMapper()->getHomepage($sub); // 美容院标识
+        $homepage = $homepage = $this->getPageMapper()->getHomepage($id); // 美容院标识
         
         //取出美容院,判断是否审核中
         $account=$this->getAccountMapper()->getAccount($id);
