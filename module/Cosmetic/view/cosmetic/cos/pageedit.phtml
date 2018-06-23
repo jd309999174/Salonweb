@@ -1,3 +1,5 @@
+<script type="text/javascript" src="/validjs/pagevalid.js"></script>
+
 <script type="text/javascript" src="/js/js.pickcolor.js"></script>
 
 
@@ -11,7 +13,7 @@
  $form = $this->form;
  $url = $this->url('cosmetic', array('action' => 'pageedit','sub'=>$sub));
  $form->setAttribute('action', $url);
-$form->get('submit')->setAttribute('value', '提交');
+$form->get('submitname')->setAttribute('value', '提交');
 $form->get('pagetype')->setAttribute('class', 'form-control');
 $form->get('pagecolor')->setAttribute('onclick', 'initColorPicker();return false');
 $form->get('pageexpiration')->setAttribute('class', 'form-control');
@@ -86,7 +88,7 @@ echo $this->formRow($form->get('pagepaddinglr'));
 echo $this->formRow($form->get('pagepaddingbottom'));
 ?></div>
 <div>
- <?php echo $this->formInput($form->get('submit')); ?>
+ <?php echo $this->formInput($form->get('submitname')); ?>
  </div>
 <?php
 echo $this->form()->closeTag($form);?>
@@ -151,7 +153,7 @@ $(document).ready(function(){
 <script>
 //提交图片
 $(function(){
-	$("#submit").click(function(){
+	$("#submitid").click(function(){
 		$("#pageheaddata1").val($(".picturechoose1").attr("src"));
 		$("#pageheaddata2").val($(".picturechoose2").attr("src"));
 		})

@@ -1,3 +1,5 @@
+<script type="text/javascript" src="/validjs/cosmetologistvalid.js"></script>
+
 <?php
 $form = $this->form;
 $form->setAttribute('action', $this->url('cosmetic', array(
@@ -6,7 +8,7 @@ $form->setAttribute('action', $this->url('cosmetic', array(
 $form->get('cosphone')->setAttribute('required', 'required');
 $form->get('cospassword')->setAttribute('required', 'required');
 $form->get('cosyears')->setAttribute('required', 'required');
-$form->get('submit')->setAttribute('value', '提交');
+$form->get('submitname')->setAttribute('value', '提交');
 $form->prepare();echo $this->form()->openTag($form);?>
 
  <fieldset>
@@ -20,7 +22,7 @@ $form->prepare();echo $this->form()->openTag($form);?>
 		</div>
 	</div>
 	<div class="form-group">
-		<div class="col-sm-6">
+		<div class="col-sm-6 col-md-6 col-lg-6">
 			<?php echo $this->formRow($form->get('cosphone'));?>
 			<?php if ($cosexist):?>
             <span style="color: red">账号已存在</span>
@@ -28,48 +30,48 @@ $form->prepare();echo $this->form()->openTag($form);?>
 		</div>
 	</div>
 	<div class="form-group">
-		<div class="col-sm-6">
+		<div class="col-sm-6 col-md-6 col-lg-6">
 			<?php echo $this->formRow($form->get('cospassword'));?>
 		</div>
 	</div>
 	<div class="form-group">
-		<div class="col-sm-6">
+		<div class="col-sm-6 col-md-6 col-lg-6">
 			<?php echo $this->formRow($form->get('cosname'));?>
 		</div>
 	</div>
 		<div class="form-group">
 	
-		<div class="col-sm-6">
+		<div class="col-sm-6 col-md-6 col-lg-6">
 			<?php echo $this->formRow($form->get('cosaddress'));?>
 		</div>
 	</div>
 	<div class="form-group">
 	
-		<div class="col-sm-6">
+		<div class="col-sm-6 col-md-6 col-lg-6">
 			<?php echo $this->formRow($form->get('cosposition'));?>
 		</div>
 	</div>
 	<div class="form-group">
 	
-		<div class="col-sm-6">
+		<div class="col-sm-6 col-md-6 col-lg-6">
 			<?php echo $this->formRow($form->get('cosspeciality'));?>
 		</div>
 	</div>
 	<div class="form-group">
 	
-		<div class="col-sm-6">
+		<div class="col-sm-6 col-md-6 col-lg-6">
 			<?php echo $this->formRow($form->get('cosyears'));?>
 		</div>
 	</div>
 	<div class="form-group">
 	
-		<div class="col-sm-6">
+		<div class="col-sm-6 col-md-6 col-lg-6">
 			<?php echo $this->formRow($form->get('cosidentity'));?>
 		</div>
 	</div>
 		<div class="form-group">
 		
-		<div class="col-sm-6">
+		<div class="col-sm-6 col-md-6 col-lg-6">
 			<?php echo $this->formRow($form->get('cosbirthday'));?>
 		</div>
 	</div>
@@ -77,14 +79,14 @@ $form->prepare();echo $this->form()->openTag($form);?>
 			
     <div class="form-group">
 	
-		<div class="col-sm-6">
+		<div class="ol-sm-4 col-md-4 col-lg-4">
 			<img  alt="" src="/img/choose.jpg" class="picturechoose1 img1 img-thumbnail" style="wdith:200px;height:150px"> 
 		</div>
 	</div>
 	
 	<div class="form-group">
-		<div class="col-sm-offset-2 col-sm-10">
-			<?php echo $this->formInput($form->get('submit')); ?>
+		<div class="col-sm-10 col-md-10 col-lg-10">
+			<?php echo $this->formInput($form->get('submitname')); ?>
 		</div>
 	</div>
 </fieldset>
@@ -93,7 +95,7 @@ $form->prepare();echo $this->form()->openTag($form);?>
 <script>
 //提交图片
 $(function(){
-	$("#submit").click(function(){
+	$("#submitid").click(function(){
 		$("#cosphoto").val($(".picturechoose1").attr("src"));
 		})
 })

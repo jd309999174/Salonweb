@@ -1,3 +1,6 @@
+<script type="text/javascript" src="/validjs/saloncouponissuevalid.js"></script>
+
+
 	<script type="text/javascript" src="/datetimepicker/jquery-ui-timepicker-addon.js"></script>
     <script type="text/javascript" src="/datetimepicker/jquery-ui-timepicker-zh-CN.js"></script>
 
@@ -29,7 +32,7 @@ $form = $this->form;
 $form->setAttribute('action', $this->url('cosmetic', array(
     'action' => 'saloncouponissueadd'
 )));
-$form->get('submit')->setAttribute('value', '修改');
+$form->get('submitname')->setAttribute('value', '修改');
 $form->get('sciavailable')->setAttribute('readonly', 'readonly');
 $form->get('scirestriction')->setAttribute('required', 'required');
 $form->get('scimoney')->setAttribute('required', 'required');
@@ -40,15 +43,29 @@ $form->prepare();
 echo $this->form()->openTag($form);
 echo $this->formHidden($form->get('sciid'));  echo "<br>";
 echo $this->formhidden($form->get('salnumber')); echo "<br>";
-echo $this->formRow($form->get('cusid')); echo "<br>";
-echo $this->formRow($form->get('scirestriction')); echo "<br>";
-echo $this->formRow($form->get('scimoney')); echo "<br>";
-echo $this->formRow($form->get('sciavailable')); echo "<br>";
-echo $this->formRow($form->get('scitimes')); echo "<br>";
-
 ?>
+<div class="form-group">
+<label for="name">用户编号</label>
+			<?php echo $this->formRow($form->get('cusid'));?>		
+</div>
+<div class="form-group">
+<label for="name">所需消费金额</label>
+			<?php echo $this->formRow($form->get('scirestriction'));?>		
+</div>
+<div class="form-group">
+<label for="name">优惠劵金额</label>
+			<?php echo $this->formRow($form->get('scimoney'));?>		
+</div>
+<div class="form-group">
+<label for="name">有效期</label>
+			<?php echo $this->formRow($form->get('sciavailable'));?>		
+</div>
+<div class="form-group">
+<label for="name">每人限领次数</label>
+			<?php echo $this->formRow($form->get('scitimes'));?>		
+</div>
 <div>
- <?php echo $this->formInput($form->get('submit')); ?>
+ <?php echo $this->formInput($form->get('submitname')); ?>
  </div>
 <?php
 echo $this->form()->closeTag($form);

@@ -1,5 +1,9 @@
+<script type="text/javascript" src="/validjs/notificationinfovalid.js"></script>
+
+
+
 <?php
- $title = 'Edit task';
+ $title = '编辑通知';
  $this->headTitle($title);
  ?>
  <h1><?php echo $this->escapeHtml($title); ?></h1>
@@ -8,7 +12,7 @@
  $form = $this->form;
  $url = $this->url('cosmetic', array('action' => 'notificationinfoedit', 'sub' => $sub));
  $form->setAttribute('action', $url);
- $form->get('submit')->setAttribute('value', '编辑');
+ $form->get('submitname')->setAttribute('value', '编辑');
  $form->get('nolink')->setAttribute('class', 'form-control linkinput1');
  $form->prepare();
 
@@ -27,7 +31,7 @@ echo $this->formRow($form->get('nolink'));
 						</button>
 					</span></div>
  <div>
- <?php echo $this->formInput($form->get('submit')); ?>
+ <?php echo $this->formInput($form->get('submitname')); ?>
  </div>
  <?php
  echo $this->form()->closeTag($form);?>

@@ -90,7 +90,8 @@ class SuggestioncusForm extends Form
             'height'=>'200px',
             'attributes' => array(
                 'class'=> 'form-control',
-                'placeholder'=>"欢迎提出您在使用中遇到问题或宝贵意见，感谢您的支持"
+                'placeholder'=>"欢迎提出您在使用中遇到问题或宝贵意见，感谢您的支持",
+                'maxlength' => 250
             )
         ));
         $this->add(array(
@@ -113,7 +114,7 @@ class SuggestioncusForm extends Form
         
 
         $this->add(array(
-            'name' => 'submit',
+            'name' => 'submitname',
             'attributes' => array(
                 'id'=>'signupsubmit',
                 'type' => 'submit',

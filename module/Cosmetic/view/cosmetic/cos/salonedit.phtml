@@ -1,3 +1,4 @@
+<script type="text/javascript" src="/validjs/salonvalid.js"></script>
 
 <?php
 // TODO 开始FORM
@@ -14,33 +15,37 @@
  $form->get('salname')->setAttribute('required', 'required');
  $form->get('salphone')->setAttribute('required', 'required');
  $form->get('saladdress')->setAttribute('required', 'required');
- $form->get('submit')->setAttribute('value', '提交');
- $form->get('submit')->setAttribute('id', 'submit');
+ $form->get('submitname')->setAttribute('value', '提交');
+ $form->get('submitname')->setAttribute('id', 'submitid');
  $form->prepare();echo $this->form()->openTag($form);?>
 
 
  <fieldset>
     <legend>修改分院</legend>
 	<div class="form-group">
-		<div class="col-sm-6">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+		<label for="name">分店编号</label>
 			<?php echo $this->formRow($form->get('salbranch'));?>
 		</div>
 	</div>
 	<div class="form-group">
 		
-		<div class="col-sm-6">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+		<label for="name">分店名称</label>
 			<?php echo $this->formRow($form->get('salname'));?>
 		</div>
 	</div>
 		<div class="form-group">
 		
-		<div class="col-sm-6">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+		     <label for="name">分店电话</label>
 			<?php echo $this->formRow($form->get('salphone'));?>
 		</div>
 	</div>
 		<div class="form-group">
 	
-		<div class="col-sm-6">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+		<label for="name">分店地址</label>
 			<?php echo $this->formRow($form->get('saladdress'));?>
 		</div>
 	</div>
@@ -49,14 +54,14 @@
 			<?php echo $this->formhidden($form->get('salphoto3'));?>
     <div class="form-group">
 	
-		<div class="col-sm-4">
+		<div class="col-sm-4 col-md-4 col-lg-4">
 		<h3>门头图片</h3>
 			<img alt="" src="" class="picturechoose1 img1 img-thumbnail" style="wdith:200px;height:150px"> 
 		</div>
 	</div>
 	<div class="form-group">
-		<div class="col-sm-offset-2 col-sm-10">
-			<?php echo $this->formInput($form->get('submit')); ?>
+		<div class="col-sm-10 col-md-10 col-lg-10">
+			<?php echo $this->formInput($form->get('submitname')); ?>
 		</div>
 	</div>
 </fieldset>
@@ -75,7 +80,7 @@ $(function(){
  <script>
 //提交图片
 $(function(){
-	$("#submit").click(function(){
+	$("#submitid").click(function(){
 		$("#salphoto1").val($(".picturechoose1").attr("src"));
 		$("#salphoto2").val($(".picturechoose2").attr("src"));
 		$("#salphoto3").val($(".picturechoose3").attr("src"));

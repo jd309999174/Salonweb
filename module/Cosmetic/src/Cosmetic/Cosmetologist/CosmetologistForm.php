@@ -43,7 +43,7 @@ class CosmetologistForm extends Form
             ),
             'attributes' => array(
                 'class'=>"form-control",
-                'maxlength' => 100
+                
             )
         ));
         $this->add(array(
@@ -54,7 +54,7 @@ class CosmetologistForm extends Form
             ),
             'attributes' => array(
                 'class'=>"form-control",
-                'maxlength' => 100,
+                
                 //'id'=>"datepicker"
             )
         ));
@@ -66,7 +66,7 @@ class CosmetologistForm extends Form
             ),
             'attributes' => array(
                 'class'=>"form-control",
-                'maxlength' => 100
+                
             )
         ));
         
@@ -78,7 +78,7 @@ class CosmetologistForm extends Form
             ),
             'attributes' => array(
                 'class'=>"form-control",
-                'maxlength' => 100
+                
             )
         ));
         $this->add(array(
@@ -89,7 +89,7 @@ class CosmetologistForm extends Form
             ),
             'attributes' => array(
                 'class'=>"form-control",
-                'maxlength' => 100
+                
             )
         ));
         
@@ -102,7 +102,7 @@ class CosmetologistForm extends Form
             'attributes' => array(
                 'class'=>"form-control",
                 'id'=>'cosphoto',
-                'maxlength' => 100
+                
             )
         ));
      
@@ -115,7 +115,7 @@ class CosmetologistForm extends Form
             ),
             'attributes' => array(
                 'class'=>"form-control",
-                'maxlength' => 100
+                
             )
         ));
         $this->add(array(
@@ -126,7 +126,7 @@ class CosmetologistForm extends Form
             ),
             'attributes' => array(
                 'class'=>"form-control",
-                'maxlength' => 100
+                
             )
         ));
         $this->add(array(
@@ -137,7 +137,7 @@ class CosmetologistForm extends Form
             ),
             'attributes' => array(
                 'class'=>"form-control",
-                'maxlength' => 100
+                
             )
         ));
         $this->add(array(
@@ -148,14 +148,14 @@ class CosmetologistForm extends Form
             ),
             'attributes' => array(
                 'class'=>"form-control",
-                'maxlength' => 100
+                
             )
         ));
         
         $this->add(array(
-            'name' => 'submit',
+            'name' => 'submitname',
             'attributes' => array(
-                'id'=>"submit",
+                'id'=>"submitid",
                 'type' => 'submit',
                 'value' => '提交',
                 'class' => 'btn btn-primary'

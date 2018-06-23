@@ -28,7 +28,7 @@ $("document").ready(function(){
 	$("#submitbtn").click(function(){
 		 if($("#repeatpassword").val()!==$("#cuspassword").val()){
 		    	$("#repeatwrong").show();
-			    }else{$("#submit").click();}
+			    }else{$("#submitid").click();}
 		})
 	$("#repeatpassword").focus(function(){
 		$("#repeatwrong").hide();
@@ -80,7 +80,7 @@ $form = $this->form;
 $form->setAttribute('action',$this->url('customer', array(
     'action' => 'register','sub'=>$sub
 )));
-$form->get('submit')->setAttribute('style', 'visibility: hidden');
+$form->get('submitname')->setAttribute('style', 'visibility: hidden');
 $form->get('cusphone')->setAttribute('onblur', 'checkout()');
 $form->get('cusphone')->setAttribute('onfocus', 'getfocus()');
 $form->get('cusphone')->setAttribute('required', 'required');
@@ -128,7 +128,7 @@ $form->prepare();echo $this->form()->openTag($form);?>
   <button type="button" id="submitbtn" class="button blue bigrounded btn-block">提交</button>
   <br>
   <button type="button" class="button white bigrounded btn-block" onclick="location='../login/<?php echo $sub;?>'">登陆</button>
-  <?php echo $this->formInput($form->get('submit')); //已隐藏?>
+  <?php echo $this->formInput($form->get('submitname')); //已隐藏?>
   </div>
 </fieldset>
 <?php echo $this->form()->closeTag($form);?>
@@ -151,8 +151,72 @@ $(document).on('ready', function() {
 <script>
 $(document).ready(function() {
 	//注册时显示加载图
-	$("#submit").click(function(){
+	$("#submitid").click(function(){
         $("#loadingimg").show();
 		})
+});
+</script>
+
+
+<script>
+$(document).ready(function() {
+    $('#customer').bootstrapValidator({
+        message: 'This value is not valid',
+        //excluded:[":hidden",":disabled",":not(visible)"] ,//bootstrapValidator的默认配置
+        //excluded: ':disabled',//关键配置，表示只对于禁用域不进行验证，其他的表单元素都要验证
+
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',//显示验证成功或者失败时的一个小图标
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	cusphone: {
+                message: '号码无效',
+                validators: {
+                    notEmpty: {
+                        message: '手机号码不能为空'
+                    },
+                    stringLength: {
+                        min: 11,
+                        max: 11,
+                        message: '请输入11位手机号码'
+                    },
+                    regexp: {
+                        regexp: /^1[3|5|8]{1}[0-9]{9}$/,
+                        message: '请输入正确的手机号码'
+                    }
+                }
+            },
+            cuspassword: {
+                message:'密码无效',
+                validators: {
+                    notEmpty: {
+                        message: '密码不能为空'
+                    },
+                    stringLength: {
+                        min: 6,
+                        max: 30,
+                        message: '用户名长度必须在6到30之间'
+                    },
+                    regexp: {
+                        regexp: /^[a-zA-Z0-9_\.]+$/,
+                        message: '密码只能包含数字，字母，标点或下划线'
+                    }
+                }
+            },
+
+        }
+    }).on('error.form.bv', function(e) {
+        console.log('error');
+
+        // Active the panel element containing the first invalid element
+        var $form         = $(e.target),
+            validator     = $form.data('bootstrapValidator'),
+            $invalidField = validator.getInvalidFields().eq(0),
+            $collapse     = $invalidField.parents('.collapse');
+
+        $collapse.collapse('show');
+    });
 });
 </script>

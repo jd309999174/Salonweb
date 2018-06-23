@@ -13,8 +13,8 @@ $form = $this->form;
 $form->setAttribute('action', $this->url('customer', array(
     'action' => 'login','sub'=>$sub
 )));
-$form->get('submit')->setAttribute('value', '登陆');
-$form->get('submit')->setAttribute('class', 'button blue bigrounded btn-block');
+$form->get('submitname')->setAttribute('value', '登陆');
+$form->get('submitname')->setAttribute('class', 'button blue bigrounded btn-block');
 $form->prepare();
 echo $this->form()->openTag($form);?>
 <fieldset>
@@ -29,8 +29,72 @@ echo $this->form()->openTag($form);?>
     <?php echo $this->formRow($form->get('cuspassword'));?>
     </div>
     <div class="form-group" style="text-align:center">
-    <?php echo $this->formInput($form->get('submit')); ?>
+    <?php echo $this->formInput($form->get('submitname')); ?>
     </div>
 </fieldset>
 <?php echo $this->form()->closeTag($form);?>
 <button type="button" class="button white bigrounded btn-block" onclick="location='<?php echo $this->url('customer', array('action'=>'register','sub'=>$sub));?>'">注册</button>
+
+
+<script>
+$(document).ready(function() {
+    $('#customer').bootstrapValidator({
+        message: 'This value is not valid',
+        //excluded:[":hidden",":disabled",":not(visible)"] ,//bootstrapValidator的默认配置
+        //excluded: ':disabled',//关键配置，表示只对于禁用域不进行验证，其他的表单元素都要验证
+
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',//显示验证成功或者失败时的一个小图标
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	cusphone: {
+                message: '号码无效',
+                validators: {
+                    notEmpty: {
+                        message: '手机号码不能为空'
+                    },
+                    stringLength: {
+                        min: 11,
+                        max: 11,
+                        message: '请输入11位手机号码'
+                    },
+                    regexp: {
+                        regexp: /^1[3|5|8]{1}[0-9]{9}$/,
+                        message: '请输入正确的手机号码'
+                    }
+                }
+            },
+            cuspassword: {
+                message:'密码无效',
+                validators: {
+                    notEmpty: {
+                        message: '密码不能为空'
+                    },
+                    stringLength: {
+                        min: 6,
+                        max: 30,
+                        message: '密码长度必须在6到30之间'
+                    },
+                    regexp: {
+                        regexp: /^[a-zA-Z0-9_\.]+$/,
+                        message: '密码只能包含数字，字母，标点或下划线'
+                    }
+                }
+            },
+
+        }
+    }).on('error.form.bv', function(e) {
+        console.log('error');
+
+        // Active the panel element containing the first invalid element
+        var $form         = $(e.target),
+            validator     = $form.data('bootstrapValidator'),
+            $invalidField = validator.getInvalidFields().eq(0),
+            $collapse     = $invalidField.parents('.collapse');
+
+        $collapse.collapse('show');
+    });
+});
+</script>

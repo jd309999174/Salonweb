@@ -33,7 +33,7 @@ class AccountForm extends Form
             'type' => 'text',
             'attributes' => array(
                 'class'=>'form-control',
-                'maxlength' => 100,
+                
                 'id'=>'salnumber'
             )
         ));
@@ -43,7 +43,7 @@ class AccountForm extends Form
             'attributes' => array(
                 'class'=>'form-control',
                 'placeholder'=>'请输入账号',
-                'maxlength' => 100,
+                
                 'id'=>'salaccount'
             )
         ));
@@ -53,7 +53,7 @@ class AccountForm extends Form
             'attributes' => array(
                 'class'=>'form-control',
                 'placeholder'=>'请输入密码',
-                'maxlength' => 100,
+                
                 'id'=>'salpassword'
             )
         ));
@@ -63,7 +63,7 @@ class AccountForm extends Form
             'attributes' => array(
                 'class'=>'form-control',
                 'placeholder'=>'请输入院长姓名',
-                'maxlength' => 100,
+                
                 'id'=>'salbossname'
             )
         ));
@@ -71,7 +71,7 @@ class AccountForm extends Form
             'name' => 'salbossphone',
             'type' => 'text',
             'attributes' => array(
-                'maxlength' => 100,
+                
                 'class'=>'form-control',
                 'placeholder'=>'请输入手机号',
                 'id'=>'salbossphone'
@@ -82,7 +82,7 @@ class AccountForm extends Form
             'type' => 'text',
             'attributes' => array(
                 'class'=>'form-control',
-                'maxlength' => 100,
+                
                 'id'=>'salbossphoto'
             )
         ));
@@ -93,7 +93,7 @@ class AccountForm extends Form
                 'class'=>'form-control',
                 'id'=>'salbossphotof',
                 'onchange'=>'change("salbossphotof","salbossphoto")',
-                'maxlength' => 100
+                
             )
         ));
         $this->add(array(
@@ -102,7 +102,7 @@ class AccountForm extends Form
             'attributes' => array(
                 'class'=>'form-control',
                 'placeholder'=>'请输入身份证号',
-                'maxlength' => 100
+                
             )
         ));
         $this->add(array(
@@ -111,7 +111,7 @@ class AccountForm extends Form
             'attributes' => array(
                 'class'=>'form-control',
                 'placeholder'=>'请输入美容院名称',
-                'maxlength' => 100
+                
             )
         ));
         $this->add(array(
@@ -120,7 +120,7 @@ class AccountForm extends Form
             'attributes' => array(
                 'class'=>'form-control',
                 'placeholder'=>'请输入美容院地址',
-                'maxlength' => 100
+                
             )
         ));
         $this->add(array(
@@ -129,7 +129,7 @@ class AccountForm extends Form
             'attributes' => array(
                 'class'=>'form-control',
                 'placeholder'=>'请输入营业执照统一社会信用代码',
-                'maxlength' => 100
+                
             )
         ));
         
@@ -139,7 +139,7 @@ class AccountForm extends Form
             'attributes' => array(
                 'class'=>'form-control',
                 'placeholder'=>'请输入支付宝账号',
-                'maxlength' => 100,
+                
                 'id'=>'alipayaccount'
             )
         ));
@@ -149,7 +149,7 @@ class AccountForm extends Form
             'attributes' => array(
                 'class'=>'form-control',
                 'placeholder'=>'请输入微信账号',
-                'maxlength' => 100,
+                
                 'id'=>'wechataccount'
             )
         ));
@@ -157,12 +157,12 @@ class AccountForm extends Form
         
       
         $this->add(array(
-            'name' => 'submit',
+            'name' => 'submitname',
             'attributes' => array(
                 'type' => 'submit',
                 'value' => '提交',
                 'class' => 'btn btn-primary',
-                'id' => 'submit'
+                'id' => 'submitid'
             )
         ));
     }

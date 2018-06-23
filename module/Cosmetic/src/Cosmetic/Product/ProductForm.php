@@ -32,7 +32,7 @@ class ProductForm extends Form
             ),
             'attributes' => array(
                 'class'=>"form-control",
-                'maxlength' => 100
+                
                 
             )
         ));
@@ -45,7 +45,7 @@ class ProductForm extends Form
             'attributes' => array(
                 'class'=>'form-control',
                 'placeholder'=>"请输入标题",
-                'maxlength' => 100,
+                
                 'required'=>'required'
             )
         ));
@@ -58,7 +58,7 @@ class ProductForm extends Form
             'attributes' => array(
                 'class'=>'form-control',
                 'placeholder'=>"请输入价格",
-                'maxlength' => 100,
+                
                 'required'=>'required'
             )
         ));
@@ -71,7 +71,7 @@ class ProductForm extends Form
             'attributes' => array(
                 'class'=>'form-control',
                 'placeholder'=>"请输入原价",
-                'maxlength' => 100,
+                
                 'required'=>'required'
             )
         ));
@@ -85,7 +85,7 @@ class ProductForm extends Form
             'attributes' => array(
                 'class'=>'form-control',
                 'id'=>"prodpicture1",
-                'maxlength' => 100
+                
             )
         ));
         $this->add(array(
@@ -97,7 +97,7 @@ class ProductForm extends Form
             'attributes' => array(
                 'class'=>'form-control',
                 'id'=>"prodpicture2",
-                'maxlength' => 100
+                
             )
         ));
         $this->add(array(
@@ -109,7 +109,7 @@ class ProductForm extends Form
             'attributes' => array(
                 'class'=>'form-control',
                 'id'=>"prodpicture3",
-                'maxlength' => 100
+                
             )
         ));
         $this->add(array(
@@ -121,7 +121,7 @@ class ProductForm extends Form
             'attributes' => array(
                 'class'=>'form-control',
                 'id'=>"prodpicture4",
-                'maxlength' => 100
+                
             )
         ));
         $this->add(array(
@@ -133,7 +133,7 @@ class ProductForm extends Form
             'attributes' => array(
                 'class'=>'form-control',
                 'id'=>"prodpicture5",
-                'maxlength' => 100
+                
             )
         ));
         
@@ -145,8 +145,8 @@ class ProductForm extends Form
             ),
             'attributes' => array(
                 'class'=>'form-control',
-                'placeholder'=>"请输入需求或分类或系列，多项可用逗号分隔",
-                'maxlength' => 100,
+                'placeholder'=>"点击图标选择分类",
+                
                 'id'=>'proddemandclassifyseries'
             )
         ));
@@ -163,7 +163,7 @@ class ProductForm extends Form
             'attributes' => array(
                 'class'=>'form-control',
                 'placeholder'=>"请输入品牌",
-                'maxlength' => 100
+                
             )
         ));
         $this->add(array(
@@ -175,7 +175,7 @@ class ProductForm extends Form
             'attributes' => array(
                 'class'=>'form-control',
                 'placeholder'=>"请输入规格",
-                'maxlength' => 100
+                
             )
         ));
         $this->add(array(
@@ -188,7 +188,7 @@ class ProductForm extends Form
             'attributes' => array(
                 'class'=>'form-control',
                 'placeholder'=>"请输入含量",
-                'maxlength' => 100
+                
             )
         ));
         $this->add(array(
@@ -202,7 +202,7 @@ class ProductForm extends Form
             'attributes' => array(
                 'class'=>'form-control',
                 'placeholder'=>"请输入指数",
-                'maxlength' => 100
+                
             )
         ));
         $this->add(array(
@@ -215,7 +215,7 @@ class ProductForm extends Form
             'attributes' => array(
                 'class'=>'form-control',
                 'placeholder'=>"请输入产地",
-                'maxlength' => 100
+                
             )
         ));
         $this->add(array(
@@ -227,7 +227,7 @@ class ProductForm extends Form
             'attributes' => array(
                 'class'=>'form-control',
                 'placeholder'=>"请输入批号",
-                'maxlength' => 100
+                
             )
         ));
         $this->add(array(
@@ -239,7 +239,7 @@ class ProductForm extends Form
             'attributes' => array(
                 'class'=>'form-control',
                 'placeholder'=>"请输入功效",
-                'maxlength' => 100
+                
             )
         ));
         $this->add(array(
@@ -251,7 +251,7 @@ class ProductForm extends Form
             'attributes' => array(
                 'class'=>'form-control',
                 'placeholder'=>"请输入有效期",
-                'maxlength' => 100
+                
             )
         ));
         $this->add(array(
@@ -263,7 +263,7 @@ class ProductForm extends Form
             'attributes' => array(
                 'class'=>'form-control',
                 'placeholder'=>"请输入疗程次数",
-                'maxlength' => 100
+                
             )
         ));
         $this->add(array(
@@ -279,7 +279,7 @@ class ProductForm extends Form
             'attributes' => array(
                 'class'=>'form-control',
                 'placeholder'=>"请输入销量",
-                'maxlength' => 100
+                
             )
         ));
         $this->add(array(
@@ -291,7 +291,7 @@ class ProductForm extends Form
             'attributes' => array(
                 'class'=>'form-control',
                 'placeholder'=>"上架日期",
-                'maxlength' => 100
+                
             )
         ));
         

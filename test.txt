@@ -22,3 +22,7 @@ $cache = StorageFactory::factory(array(
 if ($cache->getItem("po")){
 echo $cache->getItem("po");
 }else {echo "重设";$cache->setItem("po", "4321");}
+
+
+
+bootstrapValidator验证 表单验证通过但无法提交form的原因  submit标签的name或id属性值为submit。

@@ -30,7 +30,7 @@ class DemandclassifyseriesForm extends Form
             ),
             'attributes' => array(
                 'class'=>"form-control",
-                'maxlength' => 100
+                
                 
             )
         ));
@@ -55,7 +55,8 @@ class DemandclassifyseriesForm extends Form
                 'label' => '分类名'
             ),
             'attributes' => array(
-                'maxlength' => 100
+                'class'=>"form-control",
+                
             )
         ));
         $this->add(array(
@@ -66,7 +67,7 @@ class DemandclassifyseriesForm extends Form
             ),
             'attributes' => array(
                 'id'=>'dcsbackground',
-                'maxlength' => 100
+                
             )
         ));
         

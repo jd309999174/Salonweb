@@ -50,7 +50,7 @@ class NotificationinfoForm extends Form
         
             'attributes' => array(
                 'id' => 'notitle',
-                'maxlength' => 100,
+                'maxlength' => 30,
                 'class'=>"form-control"
             )
         ));
@@ -68,7 +68,7 @@ class NotificationinfoForm extends Form
        
         
         $this->add(array(
-            'name' => 'submit',
+            'name' => 'submitname',
             'attributes' => array(
                 'type' => 'submit',
                 'class' => 'btn btn-primary'

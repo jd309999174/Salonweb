@@ -29,7 +29,7 @@ class CustombuttonForm extends Form
             'type' => 'text',
             
             'attributes' => array(
-                'maxlength' => 100
+                
             )
         ));
       
@@ -38,7 +38,7 @@ class CustombuttonForm extends Form
             'type' => 'text',
             
             'attributes' => array(
-                'maxlength' => 100,
+                
                 'readonly'=>'readonly'
             )
         ));

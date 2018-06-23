@@ -1,4 +1,4 @@
-
+<script type="text/javascript" src="/validjs/productvalid.js"></script>
 
 <?php
 //TODO FORM
@@ -11,6 +11,7 @@
  $form = $this->form;
  $url = $this->url('cosmetic', array('action' => 'productedit','sub'=>$sub));
  $form->setAttribute('action', $url);
+ $form->get('proddemandclassifyseries')->setAttribute('disabled', 'disabled');
  $form->get('submit')->setAttribute('id', 'submit');
  $form->prepare();
 
@@ -38,7 +39,7 @@ echo $this->form()->openTag($form);?>
 <?php echo $this->formhidden($form->get('prodpicture5'));?></div>
 
 <div class="form-group">
-<label>需求,分类，系列 </label>
+<label id="categorise">需求,分类，系列 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></label>
 <?php echo $this->formRow($form->get('proddemandclassifyseries'));?></div>
  
 
@@ -141,7 +142,7 @@ $(function() {
       modal:true,
     });
     $("#proddemandclassifyseries").attr("value","<?php echo $classify;?>");
-    $( "#proddemandclassifyseries" ).click(function() {
+    $( "#categorise" ).click(function() {
       $( "#dialog" ).dialog( "open" );
     });
   });

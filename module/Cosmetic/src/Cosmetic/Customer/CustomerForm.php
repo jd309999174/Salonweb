@@ -39,7 +39,7 @@ class CustomerForm extends Form
                'placeholder'=>'请输入手机号',
                'class'=>'form-control',
                'id'=>'cusphone',
-               'maxlength' => 100
+               'maxlength' => 11
            )
        ));
         $this->add(array(
@@ -49,7 +49,7 @@ class CustomerForm extends Form
                 'placeholder'=>'请输入密码',
                 'class'=>'form-control',
                 'id'=>'cuspassword',
-                'maxlength' => 100
+                'maxlength' => 30
             )
         ));
        
@@ -61,7 +61,7 @@ class CustomerForm extends Form
             'attributes' => array(
                 'placeholder'=>'请输入姓名',
                 'class'=>'form-control',
-                'maxlength' => 100
+                'maxlength' => 30
             )
         ));
         
@@ -121,10 +121,10 @@ class CustomerForm extends Form
        
 
         $this->add(array(
-            'name' => 'submit',
+            'name' => 'submitname',
        
             'attributes' => array(
-                'id'=>'submit',
+                'id'=>'submitid',
                 'type' => 'submit',
                 'value' => '提交',
                 'class' => 'btn btn-primary btn-lg btn-block'

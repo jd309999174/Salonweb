@@ -1,3 +1,6 @@
+<script type="text/javascript" src="/validjs/notificationinfovalid.js"></script>
+
+
 <?php
 $title = '添加通知';
 $this->headTitle($title);
@@ -9,7 +12,7 @@ $form = $this->form;
 $form->setAttribute('action', $this->url('cosmetic', array(
     'action' => 'notificationinfoadd'
 )));
-$form->get('submit')->setAttribute('value', '添加');
+$form->get('submitname')->setAttribute('value', '添加');
 $form->get('nolink')->setAttribute('class', 'form-control linkinput1');
 $form->prepare();
 
@@ -28,7 +31,7 @@ echo $this->formRow($form->get('nolink'));
 						</button>
 					</span></div>
 <div>
- <?php echo $this->formInput($form->get('submit')); ?>
+ <?php echo $this->formInput($form->get('submitname')); ?>
  </div>
 <?php
 echo $this->form()->closeTag($form);?>

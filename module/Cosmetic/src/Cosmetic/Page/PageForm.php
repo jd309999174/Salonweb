@@ -44,7 +44,7 @@ class PageForm extends Form
             
             'attributes' => array(
                 'id'=>'pagename',
-                'maxlength' => 100
+                'maxlength' => 30
             )
         ));
         $this->add(array(
@@ -53,7 +53,7 @@ class PageForm extends Form
             
             'attributes' => array(
                 'id'=>'pagecolor',
-                'maxlength' => 100
+                'maxlength' => 30
             )
         ));
         $this->add(array(
@@ -61,7 +61,7 @@ class PageForm extends Form
             'type' => 'text',
             'attributes' => array(
                 'id'=>'pagepaddinglr',
-                'maxlength' => 100
+                'maxlength' => 3
             )
         ));
         $this->add(array(
@@ -70,7 +70,7 @@ class PageForm extends Form
         
             'attributes' => array(
                 'id'=>'pagepaddingtop',
-                'maxlength' => 100
+                'maxlength' => 3
             )
         ));
         $this->add(array(
@@ -79,7 +79,7 @@ class PageForm extends Form
           
             'attributes' => array(
                 'id'=>'pagepaddingbottom',
-                'maxlength' => 100
+                'maxlength' => 3
             )
         ));
         $this->add(array(
@@ -155,16 +155,17 @@ class PageForm extends Form
             
             'attributes' => array(
                 'maxlength' => 100,
-                'id'=>"datepicker"
+                'id'=>"datepicker",
+                'readonly'=>'readonly'
             )
         ));
         $this->add(array(
-            'name' => 'submit',
+            'name' => 'submitname',
             'attributes' => array(
                 'type' => 'submit',
                 'value' => '提交',
                 'class' => 'btn btn-primary',
-                'id'=>'submit'
+                'id'=>'submitid'
             )
         ));
     }

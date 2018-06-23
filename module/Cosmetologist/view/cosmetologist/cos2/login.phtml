@@ -10,8 +10,8 @@ $form = $this->form;
 $form->setAttribute('action', $this->url('cosmetologist', array(
     'action' => 'login'
 )));
-$form->get('submit')->setAttribute('value', '登陆');
-$form->get('submit')->setAttribute('class', 'button blue bigrounded');
+$form->get('submitname')->setAttribute('value', '登陆');
+$form->get('submitname')->setAttribute('class', 'button blue bigrounded');
 $form->prepare();
 echo $this->form()->openTag($form);?>
 <fieldset style="text-align: center;">
@@ -24,7 +24,67 @@ echo $this->form()->openTag($form);?>
     <?php echo $this->formRow($form->get('cospassword'));?>
     </div>
     <div class="form-group" style="text-align:center">
-    <?php echo $this->formInput($form->get('submit')); ?>
+    <?php echo $this->formInput($form->get('submitname')); ?>
     </div>
 </fieldset>
 <?php echo $this->form()->closeTag($form);?>
+
+
+<script>
+$(document).ready(function() {
+    $('#cosmetologist').bootstrapValidator({
+        message: 'This value is not valid',
+        //excluded:[":hidden",":disabled",":not(visible)"] ,//bootstrapValidator的默认配置
+        //excluded: ':disabled',//关键配置，表示只对于禁用域不进行验证，其他的表单元素都要验证
+
+        
+        fields: {
+        	cosphone: {
+                message: '号码无效',
+                validators: {
+                    notEmpty: {
+                        message: '手机号码不能为空'
+                    },
+                    stringLength: {
+                        min: 11,
+                        max: 11,
+                        message: '请输入11位手机号码'
+                    },
+                    regexp: {
+                        regexp: /^1[3|5|8]{1}[0-9]{9}$/,
+                        message: '请输入正确的手机号码'
+                    }
+                }
+            },
+            cospassword: {
+                message:'密码无效',
+                validators: {
+                    notEmpty: {
+                        message: '密码不能为空'
+                    },
+                    stringLength: {
+                        min: 6,
+                        max: 30,
+                        message: '密码长度必须在6到30之间'
+                    },
+                    regexp: {
+                        regexp: /^[a-zA-Z0-9_\.]+$/,
+                        message: '密码只能包含数字，字母，标点或下划线'
+                    }
+                }
+            },
+
+        }
+    }).on('error.form.bv', function(e) {
+        console.log('error');
+
+        // Active the panel element containing the first invalid element
+        var $form         = $(e.target),
+            validator     = $form.data('bootstrapValidator'),
+            $invalidField = validator.getInvalidFields().eq(0),
+            $collapse     = $invalidField.parents('.collapse');
+
+        $collapse.collapse('show');
+    });
+});
+</script>

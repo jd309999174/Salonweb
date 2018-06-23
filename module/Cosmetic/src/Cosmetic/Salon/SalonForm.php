@@ -25,64 +25,54 @@ class SalonForm extends Form
         $this->add(array(
             'name' => 'salnumber',
             'type' => 'text',
-            'options' => array(
-                'label' => '编号'
-            ),
+            
             'attributes' => array(
                 'class'=>"form-control",
-                'maxlength' => 100
+                
                 
             )
         ));
         $this->add(array(
             'name' => 'salbranch',
             'type' => 'text',
-            'options' => array(
-                'label' => '分店号'
-            ),
+            
             'attributes' => array(
                 'placeholder'=>"请输入分店号",
                 'class'=>"form-control",
                 
                 //'onchange'=>'tanchuang("salbranch")',
-                'maxlength' => 100
+                
             )
         ));
        
         $this->add(array(
             'name' => 'salname',
             'type' => 'text',
-            'options' => array(
-                'label' => '店名'
-            ),
+           
             'attributes' => array(
                 'placeholder'=>"请输入店名",
                 'class'=>"form-control",
-                'maxlength' => 100
+                
             )
         ));
         $this->add(array(
             'name' => 'salphone',
             'type' => 'text',
-            'options' => array(
-                'label' => '电话'
-            ),
+           
             'attributes' => array(
                 'placeholder'=>"请输入电话",
                 'class'=>"form-control",
-                'maxlength' => 100
+
             )
         ));
         $this->add(array(
             'name' => 'saladdress',
             'type' => 'text',
-            'options' => array(
-                'label' => '地址'
-            ),
+           
             'attributes' => array(
                 'placeholder'=>"请输入地址",
                 'class'=>"form-control",
-                'maxlength' => 100
+                
             )
         ));
       
@@ -96,7 +86,7 @@ class SalonForm extends Form
             'attributes' => array(
                 'class'=>"form-control",
                 'id'=>"salphoto1",
-                'maxlength' => 100
+                
             )
         ));
         $this->add(array(
@@ -109,7 +99,7 @@ class SalonForm extends Form
             'attributes' => array(
                 'class'=>"form-control",
                 'id'=>"salphoto2",
-                'maxlength' => 100
+                
             )
         ));
         $this->add(array(
@@ -122,7 +112,7 @@ class SalonForm extends Form
             'attributes' => array(
                 'class'=>"form-control",
                 'id'=>"salphoto3",
-                'maxlength' => 100
+                
             )
         ));
        
@@ -135,11 +125,11 @@ class SalonForm extends Form
             'attributes' => array(
                 'placeholder'=>"请输入工商号",
                 'class'=>"form-control",
-                'maxlength' => 100
+                
             )
         ));
         $this->add(array(
-            'name' => 'submit',
+            'name' => 'submitname',
             'attributes' => array(
                 'type' => 'submit',
                 'value' => 'Go',

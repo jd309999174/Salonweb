@@ -673,7 +673,7 @@ type:"POST",success:function(result){$("#successAlert").show();$("#successAlert"
 <?php if ($product->getProdvalidity()):?>
   <div class="row">
     <div class="col-xs-3 col-sm-3 subtitle">有效期</div>
-    <div class="col-xs-9 col-sm-9"><?php echo $product->getProdvalidity();?></div>    
+    <div class="col-xs-9 col-sm-9"><?php echo $product->getProdvalidity();?>年</div>    
   </div>
   <hr/>
 <?php endif;?>  
