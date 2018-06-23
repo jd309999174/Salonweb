@@ -9,7 +9,6 @@
 
 namespace Cosmetologist\Controller;
 
-use Zend\Filter\StripTags;
 use Zend\Mvc\Controller\AbstractActionController;
 use Cosmetic\Cosmetologist\CosmetologistForm;
 use Cosmetic\Cosmetologist\CosmetologistEntity;
@@ -621,19 +620,16 @@ class Cos2Controller extends AbstractActionController
                 $chatmodule = $this->getChatmoduleMapper()->fetchAllone('cus' .$customer->getCusid(), 'cos' . $cosid);
             } else
             if($_POST['chatword']!==""&&$_POST['chatword']!=="[refresh]"){
-                //过滤
-                $filter = new StripTags();
-                $chatword=$filter->filter($_POST['chatword']);
                 $entity->setReceiveid('cus' . $customer->getCusid());
                 $entity->setSendid('cos' . $cosid);
-                $entity->setChatword($chatword);
+                $entity->setChatword($_POST['chatword']);
     
                 $this->getChatmoduleMapper()->saveChat($entity);
             
                 //给对方添加一条未读,并输入自己现在的名字，防止改名后未读信息不改名,
                 $sendunread->setNumber($sendunread->getNumber()+1);//未读
                 $sendunread->setSendname($cosname);//发送者名
-                $sendunread->setLastword($chatword);//最后的话
+                $sendunread->setLastword($_POST['chatword']);//最后的话
                 $this->getUnreadMapper()->saveTask($sendunread);
                 // 获取一条聊天记录
                 $chatmodule = $this->getChatmoduleMapper()->fetchAllone('cus' . $customer->getCusid(), 'cos' . $cosid);
