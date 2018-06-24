@@ -120,7 +120,7 @@ $form->prepare();echo $this->form()->openTag($form);?>
   <div class="form-group">
     <label for="name"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>&nbsp;密码确认</label>
     <div style="color:red;display:none;" id="repeatwrong">
-     两次输入密码不匹配
+     
     </div>
     <input type="password" name="repeatpassword" class="form-control" required="required" placeholder="请再次输入密码" id="repeatpassword">
   </div>
@@ -202,6 +202,15 @@ $(document).ready(function() {
                     regexp: {
                         regexp: /^[a-zA-Z0-9_\.]+$/,
                         message: '密码只能包含数字，字母，标点或下划线'
+                    }
+                }
+            },
+            repeatpassword: {
+                message:'密码无效',
+                validators: {
+                    identical: {
+                        field: 'cuspassword',
+                        message: '两次密码不匹配'
                     }
                 }
             },
