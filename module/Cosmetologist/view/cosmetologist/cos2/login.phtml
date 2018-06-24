@@ -45,15 +45,15 @@ $(document).ready(function() {
                     notEmpty: {
                         message: '手机号码不能为空'
                     },
-                    stringLength: {
-                        min: 11,
+                    digits: {
+                        min: 1,
                         max: 11,
                         message: '请输入11位手机号码'
                     },
-                    regexp: {
-                        regexp: /^1[3|5|8]{1}[0-9]{9}$/,
-                        message: '请输入正确的手机号码'
-                    }
+//                     regexp: {
+//                         regexp: /^1[3|5|8]{1}[0-9]{9}$/,
+//                         message: '请输入正确的手机号码'
+//                     }
                 }
             },
             cospassword: {
@@ -63,7 +63,7 @@ $(document).ready(function() {
                         message: '密码不能为空'
                     },
                     stringLength: {
-                        min: 6,
+                        min: 1,
                         max: 30,
                         message: '密码长度必须在6到30之间'
                     },
