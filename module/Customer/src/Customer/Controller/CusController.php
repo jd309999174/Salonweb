@@ -958,18 +958,32 @@ class CusController extends AbstractActionController
         $prodstyle=$_POST['prodstyle'];
         $prodclassify=$_POST['prodclassify'];
         
+        //取出美容院,判断是否审核中
+         $account=$this->getAccountMapper()->getAccount($id);
+//         if ($cache->hasItem($id."products").$_POST['prodoffset']){
+//             //ajax会反复请求此页面，所以$key需要变化，不变则反复执行下面的code
+//             $products=unserialize($cache->getItem($id."products").$_POST['prodoffset']);
+//         }else{
+//             //请求会反复执行下面的代码，但是因为是空，所以没有高度，ajax之后将不再触发
+//             $products=array();
+//             if ($account->getIoscheck()=="yes"){//审核中取出vip
+//                 foreach ($this->getProductMapper()->getProductoffsetioscheck(12345,$prodoffset,$prodorder,$prodtitle,$prodclassify) as $x){
+//                     array_push($products, $x);
+//                 }
+                
+//             }else {//非审核取出正常产品
+//                 foreach ($this->getProductMapper()->getProductoffset($id,$prodoffset,$prodorder,$prodtitle,$prodclassify) as $x){
+//                     array_push($products, $x);
+//                 }
+//                 $cache->setItem($id."products".$_POST['prodoffset'],serialize($products));
+//             }
+//         }
         
-        if ($cache->hasItem($id."products").$_POST['prodoffset']){
-            //ajax会反复请求此页面，所以$key需要变化，不变则反复执行下面的code
-            $products=unserialize($cache->getItem($id."products").$_POST['prodoffset']);
-        }else{
-            //请求会反复执行下面的代码，但是因为是空，所以没有高度，ajax之后将不再触发
-            $products=array();
-            foreach ($this->getProductMapper()->getProductoffset($id,$prodoffset,$prodorder,$prodtitle,$prodclassify) as $x){
-                array_push($products, $x);
-            }
-            $cache->setItem($id."products".$_POST['prodoffset'],serialize($products));
-        }
+         if ($account->getIoscheck()=="yes"){//审核中取出vip
+             $products=$this->getProductMapper()->getProductoffsetioscheck(12345,$prodoffset,$prodorder,$prodtitle,$prodclassify);
+         }else{
+             $products=$this->getProductMapper()->getProductoffset($id,$prodoffset,$prodorder,$prodtitle,$prodclassify);
+         }
         
         //$products=$this->getProductMapper()->getProductoffset($id,$prodoffset,$prodorder,$prodtitle,$prodclassify);
         return array('products' => $products,'prodstyle'=>$prodstyle);
@@ -2225,9 +2239,14 @@ public function chatajaxAction()
         $id = $container->salnumber;
         $cusid = $container->cusid;
         
+        //取出美容院,判断是否审核中
+        $account=$this->getAccountMapper()->getAccount($id);
+        if ($account->getIoscheck()=="yes"){
+            $demandclassifyseriess=null;
+        }else {
         // 获取此美容院所有分类
         $demandclassifyseriess = $this->getDemandclassifyseriesMapper()->getDemandclassifyseries2($id);
-        
+        }
         return array(
             'id'=>$id,
             'demandclassifyseriess' => $demandclassifyseriess

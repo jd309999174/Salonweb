@@ -13,7 +13,7 @@
 </script>
 
 <?php //TODO 判断是否正在苹果审核?>
-<?php if ($account->getIoscheck()=="yes"):?>
+<?php if ($account->getIoscheck()==""):?>
 <script>
 	var u = navigator.userAgent;
 	var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
@@ -295,7 +295,7 @@ function redHeader(){
  </div>
  </div>
 
-<div class="panel panel-default" id="pagehead" onclick="location='<?php echo $page->getPageheaddata4();?>';" data-href="<?php echo $page->getPageheaddata4();?>" style="background-image:url(<?php echo $page->getPageheaddata3();?>);" data-backgroundimg="<?php echo $page->getPageheaddata3();?>">
+<div class="panel panel-default" id="pagehead" <?php if ($page->getPageheaddata4()):?>onclick="location='<?php echo $page->getPageheaddata4();?>';"<?php endif;?> data-href="<?php echo $page->getPageheaddata4();?>" style="background-image:url(<?php echo $page->getPageheaddata3();?>);" data-backgroundimg="<?php echo $page->getPageheaddata3();?>">
 	<div class="panel-body container" >
 	    <div id="headdetail" class="row" style="width:100%">
 		   <div class="col-xs-3"><img alt="" src="<?php echo $page->getPageheaddata1();?>" class="headlogo" id="headpageicon"></div>

@@ -96,6 +96,49 @@ public function saveProduct(ProductEntity $product)
              //$select->order(array('prodid ASC', 'salnumber ASC'));//综合就是无排序
              break;
          case "prodpriceup":
+             $select->order(array('prodprice ASC','prodid DESC'));//价格升
+             break;
+         case "prodpricedown":
+             $select->order(array('prodprice DESC','prodid DESC'));//价格降
+             break;
+         case "prodsales":
+             $select->order(array('prodsales DESC','prodid DESC'));//销量
+             break;
+         case "prodregdate":
+             $select->order(array('prodid DESC'));//新品就是按id来排序
+             break;
+         default:
+             //无排序
+     }
+     //$select->order(array('prodid ASC', 'salnumber ASC'));
+     $select->limit(10);
+     $select->offset($prodoffset*10);
+     $statement = $this->sql->prepareStatementForSqlObject($select);
+     $results = $statement->execute();
+     if (!$results) {
+         return null;
+     }
+     
+     
+     $entityPrototype = new ProductEntity();
+     $hydrator = new ClassMethods();
+     $resultset = new HydratingResultSet($hydrator, $entityPrototype);
+     $resultset->initialize($results);
+     return $resultset;
+ }
+ //按美容院编号搜索所有产品，包括我的产品          下拉加载更多
+ public function getProductoffsetioscheck($id,$prodoffset,$prodorder,$prodtitle,$prodclassify)
+ {
+     $select = $this->sql->select();
+     //产品共享，不再按美容院id，而是按产品共享状态
+     $select->where(array('salnumber' => $id,'prodtitle LIKE "%'.$prodtitle.'%"','proddemandclassifyseries LIKE "%'.$prodclassify.'%"'));
+     //$select->where(array('sharedstate' => array($id,1),'prodtitle LIKE "%'.$prodtitle.'%"','proddemandclassifyseries LIKE "%'.$prodclassify.'%"'));
+     switch ($prodorder)
+     {
+         case "prodsynthesis":
+             //$select->order(array('prodid ASC', 'salnumber ASC'));//综合就是无排序
+             break;
+         case "prodpriceup":
              $select->order(array('prodprice ASC'));//价格升
              break;
          case "prodpricedown":
