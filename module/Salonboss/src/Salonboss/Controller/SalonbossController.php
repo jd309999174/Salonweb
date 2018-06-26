@@ -222,6 +222,18 @@ class SalonbossController extends AbstractActionController
                 $homepagetemplate2->setTemplatedata2("/img/defaulthomepage2.jpg");
                 $this->getTemplateMapper()->saveTemplate($homepagetemplate2);
                 
+                //默认活动页
+                $pageactivity = new PageEntity();
+                $pageactivity->setPagetype("活动");
+                $pageactivity->setSalnumber($regaccount->getSalnumber());
+                $pageactivity->setPagename("五一大酬宾");
+                $pageactivity->setPagecondition("显示");
+                $pageactivity->setModificationtime("2018-05-01 00:00:00");
+                $pageactivity->setPageheaddata1("/img/51.png");
+                $pageactivity->setPageheaddata2("/salon/test.mp4");
+                $pageactivity->setPageheaddata3("[活动]感恩新老顾客，魅力五一");
+                $pageactivity->setPageexpiration("2018-05-1");
+                $this->getPageMapper()->savePage($pageactivity);
                 
                 
                 //推荐美容院的保存
