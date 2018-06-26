@@ -544,7 +544,7 @@ class CosController extends AbstractActionController
                     $container = new Container('salonlogin');
                     $container->salnumber = $accountlogin->getSalnumber();
                     return $this->redirect()->toRoute('cosmetic', array(
-                        'action' => 'salon'
+                        'action' => 'appqrcode'
                     ));
                 } else {
                     return array(

@@ -86,7 +86,7 @@ display: -webkit-box;
 }
 .button,
 .btn-default{
-	color:<?php echo $page->getPagecolor();?>;
+	color:<?php if ($page->getPagecolor()=="black"){echo "white";}else {echo "#B8860B";}?>;
 }
 #pagehead{
 	    max-height: 300px;
@@ -105,7 +105,7 @@ display: -webkit-box;
 	bottom:-100px;
 }
 a,span {
-	 color:<?php echo $page->getPagecolor();?>;
+	 <?php if ($page->getPagecolor()=="black"){echo "white";}else {echo "#B8860B";}?>;
 }
 .ui-widget-content a {
 	color:<?php echo $page->getPagecolor();?>;

@@ -17,6 +17,7 @@ use Zend\View\Model\ViewModel;
 use Cosmetic\Account\AccountEntity;
 use Cosmetic\Account\AccountForm;
 use Cosmetic\Page\PageEntity;
+use Decorate\Template\TemplateEntity;
 date_default_timezone_set('Asia/Shanghai');//时区
 class SalonbossController extends AbstractActionController
 {
@@ -31,6 +32,11 @@ class SalonbossController extends AbstractActionController
         }
         
         return $hash;
+    }
+    public function getTemplateMapper()
+    {
+        $sm = $this->getServiceLocator();
+        return $sm->get('TemplateMapper');
     }
     public function getSignupMapper()
     {
@@ -183,6 +189,8 @@ class SalonbossController extends AbstractActionController
                 $page->setPagetype("首页");
                 $page->setSalnumber($regaccount->getSalnumber());
                 $page->setPagename("首页");
+                $page->setPageheaddata3("/img/defaultbanner.jpg");//默认店招
+                $page->setPagecolor("white");//默认颜色
                 //默认首页标识使用salbossphoto,名称使用salname
                 if ($x['salbossphoto']){
                 $salbossphoto = '/salbossphoto/'.$x['salbossphoto'];
@@ -195,6 +203,26 @@ class SalonbossController extends AbstractActionController
                 if (! file_exists('public/salon/'.$post['salnumber'])) {
                     mkdir('public/salon/'.$post['salnumber']);
                 }
+                
+                //首页默认模块
+                $homepage=$this->getPageMapper()->getHomepage($regaccount->getSalnumber());
+                $homepagetemplate1=new TemplateEntity();
+                $homepagetemplate1->setPageid($homepage->getPageid());
+                $homepagetemplate1->setSalnumber($regaccount->getSalnumber());
+                $homepagetemplate1->setTemplateindex(0);
+                $homepagetemplate1->setTemplatetype("singlerow");
+                $homepagetemplate1->setTemplatedata2("/img/defaulthomepage1.jpg");
+                $this->getTemplateMapper()->saveTemplate($homepagetemplate1);
+                
+                $homepagetemplate2=new TemplateEntity();
+                $homepagetemplate2->setPageid($homepage->getPageid());
+                $homepagetemplate2->setSalnumber($regaccount->getSalnumber());
+                $homepagetemplate2->setTemplateindex(1);
+                $homepagetemplate2->setTemplatetype("singlerow");
+                $homepagetemplate2->setTemplatedata2("/img/defaulthomepage2.jpg");
+                $this->getTemplateMapper()->saveTemplate($homepagetemplate2);
+                
+                
                 
                 //推荐美容院的保存
                 if ($recommend){
