@@ -112,7 +112,13 @@ class SalonbossController extends AbstractActionController
                 if ($form->isValid()) {
                     $data = $form->getData();
                     $account->setSalaccount($newaccount);
+                    if (!$post['salname']){$account->setSalname('美容');}
+                    if (!$post['salbossphoto']){$account->setSalbossphoto('salonbosslogo.png');}
                     $this->getAccountMapper()->saveAccount($account);
+                    //修改salnumber
+                    $existsal=$this->getAccountMapper()->getSalbossphoneexist($post['salbossphone']);
+                    $existsal->setSalnumber($existsal->getAccountid());
+                    $this->getAccountMapper()->saveAccount($existsal);
                     if (! file_exists('public/salbossphoto')) {
                         mkdir('public/salbossphoto');
                     }
