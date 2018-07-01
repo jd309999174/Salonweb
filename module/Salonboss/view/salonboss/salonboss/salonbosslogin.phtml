@@ -11,7 +11,7 @@ $form->setAttribute('action', $this->url('salonboss', array(
     'action' => 'salonbosslogin','sub'=>$sub
 )));
 $form->get('submitname')->setAttribute('value', '登陆');
-$form->get('submitname')->setAttribute('class', 'button blue bigrounded');
+$form->get('submitname')->setAttribute('class', 'button blue bigrounded btn-block');
 $form->prepare();
 echo $this->form()->openTag($form);?>
 <fieldset>
@@ -30,6 +30,9 @@ echo $this->form()->openTag($form);?>
     </div>
 </fieldset>
 <?php echo $this->form()->closeTag($form);?>
+<div class="form-group" style="text-align:center">
+<button type="button" class="button white bigrounded btn-block" onclick="location='/salonboss/salonbossregister'">注册</button>
+</div>
 
 
 <script>

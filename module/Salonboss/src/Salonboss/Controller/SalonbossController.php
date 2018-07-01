@@ -244,8 +244,12 @@ class SalonbossController extends AbstractActionController
                 $this->getAccountMapper()->saveAccount($account);
                 }
                 // Redirect to list of tasks
+                
+                $container = new Container('salonbosslogin');
+                $container->salnumber = $regaccount->getSalnumber();
+                $container->salaccount = $regaccount->getSalaccount();
                 return $this->redirect()->toRoute('salonboss', array(
-                    'action' => 'registerok','sub'=>$post['salaccount'],'third'=>$post['salpassword']
+                    'action' => 'cusorder','sub'=>'register'
                 ));
                }else{
                    return array(
@@ -319,7 +323,7 @@ class SalonbossController extends AbstractActionController
         $sub = $this->params('sub'); //判断是否是登录页的跳转
        
         
-        if($sub=="login"){
+        if($sub=="login"||$sub="register"){
             //取出session
             $container = new Container('salonbosslogin');
             $id = $container->salnumber;
