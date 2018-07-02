@@ -1,0 +1,402 @@
+<?php //文件上传插件?>
+<link href="/css/fileinput.min.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/js/fileinput.min.js"></script>
+<script src="/js/fileinput.zh.js"></script>
+
+<div class="input-group input-group-sm" style="background-color:white;padding: 5px;text-align:center;">
+<span class="input-group-btn" onclick="window.history.back();">
+        <button class="btn btn-default" type="button" style="border:none;">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+      </span>欧奢伦</div>
+
+<div style="text-align:center">
+<img src="/salon/123/corporatelogo.png" style="height:100px;width:120px;">
+</div>
+
+<script>
+function change(file,text) {
+var x="0123456789qwertyuioplkjhgfdsazxcvbnm";
+var tmp="";
+var timestamp = new Date().getTime();
+for(var i=0;i< 10;i++) {
+tmp += x.charAt(Math.ceil(Math.random()*100000000)%x.length);}
+var random=timestamp+tmp;
+var obj = document.getElementById(file);
+var len = obj.files.length;
+for (var i = 0; i < len; i++) {
+var temp = obj.files[i].name;}
+var fileExt=(/[.]/.exec(temp)) ? /[^.]+$/.exec(temp.toLowerCase()) : '';
+var randomname=random+"."+fileExt;
+var obj2 = document.getElementById(text);
+obj2.value=randomname;
+}
+</script>
+
+
+<script>
+function getfocus(){
+	$('#salbossphonediv').removeClass("has-error");
+	$('#submitid').show();
+	$('#phonenumber').hide();
+}
+function checkout(){
+	$value=$('#salbossphone').val();
+	if($value!==""){
+         for($i=0;$i<$customer.length;$i++){
+               if($value==$customer[$i]){
+                     $('#salbossphonediv').addClass("has-error");
+                     $('#submitid').hide();
+                     $('#phonenumber').show();
+                   }
+             }
+		}
+}
+</script>
+
+<script>
+//密码确认
+$("document").ready(function(){
+	$("#repeatwrong").hide();
+	$("#identitywrong").hide();
+	$("#repeatpassword").change(function(){
+	    if($("#repeatpassword").val()!==$("#salpassword").val()){
+	    	$("#repeatwrong").show();
+		    }
+	});
+	
+	$("#submitbtn").click(function(){
+		<?php if ($sub=="salpassword"):?>
+		//密码不同点击提交无效
+		 if($("#repeatpassword").val()!==$("#salpassword").val()){
+		    	$("#repeatwrong").show();
+			    }else{$("#submitid").click();}
+		<?php endif;?>
+		<?php if ($sub=="salbossidentity"):?>
+		//身份证验证   暂时搁置
+			 $("#submitid").click();
+		<?php endif;?>
+		<?php if ($sub=="salbossname"||$sub=="salbossphone"||$sub=="salbossphoto"):?>
+		$("#submitid").click();
+		<?php endif;?>
+		})
+	$("#repeatpassword").focus(function(){
+		$("#repeatwrong").hide();
+	});
+	$("#cusphone").focus(function(){
+		$("#phonewrong").hide();
+	});
+	$("#verificationinput").focus(function(){
+		$("#verificationwrong").hide();
+	});
+})
+</script>
+
+<script>
+$("document").ready(function(){
+	$("#countdown").hide();
+	$("#loadingimg").hide();
+	$("#registerverification").click(function(){
+		$num=59;
+		//发短信
+		$.post("<?php echo $this->url('customerajax', array('action'=>'registerverification'));?>",
+			      {
+			  	        cusregisterphone:$("#cusphone").val(),
+				  	      TemplateCode:"SMS_126590348"
+			  	    },
+			  	        function(data,status){
+			  	        //alert("数据: \n" + data + "\n状态: " + status);
+			  	    });
+  	    
+  	    //显示倒计时
+  	    $("#verification").hide();
+    	$("#countdown").show();
+    	$interval=setInterval(function(){
+    	    if($num==0){
+    	    $("#countdown").hide();
+    	    $("#verification").show();
+    	    clearInterval($interval);
+    		};
+    		$("#numDiv").html($num--);
+    		},1000);
+		})
+})
+</script>
+
+<?php
+$form = $this->form;
+$form->setAttribute('action',$this->url('salonboss', array(
+    'action' => 'reset','sub'=>$sub
+)));
+$form->get('submitname')->setAttribute('style', 'visibility: hidden');
+$form->get('salbossphone')->setAttribute('onblur', 'checkout()');
+$form->get('salbossphone')->setAttribute('onfocus', 'getfocus()');
+$form->prepare();echo $this->form()->openTag($form);?>
+<fieldset>
+    <legend>账号设置</legend>
+<?php if ($sub=="salbossname"):?>
+ <div class="form-group">
+    <label for="name"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;姓名</label>
+    <?php echo $this->formRow($form->get('salbossname'));?>
+  </div>
+  <script>
+$(document).ready(function() {
+    $('#Account').bootstrapValidator({
+        message: 'This value is not valid',
+        //excluded:[":hidden",":disabled",":not(visible)"] ,//bootstrapValidator的默认配置
+        //excluded: ':disabled',//关键配置，表示只对于禁用域不进行验证，其他的表单元素都要验证
+
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',//显示验证成功或者失败时的一个小图标
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	salbossname: {
+                message: '姓名无效',
+                validators: {
+                    notEmpty: {
+                        message: '姓名不能为空'
+                    },
+                    stringLength: {
+                        min: 1,
+                        max: 30,
+                        message: '姓名长度在1-30之间'
+                    },
+                    regexp: {
+                        regexp: /^[^<>]+$/,
+                        message: '不得使用特殊字符'
+                    }
+                }
+            },
+
+        }
+    }).on('error.form.bv', function(e) {
+        console.log('error');
+
+        // Active the panel element containing the first invalid element
+        var $form         = $(e.target),
+            validator     = $form.data('bootstrapValidator'),
+            $invalidField = validator.getInvalidFields().eq(0),
+            $collapse     = $invalidField.parents('.collapse');
+
+        $collapse.collapse('show');
+    });
+});
+</script>
+<?php elseif ($sub=="salbossphone"):?>
+<div class="form-group" id="salbossphonediv">
+    <label for="name"><span class="glyphicon glyphicon-phone" aria-hidden="true"></span>&nbsp;手机号</label>
+    <div  style="color:red;" id="phonewrong">
+    <?php if ($existsalbossphone):?>
+        此号码已注册
+    <?php endif;?>
+    </div>
+    <?php echo $this->formRow($form->get('salbossphone'));?>
+    </div>
+    <div style="color:red;" id="verificationwrong">
+    <?php if ($verificationwrong):?>
+      验证码输入错误
+    <?php endif;?>
+    </div>
+    <?php //注册验证码?>
+    <div class="container">
+      <div class="row">
+      <div class="col-xs-8 col-sm-8"><input type="text" class="form-control" required="required"  placeholder="请输入短信验证码" id="verificationinput" name="registerverification"></div>
+      <div class="col-xs-4 col-sm-4" id="verification"><a class="btn" id="registerverification">获取短息验证码</a></div> 
+  	  <div class="col-xs-4 col-sm-4" id="countdown"><div id='numDiv' style="text-align:center;padding:5px;">60</div></div>
+      </div>
+    </div>
+    
+    <script>
+$(document).ready(function() {
+    $('#Account').bootstrapValidator({
+        message: 'This value is not valid',
+        //excluded:[":hidden",":disabled",":not(visible)"] ,//bootstrapValidator的默认配置
+        //excluded: ':disabled',//关键配置，表示只对于禁用域不进行验证，其他的表单元素都要验证
+
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',//显示验证成功或者失败时的一个小图标
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	salbossphone: {
+                message: '号码无效',
+                validators: {
+                    notEmpty: {
+                        message: '手机号码不能为空'
+                    },
+//                     digits: {
+//                         min: 1,
+//                         max: 11,
+//                         message: '请输入11位手机号码'
+//                     },
+                    regexp: {
+                        regexp: /^1[3|4|5|6|7|8|9]{1}[0-9]{9}$/,
+                        message: '请输入11位手机号码'
+                    }
+                }
+            },
+
+        }
+    }).on('error.form.bv', function(e) {
+        console.log('error');
+
+        // Active the panel element containing the first invalid element
+        var $form         = $(e.target),
+            validator     = $form.data('bootstrapValidator'),
+            $invalidField = validator.getInvalidFields().eq(0),
+            $collapse     = $invalidField.parents('.collapse');
+
+        $collapse.collapse('show');
+    });
+});
+</script>
+<?php elseif ($sub=="salpassword"):?>
+  <div class="form-group">
+    <label for="name"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>&nbsp;密码</label>
+    <?php echo $this->formRow($form->get('salpassword'));?>
+  </div>
+  <div class="form-group">
+    <label for="name"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>&nbsp;密码确认</label>
+    <div style="color:red;display:none;" id="repeatwrong">
+     
+    </div>
+    <input type="password" name="repeatpassword" class="form-control" required="required" placeholder="请再次输入密码" id="repeatpassword">
+  </div>
+<script>
+$(document).ready(function() {
+    $('#Account').bootstrapValidator({
+        message: 'This value is not valid',
+        //excluded:[":hidden",":disabled",":not(visible)"] ,//bootstrapValidator的默认配置
+        //excluded: ':disabled',//关键配置，表示只对于禁用域不进行验证，其他的表单元素都要验证
+
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',//显示验证成功或者失败时的一个小图标
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	
+            salpassword: {
+                message:'密码无效',
+                validators: {
+                    notEmpty: {
+                        message: '密码不能为空'
+                    },
+                    stringLength: {
+                        min: 6,
+                        max: 30,
+                        message: '密码长度必须在6到30之间'
+                    },
+                    regexp: {
+                        regexp: /^[a-zA-Z0-9_\.]+$/,
+                        message: '密码只能包含数字，字母，标点或下划线'
+                    }
+                }
+            },
+            repeatpassword: {
+                message:'密码无效',
+                validators: {
+                    identical: {
+                        field: 'salpassword',
+                        message: '两次密码不匹配'
+                    }
+                }
+            },
+
+        }
+    }).on('error.form.bv', function(e) {
+        console.log('error');
+
+        // Active the panel element containing the first invalid element
+        var $form         = $(e.target),
+            validator     = $form.data('bootstrapValidator'),
+            $invalidField = validator.getInvalidFields().eq(0),
+            $collapse     = $invalidField.parents('.collapse');
+
+        $collapse.collapse('show');
+    });
+});
+</script>
+
+<?php elseif ($sub=="salbossidentity"):?>
+   <div class="form-group">
+    <label for="name"><span class="glyphicon glyphicon-credit-card" aria-hidden="true"></span>&nbsp;身份证号</label>
+    <div style="color:red;display:none;" id="identitywrong">
+     身份证号码格式错误
+    </div>
+    <?php echo $this->formRow($form->get('salbossidentity'));?>
+  </div>
+  <script>
+$(document).ready(function() {
+    $('#Account').bootstrapValidator({
+        message: 'This value is not valid',
+        //excluded:[":hidden",":disabled",":not(visible)"] ,//bootstrapValidator的默认配置
+        //excluded: ':disabled',//关键配置，表示只对于禁用域不进行验证，其他的表单元素都要验证
+
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',//显示验证成功或者失败时的一个小图标
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	salbossidentity: {
+                message: '证件号无效',
+                validators: {
+                   
+                    stringLength: {
+                        min: 1,
+                        max: 30,
+                        message: '证件号长度在1-30之间'
+                    },
+                    regexp: {
+                        regexp: /^[^<>]+$/,
+                        message: '不得使用特殊字符'
+                    }
+                }
+            },
+
+        }
+    }).on('error.form.bv', function(e) {
+        console.log('error');
+
+        // Active the panel element containing the first invalid element
+        var $form         = $(e.target),
+            validator     = $form.data('bootstrapValidator'),
+            $invalidField = validator.getInvalidFields().eq(0),
+            $collapse     = $invalidField.parents('.collapse');
+
+        $collapse.collapse('show');
+    });
+});
+</script>
+<?php elseif ($sub=="salbossphoto"):?>
+<div class="form-group">
+    <label for="name"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span>&nbsp;头像</label>
+    <?php echo $this->formhidden($form->get('salbossphoto'));?>
+     <?php echo $this->formRow($form->get('salbossphotof'));?>
+  </div>
+<?php endif;?>
+<br>
+  <div class="form-group" style="text-align:center">
+  <button type="button" id="submitbtn" class="button blue bigrounded btn-block">提交</button>
+    <?php echo $this->formInput($form->get('submitname')); ?>
+  </div>
+</fieldset>
+<?php echo $this->form()->closeTag($form);?>
+
+
+<script>
+$(document).on('ready', function() {
+    $("#salbossphotof").fileinput({
+    	language: 'zh', //设置语言
+   	 browseClass: "btn btn-default btn-block",
+     allowedFileExtensions: ['jpg', 'gif', 'png','jpeg'],
+     showCaption: false,
+     showRemove: false,
+     showUpload: false
+    });
+});
+</script>

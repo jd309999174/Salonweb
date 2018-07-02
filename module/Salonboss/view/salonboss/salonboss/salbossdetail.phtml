@@ -1,0 +1,96 @@
+<div class="input-group input-group-sm" style="background-color:white;padding: 5px;text-align:center;">
+<span class="input-group-btn" onclick="location='<?php echo $this->url('salonboss', array('action'=>'me'));?>';">
+        <button class="btn btn-default" type="button" style="border:none;">
+        <span class="glyphicon glyphicon-chevron-left" style="color:black;"></span>
+        </button>
+      </span>
+     <span style="font-size: 120%;">账号设置</span>
+</div>
+
+<style>
+.form-group{padding:15px;
+border-bottom:0.1px solid rgba(0, 0, 0, 0.0980392);}
+.col-xs-9{text-align:center;}
+.col-xs-10{text-align:center;}
+.glyphicon{color:red;}
+</style>
+
+
+<form class="form-horizontal" role="form">
+  <div class="form-group">
+		<label for="firstname" class="col-xs-2 control-label">美店id</label>
+		<div class="col-xs-10">
+			<?php echo $id;?>
+		</div>
+	</div>
+  <div class="form-group">
+		<label for="firstname" class="col-xs-2 control-label">头像</label>
+		<div class="col-xs-9">
+			<img style="width: 200px;" src="/salbossphoto/<?php echo $account->getSalbossphoto();?>">
+		</div>
+		<span class="glyphicon glyphicon-pencil" aria-hidden="true" onclick="location='<?php echo $this->url('salonboss', array('action'=>'reset','sub'=>"salbossphoto"));?>';"></span>
+	</div>
+	<div class="form-group">
+		<label for="firstname" class="col-xs-2 control-label">姓名</label>
+		<div class="col-xs-9">
+			<?php echo $account->getSalbossname();?>
+		</div>
+		<span class="glyphicon glyphicon-pencil" aria-hidden="true" onclick="location='<?php echo $this->url('salonboss', array('action'=>'reset','sub'=>"salbossname"));?>';"></span>
+	</div>
+	<div class="form-group">
+		<label for="firstname" class="col-xs-2 control-label">电话</label>
+		<div class="col-xs-9">
+			<?php echo $account->getSalbossphone();?>
+		</div>
+		<span class="glyphicon glyphicon-pencil" aria-hidden="true" onclick="location='<?php echo $this->url('salonboss', array('action'=>'reset','sub'=>"salbossphone"));?>';"></span>
+	</div>
+	<div class="form-group">
+		<label for="firstname" class="col-xs-2 control-label">密码</label>
+		<div class="col-xs-9">
+			*********
+		</div>
+		<span class="glyphicon glyphicon-pencil" aria-hidden="true" onclick="location='<?php echo $this->url('salonboss', array('action'=>'reset','sub'=>"salpassword"));?>';"></span>
+	</div>
+	<div class="form-group">
+		<label for="firstname" class="col-xs-2 control-label">身份证号</label>
+		<div class="col-xs-9">
+			<?php echo $account->getSalbossidentity();?>
+		</div>
+		<span class="glyphicon glyphicon-pencil" aria-hidden="true" onclick="location='<?php echo $this->url('salonboss', array('action'=>'reset','sub'=>"salbossidentity"));?>';"></span>
+	</div>
+    <div class="form-group">
+		<label for="firstname" class="col-xs-2 control-label">注册日期</label>
+		<div class="col-xs-10">
+			<?php echo $account->getAccountregdate();?>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="firstname" class="col-xs-2 control-label">销售总额</label>
+		<div class="col-xs-10">
+			<?php echo $account->getProdsum();?>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="firstname" class="col-xs-2 control-label">销售次数</label>
+		<div class="col-xs-10">
+			<?php echo $account->getProdtimes();?>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="firstname" class="col-xs-2 control-label">打赏总额</label>
+		<div class="col-xs-10">
+			<?php echo $account->getTipsum();?>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="firstname" class="col-xs-2 control-label">打赏次数</label>
+		<div class="col-xs-10">
+			<?php echo $account->getTiptimes();?>
+		</div>
+	</div>
+</form>
+<div class="form-group">
+		<div class="col-xs-12">
+			<a href="<?php echo $this->url('salonboss',array('action'=>'reducecharge'));?>">手续费减免</a>
+		</div>
+	</div>

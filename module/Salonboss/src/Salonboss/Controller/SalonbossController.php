@@ -538,6 +538,163 @@ class SalonbossController extends AbstractActionController
         
         return array("id"=>$id,'account'=>$account);
     }
+    public function salbossdetailAction()
+    {
+        //取出session
+        $container = new Container('salonbosslogin');
+        $id = $container->salnumber;
+        $salaccount = $container->salaccount;
+        
+        $account = $this->getAccountMapper()->getAccount($id);
+        
+        return array("id"=>$id,'account'=>$account);
+       
+    }
+    public function resetAction()
+    {
+        //取出session
+        $container = new Container('salonbosslogin');
+        $id = $container->salnumber;
+        $salaccount = $container->salaccount;
+        
+        $containerregister = new Container('customerregister');
+        $cusverification = $containerregister->cusverification;
+        $cusregisterphone = $containerregister->cusregisterphone;
+        
+        $sub = $this->params('sub'); //需修改的项目 例：cusname
+        
+        $account = $this->getAccountMapper()->getAccount($id);
+        
+        $form = new AccountForm();
+        //$account = new AccountEntity();
+        //$form->bind($account);
+        
+        $request = $this->getRequest();
+        
+        if ($request->isPost()){
+                
+                    $x = $request->getPost()->toArray();
+                    $y = $request->getFiles()->toArray();
+                    $post = array_merge_recursive($request->getPost()->toArray(), $request->getFiles()->toArray());
+                    
+                    if ($request->isPost()) {
+                        if ($sub=="salbossphoto"){
+                            $account->setSalbossphoto($post['salbossphoto']);
+                           
+                        }elseif($sub=="salbossname"){
+                            $account->setSalbossname($post['salbossname']);
+                        }elseif($sub=="salbossphone"){
+                            //判断手机号是否已存在
+                            $existsalbossphone=$this->getAccountMapper()->getSalbossphoneexist($post['salbossphone']);
+                            if ($existsalbossphone){
+                                return array(
+                                    'form' => $form,
+                                    'existsalbossphone'=>$existsalbossphone,
+                                    'sub'=>$sub
+                                );
+                            }
+                            if ($_POST['registerverification']!=$cusverification){
+                                return array(
+                                    'form' => $form,
+                                    'verificationwrong'=>"验证码错误",
+                                    'recommend'=>$recommend,
+                                    'sub'=>$sub
+                                );
+                            }
+                            $account->setSalbossphone($post['salbossphone']);
+                        }elseif($sub=="salpassword"){
+                            $account->setSalpassword($post['salpassword']);
+                        }elseif ($sub=="salbossidentity"){
+                            $account->setSalbossidentity($post['salbossidentity']);
+                        }
+                    
+                    
+                    $form->setData($post);
+                    
+                    
+                        
+                        
+                        if (! file_exists('public/salbossphoto')) {
+                            mkdir('public/salbossphoto');
+                        }
+                        if (! file_exists('public/salon/'.$post['salnumber'])) {
+                            mkdir('public/salon/'.$post['salnumber']);
+                        }
+                        if ($x['salbossphoto']){
+                            
+                            //图片缩放
+                            $pname = iconv('utf-8', 'gbk', $x['salbossphoto']);//文件名
+                            $pname1=iconv('utf-8', 'gbk', 'public/salbossphoto/');//文件路径
+                            $pname2=iconv('utf-8', 'gbk', $y['salbossphotof']['tmp_name']);//临时文件名
+                            //move_uploaded_file($y['cusphotof']['tmp_name'], 'public/portrait/' . $x['cusphoto']);
+                            //缩放
+                            $temp = explode(".", $pname);
+                            $extension = end($temp);
+                            
+                            //视频文件直接保存,图片按后缀缩放
+                            if ($extension=="mp4"){
+                                move_uploaded_file($pname2, $pname1.$pname);
+                            }elseif($extension=="jpg"||$extension=="jpeg"||$extension=="gif"||$extension=="png"){
+                                $filename=$pname2;
+                                list($width, $height)=getimagesize($filename);
+                                if ($width>200||$height>200){//长或宽大于500则缩放
+                                    //缩放比例
+                                    $per=round(100/$width,3);
+                                    
+                                    $n_w=$width*$per;
+                                    $n_h=$height*$per;
+                                    $new=imagecreatetruecolor($n_w, $n_h);
+                                    
+                                    switch ($extension){
+                                        case "jpg":
+                                            $img=imagecreatefromjpeg($filename);
+                                            //copy部分图像并调整
+                                            imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
+                                            //图像输出新图片、另存为
+                                            imagejpeg($new, $pname1.$pname);
+                                            break;
+                                        case "jpeg":
+                                            $img=imagecreatefromjpeg($filename);
+                                            //copy部分图像并调整
+                                            imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
+                                            //图像输出新图片、另存为
+                                            imagejpeg($new, $pname1.$pname);
+                                            break;
+                                        case "gif":
+                                            $img=imagecreatefromgif($filename);
+                                            //copy部分图像并调整
+                                            imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
+                                            //图像输出新图片、另存为
+                                            imagegif($new, $pname1.$pname);
+                                            break;
+                                        case "png":
+                                            $img=imagecreatefrompng($filename);
+                                            //copy部分图像并调整
+                                            imagecopyresized($new, $img,0, 0,0, 0,$n_w, $n_h, $width, $height);
+                                            //图像输出新图片、另存为
+                                            imagepng($new, $pname1.$pname);
+                                            break;
+                                    }
+                                    imagedestroy($new);
+                                    imagedestroy($img);
+                                    
+                                }else{
+                                    move_uploaded_file($pname2, $pname1.$pname);
+                                }
+                            }}
+                    }
+                
+                //保存修改后的
+                $this->getAccountMapper()->saveAccount($account);
+                // Redirect to list of tasks
+                return $this->redirect()->toRoute('salonboss', array(
+                    'action' => 'salbossdetail'
+                ));
+        
+        }
+                return array("id"=>$id,'form'=>$form,'sub'=>$sub);
+        
+    }
     public function cusloginAction()
     {
         return array();

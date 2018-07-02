@@ -155,9 +155,9 @@ color:#FFD700;
 <img class="img-circle" style="width:110px;height:120px;padding-top:10px;padding-bottom:10px;" src="/salbossphoto/<?php echo $existaccount->getSalbossphoto();?>">
 
 <button type="button" class="button black bigrounded" onclick="location='<?php echo $this->url('salonboss',
-             array('action'=>'salonbosslogin', 'sub'=>$id));?>'">登陆</button>
+             array('action'=>'salonbosslogin', 'sub'=>$id));?>'"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>&nbsp;&nbsp;登陆</button>
 <button type="button" class="button black bigrounded" onclick="location='<?php echo $this->url('salonboss',
-             array('action'=>'reducecharge'));?>'">减免手续费</button>
+             array('action'=>'salbossdetail'));?>'"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;&nbsp;设置</button>
 </div> 
 
 

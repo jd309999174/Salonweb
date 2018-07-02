@@ -20,7 +20,7 @@ border-bottom:0.1px solid rgba(0, 0, 0, 0.0980392);}
   <div class="form-group">
 		<label for="firstname" class="col-xs-2 control-label">头像</label>
 		<div class="col-xs-9">
-			<img src="/portrait/<?php echo $customer->getCusphoto();?>">
+			<img style="width: 200px;" src="/portrait/<?php echo $customer->getCusphoto();?>">
 		</div>
 		<span class="glyphicon glyphicon-pencil" aria-hidden="true" onclick="location='<?php echo $this->url('customer', array('action'=>'reset','sub'=>"cusphoto"));?>';"></span>
 	</div>

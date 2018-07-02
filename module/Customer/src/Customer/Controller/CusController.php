@@ -738,7 +738,7 @@ class CusController extends AbstractActionController
             'form' => $form,
             'homepage' => $homepage,
             //'customers' => $customers,
-            'sub' => $id,
+            //'sub' => $id,
             'cusphone'=>$cusphone,
             'sub'=>$sub
         );
