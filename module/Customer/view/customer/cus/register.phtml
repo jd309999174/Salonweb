@@ -3,12 +3,12 @@
 <script src="/js/fileinput.min.js"></script>
 <script src="/js/fileinput.zh.js"></script>
 
-<div class="well btnshadow radius-circle" style="text-align:center"><?php echo $homepage->getPageheaddata2();?></div>
+<div class="well btnshadow radius-circle" style="text-align:center">美店汇</div>
 
 <br>
 
 <div style="text-align:center">
-<img class="btnshadow img-rounded" src="<?php echo $homepage->getPageheaddata1();?>" style="height:100px;width:120px;">
+<img class="btnshadow img-rounded" src="/salon/123/corporatelogo.png" style="height:100px;width:120px;">
 </div>
 
 
@@ -78,7 +78,7 @@ $("document").ready(function(){
 <?php
 $form = $this->form;
 $form->setAttribute('action',$this->url('customer', array(
-    'action' => 'register','sub'=>$sub
+    'action' => 'register'
 )));
 $form->get('submitname')->setAttribute('style', 'visibility: hidden');
 $form->get('cusphone')->setAttribute('onblur', 'checkout()');
@@ -88,7 +88,6 @@ $form->get('cuspassword')->setAttribute('required', 'required');
 $form->prepare();echo $this->form()->openTag($form);?>
 <fieldset>
     <legend>注册账号</legend>
-    <?php echo $this->formhidden($form->get('salnumber'));?>
 	<div class="form-group" id="cusphonediv">
     <label for="name"><span class="glyphicon glyphicon-phone" aria-hidden="true"></span>&nbsp;手机号</label>
     <div  style="color:red;" id="phonewrong">
@@ -124,10 +123,14 @@ $form->prepare();echo $this->form()->openTag($form);?>
     </div>
     <input type="password" name="repeatpassword" class="form-control" required="required" placeholder="请再次输入密码" id="repeatpassword">
   </div>
+  <div class="form-group">
+    <label for="name"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>&nbsp;美店id</label>
+    <?php echo $this->formRow($form->get('salnumber'));?>
+  </div>
   <div class="form-group" style="text-align:center">
   <button type="button" id="submitbtn" class="button blue bigrounded btn-block">提交</button>
   <br>
-  <button type="button" class="button white bigrounded btn-block" onclick="location='../login/<?php echo $sub;?>'">登陆</button>
+  <button type="button" class="button white bigrounded btn-block" onclick="location='/customer/login'">登陆</button>
   <?php echo $this->formInput($form->get('submitname')); //已隐藏?>
   </div>
 </fieldset>
@@ -211,6 +214,19 @@ $(document).ready(function() {
                     identical: {
                         field: 'cuspassword',
                         message: '两次密码不匹配'
+                    }
+                }
+            },
+            salnumber: {
+                message: 'id无效',
+                validators: {
+                    notEmpty: {
+                        message: '美店id不能为空'
+                    },
+                    digits: {
+                        min: 1,
+                        max: 11,
+                        message: '美店id只能包含数字'
                     }
                 }
             },

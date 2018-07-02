@@ -415,9 +415,9 @@ class CusController extends AbstractActionController
         $cusregisterphone = $container->cusregisterphone;
         
         
-        $sub = $this->params('sub'); // 美容院id
+        //$sub = $this->params('sub'); // 美容院id
         
-        $homepage = $homepage = $this->getPageMapper()->getHomepage($sub); // 美容院标识
+        //$homepage = $homepage = $this->getPageMapper()->getHomepage($sub); // 美容院标识
         
         $form = new CustomerForm();
         $entity = new CustomerEntity();
@@ -430,7 +430,7 @@ class CusController extends AbstractActionController
             $x = $request->getPost()->toArray();
             $y = $request->getFiles()->toArray();
             $post = array_merge_recursive($request->getPost()->toArray(), $request->getFiles()->toArray());
-            $post['salnumber'] = $sub;
+            //$post['salnumber'] = $sub;
             //默认头像
             if(!$post['cusphoto']){
                 $post['cusphoto']="genderfemale.png";
@@ -444,9 +444,7 @@ class CusController extends AbstractActionController
             if ($existcustomer){
                 return array(
                     'form' => $form,
-                     'homepage' => $homepage,
-                     'existcustomer'=>$existcustomer,
-                     'sub' => $sub);
+                     'existcustomer'=>$existcustomer);
             }
             
             $form->setData($post);
@@ -538,7 +536,7 @@ class CusController extends AbstractActionController
                 
                 // 设置session
                 $container = new Container('customerlogin');
-                $container->salnumber = $sub;
+                $container->salnumber = $customer->getSalnumber();
                 $container->cusid = $customer->getCusid();
                 $container->cusname = $customer->getCusname();
                 $container->cusphone = $customer->getCusphone();
@@ -547,23 +545,19 @@ class CusController extends AbstractActionController
                 // Redirect to list of tasks
                 return $this->redirect()->toRoute('customer', array(
                     'action' => 'homepage',
-                    'sub' => $sub,
+                    'sub' => $customer->getSalnumber(),
                     'third'=>"login"
                 ));
             }
           }else{
               return array(
                   'form' => $form,
-                  'homepage' => $homepage,
-                  'verificationwrong'=>"验证码错误",
-                  'sub' => $sub
+                  'verificationwrong'=>"验证码错误"
               );
           }}else{
               return array(
                   'form' => $form,
-                  'homepage' => $homepage,
-                  'verificationwrong'=>"验证码错误",
-                  'sub' => $sub
+                  'verificationwrong'=>"验证码错误"
               );
           };
         }
@@ -571,10 +565,7 @@ class CusController extends AbstractActionController
         // 返回已有的账号  作废
         //$customers = $this->getCustomerMapper()->fetchAll();
         return array(
-            'form' => $form,
-            'homepage' => $homepage,
-            //'customers' => $customers,
-            'sub' => $sub
+            'form' => $form
         );
     }
     
@@ -751,9 +742,9 @@ class CusController extends AbstractActionController
     // 页面加载2次才能判断cookie不存在
     public function loginAction()
     {
-        $sub = $this->params('sub'); // 美容院id
+        //$sub = $this->params('sub'); // 美容院id
         
-        $homepage = $homepage = $this->getPageMapper()->getHomepage($sub); // 美容院标识
+        //$homepage = $homepage = $this->getPageMapper()->getHomepage($sub); // 美容院标识
         
         $form = new CustomerForm();
                 
@@ -783,8 +774,6 @@ class CusController extends AbstractActionController
                 } else {
                     return array(
                          'form' => $form,
-                         'sub' => $sub,
-                         'homepage' => $homepage,
                          'result'=>"账号或密码错误"
                         );
                     
@@ -795,8 +784,6 @@ class CusController extends AbstractActionController
 
         return array(
             'form' => $form,
-            'sub' => $sub,
-            'homepage' => $homepage,
             'result'=>""
         );
     }

@@ -21,7 +21,13 @@ class CustomerForm extends Form
         ));
         $this->add(array(
             'name' => 'salnumber',
-            'type' => 'hidden'
+            'type' => 'text',
+            'attributes' => array(
+                'placeholder'=>'请输入美店id',
+                'class'=>'form-control',
+                'id'=>'salnumber',
+                'maxlength' => 11
+            )
         ));
         $this->add(array(
             'name' => 'cusnumber',
