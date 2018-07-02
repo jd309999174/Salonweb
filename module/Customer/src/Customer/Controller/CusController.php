@@ -450,6 +450,12 @@ class CusController extends AbstractActionController
             $form->setData($post);
             if ($form->isValid()) {
                 $data = $form->getData();
+                //判断salnumber是否存在
+                if (!$this->getAccountMapper()->getAccount($post['salnumber'])){
+                    return array(
+                        'form' => $form,
+                        'salnumbernull'=>"美店id不存在");
+                }
                 $this->getCustomerMapper()->saveCustomer($entity);
                 //取出此顾客，并将unread改为cus+cusid形式
                 $cusunread=$this->getCustomerMapper()->getCustomerlogin($_POST['cusphone'],$_POST['cuspassword']);
