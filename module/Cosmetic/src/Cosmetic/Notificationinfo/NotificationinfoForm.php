@@ -39,7 +39,6 @@ class NotificationinfoForm extends Form
                 'id' => 'nolink',
                 'maxlength' => 100,
                 'class'=>"form-control",
-                'required'=>"required",
                 'readonly'=>'readonly'
             )
         ));

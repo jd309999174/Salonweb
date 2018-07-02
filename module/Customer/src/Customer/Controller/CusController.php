@@ -853,8 +853,7 @@ class CusController extends AbstractActionController
         }
         if(!$cusid){
             return $this->redirect()->toRoute('customer', array(
-                'action' => 'login',
-                'sub' => $sub
+                'action' => 'login'
             ));
         }
         
