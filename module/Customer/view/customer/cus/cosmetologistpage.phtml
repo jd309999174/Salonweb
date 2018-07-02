@@ -85,7 +85,7 @@ $(document).ready(function(){
 	$("#fixedstandard").css({"height":$("#headanchor").height()});
 	$x= $("#fixedstandard").offset().top - $(window).scrollTop();//变化中参考div距离屏幕高度
 	$(document).scroll(function(){
-		if($x>$("#fixedstandard").offset().top - $(window).scrollTop()){
+		if($x>$("#fixedstandard").offset().top - $(window).scrollTop()&&$x<-400){
               $("#headanchor").slideUp("slow");
               $x= $("#fixedstandard").offset().top - $(window).scrollTop();
 			}else{
