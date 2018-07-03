@@ -1,8 +1,24 @@
-  <?php
+<link href="/css/honeySwitch.css" media="screen" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/js/honeySwitch.js"></script>
+<script>
+		//honeySwitch.themeColor="lightblue";
+		$(function(){
+			switchEvent("#fly",function(){
+				$.ajax({url:"<?php echo $this->url('cosmetic', array('action'=>'banprod'));?>",dataType:"text",data:{banswich:"on"},type:"POST",success:function(data,status){
+			      	   alert("欧奢伦产品已开启");
+				}});
+			},function(){
+				$.ajax({url:"<?php echo $this->url('cosmetic', array('action'=>'banprod'));?>",dataType:"text",data:{banswich:"off"},type:"POST",success:function(data,status){
+			      	   alert("欧奢伦产品已禁用");
+				}});
+			});
+		});
+	</script>
+<?php
 $title = '产品管理';
 $this->headTitle($title);
 ?>
-<h1><?php echo $this->escapeHtml($title); ?></h1>
+<h1><?php echo $this->escapeHtml($title); ?><span <?php if ($account->getBanprod()=="on"):?>class="switch-on"<?php else:?>class="switch-off"<?php endif;?> id="fly"></span></h1>
 
  <p><a href="<?php echo $this->url('cosmetic', array('management',
          'action'=>'productadd'));?>">添加产品</a></p>

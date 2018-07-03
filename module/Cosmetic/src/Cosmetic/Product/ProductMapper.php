@@ -127,7 +127,7 @@ public function saveProduct(ProductEntity $product)
      return $resultset;
  }
  //按美容院编号搜索所有产品，包括我的产品          下拉加载更多
- public function getProductoffsetioscheck($id,$prodoffset,$prodorder,$prodtitle,$prodclassify)
+ public function getProductoffsetban($id,$prodoffset,$prodorder,$prodtitle,$prodclassify)
  {
      $select = $this->sql->select();
      //产品共享，不再按美容院id，而是按产品共享状态

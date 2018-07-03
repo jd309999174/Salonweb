@@ -28,6 +28,7 @@ class AccountEntity
     protected $salonbossappid;
     protected $recommendsal;
     protected $recommendnum;
+    protected $banprod;
     
     public function __construct()
     {
@@ -36,6 +37,22 @@ class AccountEntity
     }
     
     
+    /**
+     * @return the $banprod
+     */
+    public function getBanprod()
+    {
+        return $this->banprod;
+    }
+
+    /**
+     * @param field_type $banprod
+     */
+    public function setBanprod($banprod)
+    {
+        $this->banprod = $banprod;
+    }
+
     /**
      * @return the $recommendsal
      */

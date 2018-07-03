@@ -155,7 +155,10 @@ class AccountForm extends Form
         ));
         
         
-      
+        $this->add(array(
+            'name' => 'banprod',
+            'type' => 'hidden'
+        ));
         $this->add(array(
             'name' => 'submitname',
             'attributes' => array(

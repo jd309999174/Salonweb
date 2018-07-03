@@ -959,7 +959,7 @@ class CusController extends AbstractActionController
 //             //请求会反复执行下面的代码，但是因为是空，所以没有高度，ajax之后将不再触发
 //             $products=array();
 //             if ($account->getIoscheck()=="yes"){//审核中取出vip
-//                 foreach ($this->getProductMapper()->getProductoffsetioscheck(12345,$prodoffset,$prodorder,$prodtitle,$prodclassify) as $x){
+//                 foreach ($this->getProductMapper()->getProductoffsetban(12345,$prodoffset,$prodorder,$prodtitle,$prodclassify) as $x){
 //                     array_push($products, $x);
 //                 }
                 
@@ -972,9 +972,13 @@ class CusController extends AbstractActionController
 //         }
         
          if ($account->getIoscheck()=="yes"){//审核中取出vip
-             $products=$this->getProductMapper()->getProductoffsetioscheck(12345,$prodoffset,$prodorder,$prodtitle,$prodclassify);
+             $products=$this->getProductMapper()->getProductoffsetban(12345,$prodoffset,$prodorder,$prodtitle,$prodclassify);
          }else{
-             $products=$this->getProductMapper()->getProductoffset($id,$prodoffset,$prodorder,$prodtitle,$prodclassify);
+             if ($account->getBanprod()=="on"){
+                 $products=$this->getProductMapper()->getProductoffset($id,$prodoffset,$prodorder,$prodtitle,$prodclassify);
+             }else{
+                 $products=$this->getProductMapper()->getProductoffsetban($id,$prodoffset,$prodorder,$prodtitle,$prodclassify);
+             }
          }
         
         //$products=$this->getProductMapper()->getProductoffset($id,$prodoffset,$prodorder,$prodtitle,$prodclassify);

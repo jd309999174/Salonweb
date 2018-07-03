@@ -1155,10 +1155,13 @@ class CosController extends AbstractActionController
         $container = new Container('salonlogin');
         $id = $container->salnumber;
         
+        $account=$this->getAccountMapper()->getAccount($id);
+        
         $products = $this->getProductMapper()->getProductedit($id);
         return new ViewModel(array(
             'products' => $products,
-            'id' => $id
+            'id' => $id,
+            'account'=>$account
         ));
     }
 
@@ -3217,5 +3220,17 @@ class CosController extends AbstractActionController
             //'customers' => $customers,
             'sub' => $sub
         );
+    }
+    
+    //TODO banprod
+    public function banprodAction(){
+        $container = new Container('salonlogin');
+        $id = $container->salnumber;
+        
+        $account=$this->getAccountMapper()->getAccount($id);
+        $account->setBanprod($_POST['banswich']);
+        
+        $this->getAccountMapper()->saveAccount($account);
+        return array();
     }
 }
