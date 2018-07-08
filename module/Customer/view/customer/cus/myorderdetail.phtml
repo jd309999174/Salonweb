@@ -26,7 +26,17 @@
 <?php if ($myorder->getTrestate()=="paid"){?>
 已支付
 <?php }else{?>
-等待付款
+<span id="cancelorder">取消订单</span>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#cancelorder').click(function(){
+	
+		$.ajax({url:"<?php echo $this->url('customerajax', array('action'=>'cancelorder'));?>",dataType:"text",data:{treid:'<?php echo $myorder->getTreid();?>'},type:"POST",success:function(result){
+			window.location.href='https://www.oushelun.cn/customer/myorders/paid';
+		}});
+		})
+})
+</script>
 <?php }?>
 </div>
 

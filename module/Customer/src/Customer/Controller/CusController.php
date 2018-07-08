@@ -325,6 +325,15 @@ class CusController extends AbstractActionController
         
         return new ViewModel();
     }
+    // TODO cancelorder
+    public function cancelorderAction()
+    {
+        
+        
+        $this->getTreatmentMapper()->deleteTreatment($_POST['treid']);
+        
+        return new ViewModel();
+    }
     // TODO suggestioncus 意见与建议
     public function suggestioncusAction()
     {
