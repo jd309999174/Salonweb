@@ -458,7 +458,7 @@ class CusController extends AbstractActionController
             if ($existcustomer){
                 return array(
                     'form' => $form,
-                     'existcustomer'=>$existcustomer,
+                    'existcustomer'=>$existcustomer,
                     'sub'=>$sub,
                     'homepage'=>$homepage
                 );
@@ -468,13 +468,13 @@ class CusController extends AbstractActionController
             if ($form->isValid()) {
                 $data = $form->getData();
                 //判断salnumber是否存在
+                if ($sub){$entity->setSalnumber($sub);}else{
                 if (!$this->getAccountMapper()->getAccount($post['salnumber'])){
                     return array(
                         'form' => $form,
-                        'salnumbernull'=>"美店id不存在",
-                        'sub'=>$sub,
-                        'homepage'=>$homepage
+                        'salnumbernull'=>"美店id不存在"
                     );
+                }
                 }
                 $this->getCustomerMapper()->saveCustomer($entity);
                 //取出此顾客，并将unread改为cus+cusid形式

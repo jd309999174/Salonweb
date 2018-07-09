@@ -3,12 +3,14 @@
 <script src="/js/fileinput.min.js"></script>
 <script src="/js/fileinput.zh.js"></script>
 
-<div class="well btnshadow radius-circle" style="text-align:center">美店汇</div>
+<div class="well btnshadow radius-circle" style="text-align:center">
+<?php if ($sub){echo $homepage->getPageheaddata2();}else {echo "美店汇";}?>
+</div>
 
 <br>
 
 <div style="text-align:center">
-<img class="btnshadow img-rounded" src="/salon/123/corporatelogo.png" style="height:100px;width:120px;">
+<img class="btnshadow img-rounded" src="<?php if ($sub){echo $homepage->getPageheaddata1();}else{echo "/salon/123/corporatelogo.png";}?>" style="height:100px;width:120px;">
 </div>
 
 
@@ -78,7 +80,7 @@ $("document").ready(function(){
 <?php
 $form = $this->form;
 $form->setAttribute('action',$this->url('customer', array(
-    'action' => 'register'
+    'action' => 'register','sub'=>$sub
 )));
 $form->get('submitname')->setAttribute('style', 'visibility: hidden');
 $form->get('cusphone')->setAttribute('onblur', 'checkout()');
@@ -135,7 +137,7 @@ $form->prepare();echo $this->form()->openTag($form);?>
   <div class="form-group" style="text-align:center">
   <button type="button" id="submitbtn" class="button blue bigrounded btn-block">提交</button>
   <br>
-  <button type="button" class="button white bigrounded btn-block" onclick="location='/customer/login'">登陆</button>
+  <button type="button" class="button white bigrounded btn-block" onclick="location='<?php echo $this->url('customer', array('action'=>'login','sub'=>$sub));?>'">登陆</button>
   <?php echo $this->formInput($form->get('submitname')); //已隐藏?>
   </div>
 </fieldset>
