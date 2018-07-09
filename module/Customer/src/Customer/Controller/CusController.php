@@ -424,9 +424,11 @@ class CusController extends AbstractActionController
         $cusregisterphone = $container->cusregisterphone;
         
         
-        //$sub = $this->params('sub'); // 美容院id
+        $sub = $this->params('sub'); // 美容院id
         
-        //$homepage = $homepage = $this->getPageMapper()->getHomepage($sub); // 美容院标识
+        if ($sub){
+        $homepage = $homepage = $this->getPageMapper()->getHomepage($sub); // 美容院标识
+        }
         
         $form = new CustomerForm();
         $entity = new CustomerEntity();
@@ -448,12 +450,18 @@ class CusController extends AbstractActionController
             if (!$post['cusname']){
                 $post['cusname']=$post['cusphone'];
             }
+            if ($sub){
+                $post['salnumber']=$sub;
+            }
             //判断手机号是否已存在
             $existcustomer=$this->getCustomerMapper()->getCustomerexist($post['cusphone']);
             if ($existcustomer){
                 return array(
                     'form' => $form,
-                     'existcustomer'=>$existcustomer);
+                     'existcustomer'=>$existcustomer,
+                    'sub'=>$sub,
+                    'homepage'=>$homepage
+                );
             }
             
             $form->setData($post);
@@ -463,7 +471,10 @@ class CusController extends AbstractActionController
                 if (!$this->getAccountMapper()->getAccount($post['salnumber'])){
                     return array(
                         'form' => $form,
-                        'salnumbernull'=>"美店id不存在");
+                        'salnumbernull'=>"美店id不存在",
+                        'sub'=>$sub,
+                        'homepage'=>$homepage
+                    );
                 }
                 $this->getCustomerMapper()->saveCustomer($entity);
                 //取出此顾客，并将unread改为cus+cusid形式
@@ -567,12 +578,16 @@ class CusController extends AbstractActionController
           }else{
               return array(
                   'form' => $form,
-                  'verificationwrong'=>"验证码错误"
+                  'verificationwrong'=>"验证码错误",
+                  'sub'=>$sub,
+                  'homepage'=>$homepage
               );
           }}else{
               return array(
                   'form' => $form,
-                  'verificationwrong'=>"验证码错误"
+                  'verificationwrong'=>"验证码错误",
+                  'sub'=>$sub,
+                  'homepage'=>$homepage
               );
           };
         }
@@ -580,7 +595,9 @@ class CusController extends AbstractActionController
         // 返回已有的账号  作废
         //$customers = $this->getCustomerMapper()->fetchAll();
         return array(
-            'form' => $form
+            'form' => $form,
+            'sub'=>$sub,
+            'homepage'=>$homepage
         );
     }
     
@@ -757,9 +774,11 @@ class CusController extends AbstractActionController
     // 页面加载2次才能判断cookie不存在
     public function loginAction()
     {
-        //$sub = $this->params('sub'); // 美容院id
+        $sub = $this->params('sub'); // 美容院id
         
-        //$homepage = $homepage = $this->getPageMapper()->getHomepage($sub); // 美容院标识
+        if ($sub){
+        $homepage = $homepage = $this->getPageMapper()->getHomepage($sub); // 美容院标识
+        }
         
         $form = new CustomerForm();
                 
@@ -788,8 +807,10 @@ class CusController extends AbstractActionController
                     ));
                 } else {
                     return array(
-                         'form' => $form,
-                         'result'=>"账号或密码错误"
+                          'form' => $form,
+                          'result'=>"账号或密码错误",
+                          'sub'=>$sub,
+                          'homepage'=>$homepage
                         );
                     
                 }
@@ -799,7 +820,9 @@ class CusController extends AbstractActionController
 
         return array(
             'form' => $form,
-            'result'=>""
+            'result'=>"",
+            'sub'=>$sub,
+            'homepage'=>$homepage
         );
     }
     
@@ -862,7 +885,7 @@ class CusController extends AbstractActionController
         }
         if(!$cusid){
             return $this->redirect()->toRoute('customer', array(
-                'action' => 'login'
+                'action' => 'login','sub'=>$sub
             ));
         }
         
@@ -2249,8 +2272,13 @@ public function chatajaxAction()
         if ($account->getIoscheck()=="yes"){
             $demandclassifyseriess=null;
         }else {
-        // 获取此美容院所有分类
-        $demandclassifyseriess = $this->getDemandclassifyseriesMapper()->getDemandclassifyseries2($id);
+            if ($account->getBanprod()=="on"){
+                // 获取此美容院所有分类
+                $demandclassifyseriess = $this->getDemandclassifyseriesMapper()->getDemandclassifyseries2($id);
+            }else{
+                $demandclassifyseriess=null;
+            }
+        
         }
         return array(
             'id'=>$id,

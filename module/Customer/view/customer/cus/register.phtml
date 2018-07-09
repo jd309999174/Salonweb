@@ -123,6 +123,7 @@ $form->prepare();echo $this->form()->openTag($form);?>
     </div>
     <input type="password" name="repeatpassword" class="form-control" required="required" placeholder="请再次输入密码" id="repeatpassword">
   </div>
+  <?php if (!$sub):?>
   <div class="form-group">
     <label for="name"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>&nbsp;美店id</label>
     <div  style="color:red;" id="phonewrong">
@@ -130,6 +131,7 @@ $form->prepare();echo $this->form()->openTag($form);?>
     </div>
     <?php echo $this->formRow($form->get('salnumber'));?>
   </div>
+  <?php endif;?>
   <div class="form-group" style="text-align:center">
   <button type="button" id="submitbtn" class="button blue bigrounded btn-block">提交</button>
   <br>

@@ -187,7 +187,7 @@ $(function() {
 	opacity:0.3;
 }
 .btn-default{
-	color:<?php echo $page->getPagecolor();?>;
+	color:<?php if ($page->getPagecolor()=="black"){echo "white";}else {echo "#B8860B";}?>;
 }
 #pagehead{
 	    height:180px;
@@ -205,7 +205,7 @@ $(function() {
 	bottom:-100px;
 }
 a,span {
-	 color:<?php echo $page->getPagecolor();?>;
+	 color:<?php if ($page->getPagecolor()=="black"){echo "white";}else {echo "#B8860B";}?>;;
 }
 .ui-widget-content a {
 	color:<?php echo $page->getPagecolor();?>;
@@ -398,7 +398,7 @@ include_once 'public/php/templateforinput.phtml';?>
 	    <div id="headdetail" class="row" style="width:320px">
 		   <div class="col-xs-3"><img alt="" src="<?php echo $page->getPageheaddata1();?>" class="headlogo" id="headpageicon"></div>
 		   <div class="col-xs-6">
-		   <span id="headpagename" style="font-size: 200%"><?php echo $page->getPageheaddata2();?></span>
+		   <span id="headpagename" style="font-size: 200%;color:#FFFAF0;"><?php echo $page->getPageheaddata2();?></span>
 		   <br>
 		   <img alt="" src="/img/mylogo.png" style="width:15px;height:15px;"><span>线上服务</span>
 		   </div>
