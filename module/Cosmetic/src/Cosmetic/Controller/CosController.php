@@ -455,6 +455,11 @@ class CosController extends AbstractActionController
         
         return new ViewModel();
     }
+    public function appdownloadcommonAction()
+    {
+        
+        return new ViewModel();
+    }
     public function treatmentexpressAction()
     {
         

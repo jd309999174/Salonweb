@@ -31,7 +31,7 @@ $("div.dropzone").dropzone({
     maxFilesize: 5,//图片的大小，单位是M
     addRemoveLinks:true,//是否有删除图片的功能
     dictRemoveFile:"",//删除图片的文字
-    acceptedFiles: ".jpg,.jpeg,.png,.gif",//支持的格式
+    acceptedFiles: ".jpg,.jpeg,.png,.gif,.mp4",//支持的格式
     paramName:'file',//上传的FILE名称，即服务端可以通过此来获取上传的图片，如$_FILES['dropimage']
     init: function() {//初始化是的事件
         this.on("success", function(file) {
