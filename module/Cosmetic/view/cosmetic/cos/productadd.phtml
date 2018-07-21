@@ -12,7 +12,7 @@ $form = $this->form;
 $form->setAttribute('action', $this->url('cosmetic', array(
     'action' => 'productadd'
 )));
-$form->get('submit')->setAttribute('id', 'submit');
+$form->get('submitname')->setAttribute('id', 'submitid');
 $form->get('prodid')->setAttribute('value', '0');
 $form->get('proddemandclassifyseries')->setAttribute('disabled', 'disabled');
 $form->prepare();
@@ -105,7 +105,7 @@ echo $this->form()->openTag($form);?>
 		</div>
 	</div>
 
- <?php echo $this->formInput($form->get('submit')); ?>
+ <?php echo $this->formInput($form->get('submitname')); ?>
 
 <?php
 echo $this->form()->closeTag($form);?>
@@ -113,7 +113,7 @@ echo $this->form()->closeTag($form);?>
 <script>
 //提交图片
 $(function(){
-	$("#submit").click(function(){
+	$("#submitid").click(function(){
 		$("#prodpicture1").val($(".picturechoose1").attr("src"));
 		$("#prodpicture2").val($(".picturechoose2").attr("src"));
 		$("#prodpicture3").val($(".picturechoose3").attr("src"));

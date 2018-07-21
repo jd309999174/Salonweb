@@ -297,7 +297,7 @@ class ProductForm extends Form
         
         
         $this->add(array(
-            'name' => 'submit',
+            'name' => 'submitname',
             'attributes' => array(
                 'type' => 'submit',
                 'value' => '提交',
