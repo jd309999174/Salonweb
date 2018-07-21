@@ -699,9 +699,9 @@ class CusController extends AbstractActionController
                 }elseif($extension=="jpg"||$extension=="jpeg"||$extension=="gif"||$extension=="png"){
                     $filename=$pname2;
                     list($width, $height)=getimagesize($filename);
-                    if ($width>500||$height>500){//长或宽大于500则缩放
+                    if ($width>1000||$height>1000){//长或宽大于500则缩放
                         //缩放比例
-                        $per=round(100/$width,3);
+                        $per=round(500/$width,5);
                         
                         $n_w=$width*$per;
                         $n_h=$height*$per;
