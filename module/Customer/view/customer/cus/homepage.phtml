@@ -187,7 +187,7 @@ $(document).ready(function(){
 <?php elseif($third=="dynamic"):?>
 <script>
 $(document).ready(function(){
-$('.homepagenav').hide();$('#homepagenav4').show();
+//$('.homepagenav').hide();$('#homepagenav4').show();
 $('#homepagenavbtn4').click();
     $.get("<?php echo $this->url('customerajax', array('action'=>'homepagefour'));?>",
         function(data,status){
@@ -198,6 +198,22 @@ $('#homepagenavbtn4').click();
 	$('.homepagenavtext').css("font-size","100%");
 	$('#homepagenavtext4').css("color","red");
 	$('#homepagenavtext4').css("font-size","120%");
+})
+</script>
+<?php elseif($third=="prod"):?>
+<script>
+$(document).ready(function(){
+	//$('.homepagenav').hide();$('#homepagenav2').show();
+	$('#homepagenavbtn2').click();
+	$.get("<?php echo $this->url('customerajax', array('action'=>'homepagetwo'));?>",
+	        function(data,status){
+	        $("#homepagenav2load").html(data);
+	    });
+	//设其他文字变黑变小
+	$('.homepagenavtext').css("color","#333");
+	$('.homepagenavtext').css("font-size","100%");
+	$('#homepagenavtext2').css("color","red");
+	$('#homepagenavtext2').css("font-size","120%");
 })
 </script>
 <?php endif;?>

@@ -358,7 +358,7 @@ $(document).ready(function(){
 
 <div class="input-group input-group-sm"
 	style="position: fixed; z-index: 2; background: white;" id="headanchor">
-	<span class="input-group-btn" onclick="<?php if($third=='homepage'){ echo "location='".$this->url('customer', array('action'=>'homepage','sub'=>$id))."';";}elseif ($third=='productlist'){echo "location='".$this->url('customer', array('action'=>'productlist'))."';";}else {echo "window.history.back();";}?>"> 
+	<span class="input-group-btn" onclick="<?php if($third=='homepage'){ echo "location='".$this->url('customer', array('action'=>'homepage','sub'=>$id,'third'=>"prod"))."';";}elseif ($third=='productlist'){echo "location='".$this->url('customer', array('action'=>'productlist'))."';";}else {echo "window.history.back();";}?>"> 
 	<span class="glyphicon glyphicon-chevron-left btn"></span>
 	</span> <span class="input-group-btn"> <a href="#ios" class="btn" id="x">基础信息</a>
 	</span> <span class="input-group-btn"> <a href="#prodDetail"
