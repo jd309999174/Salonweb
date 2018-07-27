@@ -1099,6 +1099,18 @@ class CusController extends AbstractActionController
             'neworold'=>$neworold
         );
     }
+    // TODO 优惠券页面 coupon
+    public function couponAction(){
+        $container = new Container('customerlogin');
+        $id = $container->salnumber;
+        $cusid = $container->cusid;
+        // 优惠券
+        $saloncouponissues = $this->getSaloncouponissueMapper()->getSaloncouponissue3($id, $cusid);
+        
+        return array(
+            'saloncouponissues' => $saloncouponissues
+        );
+    }
     // TODO prodcomment
     public function commentajaxAction()
     {

@@ -37,17 +37,20 @@ z-index: -1; }
 
 <div class="row" style="text-align: center;">
 <?php foreach ($coupongetarray as $couponget):?>
-<div class="container stamp" style="margin: 10px;">
+
+
+<div class="container stamp" style="margin:10px;">
 		<div class="row"
 			style="background-color: rgb(255, 241, 241); border-radius: 15px;">
 			<div class="col-xs-8 col-sm-8" style="padding: 10px;">
-				
-				<p style="font-size: large;">满<?php echo $couponget['scirestriction'];?>使用</p>
+				<p style="font-size: large;color:red;">¥<?php echo $couponget['scimoney'];?></p>
+				<p>满<?php echo $couponget['scirestriction'];?>使用</p>
 				<p>截止日期：<?php echo date("Y-m-d H:i:s",$couponget['comparedate']);?></p>
 			</div>
 			<div class="col-xs-4 col-sm-4"
 				style="text-align: center; padding-top: 40px;">
-				<p style="font-size: large;">¥<?php echo $couponget['scimoney'];?></p>
+				<p style="font-size: large;color:pink;">已领取</p>
+
 			</div>
 		</div>
 </div>

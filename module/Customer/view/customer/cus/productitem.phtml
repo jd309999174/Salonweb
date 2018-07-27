@@ -559,7 +559,7 @@ if (strtotime($saloncouponissue->getSciavailable()) > time()&&$saloncouponissue-
 		<div class="row"
 			style="background-color: rgb(255, 241, 241); border-radius: 15px;">
 			<div class="col-xs-8 col-sm-8" style="padding: 10px;">
-				<p style="font-size: large;">¥<?php echo $saloncouponissue->getScimoney();?></p>
+				<p style="font-size: large;color:red;">¥<?php echo $saloncouponissue->getScimoney();?></p>
 				<p>满<?php echo $saloncouponissue->getScirestriction();?>使用</p>
 				<p>截止日期：<?php echo $saloncouponissue->getSciavailable();?></p>
 			</div>
@@ -569,7 +569,7 @@ if (strtotime($saloncouponissue->getSciavailable()) > time()&&$saloncouponissue-
 data:{sciid:<?php echo $saloncouponissue->getSciid();?>,scimoney:<?php echo $saloncouponissue->getScimoney();?>,
 scirestriction:<?php echo $saloncouponissue->getScirestriction();?>,comparedate:<?php echo $saloncouponissue->getComparedate();?>},
 type:"POST",success:function(result){$("#successAlert").show();$("#successAlert").html(result);setTimeout(function(){$("#successAlert").hide()},1000);}});'>
-				<p style="font-size: large;">点击领取</p>
+				<p style="font-size: large;color:pink;">点击领取</p>
 				<p>限领次数：<?php echo $saloncouponissue->getScitimes();?></p>
 			</div>
 		</div>
