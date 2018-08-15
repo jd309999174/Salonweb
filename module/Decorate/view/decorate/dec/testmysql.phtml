@@ -1,0 +1,13 @@
+<?php 
+$dbms1='mysql';     //数据库类型
+$host1='localhost'; //数据库主机名
+$dbName1='company';    //使用的数据库
+$user1='root';      //数据库连接用户名
+$pass1='j12321456';          //对应的密码
+$dsn1="$dbms1:host=$host1;dbname=$dbName1";
+$dbh1 = new PDO($dsn1, $user1, $pass1); //初始化一个PDO对象
+//打赏改为已支付
+$sql1 = "INSERT INTO `wodetest` (`id`, `test`) VALUES (NULL, '1234567890')";
+$dbh1->query($sql1);
+$dbh1 = null;
+?>

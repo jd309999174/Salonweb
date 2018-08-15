@@ -265,6 +265,10 @@ class DecController extends AbstractActionController
     {
         return array();
     }
+    public function testmysqlAction()
+    {
+        return array();
+    }
     public function phpinfoAction()
     {
         return array();
